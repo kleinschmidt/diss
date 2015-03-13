@@ -1,5 +1,17 @@
 # Dissertating notes
 
+## Organization
+
+A couple of organizational schemes jump out at me:
+
+1. By methodology.  Modeling/behavioral/neuro chapters/sections.
+2. By topic.  Start with theory: how to do perception in an uncertain and nonstationary world (psych review intro/framework, plus maybe some more discussion of efficient coding/why to adapt _sensory_ representations, rather than just readout).  Then jump into particular questions: 
+    1. modeling+experiments on phonetic recalibration/selective adaptation, 
+    2. modeling+experiments on generalization, 
+    3. modeling on acquisition (maybe), 
+    4. lower-level adaptation/selective adaptation+modeling, 
+    5. neural implementation theory + data (and maybe modeling)
+
 ## Projects
 
 ### Modeling
