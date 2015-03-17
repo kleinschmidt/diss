@@ -154,3 +154,22 @@ People were trained to perform a non-linearally separable object categorization 
 
 Status: subjects run, analyses underway.
 Needs: final analyses, write-up
+
+# Feedback from Florian
+
+## 3/16/2015
+
+* Organize "inferring prior" thinking.
+* Intro + framing: 
+    * establishing of general problem(s)
+    * take seriously "speech as model organism"
+    * e.g. could become Frontiers/TiCS paper
+    * don't worry about avoiding redundancy
+    * 10-15pp of overview of striking problems
+    * one or two big questions, descript wrt speech and drawing on other things
+    * (raises question: how much is speech like other things?)
+* modeling generalization
+    * focus on where system fails...
+    * (not just "fails in experiment")
+* only behavioral + computational, or add neural too
+    * pro: theoretical integration, 

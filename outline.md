@@ -2,6 +2,17 @@
 
 ## The general problem, and an outline of a solution
 
+* Problem of perception: 
+    * want to infer "latent variables" (facts about the world)
+    * **uncertain** world: facts about the world only probabilistically related to observables
+    * **nonstationary** world: probabilistic relationships themselves change
+* Big questions: 
+    * How to cope with nonstationarity?  Existing theories tend to focus on detecting changes and learning quickly.
+    * Link between nonstationarity and adaptation
+* The proposal: 
+    * Perception requires inference not just about latent variables, but about _generative model_ that links observations and latent variables.
+    * Moreover, requries inference about the _underlying structure in the variability of the generative models themselves_ (learn a "generative model for generative models").
+
 ## Speech as a model organism: the ideal adapter framework
 
 * Introduction of ideal adapter paper
@@ -77,9 +88,13 @@
 * the specifically speech parts of selective adaptation paper
 * (possibly) modeling of reaction time effects etc.
 
-# How does the brain allocate neural resources across tasks and contexts?
+# How does the brain allocate neural resources across tasks and contexts? **COULD CUT**
 
 * Or, speech as a model organism :)  (for studying the intersection of efficient coding + adaptation)
+* **This whole chapter could be cut:
+    * Focus on behavioral+computational work.
+    * Keep length manageable
+    * Hold back neural stuff to establish independence/other lines of work bona fides post-dissertation.
 
 ## Efficient coding of speech sounds
 
@@ -88,7 +103,9 @@
 
 ## Adaptation and the coding of speech sounds
 
-* This efficient allocation is (I hope) _flexible_
+* Is the efficient allocation of resources _flexible_?
+    * That is, does it change as a result of adaptation?
+    * Predicted by efficient coding + adaptation as distributional/statistical learning.
 * Imaging study on adaptation/distributional learning that's currently in piloting
 
 ## How robust are the representations of speech sounds to changes in talkers
