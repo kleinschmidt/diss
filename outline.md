@@ -116,11 +116,10 @@
     * Vowels, or VOT? Or something else?
 
 
-# Acquisition in the face of nonstationarity
+# Broader relevance of the ideal adapter
 
-* __Maybe__
-* bit on acquisition from ideal adapter part III.
-* ideally, will include new modeling and data on cross-talker variability from vowels.
+* part III.
+* ideally, will include new modeling and data on acquisition: cross-talker variability from vowels.
 
 
 # Sensation, perception, and adaptation
