@@ -93,6 +93,10 @@
 
 * TODO: study on rapid recalibration with response option labels.
 
+## Role of informativity of labels
+
+* TODO: model to show that prior + distributions provides enough information, labels don't actually add anything in original design.
+
 
 # Measuring prior beliefs
 
@@ -106,6 +110,7 @@
 ## VOT shifts
 
 * Adapt easily to small shifts, but harder for large shifts
+    * Qualitative figures to show that category boundaries lie between optimal and prior (from Kronrod et al.)
 * Model with belief updating model to infer:
     * the prior expected category means and variances (ideally)
     * the strength of prior beliefs, fixing expected means+variances (more reasonable).
@@ -134,32 +139,3 @@
 * the specifically speech parts of selective adaptation paper
 * (possibly) modeling of reaction time effects etc.
 
-# How does the brain allocate neural resources across tasks and contexts? **COULD CUT**
-
-* Or, speech as a model organism :)  (for studying the intersection of efficient coding + adaptation)
-* **This whole chapter could be cut:
-    * Focus on behavioral+computational work.
-    * Keep length manageable
-    * Hold back neural stuff to establish independence/other lines of work bona fides post-dissertation.
-
-## Efficient coding of speech sounds
-
-* Basic proof-of-concept: within-category distinctions get less neural resource than between-category distinctions
-* Reanalysis of Blumestein, Myers, and Rissman (2005).
-
-## Adaptation and the coding of speech sounds
-
-* Is the efficient allocation of resources _flexible_?
-    * That is, does it change as a result of adaptation?
-    * Predicted by efficient coding + adaptation as distributional/statistical learning.
-* Imaging study on adaptation/distributional learning that's currently in piloting
-
-## How robust are the representations of speech sounds to changes in talkers
-
-* Does efficient allocation reflect just tracking local statistics or inference about appropriate generative model?
-* Talker switching/adaptation studies.  Contingent on the last section working out, obviously.
-
-## Something something optimizing representations for the task
-
-* More evidence that learning results in changes in coding/allocation of resources.
-* Animals study.  Representations change after you learn task.
