@@ -173,3 +173,53 @@ Needs: final analyses, write-up
     * (not just "fails in experiment")
 * only behavioral + computational, or add neural too
     * pro: theoretical integration, 
+
+# Status 
+
+## May 17 2016
+
+Defense date is __August 9__, which means I should be done with final version by __July 11 or so__. Earlier because I'll want feedback on things. That gives about one to one and a half months. 
+
+The status of the big things that are going in are:
+
+1. Introduction + background: not started
+2. Ideal adapter paper: written. likely needs to be modified: split up into chapters, re-written in parts.
+3. Selective adaptation paper: written. can be inserted as a chapter pretty much as is, most likely. there's some redundancy with the selective adaptation bits in PR.
+4. Inferring prior paper: (partially) written, additional data collected but not analyzed
+5. Vowels corpus analysis (Structure of variability in the world, and consequences for adaptation): preliminary analysis of marginal distributions.
+6. Modeling cross-talker generalization (two talkers, same or different generative model): not started.
+
+It's unclear how much re-organization of the existing bits will be required. But that maybe can wait. Much of the work is going to be in writing up the new stuff and the introduction. The vowel corpus is going to take work for the TiCS paper anyway. That's meant to be outlined/bullets by this week.
+
+### Organization
+
+#### With re-working papers
+
+1. Introduction:
+    * perception as inference under uncertainty and non-stationarity. 
+    * speech as a model organism. 
+    * background on lack of invariance, and why that makes speech an interesting test case. 
+    * how speech might be the same or different.
+2. Ideal adapter framework 
+    * theory from Part 1
+    * (or merge w/ prev/intro or next/modeling chapters)
+3. Rapid adaptation to novel talkers 
+    * modeling+experiment from Part 1
+4. The role of the prior: familiar and similar talkers.
+    * Part 2
+    * potentially include two-talker modeling?
+5. Probing listeners' prior beliefs (could merge w/ last chapter)
+6. The structure of variability in the world, and its consequences for adaptation.
+    * vowels data. is grouping informative, and how much? does it help with adaptation? 
+    * do you actually _need_ to adapt to each talker?
+7. Conclusion: broader relevance of this framework (part 3 + selective adaptation paper?)
+
+#### With using papers as is
+
+1. Introduction
+2. Ideal adapter paper
+3. Selective adaptation paper
+4. Inferring prior beliefs
+5. How much structure is there and what good does it do 
+6. Modeling simultaneous adaptation to multiple talkers
+7. Conclusion
