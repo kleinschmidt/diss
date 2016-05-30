@@ -68,8 +68,8 @@ m0 <- glmer(respP ~ 1 + vot_c10 + vot_cond + trial_c10 +
 
 summary(m0)
 
-m0.1 <- glmer(respP ~ 1 + vot_c10 * vot_cond + trial_c10 +
-                (1 | subject),
+m0.1 <- glmer(respP ~ 1 + vot_c10 + vot_cond + trial_c10 +
+                (1 + vot_c10 | subject),
               data = sepmeans_test, family='binomial')
 
 summary(m0.1)
