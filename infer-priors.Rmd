@@ -62,8 +62,8 @@ summary(sepmeans_test)
 
 library(lme4)
 
-m1 <- glmer(respP ~ vot_c10 * vot_cond * trial_c10 +
-              (1 + vot * trial_c10 | subject),
+m1 <- glmer(respP ~ 1 + vot_c10 * vot_cond * trial_c10 +
+              (1 + vot_c10 * trial_c10 | subject),
             data = sepmeans_test, family='binomial')
 summary(m1)
 
