@@ -9,6 +9,7 @@ library(magrittr)
 library(dplyr)
 library(tidyr)
 library(purrr)
+library(lme4)
 
 ## devtools::install_github('kleinschmidt/phonetic-sup-unsup')
 library(supunsup)
@@ -27,7 +28,9 @@ sepmeans <- supunsup::separatemeans_clean
 
 ```
 
-```{r sepmeans-lmer}
+## Mixed-effects model
+
+```{r sepmeans-prepare-lmer}
 
 sepmeans_conds <-
   sepmeans %>%
@@ -56,11 +59,15 @@ sepmeans_test <- sepmeans %>%
                    scale = (. - mean(.))/sd(.)),
               vot, vot_cond_center, vot_cond_dist, trial)
 
-
 summary(sepmeans_test)
 
+```
 
-library(lme4)
+Lots of convergence issues with LMER.
+
+```{r sepmeans-run-lmer, cache=TRUE}
+
+
 
 m0 <- glmer(respP ~ 1 + vot_c10 + vot_cond + trial_c10 +
               (1 | subject),
@@ -74,9 +81,18 @@ m0.1 <- glmer(respP ~ 1 + vot_c10 + vot_cond + trial_c10 +
 
 summary(m0.1)
 
-m1 <- glmer(respP ~ 1 + vot_c10 * vot_cond * trial_c10 +
-              (1 + vot_c10 * trial_c10 | subject),
-            data = sepmeans_test, family='binomial')
+m0.2 <- glmer(respP ~ 1 + vot_c10 + vot_cond + trial_c10 +
+                (1 + vot_c10 || subject),
+              data = sepmeans_test, family='binomial')
+
+summary(m0.2)
+
+## m1 <- glmer(respP ~ 1 + vot_c10 * vot_cond * trial_c10 +
+##               (1 + vot_c10 * trial_c10 | subject),
+##             data = sepmeans_test, family='binomial')
+
+## summary(m1)
+
 
 summary(m1)
 
