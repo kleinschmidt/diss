@@ -178,7 +178,7 @@ Needs: final analyses, write-up
 
 ## May 17 2016
 
-Defense date is __August 9__, which means I should be done with final version by __July 11 or so__. Earlier because I'll want feedback on things. That gives about one to one and a half months. 
+Defense date is __August 9__, which means final version must be approved by __July 18__, and so provided to committee by __July 11 at the latest__. Earlier because I'll want feedback on things. That gives about one to one and a half months. 
 
 The status of the big things that are going in are:
 
@@ -223,3 +223,32 @@ It's unclear how much re-organization of the existing bits will be required. But
 5. How much structure is there and what good does it do 
 6. Modeling simultaneous adaptation to multiple talkers
 7. Conclusion
+
+## May 23
+
+* Goals: 
+    * indexical/joint inference based on vowels data.
+* Output: 
+    * first cross-validated analyses complete. 
+    * write up of conclusions for indexical inference
+    * partial write-up of conclusions for indexical influence on vowel recognition
+
+## May 30
+
+* (Traveling from mid-week.)
+* Goals
+    * Submit draft of indexical inference chapter to committee
+    * Submit ToC to committee
+    * Begin analysis of consonant data
+
+## June 6
+
+## June 13
+
+## June 20
+
+## June 27
+
+## July 4
+
+## July 11
