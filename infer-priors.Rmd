@@ -1,0 +1,65 @@
+---
+Title: What do you expect from an unfamiliar talker?
+Author: Dave Kleinschmidt
+---
+
+```{r preamble}
+
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(purrr)
+
+## devtools::install_github('kleinschmidt/phonetic-sup-unsup')
+library(supunsup)
+
+```
+
+# Introduction
+
+# Experiment 1
+
+# Experiment 2
+
+```{r separatemeans-data}
+
+sepmeans <- supunsup::separatemeans_clean
+
+```
+
+```{r sepmeans-lmer}
+
+sepmeans_conds <-
+  sepmeans %>%
+  group_by(bvotCond, pvotCond) %>%
+  summarise() %>%
+  ungroup() %>%
+  arrange(bvotCond, pvotCond) %>%
+  mutate(vot_cond = paste(bvotCond, pvotCond),
+         vot_cond = factor(vot_cond, levels=vot_cond))
+  
+
+# process data for modeling:
+sepmeans_test <- sepmeans %>%
+  # only modeling test trials:
+  filter(is_test) %>%
+  # convert b/p means into center + distance
+  mutate(vot_cond_center = bvotCond + pvotCond,
+         vot_cond_dist = pvotCond - bvotCond) %>%
+  left_join(sepmeans_conds, by=c('bvotCond', 'pvotCond')) %>%
+  # center/10 and scaled versions of continuous predictors
+  mutate_each(funs(c10 = (. - mean(.))/10,
+                   scale = (. - mean(.))/sd(.)),
+              vot, vot_cond_center, vot_cond_dist, trial)
+
+summary(sepmeans_test)
+
+
+library(lme4)
+
+m1 <- glmer(respP ~ vot_c10 * vot_cond_center_c10 * vot_cond_dist_c10 * trial_c10 +
+              (1 + vot * trial_c10 | subject),
+            data = sepmeans_test, family='binomial')
+summary(m1)
+
+```
