@@ -37,6 +37,10 @@ sepmeans_conds <-
   arrange(bvotCond, pvotCond) %>%
   mutate(vot_cond = paste(bvotCond, pvotCond),
          vot_cond = factor(vot_cond, levels=vot_cond))
+
+cs <- contr.helmert(sepmeans_conds$vot_cond) %*% diag(1/(1:4))
+colnames(cs) <- levels(sepmeans_conds$vot_cond)[2:5]
+contrasts(sepmeans_conds$vot_cond) <- cs
   
 
 # process data for modeling:
@@ -52,12 +56,13 @@ sepmeans_test <- sepmeans %>%
                    scale = (. - mean(.))/sd(.)),
               vot, vot_cond_center, vot_cond_dist, trial)
 
+
 summary(sepmeans_test)
 
 
 library(lme4)
 
-m1 <- glmer(respP ~ vot_c10 * vot_cond_center_c10 * vot_cond_dist_c10 * trial_c10 +
+m1 <- glmer(respP ~ vot_c10 * vot_cond * trial_c10 +
               (1 + vot * trial_c10 | subject),
             data = sepmeans_test, family='binomial')
 summary(m1)
