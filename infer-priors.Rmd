@@ -15,6 +15,10 @@ library(ggplot2)
 ## devtools::install_github('kleinschmidt/phonetic-sup-unsup')
 library(supunsup)
 
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      error = FALSE)
+
 ```
 
 # Introduction
@@ -178,7 +182,7 @@ stargazer::stargazer(m0, m0.1, m0.2, star.cutoffs=c(0.05, 0.01, 0.001), type='ht
 boundaries <- sepmeans %>%
   filter(is_test) %>%
   group_by(bvotCond, pvotCond, subject) %>%
-  mutate(trial = trial - mean(trial)) %>% 
+  mutate(trial = trial - min(trial)) %>% 
   do({ glm(respP ~ vot * trial, family='binomial', data=.) %>%
          broom::tidy() %>%
          select(term, estimate)
@@ -194,10 +198,7 @@ boundaries <- sepmeans %>%
 
 ggplot(boundaries, aes(x=vot_cond, y=boundary)) +
   geom_violin() +
-  stat_summary(fun.data=mean_cl_boot, geom='pointrange')
-
-ggplot(boundaries, aes(x=vot_cond, y=vot)) +
-  geom_violin() +
-  stat_summary(fun.data=mean_cl_boot, geom='pointrange')
+  stat_summary(fun.data=mean_cl_boot, geom='pointrange') +
+  lims(y = c(-20, 60))
 
 ```
