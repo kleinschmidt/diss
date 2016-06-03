@@ -202,3 +202,11 @@ ggplot(boundaries, aes(x=vot_cond, y=boundary)) +
   lims(y = c(-20, 60))
 
 ```
+
+## Discussion
+
+The effect of this manipulation is pretty small. In fact, it appears that moving the /b/ mean VOT from -20 to -50 and even -80 has little additional effect on the category boundary, even though each of these changes would move the boundary by -15ms VOT each (if the prior was completely ignored).
+
+At first glance, this is surprising. But when you consider the _structure_ of how mean VOT varies across categories, it begins to make some sense. @Chodroff2015, for instance, found that across talkers, the VOTs of different places of articulation and voicing categories were strongly positively correlated. If listeners are sensitive to this correlation structure, the resulting prior on their adaptation would effectively filter out portions of the variability that are not positively correlated across categories.
+
+Another possibility is that listeners are sensitive to the possibility of talkers producing a distinct cluster of pre-voiced /b/s that have large negative VOTs. When the /b/ mean enters this very-low-VOT range, it no longer affects the category boundary any more, since that is primarily determined by the short-lag category that most talkers who prevoice still produce occasionally.
