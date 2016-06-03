@@ -19,6 +19,17 @@ library(supunsup)
 
 # Introduction
 
+```{r typical-talker}
+
+prior_lhood <- 
+  supunsup::prior_stats %>%
+  filter(source == 'kronrod2012') %>%
+  supunsup::stats_to_lhood()
+
+prior_class <- prior_lhood %>% lhood_to_classification()
+
+```
+
 # Experiment 1
 
 # Experiment 2
@@ -26,6 +37,66 @@ library(supunsup)
 ```{r separatemeans-data}
 
 sepmeans <- supunsup::separatemeans_clean
+
+sepmeans_conds <-
+  sepmeans %>%
+  group_by(bvotCond, pvotCond) %>%
+  summarise() %>%
+  ungroup() %>%
+  arrange(bvotCond, pvotCond) %>%
+  mutate(vot_cond = paste(bvotCond, pvotCond),
+         vot_cond = factor(vot_cond, levels=vot_cond))
+
+sepmeans_stats <-
+  sepmeans %>%
+  filter(!is_test) %>%
+  left_join(sepmeans_conds) %>%
+  group_by(bvotCond, pvotCond, vot_cond, trueCat) %>%
+  summarise(mean = mean(vot), sd = sd(vot)) %>%
+  rename(category = trueCat)
+
+sepmeans_exposure_lhood <-
+  sepmeans_stats %>%
+  group_by(bvotCond, pvotCond, vot_cond) %>%
+  do({stats_to_lhood(.)})
+
+sepmeans_exposure_class <-
+  sepmeans_exposure_lhood %>%
+  do({lhood_to_classification(.)})
+
+```
+
+```{r fig.width=10, fig.height=2}
+
+sepmeans %>%
+  filter(is_test) %>%
+  left_join(sepmeans_conds) %>%
+  ggplot(aes(x=vot, y=respP)) +
+  stat_smooth(method='glm', method.args=list(family='binomial'), geom='line',
+              aes(group=subject, color=vot_cond), alpha=0.2) +
+  stat_smooth(method='glm', method.args=list(family='binomial'), geom='line',
+              aes(color=vot_cond), size=2) +
+  geom_line(data = prior_class %>% filter(vot <= 50, vot >= -10),
+            linetype=2, color='black', aes(x=vot, y=prob_p)) + 
+  geom_line(data = sepmeans_exposure_class %>% filter(vot <= 50, vot >= -10),
+            linetype=2, size=2, aes(x=vot, y=prob_p, color=vot_cond)) + 
+  facet_grid(.~vot_cond)
+
+
+```
+
+```{r }
+
+sepmeans %>%
+  filter(is_test) %>%
+  left_join(sepmeans_conds) %>%
+  ggplot(aes(x=vot, y=respP)) +
+  stat_smooth(method='glm', method.args=list(family='binomial'), geom='line',
+              aes(color=vot_cond), size=2) +
+  geom_line(data = prior_class %>% filter(vot <= 50, vot >= -10),
+            linetype=2, color='black', aes(x=vot, y=prob_p)) + 
+  geom_line(data = sepmeans_exposure_class %>% filter(vot <= 50, vot >= -10),
+            linetype=2, size=2, aes(x=vot, y=prob_p, color=vot_cond))
 
 ```
 
@@ -105,8 +176,9 @@ stargazer::stargazer(m0, m0.1, m0.2, star.cutoffs=c(0.05, 0.01, 0.001), type='ht
 ```{r fit-cat-bounds}
 
 boundaries <- sepmeans %>%
+  filter(is_test) %>%
   group_by(bvotCond, pvotCond, subject) %>%
-  mutate(trial = trial - min(trial)) %>%
+  mutate(trial = trial - mean(trial)) %>% 
   do({ glm(respP ~ vot * trial, family='binomial', data=.) %>%
          broom::tidy() %>%
          select(term, estimate)
@@ -121,6 +193,10 @@ boundaries <- sepmeans %>%
 ```{r}
 
 ggplot(boundaries, aes(x=vot_cond, y=boundary)) +
+  geom_violin() +
+  stat_summary(fun.data=mean_cl_boot, geom='pointrange')
+
+ggplot(boundaries, aes(x=vot_cond, y=vot)) +
   geom_violin() +
   stat_summary(fun.data=mean_cl_boot, geom='pointrange')
 
