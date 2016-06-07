@@ -238,17 +238,52 @@ It's unclear how much re-organization of the existing bits will be required. But
 * (Traveling from mid-week.)
 * Goals
     * Submit draft of indexical inference chapter to committee
-    * Submit ToC to committee
+    * [done] Submit ToC to committee
     * Begin analysis of consonant data
+* Progress
+    * preliminary analysis of separate means dist learning data
+    * analysis of nsp vowels data sub-sampled to same number of talkers
+    * TOC
 
 ## June 6
 
+* What's left to do
+    * Intro + Conclusion 
+    * put papers into thesis format
+    * chapter on structure of variation:
+        * write out conceptual points I'd want to make
+        * wrap up analyses and results with respect to these points
+        * write results
+        * write discussion and conclusion
+        * write intro
+    * chapter on inferring prior
+        * integrate existing analysis/writing from cog sci paper into Rmd for follow-up
+        * analysis:
+            * regression? having trouble getting those to converge...maybe `rstanarm`
+            * category boundaries in each condition (compare across experiments, accounting for trial)
+            * predict category boundaries from inferred prior distributions from exp 1
+        * modeling:
+            * model with correlation between means
+* Goals
+    * analyze consonant production data and have a draft of that chapter to send to committee
+    * do analyses of expt2 data for dist learning, write up, update conclusions/discussion, and send draft to committee
+
 ## June 13
 
+* Goals
+    * revise new chapters based on feedback from committee
+    * outline intro
+
 ## June 20
+
+* Goals
+    * write intro, get feedback
+    * outline conclusion
 
 ## June 27
 
 ## July 4
+
+* Collate into single document, format, and check.
 
 ## July 11
