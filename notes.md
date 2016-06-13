@@ -267,12 +267,19 @@ It's unclear how much re-organization of the existing bits will be required. But
 * Goals
     * analyze consonant production data and have a draft of that chapter to send to committee
     * do analyses of expt2 data for dist learning, write up, update conclusions/discussion, and send draft to committee
+* Progress
+    * Classifier and KL analysis of VOT data
+    * Partial write up of results, discussion RE differences in s/S and d/t adaptation
 
 ## June 13
 
 * Goals
-    * revise new chapters based on feedback from committee
-    * outline intro
+    * Chapter on socio-indexical production data:
+        * Bullet point outline: conceptual points to address. Might need to do separately for chapter/TopiCS paper.
+        * Choose set of results to actually write up/discuss
+        * Write results + methods (take from existing stuff where possible)
+        * Write discussion
+        * Write introduction
 
 ## June 20
 
