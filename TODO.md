@@ -1,3 +1,30 @@
+# Writing
+
+## Structure
+
+* Title Page
+* Dedication
+* Bio sketch
+    * Bio. Degrees, honors
+    * UR: dates, program, advisors, appointments (fellowship)
+    * (no future employment)
+    * Reference list of all works published or under review
+* Acknowledgements
+* Abstract (350 words or less)
+* Contributors and funding sources
+    * Committee.
+    * Diss work collaborators and my independent contributions
+    * Financial support
+* Table of contents
+* List of tables
+* List of figures
+* List of symbols
+* Chapters
+* Conclusion
+* Bibliography/References
+* Appendices
+
+
 # Experiments to run
 
 ## Informativity of labels
