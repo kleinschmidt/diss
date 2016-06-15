@@ -259,7 +259,7 @@ ggplot(boundaries, aes(x=vot_cond, y=boundary)) +
 
 How well do the prior beliefs inferred on the basis of Experiment 1 predict the adaptation we observed in Experiment 2?
 
-```{r predict-expt2-from-inferred}
+```{r predict-expt2-from-inferred, cache=TRUE}
 
 #' Convert from stan parametrization to beliefupdatr::nix2
 stan_conj_to_nix2 <- function(stan_p) {
