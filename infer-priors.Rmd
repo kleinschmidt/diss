@@ -5,6 +5,7 @@ Author: Dave Kleinschmidt
 
 ```{r preamble}
 
+library(assertthat)
 library(magrittr)
 library(dplyr)
 library(tidyr)
@@ -253,6 +254,94 @@ ggplot(boundaries, aes(x=vot_cond, y=boundary)) +
   lims(y = c(-20, 60))
 
 ```
+
+## Predicted adaptation from inferred priors
+
+How well do the prior beliefs inferred on the basis of Experiment 1 predict the adaptation we observed in Experiment 2?
+
+```{r predict-expt2-from-inferred}
+
+#' Convert from stan parametrization to beliefupdatr::nix2
+stan_conj_to_nix2 <- function(stan_p) {
+  with(stan_p, list(nu = nu_0,
+                    kappa = kappa_0,
+                    mu = mu_0,
+                    sigma2 = sigma_0 ^ 2))
+}
+
+# convert samples of prior params in array form to list of samples in nix2
+# parameter list form.
+#
+# e.g., mod_nix2_samples[[1]][[1]] is the first 
+mod_nix2_samples <- 
+  mod_samples[c('nu_0', 'kappa_0', 'mu_0', 'sigma_0')] %>%
+  ## repeate these since there's just one for both categories
+  map_at(c('nu_0', 'kappa_0'), ~ cbind(.x, .x)) %>%
+  ## turn arrays into nested lists
+  map(array_tree) %>%
+  ## zip list of variables into list of samples
+  transpose() %>%
+  ## zip each sample's list of variables into list of categories
+  map(transpose) %>%
+  ## ...and zip list of samples into a list of categories
+  transpose() %>%
+  set_names(c('b', 'p')) %>%
+  ## rename and convert expected sd to var
+  at_depth(2, stan_conj_to_nix2)
+
+## confirm that we have nix2 params at depth 2
+invisible(mod_nix2_samples %>% at_depth(2, ~ assert_that(is_nix2_params(.))))
+
+## get summary statistics for each condition
+updated_nix2_samples <- 
+  sepmeans %>%
+  left_join(sepmeans_conds) %>%
+  group_by(bvotCond, pvotCond, trueCat) %>%
+  filter(subject == first(subject),
+         is_test == FALSE) %>%
+  nest() %>%
+  mutate(prior_samples = map(trueCat, ~ mod_nix2_samples[[.x]]),
+         updated_samples = map2(data, prior_samples,
+                                function(d, s) map(s, nix2_update, x=d$vot)))
+
+sample_to_lhood <- function(p)
+  data_frame(vot = seq(-10,50),
+             lhood = d_nix2_predict(vot, p))
+
+predicted_lhood <- updated_nix2_samples %>%
+  mutate(test_lhood = map(updated_samples,
+                          . %>%
+                            map(sample_to_lhood) %>%
+                            do.call(what=rbind))) %>%
+  unnest(test_lhood)
+
+predicted_prob_p <-
+  predicted_lhood %>%
+  group_by(bvotCond, pvotCond, trueCat, vot) %>%
+  mutate(sample = row_number()) %>%
+  spread(trueCat, lhood) %>%
+  mutate(prob_p = p / (b+p)) %>%
+  group_by(bvotCond, pvotCond, vot) %>%
+  summarise_each(funs(mean=mean, lo=quantile(., 0.025), hi=quantile(., 0.975)),
+                 prob_p)
+
+```
+
+```{r plot-exp2-predictions, fig.width=10, fig.height=2}
+
+predicted_prob_p %>%
+  left_join(sepmeans_conds) %>%
+  ggplot(aes(x=vot, y=mean, color=vot_cond, fill=vot_cond)) +
+  geom_line() +
+  geom_ribbon(aes(ymin=lo, ymax=hi), alpha=0.2, color=NA) +
+  facet_grid(.~vot_cond) +
+  geom_pointrange(data = sepmeans_test %>%
+                    group_by(vot_cond, vot, subject) %>%
+                    summarise(mean = mean(respP)),
+                  stat='summary', fun.data=mean_cl_boot)
+
+```
+
 
 ## Discussion
 
