@@ -372,6 +372,16 @@ Overall, the predicted classification curves line up reasonably well with listen
 
 The model accuracy appears to be slightly better earlier in the test phase, which is consistent with other work that shows that phonetic adaptation (recalibration) can be undone by prolonged testing [@Kraljic2005; @Vroomen2004].
 
+One intresting feature of the model predictions themselves is that the uncertainty is quite a bit higher for the two extreme negative /b/ VOT (-80ms and -50ms) conditions. This suggests that there is uncertainty in the posterior over prior beliefs inferred from Experiment 1, but that this uncertainty is orthogonal to the predicted classification when the distance between the two categories' means is held constant (as in Experiment 1) and hence not detectable from the posterior predictive distributions for Experiment 1 (e.g. Figure __NNN__). But when the distance between the categories varies, the uncertainty in the inferred beliefs _is_ reflected in the predicted category boundaries. This goes to show the importance of checking model predictions for conditions that are different from those used to train it, since this can reveal additional hypotheses that are worth testing.
+
+We can quantify the effects of the additional information provided by Experiment 2 by updating the inferred prior beliefs, re-weighting the samples from the inferred beliefs from Experiment 1 using the likelihood of the data from Experiment 2. This weighted sample can then be used to approximate functions of the posterior (e.g., the expected prior beliefs given our data).
+
+```{r importance-weights-expt2}
+
+
+
+```
+
 ## Discussion
 
 The effect of this manipulation is pretty small. In fact, it appears that moving the /b/ mean VOT from -20 to -50 and even -80 has little additional effect on the category boundary, even though each of these changes would move the boundary by -15ms VOT each (if the prior was completely ignored).
