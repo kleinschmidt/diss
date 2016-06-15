@@ -14,6 +14,8 @@ library(ggplot2)
 
 ## devtools::install_github('kleinschmidt/phonetic-sup-unsup')
 library(supunsup)
+## devtools::install_github('kleinschmidt/beliefupdatr')
+library(beliefupdatr)
 
 knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
@@ -35,6 +37,55 @@ prior_class <- prior_lhood %>% lhood_to_classification()
 ```
 
 # Experiment 1
+
+```{r expt1-data}
+
+data_exp1 <- supunsup::supunsup_clean %>%
+  filter(supCond == 'unsupervised') %>%
+  mutate(trueCat = respCategory,
+         subjNum = as.numeric(factor(subject)),
+         trueCatNum = as.numeric(trueCat),
+         respCatNum = as.numeric(respCat))
+
+```
+
+## Modeling
+
+
+```{r run-model, eval=FALSE}
+
+## run the belief-updating model for inferring prior. the model source is in
+## the beliefupdatr package, or will be soon :)
+##
+## devtools::install_github('kleinschmidt/beliefupdatr')
+
+data_exp1_stan_conj <- data_exp1 %>%
+  supunsup::supunsup_to_stan_conj()
+  
+library(rstan)
+mod_lapsing <- beliefupdatr::compile_stan('conj_id_lapsing_fit.stan')
+
+fit_lapsing <- stan(fit = mod_lapsing,
+                    data = data_exp1_stan_conj,
+                    chains = 4,
+                    iter = 1000)
+
+head(summary(fit_lapsing)$summary, n=10)
+
+mod_summary <- summary(fit_lapsing)$summary
+mod_samples <- rstan::extract(fit_lapsing)
+
+saveRDS(mod_samples, file='models/samples_lapsing.rds')
+saveRDS(mod_summary, file='models/summary_lapsing.rds')
+
+```
+
+```{r load-samples}
+
+mod_samples <- readRDS('models/samples_lapsing.rds')
+
+```
+
 
 # Experiment 2
 
