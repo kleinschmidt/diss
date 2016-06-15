@@ -357,12 +357,14 @@ predicted_prob_p %>%
 
 predicted_prob_p %>%
   left_join(sepmeans_conds) %>%
-  ggplot(aes(x=vot, y=mean, color=vot_cond, fill=vot_cond)) +
+  ggplot(aes(x=vot, y=prob_p_lapse_mean, color=vot_cond, fill=vot_cond)) +
   geom_line() +
-  geom_ribbon(aes(ymin=lo, ymax=hi), alpha=0.2, color=NA) +
+  geom_ribbon(aes(ymin=prob_p_lapse_lo, ymax=prob_p_lapse_hi),
+              alpha=0.2, color=NA) +
   geom_pointrange(data = filter(sepmeans_test_by_subject_thirds, third==1),
+                  aes(y=resp_p),
                   stat='summary', fun.data=mean_cl_boot) +
-  facet_grid(third~vot_cond)
+  facet_grid(.~vot_cond)
 
 ```
 
