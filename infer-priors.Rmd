@@ -366,6 +366,9 @@ predicted_prob_p %>%
 
 ```
 
+Overall, the predicted classification curves line up reasonably well with listeners' actual category boundaries at test. The biggest discrepancy is in the /b/ 10ms, /p/ 80ms condition, where the model predicts a bigger category boundary shift than is actually observed. The model also predicts a clearer assymptote for some of the lower conditions, although this may be a side-effect of more variability in individual listeners' category boundaries (which has the effect of smoothing out the average boundary plotted here).
+
+The model accuracy appears to be slightly better earlier in the test phase, which is consistent with other work that shows that phonetic adaptation (recalibration) can be undone by prolonged testing [@Kraljic2005; @Vroomen2004].
 
 ## Discussion
 
