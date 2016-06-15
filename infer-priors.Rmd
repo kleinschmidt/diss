@@ -315,31 +315,52 @@ predicted_lhood <- updated_nix2_samples %>%
                             do.call(what=rbind))) %>%
   unnest(test_lhood)
 
+lapse_rate_samples <- mod_samples['lapse_rate'] %>%
+  as_data_frame() %>%
+  mutate(sample = row_number())
+
 predicted_prob_p <-
   predicted_lhood %>%
   group_by(bvotCond, pvotCond, trueCat, vot) %>%
   mutate(sample = row_number()) %>%
   spread(trueCat, lhood) %>%
-  mutate(prob_p = p / (b+p)) %>%
+  left_join(lapse_rate_samples) %>%
+  mutate(prob_p = p / (b+p),
+         prob_p_lapse = prob_p * (1-lapse_rate) + lapse_rate*0.5) %>%
   group_by(bvotCond, pvotCond, vot) %>%
   summarise_each(funs(mean=mean, lo=quantile(., 0.025), hi=quantile(., 0.975)),
-                 prob_p)
+                 prob_p, prob_p_lapse)
 
 ```
 
-```{r plot-exp2-predictions, fig.width=10, fig.height=2}
+```{r plot-exp2-predictions-by-thirds, fig.width=10, fig.height=6}
 
 sepmeans_test_by_subject_thirds <-
   sepmeans_test %>%
   group_by(vot_cond, vot, subject, third=ntile(trial,3)) %>%
-  summarise(mean = mean(respP))
+  summarise(resp_p = mean(respP))
+
+predicted_prob_p %>%
+  left_join(sepmeans_conds) %>%
+  ggplot(aes(x=vot, y=prob_p_lapse_mean, color=vot_cond, fill=vot_cond)) +
+  geom_line() +
+  geom_ribbon(aes(ymin=prob_p_lapse_lo, ymax=prob_p_lapse_hi),
+              alpha=0.2, color=NA) +
+  geom_pointrange(data = sepmeans_test_by_subject_thirds,
+                  aes(y=resp_p),
+                  stat='summary', fun.data=mean_cl_boot) +
+  facet_grid(third~vot_cond)
+
+```
+
+```{r plot-exp2-predictions-first-third, fig.width=10, fig.height=2}
 
 predicted_prob_p %>%
   left_join(sepmeans_conds) %>%
   ggplot(aes(x=vot, y=mean, color=vot_cond, fill=vot_cond)) +
   geom_line() +
   geom_ribbon(aes(ymin=lo, ymax=hi), alpha=0.2, color=NA) +
-  geom_pointrange(data = sepmeans_test_by_subject_thirds,
+  geom_pointrange(data = filter(sepmeans_test_by_subject_thirds, third==1),
                   stat='summary', fun.data=mean_cl_boot) +
   facet_grid(third~vot_cond)
 
