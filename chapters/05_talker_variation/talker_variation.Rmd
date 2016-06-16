@@ -4,6 +4,18 @@
 
 ```
 
+# Introduction
+
+* Have to cope with talker variability/lack of invariance.
+* Can think of this as a statistical inference problem.
+* Prediction: listeners benefit from anything that is informative about cue distributions.
+* Question: _how_ informative are socio-indexical variables like age, sex, dialect, etc.?
+    * ...about underlying cue distributions?
+    * ...about phonetic categories?
+    * ...about socio-indexical variables themselves?
+* Use ideal observer approach to quantify these.
+* Tell us something about what sorts of conditional distributions listeners should be tracking (if they're optimal), and lay the groundwork for future empirical work.
+
 # Methods
 
 ## Datasets
