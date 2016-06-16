@@ -57,6 +57,17 @@
 * ((These could, potentially be broken out into individual chapters; they're
   written more or less in that way already.))
 
+# Selective adaptation
+
+* Kleinschmidt, D. F., & Jaeger, T. F. (2015). Re-examining selective
+  adaptation: Fatiguing feature detectors, or distributional learning?
+  _Psychonomic Bulletin & Review_, In press. doi:10.3758/s13423-015-0943-z
+* Critical review of literature on selective adaptation in speech, in light of
+  ideal adapter work and the last few decades of work on non-linguistic sensory
+  adaptation (using neural and psychophysical approaches).
+* Argues that the commonly held view that selective adaptation in speech is a
+  process of feature-detector fatigue is poorly supported.
+
 # What do you believe about an unfamiliar talker?
 
 * This work uses a belief-updating model to work backwards from how well
@@ -105,16 +116,5 @@
       West, South, and Mid-Atlantic), each producing 5 tokens of each vowel.
     * Stop consonant VOT (source TBD). Looks like I can get sex (M/F) at least,
       if not some other grouping. But the variability will presumably be less.
-
-# Selective adaptation
-
-* Kleinschmidt, D. F., & Jaeger, T. F. (2015). Re-examining selective
-  adaptation: Fatiguing feature detectors, or distributional learning?
-  _Psychonomic Bulletin & Review_, In press. doi:10.3758/s13423-015-0943-z
-* Critical review of literature on selective adaptation in speech, in light of
-  ideal adapter work and the last few decades of work on non-linguistic sensory
-  adaptation (using neural and psychophysical approaches).
-* Argues that the commonly held view that selective adaptation in speech is a
-  process of feature-detector fatigue is poorly supported.
 
 # Conclusion
