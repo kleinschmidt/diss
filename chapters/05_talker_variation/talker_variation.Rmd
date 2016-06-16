@@ -1,0 +1,73 @@
+
+
+```{r preamble}
+
+```
+
+# Methods
+
+## Datasets
+
+### Vowels
+
+* Nationwide speech project (Vowel F1/F2)
+    * 48 talkers: 4 each of male/female, from 6 dialect regions
+    * F1 and F2 for 5 repetitions of isolated word vowels
+    * For normalized formants, used Lobanov normalization (z-score F1 and F2 for each talker).
+
+### Stop voicing
+
+* Buckeye corpus (word initial stop VOT)
+    * 24 (out of 40) talkers, balanced male/female, young/old (40 y.o.)
+    * VOT automatically extracted for word-initial voiced and voiceless stops in conversational speech
+    * about 30 voiced, 50 voiceless per place per talker (range: 5-150).
+
+## Modeling
+
+* Model each category as a Bi- or uni-variate normal distribution (for vowels and stops, respectively)
+* Use maximum likelihood estimate (sample mean and covariance) based on all tokens from category at the relevant grouping level.
+* Phonetic categories:
+    * Vowels: 11 monopthongs of English + ey.
+    * Stops: voicing (voiced/voiceless) at labial, coronal, and dorsal places of articulation. analyzed separately by place and then results averaged.
+* Grouping levels:
+    * Marginal (all tokens)
+    * Sex (male/female)
+    * Age (young/old, VOT only)
+    * Dialect (North/New England/Mid-Atlantic/South/Midland/West, vowels only)
+    * Diaelct+Sex (12 levels, vowels only)
+    * Talker
+
+### Comparing cue distributions
+
+In order to evalute the informativity of socio-indexical variables with respect to cue distributions themselves, we use KL divergence to measure how much the group-specific cue distributions differ from the overall (marginal) cue distributions. This measures the expected cost (in bits of extra message length) of encoding data from each group using a code that's optimized for the marginal distribution.
+We do this separately for each linguistic category and group, and then average the results, calculating confidence intervals over groups.
+
+* For each group, compute KL divergence from marginal model for each category, and average.
+* For each grouping _level_, use the average KL divergence of the individual groups from marginal as a measure of how much the marginal distributions fail to account for the group-specific distributions.
+
+
+### Indexical group recognition
+
+* Classify which group each _talker_ belongs to.
+* Compute posterior probability of group given talker's observations $p(g | x)$:[^notation]
+    * Because the category $v_i$ of each observation $x_i$ is _unknown_, each observation $x_i$'s likelihood under group $g$ is the average of the likelihood under group $g$'s model for each category $v_i=j$:
+    * $p(x_i | g) = p(x_i | g) = \sum_j p(x_i | v_i=j, g)p(v_i=j)$
+    * These likelihoods combine in the usual way to give the posterior:
+    * $p(g | x) \propto p(x | g)p(g) = \prod_i p(x_i | g) p(g)$
+
+[^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
+
+### Speech recognition
+
+* For talker $t=i$, classify each observation's $x_i$ phonetic category $v_i$.
+* If we assume that talker $t$'s group is _known_, this is straightforward: $p(v_i | x_i, g) \propto p(x_i | v_i, g) p(v_i)$
+* If the group must also be inferred, there are two steps:
+    1. Get the posterior probability of each group based on _all_ observations from the talker $p(g | x)$, as above.
+    2. Get marginal probability of category $v_i$ by taking average of each group-specific probability, weighted by posterior of group, $p(v_i | x_i) = \sum_j p(v_i | x_i, g=j) p(g=j | x)$.
+
+
+### Controls
+
+* For classification, if test data is included in the training set, this artificially inflates accuracy at test.  Cross-validation controls for this by splitting data into training and test sets.  For group-level models (sex, age, dialect, and dialect+sex), we use leave-one-talker-out cross-validation: train each group's models with test talker's observations held out. For the talker-specific models, we use 6-fold cross-validation (or leave-one-out when there were fewer than 6 tokens in a category for a talker), where each phonetic category is split into 6 approximately equal subsets. Then, one subset of each category is selected for test, the models are trained on the remaining five, and the test data is classified as above.
+* For the vowel data, the different levels of grouping have very different group sizes. The broadest (sex) has 24 talkers per group (23 after holdout), while the most specific (dialect+sex) has only 4 (3 after holdout).  This introduces a systematic bias in favor of broader groupings, because small sample sizes lead to noisier estimates of the underlying model, and hence lower accuracy (on average) at test. To correct for this, in addition to leave-one-out validation, we randomly selecting subsampled each group to be the same size when training models. We use a different random subsample for each talker's training set, with two group sizes: 3 talkers per group (corresponding to the Dialect+Sex grouping) and 7 talkers per group (corresponding to Dialect). These provide a useful lower bound on the true group-level accuracy, and allows accuracy to be compared across grouping levels.
+
