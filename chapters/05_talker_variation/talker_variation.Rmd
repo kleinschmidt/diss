@@ -16,6 +16,13 @@
 * Use ideal observer approach to quantify these.
 * Tell us something about what sorts of conditional distributions listeners should be tracking (if they're optimal), and lay the groundwork for future empirical work.
 
+## Background
+
+* Know that there are different levels of talker variability.
+    * Vowels/fricatives have a lot, much of it conditioned on sex [@Peterson1952; @Hillenbrand1995, @Jongman2000; @McMurray2011a, @Newman2001]. For vowels this can be largely [but not entirely; @JohnsonDDDD] attributed to differences in vocal tract length, but not so for fricatives.
+    * Stop voicing, less talker variation, and little systematic effect of sex [@Allen2003; @Lisker1964; @Chodroff2015]
+    * Stylistic variation in both though. Dialect for vowels [@Clopper2005; @LabovDDDD], and dialect/native language background for voicing [@CITE].
+
 # Methods
 
 ## Datasets
