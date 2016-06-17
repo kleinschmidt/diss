@@ -28,10 +28,13 @@
 
 ## Goals
 
-So the _existence_ of group differences is established, as have listeners' _sensitivity_ to them. So, qualitatively, the predictions of the ideal adapter hold up. But we don't have the _quantiative_ measurements we need to test these predictions in more detail. There are two major goals of this paper:
+So the _existence_ of group differences is established, as have listeners' _sensitivity_ to them. So, qualitatively, the predictions of the ideal adapter hold up. But we don't have the _quantiative_ measurements we need to test these predictions in more detail. There are three major goals of this paper:
 
-1. Flesh out how the same representations can support linguistic and indexical inferences.
-2. Quantify _how_ informative socio-indexical groups are about phonetic cue distributions, and in turn for correct speech recognition.
+1. Quantify how _informative_ socio-indexical groups are about phonetic cue distributions.
+2. Quantify the _utility_ of socio-indexical groups for accurate speech recognition.
+3. Show how listeners can make inferences about socio-indexical variables in the same way as linguistic variables, based on cue distributions.
+
+We address these goals at different levels of socio-indexical grouping, and for two different sets of phonetic cues/contrasts. Comparing multiple contrasts is a first step in refining the predictions of the ideal adapter framework about what distributions listeners should track.
 
 # Methods
 
