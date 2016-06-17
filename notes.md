@@ -281,6 +281,40 @@ It's unclear how much re-organization of the existing bits will be required. But
         * Write discussion
         * Write introduction
 
+### Status
+
+* Introduction: minimal outline.
+* Vowel/VOT: 
+    * intro partially outlined (background WIP). __don't worry too much about this because it's probably going to take some re-writing. just get down some kind of draft__
+    * results: still in report, need to __decide on a set of results__ and move into chapter.
+    * discussion: partially outlined.
+* Infer prior
+    * intro: cog sci intro is pretty good. could benefit from __extended background__ on distributional learning (connect w/ acquisition) and __prior work__ on restricted adaptation (at the moment just briefly mention Sumner and Idemaru&Holt papers.). also need to revise to __intro two experiments__
+    * experiment 1 and model are written up. revise to reflect that this is experiment 1 now.
+    * experiment 2 methods, results, and modeling: __TODO__.
+    * discussion: need to make a list of the points to make here. probably __cog sci__ plus __caveats about other sources of constraints__ (e.g., production)
+
+
+* TODO/Did
+    * Mon 13
+        * vowel/vot: 
+            * conceptual points and intro
+            * methods bullets
+            * found bug (missing tokens from improper grouping)
+    * Tue 14
+        * Organize list of sections for diss
+        * Outline introduction for diss
+        * debug missing tokens
+    * Wed 15
+        * Infer prior: Generate predictions based on prev model fits
+        * Infer prior: draft discussion of model prediction results from exp 2
+    * Thu 16
+        * vowel/vot: move material to outline for diss chapter. discussion bullets. progress on intro/background
+        * vowel/vot: bootstrap KL across talkers.
+    * Fri 17
+        * write down what i did last few days :)
+        * 
+
 ## June 20
 
 * Goals
