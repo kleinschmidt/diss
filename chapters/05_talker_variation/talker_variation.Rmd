@@ -1,4 +1,6 @@
-
+---
+bibliography: /Users/dkleinschmidt/Documents/papers/library-clean.bib
+---
 
 ```{r preamble}
 
