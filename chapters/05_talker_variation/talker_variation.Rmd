@@ -2,7 +2,25 @@
 bibliography: /Users/dkleinschmidt/Documents/papers/library-clean.bib
 ---
 
-```{r preamble}
+```{r preamble, message=FALSE, warning=FALSE, error=FALSE}
+
+knitr::opts_chunk$set(message=FALSE,
+                      warning=FALSE,
+                      error=FALSE)
+
+library(magrittr)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
+library(ggplot2)
+theme_set(theme_bw())
+
+## devtools::install_bitbucket('hlplab/nspvowels')
+library(nspvowels)
+
+## devtools::install_bitbucket('hlplab/votcorpora')
+library(votcorpora)
 
 ```
 
@@ -42,34 +60,63 @@ We address these goals at different levels of socio-indexical grouping, and for 
 
 ## Datasets
 
+We analyze speech from two corpora.
+
 ### Vowels
 
-* Nationwide speech project (Vowel F1/F2)
-    * 48 talkers: 4 each of male/female, from 6 dialect regions
-    * F1 and F2 for 5 repetitions of isolated word vowels
-    * For normalized formants, used Lobanov normalization (z-score F1 and F2 for each talker).
+```{r nsp-data}
+
+nsp_vows <- nspvowels::nsp_vows %>% ungroup()
+token_per_vow <- nsp_vows %>% group_by(Talker, Vowel) %>% tally() %$% mean(n)
+n_talkers <- nsp_vows %>% group_by(Talker) %>% summarise() %>% tally()
+
+n_per_dialect_sex <- nsp_vows %>% group_by(Dialect, Sex, Talker) %>% summarise() %>% tally() %$% unique(n)
+n_dialect <- nsp_vows %$% Dialect %>% unique() %>% length()
+
+```
+
+For vowels, we used data from the Nationwide Speech Project [@Clopper2005]. Specifically, we analyzed first and second formants (F1 and F2) recorded at vowel midpoints in isolated, read "hVd" words. This corpus contains `r n_talkers` talkers, `r n_per_dialect_sex` male and female from each of `r n_dialect` regional varieties of English: North, New England, Midland, Mid-Atlantic, South, and West [see map in @Clopper2005; regions based on @Labov2005].  Each talker provided approximately `r round(token_per_vow, 1)` repetitions of each of 11 English monophthong vowels (plus "ey"), for a total of `r nrow(nsp_vows)` observations.
+
+Because much of the variability in talkers is due to overall differences in formant frequencies, we also used Lobanov-normalized formant frequencies as input, in addition to the un-normalized formant frequencies. Lobanov normalization z-scores F1 and F2 separately for each talker [@Lobanov1971].
 
 ### Stop voicing
 
-* Buckeye corpus (word initial stop VOT)
-    * 24 (out of 40) talkers, balanced male/female, young/old (40 y.o.)
-    * VOT automatically extracted for word-initial voiced and voiceless stops in conversational speech
-    * about 30 voiced, 50 voiceless per place per talker (range: 5-150).
+```{r vot-data}
+
+vot <-
+  votcorpora::vot %>%
+  filter(source == 'buckeye') %>%
+  rename(Talker = subject,
+         Sex = sex,
+         Age = age_group) %>%
+  group_by(phoneme, word, Talker) %>%
+  mutate(Token = row_number()) %>%
+  ungroup()
+
+vot_by_place <-
+  vot %>%
+  group_by(place) %>%
+  nest()
+
+n_vot_talkers <- vot %>% group_by(Talker) %>% summarise() %>% nrow()
+n_vot_per_talker <- vot %>% group_by(phoneme, voicing, place, Talker) %>% tally()
+
+```
+
+We analyzed data on word-initial stop consonant voicing in conversational speech from the Buckeye corpus [@Pitt2007]. Voice onset time (VOT) was automatically extracted for `r nrow(vot)` word initial stops, `r vot %>% filter(voicing=='voiced') %>% nrow()` voiced and `r vot %>% filter(voicing=='voiceless') %>% nrow()` voiceless, for labial, coronal, and dorsal places of articulation (Wedel, _in prep_). Data came from `r n_vot_talkers` talkers, who were balanced male and female and younger/older than 40 years. On average, each talker produced `r round(mean(n_vot_per_talker$n))` tokens for each phoneme (range of `r min(n_vot_per_talker$n)` -- `r max(n_vot_per_talker$n)`).
 
 ## Modeling
 
-* Model each category as a Bi- or uni-variate normal distribution (for vowels and stops, respectively)
-* Use maximum likelihood estimate (sample mean and covariance) based on all tokens from category at the relevant grouping level.
-* Phonetic categories:
-    * Vowels: 11 monopthongs of English + ey.
-    * Stops: voicing (voiced/voiceless) at labial, coronal, and dorsal places of articulation. analyzed separately by place and then results averaged.
-* Grouping levels:
-    * Marginal (all tokens)
-    * Sex (male/female)
-    * Age (young/old, VOT only)
-    * Dialect (North/New England/Mid-Atlantic/South/Midland/West, vowels only)
-    * Diaelct+Sex (12 levels, vowels only)
-    * Talker
+Each phonetic category was modeled as a normal distribution: stop voicing as univariate distributions of VOT, and vowels as bivariate distributions of F1 and F2. We used the maximum likelihood estimators for the model parameters, which are the sample mean and covariance matrix.
+
+For each socio-indexical grouping level, we trained separate models for each phonetic category based on all tokens from that category and grouping level (holding out test data when necessary, see below). The grouping levels we considered were
+
+* Marginal (all tokens)
+* Sex (male/female)
+* Age (younger/older than 40, VOT only)
+* Dialect (six regions, vowels only)
+* Diaelct+Sex (12 levels, vowels only)
+* Talker
 
 ### Comparing cue distributions
 
@@ -98,6 +145,8 @@ $$
 p(v_i | x_i) = \sum_j p(v_i | x_i, g=j) p(g=j | x)
 $$
 (where $x$ refers to all the tokens produced by this talker).
+
+For vowels, we classified vowel categories directly. For voicing, the only cue available is VOT, which does not (reliably) distinguish place of articulation. Thus, we classified voicing separately for each place of articulation, and then average the resulting accuracy.
 
 ### Indexical group recognition
 
