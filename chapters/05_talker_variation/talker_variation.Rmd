@@ -26,6 +26,13 @@
     * @Niedzielski1999: say that talker is canadian, hear more canadian raising
     * gender stereotypicality and visual cues affect perception of vowels and fricatives [@Strand1999;@Johnson1999;@Strand1996]
 
+## Goals
+
+So the _existence_ of group differences is established, as have listeners' _sensitivity_ to them. So, qualitatively, the predictions of the ideal adapter hold up. But we don't have the _quantiative_ measurements we need to test these predictions in more detail. There are two major goals of this paper:
+
+1. Flesh out how the same representations can support linguistic and indexical inferences.
+2. Quantify _how_ informative socio-indexical groups are about phonetic cue distributions, and in turn for correct speech recognition.
+
 # Methods
 
 ## Datasets
