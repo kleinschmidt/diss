@@ -22,6 +22,13 @@ library(nspvowels)
 ## devtools::install_bitbucket('hlplab/votcorpora')
 library(votcorpora)
 
+apply_groupings <- function(d, groupings) {
+  groupings %>% 
+    map(~ d %>% mutate(data = map(data, . %>% group_by_(.x)),
+                       grouping = .x)) %>%
+    reduce(bind_rows)
+}
+
 ```
 
 # Introduction
@@ -66,7 +73,28 @@ We analyze speech from two corpora.
 
 ```{r nsp-data}
 
-nsp_vows <- nspvowels::nsp_vows %>% ungroup()
+nsp_vows <- nspvowels::nsp_vows %>%
+  ungroup() %>%
+  mutate(Marginal='all', Dialect_Sex = paste(Sex, Dialect, sep='_'))
+
+nsp_vows_lob <- nsp_vows %>%
+  group_by(Talker) %>%
+  mutate_each(funs(. %>% scale() %>% as.numeric()), F1:F2) %>%
+  ungroup()
+
+## check normalization
+nsp_vows_lob %>%
+  gather(formant, value, F1:F2) %>%
+  group_by(Talker, formant) %>%
+  summarise_each(funs(mean, sd), value) %$%
+  assert_that(all.equal(mean, rep(0, length(mean))),
+              all.equal(sd, rep(1, length(sd))))
+
+vowel_data <- data_frame(dataset = c('Un-normalized', 'Lobanov Normalized'),
+                         data = list(nsp_vows, nsp_vows_lob))
+vowel_groupings <- c('Marginal', 'Sex', 'Dialect', 'Dialect_Sex', 'Talker')
+vowel_data_grouped <- apply_groupings(vowel_data, vowel_groupings)
+
 token_per_vow <- nsp_vows %>% group_by(Talker, Vowel) %>% tally() %$% mean(n)
 n_talkers <- nsp_vows %>% group_by(Talker) %>% summarise() %>% tally()
 
@@ -91,12 +119,16 @@ vot <-
          Age = age_group) %>%
   group_by(phoneme, word, Talker) %>%
   mutate(Token = row_number()) %>%
-  ungroup()
+  ungroup() %>%
+  mutate(Marginal = 'all')
 
 vot_by_place <-
   vot %>%
   group_by(place) %>%
   nest()
+
+vot_groupings <- c('Marginal', 'Sex', 'Age', 'Talker')
+vot_by_place_grouped <- apply_groupings(vot_by_place, vot_groupings)
 
 n_vot_talkers <- vot %>% group_by(Talker) %>% summarise() %>% nrow()
 n_vot_per_talker <- vot %>% group_by(phoneme, voicing, place, Talker) %>% tally()
