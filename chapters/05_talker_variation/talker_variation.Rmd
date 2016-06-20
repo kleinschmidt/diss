@@ -29,6 +29,8 @@ apply_groupings <- function(d, groupings) {
     reduce(bind_rows)
 }
 
+grouping_levels <- c('Marginal', 'Age', 'Sex', 'Dialect', 'Dialect_Sex', 'Talker')
+
 ```
 
 # Introduction
@@ -85,7 +87,7 @@ We analyze speech from two corpora.
 
 ### Vowels
 
-```{r nsp-data}
+```{r nsp-data, cache=TRUE}
 
 nsp_vows <- nspvowels::nsp_vows %>%
   ungroup() %>%
@@ -104,7 +106,7 @@ nsp_vows_lob %>%
   assert_that(all.equal(mean, rep(0, length(mean))),
               all.equal(sd, rep(1, length(sd))))
 
-vowel_data <- data_frame(dataset = c('Un-normalized', 'Lobanov Normalized'),
+vowel_data <- data_frame(cues = c('Un-normalized F1xF2', 'Lobanov Normalized F1xF2'),
                          data = list(nsp_vows, nsp_vows_lob))
 vowel_groupings <- c('Marginal', 'Sex', 'Dialect', 'Dialect_Sex', 'Talker')
 vowel_data_grouped <- apply_groupings(vowel_data, vowel_groupings)
@@ -123,7 +125,7 @@ Because much of the variability in talkers is due to overall differences in form
 
 ### Stop voicing
 
-```{r vot-data}
+```{r vot-data, cache=TRUE}
 
 vot <-
   votcorpora::vot %>%
@@ -132,13 +134,14 @@ vot <-
          Sex = sex,
          Age = age_group) %>%
   group_by(phoneme, word, Talker) %>%
-  mutate(Token = row_number()) %>%
+  mutate(Token = row_number(),
+         cues = 'VOT') %>%
   ungroup() %>%
   mutate(Marginal = 'all')
 
 vot_by_place <-
   vot %>%
-  group_by(place) %>%
+  group_by(place, cues) %>%
   nest()
 
 vot_groupings <- c('Marginal', 'Sex', 'Age', 'Talker')
@@ -220,7 +223,7 @@ For the vowel data, the different levels of grouping have very different group s
 
 ## Informativity of socio-indexical groupings about cue distributions
 
-```{r kl-helpers}
+```{r kl-helpers, cache=TRUE}
 
 run_kl <- function(data_grouped, reference_grouping,
                    category_col='Vowel', cue_cols=c('F1', 'F2'), ...) {
@@ -249,17 +252,20 @@ run_kl <- function(data_grouped, reference_grouping,
 
 ```
 
-```{r vowel-kl, cache=TRUE}
+```{r vowel-kl, cache=TRUE, dependson=c('kl-helpers', 'vowel-data')}
 
 vowel_kl <-
   vowel_data_grouped %>%
   run_kl(reference_grouping = 'Marginal',
          category_col = 'Vowel',
-         cue_cols = c('F1', 'F2'))
+         cue_cols = c('F1', 'F2')) %>%
+  filter(!is.na(KL))                    # NAs come from one vowel ('uh') that
+                                        # only has one token for one talker.
+
 
 ```
 
-```{r vot-kl, cache=TRUE}
+```{r vot-kl, cache=TRUE, dependson=c('kl-helpers', 'vot-data')}
 
 vot_kl <-
   vot_by_place_grouped %>%
@@ -269,6 +275,22 @@ vot_kl <-
 
 ```
 
+```{r vowel-vot-kl-plot}
+
+bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
+          vowel_kl %>% mutate(contrast = 'Vowels')) %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
+  group_by(contrast, cues, grouping, group) %>%
+  summarise(KL = mean(KL)) %>%
+  ggplot(aes(x=grouping, y=KL, color=grouping)) +
+  geom_pointrange(stat='summary', fun.data=mean_cl_boot,
+                  position = position_dodge(w=0.5)) +
+  facet_grid(.~contrast+cues, scales='free', space='free') +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  labs(x = 'Grouping', y = 'KL Divergence from marginal (bits)')
+
+
+```
 
 ## Utility of socio-indexical groupings for speech recognition
 
