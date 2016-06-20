@@ -286,6 +286,7 @@ It's unclear how much re-organization of the existing bits will be required. But
 * Introduction: minimal outline.
 * Vowel/VOT: 
     * intro partially outlined (background WIP). __don't worry too much about this because it's probably going to take some re-writing. just get down some kind of draft__
+    * methods: written.
     * results: still in report, need to __decide on a set of results__ and move into chapter.
     * discussion: partially outlined.
 * Infer prior
@@ -313,7 +314,10 @@ It's unclear how much re-organization of the existing bits will be required. But
         * vowel/vot: bootstrap KL across talkers.
     * Fri 17
         * write down what i did last few days :)
-        * 
+        * corpus paper 
+            * methods for corpus paper
+            * read background papers
+            * draft goals/intro bullets
 
 ## June 20
 
