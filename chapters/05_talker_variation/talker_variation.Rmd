@@ -33,19 +33,30 @@ apply_groupings <- function(d, groupings) {
 
 # Introduction
 
-* Have to cope with talker variability/lack of invariance.
-* Can think of this as a statistical inference problem.
-* Prediction: listeners benefit from anything that is informative about cue distributions.
-* Question: _how_ informative are socio-indexical variables like age, sex, dialect, etc.?
+* Two traditions in speech perception: phonetics + sociolinguistics, very different approaches to _variation_.
+* For phonetics is a __problem__:
+    * Have to cope with talker variability/lack of invariance.
+* For sociolinguistics, its a __rich source of social information__.
+    * The particular variety of the language that you speak says a lot about who you are as a person.
+* In recent work, these two approaches have converged.
+    * Both _speech recognition_ and _socio-indexical perception_ can be thought of as processes of statistical inference. 
+    * Basic idea: how well does each hypothesis explain observed data?
+    * For speech recognition: hypotheses are linguistic units (e.g., phonetic categories), observations are acoustic cue values. Inference depends on knowing the _cue distribution_ for each category.
+    * In this way of thinking, talker variability means that speech recognition is a _hierarchical_ inference process: talker variability means that the cue distributions change from situation to situation, and so successful speech recognition, requires that listeners infer what the appropriate cue distributions are for each linguistic category in the current situation.
+    * For speech recognition, one prediction: listeners benefit from anything that is informative about cue distributions.
+    * One thing we know from sociolinguistics is that socio-indexical variables---like age, gender, ethnicity, native language background, social class, region of origin, etc.---provide information about the cue distributions for many different phonetic categories. Hence, ideal adapter predicts that listeners should track group-level cue distributions, for categories where that grouping variable is informative about those distributions.
+    * For social perception: knowledge of such group-level distributions is precisely what listeners need (in this way of considering the problem) in order to _infer_ socio-indexical variables. Recall that inference relies on evaluating how well each possible hypothesis explains observed data.
+* Raises a critical question: _how_ informative are socio-indexical variables like age, sex, dialect, etc.?
     * ...about underlying cue distributions?
     * ...about phonetic categories?
     * ...about socio-indexical variables themselves?
-* Use ideal observer approach to quantify these.
-* Tell us something about what sorts of conditional distributions listeners should be tracking (if they're optimal), and lay the groundwork for future empirical work.
+* Most of the sociolinguistic work has been _descriptive_, and to the extent that it addresses any of these goals, doesn't quantify these factors.
+* Use an ideal observer approach to quantitatively assess.
+* ((meh)) Tell us something about what sorts of conditional distributions listeners should be tracking (if they're optimal), and lay the groundwork for future empirical work.
 
 ## Background
 
-* Know that there are different levels of talker variability.
+* Know that the amount and structure of talker variability differs between cues and phonetic categories.
     * Vowels/fricatives have a lot, much of it conditioned on sex [@Peterson1952; @Hillenbrand1995; @Jongman2000; @McMurray2011a; @Newman2001]. For vowels this can be largely [but not entirely; @Bladon1984; @Johnson2005; @Johnson2006] attributed to differences in vocal tract length, but not so for fricatives.
     * Stop voicing, less talker variation, and little systematic effect of sex [@Allen2003; @Lisker1964; @Chodroff2015]
     * Stylistic variation in both though. Dialect for vowels [@Clopper2005; @LabovDDDD], and dialect/native language background for voicing [French-English bilinguals, @Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011; Scottish English, @Docherty2011].
@@ -55,7 +66,7 @@ apply_groupings <- function(d, groupings) {
 
 ## Goals
 
-So the _existence_ of group differences is established, as have listeners' _sensitivity_ to them. So, qualitatively, the predictions of the ideal adapter hold up. But we don't have the _quantiative_ measurements we need to test these predictions in more detail. There are three major goals of this paper:
+So the _existence_ of group differences is established, as is listeners' _sensitivity_ to them. So, qualitatively, the predictions of the ideal adapter hold up. But we don't have the _quantiative_ measurements we need to test these predictions in more detail. There are three major goals of this paper:
 
 1. Quantify how _informative_ socio-indexical groups are about phonetic cue distributions.
 2. Quantify the _utility_ of socio-indexical groups for accurate speech recognition.
