@@ -144,9 +144,9 @@ n_dialect <- nsp_vows %$% Dialect %>% unique() %>% length()
 
 ```
 
-For vowels, we used data from the Nationwide Speech Project [@Clopper2005]. Specifically, we analyzed first and second formants (F1 and F2) recorded at vowel midpoints in isolated, read "hVd" words. This corpus contains `r n_talkers` talkers, `r n_per_dialect_sex` male and female from each of `r n_dialect` regional varieties of English: North, New England, Midland, Mid-Atlantic, South, and West [see map in @Clopper2005; regions based on @Labov2005].  Each talker provided approximately `r round(token_per_vow, 1)` repetitions of each of 11 English monophthong vowels (plus "ey"), for a total of `r nrow(nsp_vows)` observations.
+For vowels, we used data from the Nationwide Speech Project [@Clopper2005]. Specifically, we analyzed first and second formant frequencies (F1xF2, measured in Hertz) recorded at vowel midpoints in isolated, read "hVd" words. This corpus contains `r n_talkers` talkers, `r n_per_dialect_sex` male and female from each of `r n_dialect` regional varieties of English: North, New England, Midland, Mid-Atlantic, South, and West [see map in @Clopper2005; regions based on @Labov2005].  Each talker provided approximately `r round(token_per_vow, 1)` repetitions of each of 11 English monophthong vowels (plus "ey"), for a total of `r nrow(nsp_vows)` observations.
 
-Because much of the variability in talkers is due to overall differences in formant frequencies, we also used Lobanov-normalized formant frequencies as input, in addition to the un-normalized formant frequencies. Lobanov normalization z-scores F1 and F2 separately for each talker [@Lobanov1971].
+Because much of the variability in talkers is due to overall differences in formant frequencies, we also used Lobanov-normalized formant frequencies as input, in addition to the un-normalized formant frequencies in Hertz. Lobanov normalization z-scores F1 and F2 separately for each talker [@Lobanov1971].
 
 ### Stop voicing
 
