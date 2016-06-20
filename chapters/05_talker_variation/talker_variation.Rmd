@@ -63,6 +63,9 @@ apply_groupings <- function(d, groupings) {
 * We also know that listeners are sensitive to (real or believed) socio-indexical groups:
     * @Niedzielski1999: say that talker is canadian, hear more canadian raising
     * gender stereotypicality and visual cues affect perception of vowels and fricatives [@Strand1999;@Johnson1999;@Strand1996]
+* Listeners can infer socio-indexical variables but it's not clear what linguistic variables they use.
+    * Dialect classification [@Clopper2006,@Clopper2007]
+    * [cf. @Thomas2002 for more references]
 
 ## Goals
 
