@@ -1,5 +1,18 @@
 ---
 bibliography: /Users/dkleinschmidt/Documents/papers/library-clean.bib
+output:
+    html_document:
+        dev: svglite
+        keep_md: true
+        md_extensions: +implicit_figures
+        pandoc_args:
+        - --filter
+        - pandoc-fignos
+    pdf_document:
+        md_extensions: +implicit_figures
+        pandoc_args:
+        - --filter
+        - pandoc-fignos
 ---
 
 ```{r preamble, message=FALSE, warning=FALSE, error=FALSE}
@@ -8,11 +21,23 @@ knitr::opts_chunk$set(message=FALSE,
                       warning=FALSE,
                       error=FALSE)
 
+## Produce markdown-formatted figures so that pandoc knows what to do with
+## the captions. requires pandoc-fignos to parse the IDs. refer to figures
+## in text with {@fig:label} or just @fig:label
+## 
+## (see https://github.com/tomduck/pandoc-fignos)
+knitr::knit_hooks$set(plot = function(x, options) {
+  paste0('![', options$fig.cap, ']',
+         '(', knitr::opts_knit$get('base.url'), paste(x, collapse='.'), ')',
+         '{#fig:', options$label, '}')
+})
+
 library(magrittr)
 library(dplyr)
 library(purrr)
 library(tidyr)
 
+library(svglite)
 library(ggplot2)
 theme_set(theme_bw())
 
