@@ -36,6 +36,7 @@ library(magrittr)
 library(dplyr)
 library(purrr)
 library(tidyr)
+library(stringr)
 
 library(svglite)
 library(ggplot2)
@@ -319,9 +320,27 @@ bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
 
 Figure {@fig:vowel-vot-kl-plot} plots the KL divergence of cue distributions at different levels of grouping from marginal distributions, across contrasts (vowels and stop voicing) and cues (vot, raw/Lobanov-normalized F1xF2). There are two clear patterns. 
 
-First, there are substantial differences in the informativity of the socio-indexical grouping variables we considered. The overall pattern is that more specific grouping factors are more informative than broader groupings. The noteable exception to this pattern is the Sex is the most informative variable for un-normalized F1xF2 distributions, which reflects the fact that overall sex differences explain much (but not all) of the talker variation in F1xF2 [@Hillenbrand1995;@Johnson2006].
+First, socio-indexical variables are in general more informative for vowels than for stop voicing, even using normalized formants as input. Strikingly, the _most_ informative variable for VOT---talker identity---is roughly as informative as the _least_ informative variable for Lobanov-normalized F1xF2 (Sex). This means that individual talkers' VOT distributions diverge from the marginal distribution at roughly the same level that the male and female distributions of normalized F1xF2 diverge from the marginal normalized F1xF2 distributions.
 
-Second, socio-indexical variables are in general more informative for vowels than for stop voicing, even using normalized formants as input. Strikingly, the _most_ informative variable for VOT---talker identity---is roughly as informative as the _least_ informative variable for Lobanov-normalized F1xF2 (Sex). This means that individual talkers' VOT distributions diverge from the marginal distribution at roughly the same level that the male and female distributions of normalized F1xF2 diverge from the marginal normalized F1xF2 distributions.
+Second, there are substantial differences in the informativity of the socio-indexical grouping variables we considered. The overall pattern is that more specific grouping factors are more informative than broader groupings. The noteable exception to this pattern is the Sex is the most informative variable for un-normalized F1xF2 distributions, which reflects the fact that overall sex differences explain much (but not all) of the talker variation in F1xF2 [@Hillenbrand1995;@Johnson2006].
+
+As Figure {@fig:vowel-kl-by-category}, while the relative ordering of grouping variables' informativity is consistent across vowels, their actual degree of informativity varies quite a bit. Dialect (and Dialect+Sex) is particularly informative for `aa`, `ae`, `eh`, and `uw`, vowels with distinctive variants in at least one of the dialect regions from the NSP. `aa` is undergoing a merger with `ao` in some regions, `ae` and `eh` participate in the northern cities chain shift, and `uw` is fronted in some regions [and in others, but only by female talkers; @Clopper2005].
+
+```{r vowel-kl-by-category, fig.cap='Individual vowels vary substantially in the informativity of grouping variables about their cue distributions. Only normalized F1xF2 is shown to emphasize dialect effects.'}
+
+vowel_kl %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
+  filter(str_detect(cues, 'Normalize')) %>%
+  group_by(cues, Vowel, grouping, group) %>%
+  summarise(KL = mean(KL)) %>%
+  ggplot(aes(x=Vowel, y=KL, color=grouping)) +
+  geom_pointrange(stat='summary', fun.data=mean_cl_boot,
+                  position = position_dodge(w=0.5)) +
+  facet_grid(cues ~ ., scales='free', space='free') +
+  labs(x = 'Vowel',
+       y = 'KL Divergence of cue distributions\nfrom marginal (bits)')
+
+```
 
 ## Utility of socio-indexical groupings for speech recognition
 
