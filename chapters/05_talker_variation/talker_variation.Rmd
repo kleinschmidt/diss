@@ -460,6 +460,27 @@ trained_to_joint_post <- function(trained, obs_vars) {
     unnest(joint_posteriors)
 }
 
+
+#' @param d data frame
+#' @param holdout Column defining cross validation folds
+#' @param ... additional arguments passed to \code{\link{train_models}}.
+classify_by_talker_cv <- function(d, holdout='Token', category='Vowel', ...) {
+  train <- partial(train_models, grouping=category, ...)
+
+  d %>%
+    nspvowels::train_test_split(holdout=holdout) %>%
+    mutate(models_trained = map(data_train,
+                                . %>% group_by(Talker) %>% train()),
+           models_tested = map2(data_test, models_trained, classify,
+                                category=category)) %>%
+    unnest(models_tested) %>%
+    mutate(grouping = 'Talker',
+           group_is = 'Known',
+           group = 'all') %>%
+    rename(category_model = model)
+}
+
+
 ```
 
 
