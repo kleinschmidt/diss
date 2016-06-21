@@ -504,16 +504,93 @@ vowel_models <-
                         train_models_indexical_subsample_holdout),
          joint_posteriors = map(trained, trained_to_joint_post))
 
+```
+
+```{r vowel-classification, cache=TRUE, dependson=c('vowel-classification-models', 'classification-helpers')}
+
 vowel_joint_class <-
-  unnest(map2(joint_posteriors, grouping, ~ rename_(.x, group=.y)))
+  vowel_models %>%
+  unnest(map2(joint_posteriors, grouping, ~ rename_(.x, group=.y))) %>%
+  group_by(cues, grouping, subsample_size)
 
+vowel_marginal_class <-
+  vowel_joint_class %>%
+  group_by(Talker, Vowel, Token, category_model, add=TRUE) %>%
+  marginalize_log('log_posterior') %>%
+  normalize_log_probability('log_posterior') %>%
+  mutate(group_is = 'Inferred')
+
+vowel_true_group_class <-
+  vowel_joint_class %>%
+  filter(group == group_model) %>%
+  group_by(Talker, Vowel, Token, category_model, add=TRUE) %>%
+  normalize_log_probability('log_posterior') %>%
+  mutate(group_is = 'Known')
+
+vowel_talker_class <-
+  vowel_data %>%
+  unnest(map(data, classify_by_talker_cv, holdout='Token'))
+
+vowel_class <-
+  bind_rows(vowel_marginal_class,
+            vowel_true_group_class,
+            vowel_talker_class)
 
 ```
 
-```{r vot-classification-models, cache=TRUE, dependson=c('vowel-data', 'classification-helpers')}
+```{r vot-classification-models, cache=TRUE, dependson=c('vot-data', 'classification-helpers')}
+
+vot_models <-
+  vot_by_place_grouped %>%
+  mutate(trained = map2(data, grouping,
+                        ~ train_models_indexical_with_holdout(.x,
+                                                              .y,
+                                                              category = 'voicing',
+                                                              formants = 'vot')),
+         joint_posteriors = map(trained,
+                                ~ trained_to_joint_post(., c('voicing', 'Token')))
+         )
 
 ```
 
+```{r vot-classification, cache=TRUE, dependson=c('vot-classification-models', 'classification-helpers')}
+
+vot_joint_class <-
+  vot_models %>%
+  unnest(map2(joint_posteriors, grouping, ~ rename_(.x, group=.y))) %>%
+  group_by(place, cues, grouping)
+
+vot_marginal_class <-
+  vot_joint_class %>%
+  group_by(Talker, voicing, Token, category_model, add=TRUE) %>%
+  marginalize_log('log_posterior') %>%
+  normalize_log_probability('log_posterior') %>%
+  mutate(group_is = 'Inferred')
+
+vot_true_group_class <-
+  vot_joint_class %>%
+  filter(group == group_model) %>%
+  group_by(Talker, voicing, Token, category_model, add=TRUE) %>%
+  normalize_log_probability('log_posterior') %>%
+  mutate(group_is = 'Known')
+
+vot_talker_class <-
+  vot_by_place %>%
+  unnest(map(data, . %>%
+                     group_by(Talker, voicing) %>%
+                     mutate(split=ntile(runif(length(Talker)), 6)) %>%
+                     classify_by_talker_cv(holdout='split',
+                                           category='voicing',
+                                           formants='vot')
+             )
+         )
+
+vot_class <-
+  bind_rows(vot_marginal_class,
+            vot_true_group_class,
+            vot_talker_class)
+
+```
 
 
 ## Inferring socio-indexical variables from cue distributions
