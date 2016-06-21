@@ -40,6 +40,7 @@ library(stringr)
 
 library(svglite)
 library(ggplot2)
+library(cowplot)
 theme_set(theme_bw())
 
 ## devtools::install_bitbucket('hlplab/nspvowels')
@@ -202,7 +203,7 @@ The KL divergence of $Q$ from $P$ is $DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)
 $$
 DL(\mathcal{N}_M || \mathcal{N}_G) = \frac{1}{2} \left( \mathrm{tr}(\Sigma_M^{-1} \Sigma_G) + (\mu_M - \mu_G) \Sigma_M^{-1} (\mu_M - \mu_G) - d + \log\frac{|\Sigma_M|}{|\Sigma_G|} \right)
 $$
-where $d$ is the dimensionality of the distribution.
+where $d$ is the dimensionality of the distribution, and logs are natural logarithms (we report KL divergence in bits, which is the above quantity divided by $log(2)$).
 
 [^multivariate]: The math is the same for the univariate special case, as with VOT.
 [^gaus-kl]: See, for instance, [http://stanford.edu/~jduchi/projects/general_notes.pdf](), p. 13.
@@ -320,7 +321,42 @@ bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
 
 Figure {@fig:vowel-vot-kl-plot} plots the KL divergence of cue distributions at different levels of grouping from marginal distributions, across contrasts (vowels and stop voicing) and cues (vot, raw/Lobanov-normalized F1xF2). There are two clear patterns. 
 
-First, socio-indexical variables are in general more informative for vowels than for stop voicing, even using normalized formants as input. Strikingly, the _most_ informative variable for VOT---talker identity---is roughly as informative as the _least_ informative variable for Lobanov-normalized F1xF2 (Sex). This means that individual talkers' VOT distributions diverge from the marginal distribution at roughly the same level that the male and female distributions of normalized F1xF2 diverge from the marginal normalized F1xF2 distributions.
+First, socio-indexical variables are in general more informative for vowels than for stop voicing, even using normalized formants as input. Strikingly, the _most_ informative variable for VOT---talker identity---is roughly as informative as the _least_ informative variable for Lobanov-normalized F1xF2 (Sex). As Figure {@fig:vot-vs-vowel-dists} shows, this means that, on average, individual talkers' VOT distributions diverge from the marginal distribution (B) at roughly the same level that the male and female distributions of normalized F1xF2 diverge from the marginal normalized F1xF2 distributions (A).
+
+```{r vot-vs-vowel-dists}
+
+gg_vowels_by_sex <-
+  ggplot(nsp_vows_lob, aes(x=F2, y=F1, group=Vowel)) +
+  stat_density2d(data = nsp_vows_lob %>% select(-Sex),
+                 geom='contour', bins=4, color='#888888') +
+  stat_density2d(geom='contour', bins=4, aes(color=Sex)) +
+  scale_x_reverse() +
+  scale_y_reverse() +
+  facet_grid(.~Sex) +
+  labs(color = 'Sex')
+
+gg_vot_by_talker <-
+  ggplot(vot, aes(x=vot, group=voicing)) +
+  stat_density(aes(group=paste(Talker,voicing), color='Talker'),
+               geom='line',
+               position='identity',
+               alpha = 0.5) +
+  stat_density(aes(color='Marginal'),
+               geom='line',
+               position='identity') +
+  scale_color_manual("", values = c('black', 'gray')) +
+  theme(axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank())
+
+ggdraw() +
+  draw_plot(gg_vowels_by_sex, 0, 0.5, 1, 0.5) +
+  draw_plot(gg_vot_by_talker, 0.07, 0, 0.93, 0.5) +
+  draw_plot_label(c("A", "B"), c(0, 0), c(1, 0.5), size = 15)
+
+## plot_grid(gg_vowels_by_sex, gg_vot_by_talker, labels=c('A', 'B'), nrow=2)
+
+```
 
 Second, there are substantial differences in the informativity of the socio-indexical grouping variables we considered. The overall pattern is that more specific grouping factors are more informative than broader groupings. The noteable exception to this pattern is the Sex is the most informative variable for un-normalized F1xF2 distributions, which reflects the fact that overall sex differences explain much (but not all) of the talker variation in F1xF2 [@Hillenbrand1995;@Johnson2006].
 
