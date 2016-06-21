@@ -43,6 +43,9 @@ library(ggplot2)
 library(cowplot)
 ## theme_set(theme_bw())
 
+## devtools::install_github('kleinschmidt/daver')
+library(daver)
+
 ## devtools::install_bitbucket('hlplab/nspvowels')
 library(nspvowels)
 
