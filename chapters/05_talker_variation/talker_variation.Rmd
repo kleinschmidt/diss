@@ -163,7 +163,7 @@ vot <-
   rename(Talker = subject,
          Sex = sex,
          Age = age_group) %>%
-  group_by(phoneme, word, Talker) %>%
+  group_by(phoneme, Talker) %>%
   mutate(Token = row_number(),
          cues = 'VOT') %>%
   ungroup() %>%
@@ -523,7 +523,7 @@ vowel_marginal_class <-
 vowel_true_group_class <-
   vowel_joint_class %>%
   filter(group == group_model) %>%
-  group_by(Talker, Vowel, Token, category_model, add=TRUE) %>%
+  group_by(Talker, Vowel, Token, add=TRUE) %>%
   normalize_log_probability('log_posterior') %>%
   mutate(group_is = 'Known')
 
@@ -542,6 +542,7 @@ vowel_class <-
 
 vot_models <-
   vot_by_place_grouped %>%
+  filter(grouping != 'Talker') %>%
   mutate(trained = map2(data, grouping,
                         ~ train_models_indexical_with_holdout(.x,
                                                               .y,
@@ -570,7 +571,7 @@ vot_marginal_class <-
 vot_true_group_class <-
   vot_joint_class %>%
   filter(group == group_model) %>%
-  group_by(Talker, voicing, Token, category_model, add=TRUE) %>%
+  group_by(Talker, voicing, Token, add=TRUE) %>%
   normalize_log_probability('log_posterior') %>%
   mutate(group_is = 'Known')
 
@@ -591,6 +592,69 @@ vot_class <-
             vot_talker_class)
 
 ```
+
+```{r check-classification, cache=TRUE, dependson=c('vowel-classification', 'vot-classification')}
+
+vowel_class %>%
+  group_by(cues, group_is, grouping, subsample_size, Talker, Vowel, Token) %>%
+  summarise(n_choice = sum(posterior_choice),
+            sum_post = sum(posterior)) %$%
+  assert_that(all(n_choice == 1),
+              all.equal(sum_post, rep(1, length(sum_post))))
+
+vot_class %>%
+  group_by(cues, place, group_is, grouping, Talker, voicing, Token) %>%
+  summarise(n_choice = sum(posterior_choice),
+            sum_post = sum(posterior)) %$%
+  assert_that(all(n_choice == 1),
+              all.equal(sum_post, rep(1, length(sum_post))))
+
+```
+
+
+```{r classification-accuracy}
+
+vowel_accuracy <-
+  vowel_class %>%
+  filter(Vowel == category_model) %>%
+  mutate(accuracy = posterior_choice)
+
+vot_accuracy <-
+  vot_class %>%
+  filter(voicing == category_model) %>%
+  mutate(accuracy = posterior_choice)
+
+accuracy_summary <-
+  vowel_accuracy %>%
+  select(-Age) %>%
+  filter(subsample_size == 3 | grouping == 'Talker') %>%
+  mutate(contrast = 'Vowels') %>%
+  bind_rows(vot_accuracy %>% mutate(contrast = 'Stop voicing')) %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
+  group_by(contrast, cues, grouping, group_is, Talker) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+```
+
+
+```{r overall-accuracy-group-known, fig.width=8.3, fig.height=4.2, fig.cap='Speech recognition accuracy using for marginal, group-level, and talker-specific cue distributions (mean and bootstrapped 95% CIs over talkers). Marginal and group-level accuracy is based on leave-one-talker out cross-validation, and talker-specific on 6-fold cross-validation (or leave-one-token-per-category out if there are fewer than 6 tokens per category).'}
+
+accuracy_summary %>%
+  filter(group_is == 'Known' | grouping == 'Talker') %>%
+  ggplot(aes(x = grouping, y=accuracy, ymin=accuracy_lo, ymax=accuracy_hi,
+             color = grouping)) +
+  geom_pointrange(stat='identity') +
+  facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  labs(x = 'Grouping (broadest to most specific)',
+       y = 'Probability of correct recognition')
+
+```
+
 
 
 ## Inferring socio-indexical variables from cue distributions
