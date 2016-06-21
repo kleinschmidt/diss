@@ -384,6 +384,114 @@ vowel_kl %>%
 
 ## Utility of socio-indexical groupings for speech recognition
 
+```{r classification-helpers, cache=TRUE}
+
+## 1. Likelihood of each token under each vowel for each dialect model
+#' Compute posterior vowel category conditional on group
+#'
+#' Applies classify_vowels to test data for each group_model.
+#'
+#' @param data_test test data to calculate posteriors for
+#' @param group_models named list of group models, each of which is a named list
+#'   of vowel models
+#' @return data frame with one row per data_test row x group x vowel model, with
+#'   added columns group_model (name of group model), vowel_model (name of vowel
+#'   model), lhood p(x | vowel_model, group_model), posterior (p(vowel_model |
+#'   x, group_model)).
+compute_category_post_given_group <- function(data_test, group_models) {
+  group_models %>%
+    map(~ unlist_models(., 'category')) %>%
+    map(~ classify(data_test, ., 'category')) %>%
+    data_frame(group_model=names(.),
+               x=.) %>%
+    unnest(x) %>%
+    rename(category_model=model)
+}
+
+#' Combine category | group posteriors with group posteriors
+#'
+#' @param group_category_posteriors category posterior probabilities conditional
+#'   on group, in the form of a data frame with at least columns category_model,
+#'   group_model, and posterior (e.g., output of
+#'   compute_category_post_given_group)
+#' @param group_posterior marginal group posterior probabilities, in the form of
+#'   a data frame with columns group_model and log_posterior (e.g., output of
+#'   compute_group_marginal_posterior)
+#' @return a data frame with the joint posterior of category category and group,
+#'   in posterior and log_posterior.
+#' 
+compute_joint_category_group_post <- function(group_category_posteriors, group_posteriors) {
+  group_posteriors %>%
+    select(group_model, group_log_posterior=log_posterior) %>%
+    inner_join(group_category_posteriors, by = 'group_model') %>%
+    mutate(log_posterior = log(posterior) + group_log_posterior,
+           posterior = exp(log_posterior))
+}
+
+#' Compute joint indexical-linguistic posterior
+#'
+#' @param trained data frame with \code{models} and \code{data_test} (as
+#'   produced by \code{\link{train_models_indexical_with_holdout}}).
+#' @param obs_vars quoted names of columns in test data that together indentify
+#'   a single observation (e.g., \code{c('Vowel', 'Token')})
+#' @return a data frame with one observation per combination of group (e.g.,
+#'   Dialect), category (e.g. "ae"), and row in the ORIGINAL, un-nested data
+#'   set, with new columns \code{group_model}, \code{category_model},
+#'   \code{lhood}, \code{posterior}, and \code{log_posterior}. Posterior
+#'   probabilities sum to 1 within each cross-validation fold (e.g., Talker) +
+#'   observation (e.g., Vowel+Token) combination, over all values of category
+#'   and group.
+#' 
+trained_to_joint_post <- function(trained, obs_vars) {
+
+  trained %>%
+    mutate(conditional_posteriors = map2(data_test, models,
+                                         compute_category_post_given_group),
+           group_posteriors = map(conditional_posteriors,
+                                  . %>%
+                                    group_by_(.dots=obs_vars) %>%
+                                    marginalize('group_model') %>%
+                                    aggregate_lhood('group_model')),
+           joint_posteriors = map2(conditional_posteriors, group_posteriors,
+                                   compute_joint_category_group_post)) %>%
+    unnest(joint_posteriors)
+}
+
+```
+
+
+```{r vowel-classification-models, cache=TRUE, dependson=c('vowel-data', 'classification-helpers')}
+
+min_talker_per_group <- function(d) {
+  d %>%
+    do(n = length(unique(.$Talker))) %>%
+    select_('n') %>%
+    unlist() %>%
+    min()
+}
+
+vowel_models <-
+  vowel_data_grouped %>%
+  mutate(group_size = map_dbl(data, min_talker_per_group)) %>%
+  right_join(cross_d(list(group_size = unique(.$group_size),
+                          subsample_size = c(3,7))) %>%
+               filter(group_size > subsample_size)) %>%
+  mutate(trained = pmap(list(data, grouping, subsample_size),
+                        train_models_indexical_subsample_holdout),
+         joint_posteriors = map(trained, trained_to_joint_post))
+
+vowel_joint_class <-
+  unnest(map2(joint_posteriors, grouping, ~ rename_(.x, group=.y)))
+
+
+```
+
+```{r vot-classification-models, cache=TRUE, dependson=c('vowel-data', 'classification-helpers')}
+
+```
+
+
+
 ## Inferring socio-indexical variables from cue distributions
 
 # Discussion
