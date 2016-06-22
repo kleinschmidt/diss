@@ -731,6 +731,41 @@ vowel_class_competitors %>%
 
 ```
 
+### Does dialect contribute anything?
+
+Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} suggest that knowing a talker's dialect does not reliably improve the ability to correctly recognize vowels. However, it's hard to judge the talker-by-talker advantage of knowing dialect when uncertainty over talkers is plotted independently for the various grouping factors. Figure {@fig:dialect-over-marginal-sex} clarifies this relationship by plotting the average (and 95% bootstrapped CIs) increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
+
+```{r dialect-over-marginal-sex, fig.width=8.9, fig.height=3.7}
+
+dialect_advantage <-
+  vowel_accuracy %>%
+  filter(grouping != 'Talker') %>%
+  group_by(cues, subsample_size, group_is, Talker, Vowel, grouping) %>%
+  summarise(proportion = mean(accuracy),
+            logodds = log(sum(accuracy)+0.5) - log(sum(!accuracy)+0.5)) %>%
+  gather('measure', 'accuracy', proportion, logodds) %>%
+  group_by(measure, add=TRUE) %>%
+  ## select(-Dialect, -Marginal, -Sex, -Dialect_Sex, -group) %>%
+  spread(grouping, accuracy) %>%
+  transmute(Dialect_over_marginal = Dialect - Marginal,
+            Dialect_over_sex = Dialect_Sex - Sex) %>%
+  left_join(nsp_vows %>% group_by(Talker, Dialect, Sex) %>% summarise())
+
+dialect_advantage_boot_ci <- dialect_advantage %>%
+  filter(subsample_size == 3, group_is == 'Known') %>%
+  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
+  group_by(cues, Vowel, measure, comparison) %>%
+  do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
+
+dialect_advantage %>%
+  filter(subsample_size == 3, group_is == 'Known') %>%
+  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
+  ggplot(aes(x=Vowel, y=value, color=comparison)) +
+  geom_pointrange(stat='summary', fun.data=mean_cl_boot, position=pd()) +
+  geom_hline(yintercept=0) +
+  facet_grid(measure ~ cues, scales='free_y')
+
+```
 
 
 ## Inferring socio-indexical variables from cue distributions
