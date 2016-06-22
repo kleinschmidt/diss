@@ -705,7 +705,7 @@ Normalized input results in higher vowel recognition accuracy across the board, 
 
 Also paralleling the cue distributions themselves, classifying according to sex-specific distributions provides the biggest boost in recognition for un-normalized formant accuracy. For normalized input, none of the socio-indexical grouping factors provide much of an advantage over the marginal distributions. In both cases, dialect provides minimal benefit for recognition, alone or in combination with sex.
 
-```{r by-vowel-acc-group-known}
+```{r by-vowel-acc-group-known, fig.width=10, fig.height=5}
 
 acc_by_vowel <- accuracy %>%
   filter(contrast == 'Vowels') %>%
@@ -727,7 +727,21 @@ acc_by_vowel_summary %>%
 
 ```
 
-```{r socio-relevant-vowel-acc}
+Figure {@fig:by-vowel-acc-group-known} shows probability of correct recognition for each vowel individually. The pattern of probability of correct recognition given each socio-indexical grouping variable for individual vowels largely mirrors the overall pattern. For normalized input, there is little (if any) utility of socio-indexical grouping variables for correct recognition, with the possible exception of `ae` and `eh`. For non-normalized input, the effect of sex dominates.
+
+### Does dialect contribute anything?
+
+Given the well-known dialect-specific variation in vowel production, it's somewhat surprising that dialect-level cue distributions do not, in our models, provide a substantial overall improvement in correct recognition.  But there are two reasons why these results can be misleading. 
+
+First, not all vowels vary substantially from the norm in all dialects. To address this possibility, we examine how using dialect-level formant distributions affects the probability of making particular _errors_ that would result from ignoring dialect-specific shifts. For instance, in the Northern Citiies Shift, the `ae` vowel is raised, resulting in a distribution very much like the standard `eh` distribution. If dialect is ignored, then `ae` tokens from talkers from a dialect region with this shift will be mistaken for `eh`.
+
+```{r dialect-error-table, results='asis', tbl.cap='Dialect-predicted confusions, based on the summary by @Clopper2005.'}
+
+nspvowels::clopper_competitors %>% knitr::kable()
+
+```
+
+```{r socio-relevant-vowel-acc, fig.width=10, fig.height=6, fig.cap='Rates of dialect-specific errors under each level of socio-indexical grouping.'}
 
 vowel_class_competitors <-
   vowel_class %>%
@@ -754,9 +768,11 @@ vowel_class_competitors %>%
 
 ```
 
-### Does dialect contribute anything?
+Based on the summary by @Clopper2005, we compiled a list of likely dialect-specific errors (Table {@tab:dialect-error-table}). Note that not all dialect-specific changes in vowel _distributions_ will lead to _errors_. For instance, `uw` fronting occurs in many dialects, but this shift moves `uw` into otherwise unoccupied territory and likely will have no consequences for correct recognition (at least to the extent that it occurs in this dataset). Figure {@fig:socio-relevant-vowel-acc} shows the error rates for each of these predicted confusions, under each level of socio-indexical grouping.
 
-Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} suggest that knowing a talker's dialect does not reliably improve the ability to correctly recognize vowels. However, it's hard to judge the talker-by-talker advantage of knowing dialect when uncertainty over talkers is plotted independently for the various grouping factors. Figure {@fig:dialect-over-marginal-sex} clarifies this relationship by plotting the average (and 95% bootstrapped CIs) increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
+
+
+Second, ...  Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} suggest that knowing a talker's dialect does not reliably improve the ability to correctly recognize vowels. However, it's hard to judge the talker-by-talker advantage of knowing dialect when uncertainty over talkers is plotted independently for the various grouping factors. Figure {@fig:dialect-over-marginal-sex} clarifies this relationship by plotting the average (and 95% bootstrapped CIs) increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
 
 ```{r dialect-over-marginal-sex, fig.width=8.9, fig.height=3.7}
 
