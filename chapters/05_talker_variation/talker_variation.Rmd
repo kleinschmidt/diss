@@ -670,10 +670,13 @@ accuracy_summary %>%
 
 ```
 
-* voicing > vowel.
-* for vowels: 
-    * sex is by far the most important for non-normalized.
-    * for normalized, nothing makes a huge difference.
+
+Figure {@fig:overall-accuracy-group-known} shows the probability of correct recognition for stop voicing/vowel, based on the cue distrbutions at each level of grouping.  As with informativity about the distributions themselves, there's an asymmetry between vowels and stop voicing in the utility of socio-indexical variables for speech recognition. Probability of correct recognition is overall higher for stop voicing than vowels.  Voicing recognition is also less sensitive to the particular grouping variable, which is consistent with the finding from the last section that VOT distributions do not differ substantially at different levels of socio-indexical grouping.
+
+Normalized input results in higher vowel recognition accuracy across the board, again paralleling the findings about the cue distributions themselves. The one exception is at the level of talker-specific distributions, where recognition accuracy is unchanged (since Lobanov normalization is a linear transformation of the input, which leaves the structure of the categories within each talker unchanged).
+
+Also paralleling the cue distributions themselves, using sex-specific distributions provides the biggest boost in recognition for un-normalized formant accuracy. For normalized input, none of the socio-indexical grouping factors provide much of an advantage over the marginal distributions
+
 * for voicing: 
     * slight advantage of talker. others are indistinguishable
 
