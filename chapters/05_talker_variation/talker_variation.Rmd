@@ -617,20 +617,25 @@ vot_class %>%
 vowel_accuracy <-
   vowel_class %>%
   filter(Vowel == category_model) %>%
-  mutate(accuracy = posterior_choice)
+  mutate(accuracy = posterior_choice,
+         accuracy_p = posterior)
 
 vot_accuracy <-
   vot_class %>%
   filter(voicing == category_model) %>%
-  mutate(accuracy = posterior_choice)
+  mutate(accuracy = posterior_choice,
+         accuracy_p = posterior)
 
-accuracy_summary <-
+accuracy <- 
   vowel_accuracy %>%
   select(-Age) %>%
   filter(subsample_size == 3 | grouping == 'Talker') %>%
   mutate(contrast = 'Vowels') %>%
   bind_rows(vot_accuracy %>% mutate(contrast = 'Stop voicing')) %>%
-  mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels))
+
+accuracy_summary <-
+  accuracy %>%
   group_by(contrast, cues, grouping, group_is, Talker) %>%
   summarise(accuracy = mean(accuracy)) %>%
   do({ mean_cl_boot(.$accuracy) }) %>%
@@ -641,17 +646,51 @@ accuracy_summary <-
 ```
 
 
-```{r overall-accuracy-group-known, fig.width=8.3, fig.height=4.2, fig.cap='Speech recognition accuracy using for marginal, group-level, and talker-specific cue distributions (mean and bootstrapped 95% CIs over talkers). Marginal and group-level accuracy is based on leave-one-talker out cross-validation, and talker-specific on 6-fold cross-validation (or leave-one-token-per-category out if there are fewer than 6 tokens per category).'}
+```{r overall-accuracy-group-known, fig.width=8.3, fig.height=4.2, fig.cap='Speech recognition accuracy using for marginal, group-level, and talker-specific cue distributions. Small points show individual talkers, and large points and lines show mean and bootstrapped 95% CIs over talkers. Marginal and group-level accuracy is based on leave-one-talker out cross-validation, and talker-specific on 6-fold cross-validation (or leave-one-token-per-category out if there are fewer than 6 tokens per category).'}
 
 accuracy_summary %>%
   filter(group_is == 'Known' | grouping == 'Talker') %>%
-  ggplot(aes(x = grouping, y=accuracy, ymin=accuracy_lo, ymax=accuracy_hi,
+  ggplot(aes(x = grouping, y=accuracy,
              color = grouping)) +
-  geom_pointrange(stat='identity') +
+  geom_point(data = accuracy %>%
+               group_by(grouping, Talker, cues, contrast) %>%
+               summarise(accuracy = mean(accuracy)),
+             position='jitter', alpha=0.2) +
+  geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi), stat='identity') +
   facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
   theme(axis.text.x = element_text(angle=45, hjust=1)) +
   labs(x = 'Grouping (broadest to most specific)',
-       y = 'Probability of correct recognition')
+       y = 'Probability of correct recognition') +
+  lims(y = c(NA, 1))
+
+```
+
+* voicing > vowel.
+* for vowels: 
+    * sex is by far the most important for non-normalized.
+    * for normalized, nothing makes a huge difference.
+* for voicing: 
+    * slight advantage of talker. others are indistinguishable
+
+```{r by-vowel-acc-group-known}
+
+acc_by_vowel <- accuracy %>%
+  filter(contrast == 'Vowels') %>%
+  group_by(cues, grouping, Vowel, Talker) %>%
+  summarise_each(funs(mean), accuracy, accuracy_p)
+
+acc_by_vowel_summary <-
+  acc_by_vowel %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+ggplot(acc_by_vowel_summary, aes(x=Vowel, y=accuracy, color=grouping)) +
+  geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi),
+                  position = position_dodge(w=0.7)) +
+  facet_grid(cues~.)
+
 
 ```
 
