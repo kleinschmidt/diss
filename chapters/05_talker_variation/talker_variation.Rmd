@@ -681,7 +681,7 @@ accuracy_summary %>%
 
 acc_by_vowel <- accuracy %>%
   filter(contrast == 'Vowels') %>%
-  group_by(cues, group_is, grouping, Vowel, Talker) %>%
+  group_by(cues, group_is, grouping, subsample_size, Vowel, Talker) %>%
   summarise_each(funs(mean), accuracy)
 
 acc_by_vowel_summary <-
@@ -692,7 +692,8 @@ acc_by_vowel_summary <-
          accuracy_hi = ymax)
 
 acc_by_vowel_summary %>%
-  filter(group_is == 'Known' | grouping == 'Talker') %>%
+  filter(group_is == 'Known' | grouping == 'Talker',
+         subsample_size == 3 | grouping == 'Talker') %>%
   ggplot(aes(x=Vowel, y=accuracy, color=grouping)) +
   geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi),
                   position = position_dodge(w=0.7)) +
