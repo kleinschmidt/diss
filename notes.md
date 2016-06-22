@@ -325,6 +325,31 @@ It's unclear how much re-organization of the existing bits will be required. But
     * write intro, get feedback
     * outline conclusion
 
+### Status
+
+* Talker variation chapter
+    * Intro/background outlined, could probably use __revision__
+    * Methods: __done__.
+    * Results: in report, need to __cut down__ and __copy over__
+    * Discussion: some bullets, needs to be __organized and fleshed out__
+* infer prior chapter
+    * see last week.
+* Intro chapter
+    * some notes/outline
+
+### Done list
+
+* Monday
+    * expanded intro outline
+    * read a bunch of papers on indexical classification
+    * wrote up KL results + figures
+* Tuesday
+    * run vot/vowel classifiers and make figures
+    * debug classifier code and packages
+* Wednesday
+    * puzzle over + write up classifier accuracy results
+    * analyze advantage of dialect
+
 ## June 27
 
 ## July 4
