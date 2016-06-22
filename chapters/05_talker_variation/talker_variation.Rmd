@@ -2,7 +2,8 @@
 bibliography: /Users/dkleinschmidt/Documents/papers/library-clean.bib
 output:
     html_document:
-        dev: svglite
+        code_folding: hide
+        dev: png
         keep_md: true
         md_extensions: +implicit_figures
         pandoc_args:
@@ -117,7 +118,7 @@ We analyze speech from two corpora.
 
 ### Vowels
 
-```{r nsp-data, cache=TRUE}
+```{r nsp-data, cache=TRUE, results='hide'}
 
 nsp_vows <- nspvowels::nsp_vows %>%
   ungroup() %>%
@@ -593,7 +594,7 @@ vot_class <-
 
 ```
 
-```{r check-classification, cache=TRUE, dependson=c('vowel-classification', 'vot-classification')}
+```{r check-classification, results='hide', cache=TRUE, dependson=c('vowel-classification', 'vot-classification')}
 
 vowel_class %>%
   group_by(cues, group_is, grouping, subsample_size, Talker, Vowel, Token) %>%
