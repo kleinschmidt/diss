@@ -617,15 +617,19 @@ vot_class %>%
 
 vowel_accuracy <-
   vowel_class %>%
-  filter(Vowel == category_model) %>%
-  mutate(accuracy = posterior_choice,
-         accuracy_p = posterior)
+  ## filter(Vowel == category_model) %>%
+  ## mutate(accuracy = posterior_choice,
+  ##        accuracy_p = posterior)
+  filter(posterior_choice) %>%
+  mutate(accuracy = Vowel == category_model)
 
 vot_accuracy <-
   vot_class %>%
-  filter(voicing == category_model) %>%
-  mutate(accuracy = posterior_choice,
-         accuracy_p = posterior)
+  ## filter(voicing == category_model) %>%
+  ## mutate(accuracy = posterior_choice,
+  ##        accuracy_p = posterior)
+  filter(posterior_choice) %>%
+  mutate(accuracy = voicing == category_model)
 
 accuracy <- 
   vowel_accuracy %>%
@@ -677,8 +681,8 @@ accuracy_summary %>%
 
 acc_by_vowel <- accuracy %>%
   filter(contrast == 'Vowels') %>%
-  group_by(cues, grouping, Vowel, Talker) %>%
-  summarise_each(funs(mean), accuracy, accuracy_p)
+  group_by(cues, group_is, grouping, Vowel, Talker) %>%
+  summarise_each(funs(mean), accuracy)
 
 acc_by_vowel_summary <-
   acc_by_vowel %>%
@@ -687,11 +691,12 @@ acc_by_vowel_summary <-
          accuracy_lo = ymin,
          accuracy_hi = ymax)
 
-ggplot(acc_by_vowel_summary, aes(x=Vowel, y=accuracy, color=grouping)) +
+acc_by_vowel_summary %>%
+  filter(group_is == 'Known' | grouping == 'Talker') %>%
+  ggplot(aes(x=Vowel, y=accuracy, color=grouping)) +
   geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi),
                   position = position_dodge(w=0.7)) +
   facet_grid(cues~.)
-
 
 ```
 
