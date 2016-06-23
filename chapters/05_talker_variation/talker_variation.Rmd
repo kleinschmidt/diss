@@ -741,7 +741,7 @@ nspvowels::clopper_competitors %>% knitr::kable()
 
 ```
 
-```{r socio-relevant-vowel-acc, fig.width=10, fig.height=6, fig.cap='Rates of dialect-specific errors under each level of socio-indexical grouping.'}
+```{r socio-relevant-vowel-acc, fig.width=10, fig.height=6, fig.cap='Rates of dialect-specific errors under each level of socio-indexical grouping. Stars indicate errors that are significantly reduced by considering dialect (either over marginal, or over sex).'}
 
 vowel_class_competitors <-
   vowel_class %>%
@@ -751,16 +751,52 @@ vowel_class_competitors <-
   left_join(nsp_vows %>% group_by(Talker, Dialect) %>% summarise(), by='Talker') %>%
   inner_join(nspvowels::clopper_competitors, by = c('Vowel', 'Dialect'))
 
-pd <- function() position_dodge(w=0.7)
-
-vowel_class_competitors %>%
+vowel_competitor_errors <-
+  vowel_class_competitors %>%
   filter(category_model == Competitor) %>%
   group_by(cues, grouping, Dialect, Vowel, category_model, Talker) %>%
   summarise(confusions = mean(posterior_choice)) %>%
-  mutate(pair = paste(Vowel, category_model, sep=' -> ')) %>%
-  ggplot(aes(x=pair, y=confusions, color=grouping, fill=grouping)) +
+  mutate(pair = paste(Vowel, category_model, sep=' -> '))
+
+vowel_competitor_errors_summary <-
+  vowel_competitor_errors %>%
+  group_by(cues, grouping, Dialect, pair, Talker) %>%
+  summarise(confusions = mean(confusions)) %>%
+  do({ boot_ci(.$confusions, function(d,i) mean(d[i])) })
+
+## dialect advantage for each confusion
+vowel_competitor_dialect_summary <-
+  vowel_competitor_errors %>%
+  rename(Dialect_ = Dialect, Talker_ = Talker) %>%
+  spread(grouping, confusions) %>%
+  group_by(cues, Dialect_, Vowel, pair, Talker_) %>%
+  transmute(Dialect_over_marginal = Dialect - Marginal,
+            Dialect_over_sex = Dialect_Sex - Sex) %>%
+  rename(Dialect = Dialect_, Talker = Talker_) %>%
+  summarise_each(funs(mean), Dialect_over_marginal, Dialect_over_sex) %>%
+  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
+  group_by(cues, Dialect, Vowel, pair, comparison) %>%
+  do({ boot_ci(.$value, function(d,i) mean(d[i]), h0=0) })
+  
+vowel_competitor_dialect_stars <-
+  vowel_competitor_dialect_summary %>%
+  filter(observed < -1e-10, boot_p < 0.10) %>%
+  group_by(cues, Dialect, Vowel, pair) %>%
+  summarise(boot_p = min(boot_p)) %>%
+  mutate(boot_p_stars = daver::p_val_to_stars(boot_p, approaching=TRUE)) 
+
+pd <- function() position_dodge(w=0.7)
+
+vowel_competitor_errors %>%
+  ggplot(aes(x=pair, y=confusions)) +
   ## geom_bar(stat='summary', fun.y = mean, position=pd()) +
-  geom_pointrange(stat='summary', fun.data=mean_cl_boot, position=pd()) +
+  geom_pointrange(aes(color=grouping),
+                  stat='summary', fun.data=mean_cl_boot, position=pd()) +
+  geom_text(data = vowel_competitor_errors_summary %>%
+              group_by(cues, Dialect, pair) %>%
+              summarise(max_ci = max(ci_high)) %>%
+              right_join(vowel_competitor_dialect_stars),
+            aes(y=max_ci+0.1, label=boot_p_stars), color='black') +
   facet_grid(cues~Dialect, space='free', scales='free') +
   ggtitle('Socio-linguistically predicted confusions') +
   labs(y = 'Proportion error occurred', x = 'Error') +
@@ -768,11 +804,9 @@ vowel_class_competitors %>%
 
 ```
 
-Based on the summary by @Clopper2005, we compiled a list of likely dialect-specific errors (Table {@tab:dialect-error-table}). Note that not all dialect-specific changes in vowel _distributions_ will lead to _errors_. For instance, `uw` fronting occurs in many dialects, but this shift moves `uw` into otherwise unoccupied territory and likely will have no consequences for correct recognition (at least to the extent that it occurs in this dataset). Figure {@fig:socio-relevant-vowel-acc} shows the error rates for each of these predicted confusions, under each level of socio-indexical grouping.
+Based on the summary by @Clopper2005, we compiled a list of likely dialect-specific errors (Table {@tab:dialect-error-table}). Note that not all dialect-specific changes in vowel _distributions_ will lead to _errors_. For instance, `uw` fronting occurs in many dialects, but this shift moves `uw` into otherwise unoccupied territory and likely will have no consequences for correct recognition (at least to the extent that it occurs in this dataset). Figure {@fig:socio-relevant-vowel-acc} shows the error rates for each of these predicted confusions, under each level of socio-indexical grouping. Despite the high level of variabilty, knowing a dialect does help reduce at least some dialect-specific errors (e.g., `ao` raising to `uh` in the Mid-Atlantic dialect and, in the North dialect, the `ao`-`aa` non-merger, and `ae` raising to `eh` (although this is variable across the eight talkers in the dialect group and does not reach significance).
 
-
-
-Second, ...  Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} suggest that knowing a talker's dialect does not reliably improve the ability to correctly recognize vowels. However, it's hard to judge the talker-by-talker advantage of knowing dialect when uncertainty over talkers is plotted independently for the various grouping factors. Figure {@fig:dialect-over-marginal-sex} clarifies this relationship by plotting the average (and 95% bootstrapped CIs) increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
+Second, the errorbars in Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} plot variability across talkers, independently for each grouping level. But for assessing the utility of dialect, a more appropriate measure of uncertainty is the variability of the within-talker _difference_ between accuracy with and without considering dialect. If talkers vary in their baseline level of intelligibility, then this within-subject difference may be less variable.  Figure {@fig:dialect-over-marginal-sex} clarifies plots the average (and 95% bootstrapped CIs) within-talker increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
 
 ```{r dialect-over-marginal-sex, fig.width=8.9, fig.height=3.7}
 
