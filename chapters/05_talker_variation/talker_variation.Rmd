@@ -1030,6 +1030,37 @@ acc_marginal_by_vowel_summary %>%
 
 ```
 
+```{r vowel-confusion-mats}
+
+vowel_class_all %>%
+  filter(subsample_size == 3) %>%
+  ungroup() %>%
+  select(group_is, Vowel, category_model, cues, grouping, Talker, Token,
+         posterior_choice) %>%
+  spread(group_is, posterior_choice) %>%
+  mutate(posterior = Inferred-Known) %>%
+  group_by(cues, grouping, Vowel, category_model) %>%
+  summarise(p = mean(posterior)) %>%
+  mutate(category_model=factor(category_model, levels=levels(Vowel))) %>%
+  ggplot(aes(x=category_model, y=Vowel, fill=p)) +
+  geom_tile() +
+  facet_grid(cues ~ grouping) +
+  scale_fill_gradient2()
+
+vowel_accuracy_marginal %>%
+  ungroup() %>%
+  select(cues, grouping, Talker, Vowel, Token, group, category_model) %>%
+  left_join(vowel_accuracy,
+            by=c('cues', 'grouping', 'Talker', 'Vowel', 'Token', 'group'),
+            suffix=c('.inferred', '.known')) %>%
+  group_by(cues, grouping, category_model.inferred, category_model.known) %>%
+  tally() %>%
+  ggplot(aes(x=category_model.inferred, y=category_model.known, fill=n)) +
+  geom_tile() +
+  facet_grid(cues ~ grouping)
+
+```
+
 
 # Discussion
 
