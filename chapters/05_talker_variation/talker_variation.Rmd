@@ -1003,6 +1003,32 @@ accuracy_marginal_summary %>%
 
 ```
 
+```{r group-inferred-vowel-acc-plot}
+
+acc_marginal_by_vowel_summary <-
+  vowel_accuracy_marginal %>%
+  group_by(cues, grouping, group_is, Vowel, Talker) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+
+acc_marginal_by_vowel_summary %>%
+  filter(grouping != 'Marginal') %>%
+  bind_rows(acc_by_vowel_summary) %>%
+  ungroup() %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
+  ggplot(aes(x=Vowel, y=accuracy, color=grouping, alpha=group_is)) +
+  geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi),
+                  position = position_dodge(w=0.7)) +
+  lims(y = c(0, 1)) +
+  scale_alpha_manual(values = c(1, 0.4)) +
+  facet_grid(cues~.)
+
+
+```
 
 
 # Discussion
