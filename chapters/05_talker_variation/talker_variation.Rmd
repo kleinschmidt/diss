@@ -930,6 +930,11 @@ index_acc_summary_exact %>%
 
 ```
 
+For most groupings, it is possible to infer each talker's group with above chance accuracy, given only that talker's unlabeled observed cues (Figure {@fig:indexical-acc-plot}; all $p<0.01$, except for inferring a talker's sex based on their VOT distributions, and dialect from un-normalized F1xF2 distributions, both $p>0.15$).
+
+In some respects, these results mirror the patterns of informativity about the cue distributions themselves (Figure {@fig:vowel-vot-kl-plot}). Vowel formant distributions vary more according to group than do stop VOT distributions, and likewise socio-indexical group can, on the whole, be inferred with higher accuracy based on vowel formants than on VOT. For vowels specifically, much of the variability across talkers is driven by sex differences, and this is the grouping variable that's easiest to infer of the three we tested.
+
+However, in other respects, these results do _not_ simply mirror informativity. For instance, un-normalized F1xF2 distributions diverge from marginal more for dialect+sex than they do for sex alone, but accuracy at inferring a talker's sex is nearly at ceiling, while accuracy is barely above chance for inferring a talker's dialect+sex. Likewise, normalized F1xF2 distributions given dialect and dialect+sex diverge from marginal less than non-normalized, but accuracy at inferring these two grouping variables is higher for normalized than non-normalized.
 
 # Discussion
 
