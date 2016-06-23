@@ -77,7 +77,7 @@ apply_groupings <- function(d, groupings) {
     reduce(bind_rows)
 }
 
-grouping_levels <- c('Marginal', 'Age', 'Sex', 'Dialect', 'Dialect_Sex', 'Talker')
+grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker')
 
 ```
 
@@ -885,22 +885,6 @@ index_acc <-
             vot_index_acc %>% mutate(contrast = 'Stop voicing')) %>%
   mutate(grouping = factor(grouping, levels = grouping_levels))
 
-## bootstrapped CIs
-index_acc_summary <-
-  index_acc %>%
-  group_by(cues, grouping) %>%
-  do({ boot_ci(.$accuracy, function(d,i) mean(d[i])) })
-
-## exact binomial CIs (kosher because talker accs are single binary observations)
-binomial_ci = function(p, x) qbeta(p, sum(x)+0.5, length(x)-sum(x)+0.5)
-index_acc_summary_exact <-
-  index_acc %>%
-  group_by(contrast, cues, grouping) %>%
-  summarise_each(funs(mean,
-                      ci_low=binomial_ci(0.025, .),
-                      ci_high=binomial_ci(0.975, .)),
-                 accuracy)
-
 ## compute chance accuracy
 index_chance_acc <-
   bind_rows(vowel_index_class, vot_index_class) %>%
@@ -909,16 +893,34 @@ index_chance_acc <-
   summarise() %>%
   summarise(chance = 1/n())
 
+## bootstrapped CIs
+index_acc_summary <-
+  index_acc %>%
+  left_join(index_chance_acc) %>%
+  group_by(cues, grouping) %>%
+  do({ boot_ci(.$accuracy, function(d,i) mean(d[i]), h0=.$chance[1]) })
+
+## exact binomial CIs (kosher because talker accs are single binary observations)
+binomial_ci = function(p, x) qbeta(p, sum(x)+0.5, length(x)-sum(x)+0.5)
+index_acc_summary_exact <-
+  index_acc %>%
+  left_join(index_chance_acc) %>%
+  group_by(contrast, cues, grouping) %>%
+  summarise_each(funs(mean,
+                      ci_low=binomial_ci(0.025, .),
+                      ci_high=binomial_ci(0.975, .)),
+                 accuracy)
+
 ```
 
-```{r indexical-acc-plot, fig.width=8.25, fig.height=3.5}
+```{r indexical-acc-plot, fig.width=8.25, fig.height=3.5, fig.cap="Probability of correctly classifying a talker's socio-indexical group varies with the grouping variable, contrast, and cues. A talker is correctly classified if the overall posterior probability of their actual group given their unlabeled productions is the highest of all groups."}
 
 index_acc_summary_exact %>%
   left_join(index_chance_acc) %>%
   ggplot(aes(x=grouping, y=mean, color=grouping)) +
-  geom_point(aes(shape='Observed'), size=2) +
+  geom_point(aes(shape='Observed'), size=3) +
   geom_linerange(aes(ymin=ci_low, ymax=ci_high)) +
-  geom_point(aes(y=chance, shape='Chance')) +
+  geom_point(aes(y=chance, shape='Chance'), size=3) +
   facet_grid(.~contrast + cues, scales='free_x', space='free_x') +
   ylim(c(0,1)) +
   scale_shape_manual('', values = c(1, 16), breaks = c('Chance', 'Observed')) +
