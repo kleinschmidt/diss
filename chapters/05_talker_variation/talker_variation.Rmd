@@ -649,21 +649,40 @@ vot_class <-
 
 ```{r classification-accuracy}
 
-vowel_accuracy <-
-  vowel_class %>%
-  ## filter(Vowel == category_model) %>%
-  ## mutate(accuracy = posterior_choice,
-  ##        accuracy_p = posterior)
-  filter(posterior_choice) %>%
-  mutate(accuracy = Vowel == category_model)
+#' Two methods to compute accuracy from classifier
+#'
+#' @param tbl classifier output
+#' @param category_col name of column specifying true category
+#' @param method if 'choice' (default), accuracy is 1 if choice is correct,
+#'   0 if not. if 'posterior', accuracy is posterior probability of true
+#'   category
+#' @return tbl with accuracy in column \code{accuracy}
+get_accuracy <- function(tbl, category_col, method='choice') {
+  assert_that(method %in% c('choice', 'posterior'))
+  assert_that(has_name(tbl, category_col))
+
+  category_eq_mod <- lazyeval::interp(~var==category_model,
+                                      var=as.name(category_col))
+
+  if (method == 'choice') {
+    tbl %>%
+      filter(posterior_choice) %>%
+      mutate_(accuracy = category_eq_mod)
+  } else if (method == 'posterior') {
+    tbl %>%
+      filter_(category_eq_mod) %>%
+      mutate_(accuracy = ~ posterior)
+  }
+
+}
+
+acc_method <- 'choice'
+
+vowel_accuracy <- 
+  vowel_class %>% get_accuracy('Vowel', method=acc_method)
 
 vot_accuracy <-
-  vot_class %>%
-  ## filter(voicing == category_model) %>%
-  ## mutate(accuracy = posterior_choice,
-  ##        accuracy_p = posterior)
-  filter(posterior_choice) %>%
-  mutate(accuracy = voicing == category_model)
+  vot_class %>% get_accuracy('voicing', method=acc_method)
 
 accuracy <- 
   vowel_accuracy %>%
@@ -953,14 +972,12 @@ vowel_accuracy_marginal <-
   vowel_class_all %>%
   filter(group_is == 'Inferred',
          subsample_size == 3) %>%
-  filter(posterior_choice) %>%
-  mutate(accuracy = Vowel == category_model)
+  get_accuracy('Vowel', method=acc_method)
 
 vot_accuracy_marginal <-
   vot_class_all %>%
   filter(group_is == 'Inferred') %>%
-  filter(posterior_choice) %>%
-  mutate(accuracy = voicing == category_model)
+  get_accuracy('voicing', method=acc_method)
 
 accuracy_marginal <-
   vowel_accuracy_marginal %>%
