@@ -941,6 +941,8 @@ In some respects, these results mirror the patterns of informativity about the c
 
 However, in other respects, these results do _not_ simply mirror informativity. For instance, un-normalized F1xF2 distributions diverge from marginal more for dialect+sex than they do for sex alone, but accuracy at inferring a talker's sex is nearly at ceiling, while accuracy is barely above chance for inferring a talker's dialect+sex. Likewise, normalized F1xF2 distributions given dialect and dialect+sex diverge from marginal less than non-normalized, but accuracy at inferring these two grouping variables is higher for normalized than non-normalized.
 
+Why the discrepancy? The informativity measure we used was the average divergence of _each category's_ cue distribution. For inferring indexical groups, we assumed that listeners do not know the intended category of each observation, and so the relevant distributions are the _marginal_ distribution, which is a _mixture_ of the category-specific ones. Even if there are some categories whose individual distributions diverge across groups, the overall mixture distribution of all categories may still be too similar to allow for the group to be reliably inferred.
+
 # Discussion
 
 ## A lower bound
