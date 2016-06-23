@@ -328,9 +328,9 @@ It's unclear how much re-organization of the existing bits will be required. But
 ### Status
 
 * Talker variation chapter
-    * Intro/background outlined, could probably use __revision__
+    * Intro/background outlined, needs to be __written up__.
     * Methods: __done__.
-    * Results: in report, need to __cut down__ and __copy over__
+    * Results: mostly __done__. need to write up __joint inference__ results (or cut).
     * Discussion: some bullets, needs to be __organized and fleshed out__
 * infer prior chapter
     * see last week.
@@ -349,6 +349,13 @@ It's unclear how much re-organization of the existing bits will be required. But
 * Wednesday
     * puzzle over + write up classifier accuracy results
     * analyze advantage of dialect
+    * write up dialect results
+* Thursday
+    * write up dialect specific errors
+    * finish writeup of dialect stuff
+    * run indexical classifier analysis
+    * write up indexical classifier analysis
+    * run joint classifier analysis
 
 ## June 27
 
