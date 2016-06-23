@@ -943,6 +943,68 @@ However, in other respects, these results do _not_ simply mirror informativity. 
 
 Why the discrepancy? The informativity measure we used was the average divergence of _each category's_ cue distribution. For inferring indexical groups, we assumed that listeners do not know the intended category of each observation, and so the relevant distributions are the _marginal_ distribution, which is a _mixture_ of the category-specific ones. Even if there are some categories whose individual distributions diverge across groups, the overall mixture distribution of all categories may still be too similar to allow for the group to be reliably inferred.
 
+## Joint inference of categories and groups
+
+The fact that it's possible to infer many grouping variables from unlabeled observations suggests that these grouping variables can be helpful even when they're not known to listeners a priori. For instance, knowing a talker's sex substantially improves vowel recognition, and sex can be inferred from vowel productions even without knowing the category of each vowel. To evaluate this, we computed the joint posterior over categories and group, and then marginalized (averaged) over groups in order to compare with the known-group accuracy.
+
+```{r group-inferred-accuracy}
+
+vowel_accuracy_marginal <-
+  vowel_class_all %>%
+  filter(group_is == 'Inferred',
+         subsample_size == 3) %>%
+  filter(posterior_choice) %>%
+  mutate(accuracy = Vowel == category_model)
+
+vot_accuracy_marginal <-
+  vot_class_all %>%
+  filter(group_is == 'Inferred') %>%
+  filter(posterior_choice) %>%
+  mutate(accuracy = voicing == category_model)
+
+accuracy_marginal <-
+  vowel_accuracy_marginal %>%
+  select(-Age) %>%
+  mutate(contrast = 'Vowels') %>%
+  bind_rows(vot_accuracy_marginal %>% mutate(contrast = 'Stop voicing')) %>%
+  filter(grouping != 'Marginal') %>%
+  ungroup() %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels))
+
+accuracy_marginal_summary <-
+  accuracy_marginal %>%
+  group_by(contrast, cues, grouping, group_is, Talker) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+```
+
+```{r group-inferred-acc-plot, fig.width=8.3, fig.height=4.2}
+
+accuracy_marginal_summary %>%
+  bind_rows(accuracy_summary) %>%
+  ggplot(aes(x = grouping, y=accuracy,
+             color = grouping, alpha = group_is)) +
+  ## geom_point(data = accuracy %>%
+  ##              group_by(grouping, Talker, cues, contrast) %>%
+  ##              summarise(accuracy = mean(accuracy)),
+  ##            position='jitter', alpha=0.2) +
+  geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi), stat='identity',
+                  position = pd()) +
+  facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  labs(x = 'Grouping (broadest to most specific)',
+       y = 'Probability of correct recognition') +
+  lims(y = c(NA, 1)) +
+  scale_alpha_manual(values = c(1, 0.4))
+
+```
+
+
+
 # Discussion
 
 ## A lower bound
