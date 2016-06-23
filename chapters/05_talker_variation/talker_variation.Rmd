@@ -1015,7 +1015,7 @@ accuracy_marginal_summary %>%
   theme(axis.text.x = element_text(angle=45, hjust=1)) +
   labs(x = 'Grouping (broadest to most specific)',
        y = 'Probability of correct recognition') +
-  lims(y = c(NA, 1)) +
+  lims(y = c(0, 1)) +
   scale_alpha_manual(values = c(1, 0.4))
 
 ```
@@ -1047,7 +1047,7 @@ acc_marginal_by_vowel_summary %>%
 
 ```
 
-```{r vowel-confusion-mats}
+```{r vowel-confusion-mats, eval=FALSE}
 
 vowel_class_all %>%
   filter(subsample_size == 3) %>%
