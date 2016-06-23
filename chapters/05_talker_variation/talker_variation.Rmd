@@ -840,8 +840,35 @@ dialect_advantage %>%
 
 ```
 
-
 ## Inferring socio-indexical variables from cue distributions
+
+```{r indexical-classification, cache=TRUE}
+
+## have to re-train models without subsampling
+vowel_index_class <-
+  vowel_data_grouped %>%
+  filter(! grouping %in% c('Marginal', 'Talker')) %>%
+  mutate(trained = map2(data, grouping, train_models_indexical_with_holdout),
+         posteriors = map(trained, classify_indexical_with_holdout)) %>%
+  unnest(map2(posteriors, grouping, ~ rename_(.x, group = .y)))
+
+vot_index_class <-
+  vot_by_place_grouped %>%
+  filter(! grouping %in% c('Marginal', 'Talker')) %>%
+  mutate(trained = map2(data, grouping,
+                        ~ train_models_indexical_with_holdout(.x,
+                                                              .y,
+                                                              category='voicing',
+                                                              formants='vot')),
+         posteriors = map(trained, classify_indexical_with_holdout)) %>%
+  unnest(map2(posteriors, grouping, ~ rename_(.x, group = .y))) %>%
+  group_by(cues, grouping, Talker, group, model) %>%
+  aggregate_log_lhood('log_posterior') %>%
+  normalize_log_probability('log_posterior')
+
+```
+
+
 
 # Discussion
 
