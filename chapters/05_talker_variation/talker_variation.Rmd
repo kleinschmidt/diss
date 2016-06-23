@@ -868,6 +868,65 @@ vot_index_class <-
 
 ```
 
+```{r indexical-accuracy, cache=TRUE, dependson=c('indexical-classification')}
+
+vowel_index_acc <-
+  vowel_index_class %>%
+  filter(as.logical(posterior_choice)) %>%
+  mutate(accuracy = group == model)
+
+vot_index_acc <-
+  vot_index_class %>%
+  filter(posterior_choice) %>%
+  mutate(accuracy = group == model)
+
+index_acc <-
+  bind_rows(vowel_index_acc %>% mutate(contrast = 'Vowel'),
+            vot_index_acc %>% mutate(contrast = 'Stop voicing')) %>%
+  mutate(grouping = factor(grouping, levels = grouping_levels))
+
+## bootstrapped CIs
+index_acc_summary <-
+  index_acc %>%
+  group_by(cues, grouping) %>%
+  do({ boot_ci(.$accuracy, function(d,i) mean(d[i])) })
+
+## exact binomial CIs (kosher because talker accs are single binary observations)
+binomial_ci = function(p, x) qbeta(p, sum(x)+0.5, length(x)-sum(x)+0.5)
+index_acc_summary_exact <-
+  index_acc %>%
+  group_by(contrast, cues, grouping) %>%
+  summarise_each(funs(mean,
+                      ci_low=binomial_ci(0.025, .),
+                      ci_high=binomial_ci(0.975, .)),
+                 accuracy)
+
+## compute chance accuracy
+index_chance_acc <-
+  bind_rows(vowel_index_class, vot_index_class) %>%
+  mutate(grouping = factor(grouping, levels = grouping_levels)) %>%
+  group_by(cues, grouping, group) %>%
+  summarise() %>%
+  summarise(chance = 1/n())
+
+```
+
+```{r indexical-acc-plot, fig.width=8.25, fig.height=3.5}
+
+index_acc_summary_exact %>%
+  left_join(index_chance_acc) %>%
+  ggplot(aes(x=grouping, y=mean, color=grouping)) +
+  geom_point(aes(shape='Observed'), size=2) +
+  geom_linerange(aes(ymin=ci_low, ymax=ci_high)) +
+  geom_point(aes(y=chance, shape='Chance')) +
+  facet_grid(.~contrast + cues, scales='free_x', space='free_x') +
+  ylim(c(0,1)) +
+  scale_shape_manual('', values = c(1, 16), breaks = c('Chance', 'Observed')) +
+  labs(x = 'Grouping',
+       y = 'Probability of correct classification\n(Socio-indexical group)') +
+  theme(axis.text.x = element_text(angle=45, hjust=1))
+
+```
 
 
 # Discussion
