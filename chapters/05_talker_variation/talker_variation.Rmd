@@ -639,6 +639,11 @@ vowel_class <-
   filter(group_is == 'Known',
          subsample_size == 3 | grouping == 'Talker')
 
+vot_class_all <- vot_class
+
+vot_class <-
+  vot_class_all %>%
+  filter(group_is == 'Known')
 ```
 
 
