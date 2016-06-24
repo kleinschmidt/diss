@@ -1143,7 +1143,7 @@ vowel_accuracy_marginal %>%
     
 ## Consequences for adapting to unfamiliar talkers
 
-* Adaptation/recalibration varies substantially across contrasts and cues, especially when it comes to generalization across talkers. The ideal adapter provides, in principle, and explanation for these differences: <explain>
+* Adaptation/recalibration varies substantially across contrasts and cues, especially when it comes to generalization across talkers. The ideal adapter provides, in principle, an explanation for these differences: listeners base their on prior expectations about an unfamiliar talker's cue distributions on their experience with other talkers, in a way that is itself based on the _structure_ of cross-talker variation. This structure determines both the _strength_ of prior beliefs, and their _content_, the particular prior experiences that contribute to prior beliefs.
 * (( OR: ...provides a quantitative framework for explaining? for addressing these differences? ))
 * The analysis here provides some evidence that this explanation is correct. When there's no differences across talkers, listeners benefit from assuming that talkers' distributions are the same, until they get evidence to the contrary.
 
