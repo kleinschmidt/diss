@@ -1113,11 +1113,18 @@ vowel_accuracy_marginal %>%
 
 * Summary of results
     * on the whole, socio-indexical variables are _informative_ about linguistic cue distribution, _useful_ for improving speech recognition, and themselves can be inferred on the basis of acoustic-phonetic cues alone.
-    * these variables differ in the extent to which this is true, both within a single phonetic contrast/set of cues, and between different contrasts/cues.
+    * these variables differ in utility and informativity, both within a single phonetic contrast/set of cues, and between different contrasts/cues.
+    * on the whole, informativity and utility mirror each other. However, utility for speech recognition and socio-indexical judgements do not always mirror each other.
+* What of our goals?
+    1. _Informativity_: socio-indexical variables are more informative for vowels than for stop voicing. And talker identity is by far the most informative of all variables considered about both vowel and stop voicing. After that, other grouping variables are uniformly uninformative for stop voicing, and for vowels, talker sex is next, followed by dialect.
+    2. _Utility_
+    3. _Inferability_
 
 
 
 ## What to track?
+
+<!-- this is the major discussion point. -->
 
 * Major question that ideal adapter raises is _what_ linguistic, socio-indexical, and acoustic/phonetic variables listeners are learning distributions for.
     * Doesn't directly answer this, per se, but rather provides a set of tools for thinking about it.
@@ -1125,14 +1132,14 @@ vowel_accuracy_marginal %>%
 * Generally: don't want to track _everything_. Listeners need only track distributions of variables that are informative.
     * Applies at level of phonetic categories: don't track VOT given vowel place.
     * But also applies at the level of socio-indexical groupings.
-    * Can actually _hurt_ you to track cue distributions at a level that's not informative (bias-variance tradeoff).
+    * Can actually _hurt_ you to track cue distributions at a level that's not informative
+        * (( explain bias-variance tradeoff ))
 * However, informativity goes beyond better _speech_ recognition.
     * Listeners get a lot of non-linguistic information from speech signal.
     * Have to consider the _goals_ of speech perception, which go beyond just recognizing phonetic categories.
     * Sociolinguistics recognizes that the communication of social information is equally or more important in many cases.
     * Groupings that are socially meaningful can thus be informative and justify being tracked, even if ignoring them has a negligible effect on speech recognition, as long as the corresponding cue distributions carry some information about relevant social variables. 
-    * Dialect is a good case: overall, ignoring dialect doesn't have huge consequences on recognition accuracy. But it can be inferred (at least above chance) based on vowel F1 and F2.
-    * (( MAYBE )) And the vowels that are most informative about dialec group are not ones whose recognition suffers greatly when dialect is ignored.
+    * Dialect is a good case: on the whole, ignoring dialect doesn't have huge consequences on recognition accuracy. But it can be inferred (at least above chance) based on vowel F1 and F2.
     
 ## Consequences for adapting to unfamiliar talkers
 
