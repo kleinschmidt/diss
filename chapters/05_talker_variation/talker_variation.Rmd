@@ -701,6 +701,20 @@ accuracy_summary <-
          accuracy_lo = ymin,
          accuracy_hi = ymax)
 
+## Talker advantage
+## (TODO: incorporate)
+accuracy_talker_advantage_summary <- 
+  accuracy %>%
+  group_by(cues, contrast, grouping, Talker) %>%
+  summarise(accuracy=mean(accuracy)) %>%
+  rename(Talker_=Talker) %>%
+  spread(grouping, accuracy) %>%
+  gather(comparison, accuracy, -cues, -contrast, -Talker, -Talker_) %>%
+  mutate(talker_advantage = Talker - accuracy) %>%
+  group_by(contrast, cues, comparison) %>%
+  do({ boot_ci(.$talker_advantage, function(d,i) mean(d[i], na.rm=TRUE)) }) %>%
+  filter(is.finite(observed))
+
 ```
 
 
