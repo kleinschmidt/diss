@@ -277,7 +277,10 @@ For the vowel data, the different levels of grouping have very different group s
 
 run_kl <- function(data_grouped, reference_grouping,
                    category_col='Vowel', cue_cols=c('F1', 'F2'), ...) {
-  
+  ## check input format
+  assert_that(has_name(data_grouped, 'data'),
+              has_name(data_grouped, 'grouping'))
+
   train <- partial(train_models, grouping=category_col, formants=cue_cols,  ...)
   
   models <- data_grouped %>%
