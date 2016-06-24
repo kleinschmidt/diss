@@ -1109,7 +1109,7 @@ vowel_accuracy_marginal %>%
 ```
 
 
-# Discussion
+# General Discussion
 
 * Summary of results
     * on the whole, socio-indexical variables are _informative_ about linguistic cue distribution, _useful_ for improving speech recognition, and themselves can be inferred on the basis of acoustic-phonetic cues alone.
@@ -1163,8 +1163,12 @@ TODO: work this in (probably above in bias-variance tradeoff)
 ## Distributions vs. recognition accuracy
 
 * Generative model: good for more than just correct/incorrect recognition accuracy. not always 100% certain, lots of uncertainty/overlap in normal speech, need to have a good model of cue distributions in order to deal with that uncertainty effectively.
-    * (( evidence that people are sensitive to the distributions? ))
+    * (( evidence that people are sensitive to the distributions? McMurray, Clayards, ))
     * (( what does this have to do with what we've shown here...is there anywhere where these measures make opposite predictions? and where would that really matter? uncertainty maintenance is one place))
+
+## Sociolinguistic stuff
+
+(( something about relevance to sociolinguistics...what do people have knowledge of? what sorts of inferences should they be able to make? what cues are actually informative? ))
 
 ## A lower bound
 
