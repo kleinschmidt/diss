@@ -1143,23 +1143,18 @@ vowel_accuracy_marginal %>%
     
 ## Consequences for adapting to unfamiliar talkers
 
+The results of this study also tell us something about how listeners might adapt to an unfamiliar talker. The ideal adapter links informativity to adaptation, and the results here allow us to make more specific predictions based on the ideal adapter, in two ways.
 
-* Ideal adapter links informativity to adaptation, in two ways.
-    * When talker is a higher informative grouping, prior experience with other talkers is less relevant and so should adapt faster and more completely. 
-    * For higher levels of grouping that are highly informative, should generalize from other talkers in the same group, and not across groups.
-    * Reason for this, again, is bias-variance tradeoff (see above).
-    * Our results here allow us to make more specific predictions.
-* Prediction 1: Less talker variability, stronger prior beliefs, slower adaptation.
-    * little variation in vot, more in formant frequencies.
-    * adaptation to voicing is generally slow/weaker than fricative or stop place cues [@Kraljic2007, Chapter_NNN, etc.]. stop place is cued in part by formants like vowels, and so likely shows similar levels of talker variability.
-* Prediction 2: Groups guide generalization: if two talkers are from groups that tend to differ, more likely to treat them separately, and vice-versa.
-    * little difference between male and female for VOT, listeners biased towards generalizing across male+female talkers [@Kraljic2007]
-    * not addressed here, but big differences between male and female in fricative cues [@Newman2001], and listeners tend _not_ to generalize across male and female talkers.
-* An important thing to keep in mind: these are just priors, and can be overcome with enough of the right kind of experience
-    * e.g., generalize from male to female with right kind of test stimuli [@Reinisch2014]
-    * and learn talker-specific distributions for VOT with enough evidence that their distributions are different [@Munson2011].
+First, the informativity of talker identity is a measure of the variability across talkers. When talker identity is highly informative, there's more variabiltiy across talkers, and the ideal adapter predicts that prior experience with other talkers will be less relevant, resulting in faster and more complete adaptation to an unfamiliar talker. We found here that talker identity is less informative about VOT distributions than it is for vowel formant distributions. Hence, the ideal adapter predicts that listeners will adapt to talker-specific VOT distributions more slowly, and be more constrained by prior experience with other talkers. The first prediction is borne out by @Kraljic2007, who compared recalibration of a voicing contrast with a fricative place contrast. It's also borne out indirectly by the modeling work in Chapters NNN and NNN, which found that the effective prior sample size for /b/-/d/ (which, like vowels, is primarily cued by formantf requencies) is much lower than for /b/-/p/ (cued by VOT).
 
-TODO: work this in:
+Second, the informativity of higher-level grouping variables is linked to _generalization_ across talkers: if two talkers are from groups that tend to differ, listeners should treat them separately and not generalize from experience with one talker to the other. Likewise, if two talkers are from the same group, listeners _should_ generalize. We found that talker sex is informative for vowel formant distributions, but not for VOT, which means that listeners _should_ generalize from a male to a female talker (and vice-versa) for a voicing contrast, but _not_ for a vowel contrast. Listeners do, in fact, tend to generalize voicing recalibration across talkers of different sexes [@Kraljic2006;@Kraljic2007]. While there's (to our knowledge) no data on cross-talker generalization for vowel recalibration, listeners tend not to generalize across talkers for fricative recalibration [@Eisner2005;@Kraljic2007], which (like vowels) are cued by spectral cues that vary across talkers [@Newman2001].
+
+There is also evidence for the prediction of generalization _within_ informative groups. In the absence of evidence that two talkers from the same group (e.g. two males) produce a contrast differently, experience with one provides an informative starting point for comprehending (and adapting to) the other. Along these lines, @VanderZande2014 found that listeners generalize from experience with one male talker's pronunciation of a /b/-/d/ contrast to another, unfamiliar male.
+
+Finally, it's important to point out that these predictions are best thought of as _biases_ that can be overcome with enough of the right kind of evidence [@Kleinschmidt2015]. For instance, listeners can overcome their bias to generalize experience with VOT and learn talker-specific VOT distributions, but it requires hundreds of observations from talkers who produce very different VOT distributions [@Munson2011]. Likewise, listeners will generalize recalibration of a fricative contrast from a female to a male talker given the right kind of test stimuli [@Reinisch2014].
+
+
+TODO: work this in (probably above in bias-variance tradeoff)
 
 > The structure of how talkers actually vary in their use of VOT and formants can thus serve as a _prior_ on whether to group observed cue values from one talker with those from another talker. There's a tradeoff in adapting to an unfamiliar talker: On the one hand, the cues produced by a talker are the most informative observations about the cues that talker will produce in the future. On the other hand, listeners often have very few tokens from an unfamiliar talker themselves, and estimates of an underlying distribution from a small number of observations are either highly uncertain or noisy and more likely to be wrong. Thus, in cases where cue distributions are similar across talkers, listeners can benefit by treating those observations as if they came from the same underlying distribution. But in cases where talkers differ a lot, lumping observations from different talkers or groups together will lead to reduced comprehension accuracy and/or slowed adaptation to a talker's own cue distributions. The analyses reported here show that _both_ types of situations actually occur in variation across talkers.
 > 
