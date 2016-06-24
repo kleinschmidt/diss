@@ -1114,13 +1114,7 @@ vowel_accuracy_marginal %>%
     * on the whole, socio-indexical variables are _informative_ about linguistic cue distribution, _useful_ for improving speech recognition, and themselves can be inferred on the basis of acoustic-phonetic cues alone.
     * these variables differ in the extent to which this is true, both within a single phonetic contrast/set of cues, and between different contrasts/cues.
 
-## A lower bound
 
-* Model each category as a single gaussian distribution.
-* Really, each category is a _mixture_ of talker-specific distributions.
-* For the purposes of _adaptation_, need to explicitly model this. But it's harder.
-* And really what we're trying to get at here is how far the group-level prior _alone_ gets you. This is a __lower bound__ on the utility of group-level knowledge for dealing with an unfamiliar talker.
-* Modeling each category as a single distribution of tokens provides an approximation of the predictive distribution you'd get for an _unfamiliar_ talker, where you marginalize out the talker-level models 
 
 ## What to track?
 
@@ -1156,3 +1150,13 @@ TODO: work this in:
 * Generative model: good for more than just correct/incorrect recognition accuracy. not always 100% certain, lots of uncertainty/overlap in normal speech, need to have a good model of cue distributions in order to deal with that uncertainty effectively.
     * (( evidence that people are sensitive to the distributions? ))
     * (( what does this have to do with what we've shown here...is there anywhere where these measures make opposite predictions? and where would that really matter? uncertainty maintenance is one place))
+
+## A lower bound
+
+A final caveat.
+
+* Model each category as a single gaussian distribution.
+* Really, each category is a _mixture_ of talker-specific distributions.
+* For the purposes of _adaptation_, need to explicitly model this. But it's harder.
+* And really what we're trying to get at here is how far the group-level prior _alone_ gets you. This is a __lower bound__ on the utility of group-level knowledge for dealing with an unfamiliar talker.
+* Modeling each category as a single distribution of tokens provides an approximation of the predictive distribution you'd get for an _unfamiliar_ talker, where you marginalize out the talker-level models 
