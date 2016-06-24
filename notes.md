@@ -5,6 +5,11 @@
     * (Maybe better in discussion)
 * Relevant acquisition work: need to learn clusters of cues (phonetic categories). Analogously, learn cluster(s) of talkers/cue distributions.
 
+## Experiment 2
+
+* distributions that predict more extreme divergence from typical classification.
+* extreme negative VOTs: prevoicing
+
 # Analyses
 
 * Compare fits with buckeye data.
