@@ -113,6 +113,7 @@ grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker
 * We also know that listeners are sensitive to (real or believed) socio-indexical groups:
     * @Niedzielski1999: say that talker is canadian, hear more canadian raising
     * gender stereotypicality and visual cues affect perception of vowels and fricatives [@Strand1999;@Johnson1999;@Strand1996]
+    * indirect evidence comes from recalibration studies that show different patterns of generalization from male to female talkers (and vice-versa) for different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007; @Reinisch2014]
 * Listeners can infer socio-indexical variables but it's not clear what linguistic variables they use.
     * Dialect classification [@Clopper2006,@Clopper2007]
     * [cf. @Thomas2002 for more references]
@@ -123,7 +124,7 @@ So the _existence_ of group differences is established, as is listeners' _sensit
 
 1. Quantitatively assess how _informative_ different socio-indexical variables are about phonetic cue distributions.
 2. Determine the _utility_ of socio-indexical variables for accurate speech recognition.
-3. Show how listeners can make inferences about socio-indexical variables in the same way as linguistic variables, based on cue distributions.
+3. Show that knowledge of cue distributions allows listeners to make inferences about socio-indexical variables in the same way as linguistic variables.
 
 We address these goals at different levels of socio-indexical grouping, and for two different sets of phonetic cues/contrasts. The overarching goal is to quantify the importance of socio-indexical variables in a common currency that allows comparison _across_ variables and cues/contrasts.  Comparing multiple contrasts is a first step in refining the predictions of the ideal adapter framework about what distributions listeners should track.
 
