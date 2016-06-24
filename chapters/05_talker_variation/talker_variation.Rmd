@@ -1143,9 +1143,21 @@ vowel_accuracy_marginal %>%
     
 ## Consequences for adapting to unfamiliar talkers
 
-* Adaptation/recalibration varies substantially across contrasts and cues, especially when it comes to generalization across talkers. The ideal adapter provides, in principle, an explanation for these differences: listeners base their on prior expectations about an unfamiliar talker's cue distributions on their experience with other talkers, in a way that is itself based on the _structure_ of cross-talker variation. This structure determines both the _strength_ of prior beliefs, and their _content_, the particular prior experiences that contribute to prior beliefs.
-* (( OR: ...provides a quantitative framework for explaining? for addressing these differences? ))
-* The analysis here provides some evidence that this explanation is correct. When there's no differences across talkers, listeners benefit from assuming that talkers' distributions are the same, until they get evidence to the contrary.
+
+* Ideal adapter links informativity to adaptation, in two ways.
+    * When talker is a higher informative grouping, prior experience with other talkers is less relevant and so should adapt faster and more completely. 
+    * For higher levels of grouping that are highly informative, should generalize from other talkers in the same group, and not across groups.
+    * Reason for this, again, is bias-variance tradeoff (see above).
+    * Our results here allow us to make more specific predictions.
+* Prediction 1: Less talker variability, stronger prior beliefs, slower adaptation.
+    * little variation in vot, more in formant frequencies.
+    * adaptation to voicing is generally slow/weaker than fricative or stop place cues [@Kraljic2007, Chapter_NNN, etc.]. stop place is cued in part by formants like vowels, and so likely shows similar levels of talker variability.
+* Prediction 2: Groups guide generalization: if two talkers are from groups that tend to differ, more likely to treat them separately, and vice-versa.
+    * little difference between male and female for VOT, listeners biased towards generalizing across male+female talkers [@Kraljic2007]
+    * not addressed here, but big differences between male and female in fricative cues [@Newman2001], and listeners tend _not_ to generalize across male and female talkers.
+* An important thing to keep in mind: these are just priors, and can be overcome with enough of the right kind of experience
+    * e.g., generalize from male to female with right kind of test stimuli [@Reinisch2014]
+    * and learn talker-specific distributions for VOT with enough evidence that their distributions are different [@Munson2011].
 
 TODO: work this in:
 
