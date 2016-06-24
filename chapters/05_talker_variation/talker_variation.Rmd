@@ -830,7 +830,7 @@ vowel_competitor_errors %>%
 
 Based on the summary by @Clopper2005, we compiled a list of likely dialect-specific errors (Table {@tab:dialect-error-table}). Note that not all dialect-specific changes in vowel _distributions_ will lead to _errors_. For instance, `uw` fronting occurs in many dialects, but this shift moves `uw` into otherwise unoccupied territory and likely will have no consequences for correct recognition (at least to the extent that it occurs in this dataset). Figure {@fig:socio-relevant-vowel-acc} shows the error rates for each of these predicted confusions, under each level of socio-indexical grouping. Despite the high level of variabilty, knowing a dialect does help reduce at least some dialect-specific errors (e.g., `ao` raising to `uh` in the Mid-Atlantic dialect and, in the North dialect, the `ao`-`aa` non-merger, and `ae` raising to `eh` (although this is variable across the eight talkers in the dialect group and does not reach significance).
 
-Second, the errorbars in Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} plot variability across talkers, independently for each grouping level. But for assessing the utility of dialect, a more appropriate measure of uncertainty is the variability of the within-talker _difference_ between accuracy with and without considering dialect. If talkers vary in their baseline level of intelligibility, then this within-subject difference may be less variable.  Figure {@fig:dialect-over-marginal-sex} clarifies plots the average (and 95% bootstrapped CIs) within-talker increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
+Second, the errorbars in Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} plot variability across talkers, independently for each grouping level. But for assessing the utility of dialect, a more appropriate measure of uncertainty is the variability of the within-talker _difference_ between accuracy with and without considering dialect. If talkers vary in their baseline level of intelligibility, then this within-subject difference may be less variable.  Figure {@fig:dialect-over-marginal-sex} plots the average (and 95% bootstrapped CIs) within-talker increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
 
 ```{r dialect-over-marginal-sex, fig.width=8.9, fig.height=3.7}
 
@@ -860,7 +860,8 @@ dialect_advantage %>%
   ggplot(aes(x=Vowel, y=value, color=comparison)) +
   geom_pointrange(stat='summary', fun.data=mean_cl_boot, position=pd()) +
   geom_hline(yintercept=0) +
-  facet_grid(measure ~ cues, scales='free_y')
+  facet_grid(measure ~ cues, scales='free_y') +
+  labs(y = 'Change in accuracy when\nconditioning on dialect')
 
 ```
 
@@ -1081,6 +1082,10 @@ vowel_accuracy_marginal %>%
 
 # Discussion
 
+* Summary of results
+    * on the whole, socio-indexical variables are _informative_ about linguistic cue distribution, _useful_ for improving speech recognition, and themselves can be inferred on the basis of acoustic-phonetic cues alone.
+    * these variables differ in the extent to which this is true, both within a single phonetic contrast/set of cues, and between different contrasts/cues.
+
 ## A lower bound
 
 * Model each category as a single gaussian distribution.
@@ -1120,3 +1125,6 @@ TODO: work this in:
 
 ## Distributions vs. recognition accuracy
 
+* Generative model: good for more than just correct/incorrect recognition accuracy. not always 100% certain, lots of uncertainty/overlap in normal speech, need to have a good model of cue distributions in order to deal with that uncertainty effectively.
+    * (( evidence that people are sensitive to the distributions? ))
+    * (( what does this have to do with what we've shown here...is there anywhere where these measures make opposite predictions? and where would that really matter? uncertainty maintenance is one place))
