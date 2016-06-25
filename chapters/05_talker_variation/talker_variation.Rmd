@@ -1174,3 +1174,7 @@ The approach to group-level modeling that we take here is roughly equivalent to 
 [^predictive-approx]: Depending on how variability at loewr levels of grouping is modeled.
 
 [^lower-bound-caveat]: Even above and beyond the limitations imposed by unqueal numbers of talkers in each group, which necessitates subsampling talkers in the larger groups in order to meaningfully compare accuracy.
+
+# Conclusion
+
+* __take home point__: inference under uncertainty/ideal adapter provides a unified approach to speech perception. a set of _conceptual tools_ to address both socio- and psycholinguistically interesting questions. and novel combinations that are of interest to both.
