@@ -1126,14 +1126,20 @@ vowel_accuracy_marginal %>%
 
 <!-- this is the major discussion point. -->
 
-* Major question that ideal adapter raises is _what_ linguistic, socio-indexical, and acoustic/phonetic variables listeners are learning distributions for.
-    * Doesn't directly answer this, per se, but rather provides a set of tools for thinking about it.
-    * When combined with data like we have here, formulate hypotheses about what listeners _should_ do.
-* Generally: don't want to track _everything_. Listeners need only track distributions of variables that are informative.
-    * Applies at level of phonetic categories: don't track VOT given vowel place.
-    * But also applies at the level of socio-indexical groupings.
-    * Can actually _hurt_ you to track cue distributions at a level that's not informative
-        * (( explain bias-variance tradeoff ))
+Treating speech perception as a problem of inference under uncertainty---as the ideal adapter does---highlights the importance of listeners' knowledge about the distributions of cues that are produced for each linguistic unit.  A major  question that this perspective raises is _what_ linguistic, socio-indexical, and acoustic/phonetic variables listeners are learning distributions for. The ideal adapter does not directly answer this question, but provides a set of conceptual and quantitative tools for addressing it. The studies reported here take these tools and apply them to data on how many different talkers produce two different sets of phonetic categories. We hope that by doing so we provide a proof of concept for the broad usefulness of these tools. One purpose they might be put to is to formulate hypotheses about what distributions listeners should track.
+
+<!-- missing the connection: listeners can benefit from _structure_ in variability over talkers/situations. we don't know what that structure is, at least in a way that allows for making more than qualitative predictions -->
+
+At the highest level, the ideal adapter predicts that listeners should not track _everything_. Rather, listeners need only track the joint distributions of variables that are informative. At the level of phonetic categories themselves, this means that (for instance) there's no reason for listeners to track each vowel's distribution of preceding VOT[^vot-caveat] (or more absurdly, completely unrelated physical quantities like temperature or barometric pressure). This also applies at the level of socio-indexical grouping variables: listeners get no benefit for tracking separate distributions for different groups of talkers for a cue that does not systematically vary between those groups.
+
+In fact, it can actually _hurt_ a listener to track cue distributions at a level that's not informative. The reason for this is related to the idea of bias-variance tradeoff from machine learning [@James2013, Section 2.2.2]. Given the same amount of data, tracking multiple, specific distributions will result in noisier, less accuracy estimates than lumping together all the observations in a single distribution.  This price may be worth paying for a listener when lumping together observations in a sn
+
+
+
+When adapting to an unfamiliar talker, listeners face a tradeoff.  On the one hand, a talker's own productions are the most informative about how that talker will realize their linguistic intentions in the future. On the other hand, listeners often have very few tokens from an unfamiliar talker themselves, and estimates of an underlying distribution from a small number of observations are either highly uncertain or noisy and more likely to be wrong. Thus, in cases where cue distributions are similar across talkers, listeners can benefit by treating those observations as if they came from the same underlying distribution. But in cases where talkers differ a lot, lumping observations from different talkers or groups together will lead to reduced comprehension accuracy and/or slowed adaptation to a talker's own cue distributions. The analyses reported here show that _both_ types of situations actually occur in variation across talkers.
+
+[^vot-caveat]: Barring, of course, the possibility that VOT is systematically affected by neighboring vowels, and hence informative about them.
+
 * However, informativity goes beyond better _speech_ recognition.
     * Listeners get a lot of non-linguistic information from speech signal.
     * Have to consider the _goals_ of speech perception, which go beyond just recognizing phonetic categories.
