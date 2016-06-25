@@ -117,33 +117,41 @@ cue distributions, this means that listeners must _also_ constantly be inferring
 the current talker's linguistic generative model (the probabilistic
 distributions of cues they produce for each underlying linguistic structure).
 
-This second insight leads to an prediction. An "ideal adapter" will take advantage of any additional structure in the world that is informative about how cue distributions vary from one situation to the next. This may be as simple as the fact that individual talkers tend to be consistent in the cue distributions they produce [@Heald2015].
+This second insight leads to the following prediction. An "ideal adapter" will
+take advantage of any additional structure in the world that is informative
+about how cue distributions vary from one situation to the next. This structure
+may be as simple as the fact that individual talkers tend to be consistent in
+the cue distributions they produce [@Heald2015], meaning that prior experience
+with a familiar talker is informative about the cue distributions they will
+produce in the future. But structure can occur at other levels, too, and here is
+one place that psycholinguistic theories begin to parallel sociolinguistics.  To
+the extent that variables like gender, class, regional origin, etc. are
+sociolinguistically relevant, they are reliably informative about how linguistic
+variables are realized, and hence helpful for speech perception.
 
-## Parallels with sociolinguistics
+This means that a listener can potentially learn a lot about a talker's cue
+distributions just by knowing _who_ a talker is. Conversely, listeners can learn
+a lot about who a talker is based on the distributions of cues that they
+produce. These two long-standing insights from sociolinguistics follow
+straightforwardly from the ideal adapter framework. However, the extent to which
+either of these is plausible _in practice_ depends on exactly how much a
+particular socio-indexical variable---a particular sense of _who_ a talker
+is---actually influences the cue distributions that talkers produce.
+
+Most of the work on the relationship between socio-indexical and linguistic
+variables has been descriptive [but not all, e.g., @Clopper2005]. In the current
+study, we aim to use the theoretical and computational tools of the ideal
+adapter framework to quantify this relationship for a number of these
+variables. This constitutes a first step towards making specific predictions
+about the specific structure in the world that listeners take advantage of in
+order to efficiently adapt to many different talkers [@Kleinschmidt2015].
+Moreover, we aim to show that these tools provide a unifying perspective on
+linguistic and social perception, both of which can be seen as relying on
+knowledge about the cue distributions that correspond to different underlying
+lingiustic and social variables.
+<!-- does some of this belong in background? -->
 
 
-    * Viewing speech perception this way reveals a striking unity between
-      speech recognition and sociolinguistics: to the extent that
-      socio-indexical features like gender, class, regional origin, etc. are
-      reliably correlated with how linguistic variables are realized, they
-      are helpful for speech perception. This informativity is moreover
-      _directly_ linked to how well a listener can _infer_ the
-      socio-indexical features.
-          * on the one hand: predicts that who you think a talker is
-            influences how you perceive speech they produce
-          * on the other: predicts that the cues you perceive tell you a
-            great deal about who a talker is.
-          * both old realizations in sociolinguistics.
-          * both predictions depend on exactly how much a particular
-            socio-indexical grouping---a particular sense of _who_ a talker
-            is---actually influences the cue distributions that talkers
-            produce.
-* <!-- TO BACKGROUND --> Most of the sociolinguistic work on this has been
-  descriptive. We want to show that the theoretical and computational tools of
-  the ideal adapter framework can provide further insight on issues that are
-  relevant to sociolinguistics, and to quantify the relationship between some
-  prominent socio-indexical grouping variables and acoustic-phonetic cue
-  distributions.  
 * <!-- TO GOALS --> In this paper we address: 
     * how informative?
     * how helpful for speech perception?
