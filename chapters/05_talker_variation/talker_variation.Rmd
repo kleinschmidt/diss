@@ -83,31 +83,28 @@ grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker
 
 # Introduction
 
-dual nature of talker variability. problem or source of
-   information.
-* speech perception work started by wanting to get rid of
-  variability. normalization and abstraction
-* sociolinguistics, on the other hand, has shown that people are very
-  sensitive to talker variability. it's a rich source of social information
-  about the talker that listeners are very sensitive to.
-* there's recently been a striking convergence between cognitive and
-  sociolinguistic thinking on talker variability:
-    * speech perception has come around to the fact that talker variability
-      is part of the basic nature of the problem of speech perception.
-    * In part this realization comes from computational-level analyses of
-      speech perception. These approaches start from the hypothesis that the
-      speech perception system is organized in order to be good at speech
-      perception in the world that it has to operate in. In the spirit of
-      ideal observer approaches to other domains
-      [like visual perception; @Marr1972] these approaches focus on spelling
-      out how the available information and structure of the world
-      constrain, in principle, how well a listener can do.
-    * These approaches suggest that speech perception is a process of
-      _inference under uncertainty_: because talkers produce a distribution
-      of acoustic cues for each underlying linguistic unit, the best a
-      listener can do is use knowledge of those distributions to infer how
-      likely each possible linguistic unit is as an explanation of the cues
-      they observe.
+There are two broad traditions in the study of speech perception, and these two traditions have very different approaches to _variability_ in speech. On the one hand, for the cognitive/psycholinguistic tradition, variabiltiy is a _problem_ that listeners must cope with. In this view, variability is such a severe problem that it is traditionally referred to only indirectly, as the "lack of invariance" [@Liberman1967]. THe sociolinguistic tradition, on the other hand, views variation as a rich source of social information. The particular variety of language that you speak says a lot about who you are as a person.
+
+However, these two approaches have recently begun to converge in how they approach variability. In particular, psycholinguistic theories of speech perception have started to take variation seriously, instead of wishing it would go away.
+<!-- something about exemplar theories would be appropriate here --> In part
+this realization comes from computational-level analyses of speech perception
+[@Clayards2008; @Feldman2009; @Feldman2013; @Norris2008; @Kleinschmidt2015]. These
+approaches start from the hypothesis that the speech perception system is
+organized in order to be good at speech perception in the world that it has to
+operate in. In the spirit of ideal observer approaches to other domains
+[like visual perception, @Marr1982; or memory, @Anderson1990; @Anderson1991]
+these approaches focus on spelling out how the nature of the task, the available
+information, and the structure of the world constrain, in principle, how well a
+listener can do.
+
+Applied to speech perception, these approaches reveal two important things.
+These approaches suggest that speech perception is a process of _inference under
+uncertainty_: because of noise in production processes, each linguistic unit is
+realized---even by a single talker---as a _distribution_ of acoustic cues [cf. @Lisker1964; @Peterson1952; @Hillenbrand1995; @Allen2001; @Newman2001]. As
+such, the best a listener can do is to _infer_ how likely each possible
+linguistic unit is as an explanation of the cues they observe, based on their
+knowledge of these cue distributions.
+
     * On top of this, talkers themselves vary in the distributions they
       produce for each linguistic unit. This talker variability means that
       listeners must _also_ constantly be inferring the current talker's
