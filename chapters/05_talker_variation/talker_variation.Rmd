@@ -138,10 +138,39 @@ either of these is plausible _in practice_ depends on exactly how much a
 particular socio-indexical variable---a particular sense of _who_ a talker
 is---actually influences the cue distributions that talkers produce.
 
-Most of the work on the relationship between socio-indexical and linguistic
-variables has been descriptive [but not all, e.g., @Clopper2005]. In the current
-study, we aim to use the theoretical and computational tools of the ideal
-adapter framework to quantify this relationship for a number of these
+## Background ##
+
+What do we already know about the relationship between speech perception and socio-linguistic variables?
+
+First, we know that the _amount_ and _structure_ of talker variability differs between cues and phonetic categories.
+Vowels and fricatives have a lot of talker variability, much of it conditioned on sex [@Peterson1952; @Hillenbrand1995; @Jongman2000; @McMurray2011a; @Newman2001]. For vowels this can be largely attributed to differences in vocal tract length, but not entirely [@Bladon1984; @Johnson2005; @Johnson2006].
+There appears to be less talker variabiltiy for stop voicing (e.g., /b/ vs. /p/), and little systematic effect of sex [@Allen2003; @Lisker1964; @Chodroff2015].
+There is, however, stylistic variation in both. For instance, regional dialects of American English differ in their pronunciation of vowel categories [@Clopper2005; @Labov2005].  Use of voice onset time (VOT) as a cue to stop voicing varies based on  language background [e.g., monolingual English speakers vs. French bilinguals; @Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011], as well as regionally in the UK [@Docherty2011].
+
+We also know that listeners use socio-indexical group information to guide
+speech recognition. @Niedzielski1999 found that if listeners believe that a
+talker is Canadian, they hear more Canadian raising than if they believe the
+talker is American. @Hay2010 found a similar sensitivity to dialect group using
+an even subtler manipulation, manipulating listeners perceptions based on a
+stuffed animal that cued New Zealand or Australia.  Perception of vowels and
+fricatives is affected by the perceived gender of a talker, which can be cued by
+voice quality, visual presentation of a male or female face, or even explicit
+instruction [@Strand1999;@Johnson1999;@Strand1996] Indirect evidence that
+listeners are sensitive to socio-indexical grouping variables comes from
+recalibration (also known as perceptual learning) studies that show different
+patterns of generalization from male to female talkers (and vice-versa) for
+different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007; 
+@Reinisch2014]
+
+Finally, listeners can _infer_ socio-indexical variables based on speech, but it's not clear what linguistic variables they use [cf. @Thomas2002]. Of particular interest, listeners can infer a talker's regional dialect based on short excerpts [@Clopper2006,@Clopper2007]. Listeners can also infer talker _identity_ from sine-wave speech [@Remez1997], which removes non-phonetic voice quality cues to identity but preserves most phonetic information.
+
+Most [but not all, e.g., @Clopper2005; @McMurray2011a] of the work on the relationship between
+socio-indexical and linguistic variables has been descriptive. 
+
+## Our goals
+
+In the current study, we aim to use the theoretical and computational tools of
+the ideal adapter framework to quantify this relationship for a number of these
 variables. This constitutes a first step towards making specific predictions
 about the specific structure in the world that listeners take advantage of in
 order to efficiently adapt to many different talkers [@Kleinschmidt2015].
@@ -149,13 +178,12 @@ Moreover, we aim to show that these tools provide a unifying perspective on
 linguistic and social perception, both of which can be seen as relying on
 knowledge about the cue distributions that correspond to different underlying
 lingiustic and social variables.
-<!-- does some of this belong in background? -->
 
+Specifically, we quantitatively address three questions.
 
-* <!-- TO GOALS --> In this paper we address: 
-    * how informative?
-    * how helpful for speech perception?
-    * can you infer socio-indexical variables?
+1. How _informative_ are socio-indexical variables about the distribution of different acoustic-phonetic cues?
+2. How _useful_ is socio-indexical grouping for correct speech recognition?
+3. How well can you _infer_ socio-indexical variables based on acoustic-phonetic cue distributions alone?
 
 
 
@@ -180,20 +208,6 @@ lingiustic and social variables.
 * Use an ideal observer approach to quantitatively assess.
 * ((meh)) Tell us something about what sorts of conditional distributions listeners should be tracking (if they're optimal), and lay the groundwork for future empirical work.
 
-## Background
-
-* Know that the amount and structure of talker variability differs between cues and phonetic categories.
-    * Vowels/fricatives have a lot, much of it conditioned on sex [@Peterson1952; @Hillenbrand1995; @Jongman2000; @McMurray2011a; @Newman2001]. For vowels this can be largely [but not entirely; @Bladon1984; @Johnson2005; @Johnson2006] attributed to differences in vocal tract length, but not so for fricatives.
-    * Stop voicing, less talker variation, and little systematic effect of sex [@Allen2003; @Lisker1964; @Chodroff2015]
-    * Stylistic variation in both though. Dialect for vowels [@Clopper2005; @LabovDDDD], and dialect/native language background for voicing [French-English bilinguals, @Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011; Scottish English, @Docherty2011].
-* We also know that listeners are sensitive to (real or believed) socio-indexical groups:
-    * @Niedzielski1999: say that talker is canadian, hear more canadian raising
-    * hay & drager stuffed kiwi studies [@Hay2010]
-    * gender stereotypicality and visual cues affect perception of vowels and fricatives [@Strand1999;@Johnson1999;@Strand1996]
-    * indirect evidence comes from recalibration studies that show different patterns of generalization from male to female talkers (and vice-versa) for different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007; @Reinisch2014]
-* Listeners can infer socio-indexical variables but it's not clear what linguistic variables they use.
-    * Dialect classification [@Clopper2006,@Clopper2007]
-    * [cf. @Thomas2002 for more references]
 
 ## Goals
 
@@ -1211,7 +1225,7 @@ At the highest level, the ideal adapter predicts that listeners should not track
 
 [^vot-caveat]: Barring, of course, the possibility that VOT is systematically affected by neighboring vowels, and hence informative about them.
 
-In fact, it can actually _hurt_ a listener to track cue distributions at a level that's not informative. The reason for this is related to the idea of bias-variance tradeoff from machine learning [@James2013, Section 2.2.2]. Given the same amount of data, tracking multiple, specific distributions will result in noisier, less accurate estimates than lumping together all the observations in a single distribution.  This price may be worth paying for a listener when there are large enough differences between groups that treating all observations as coming from the same distribution _biases_ the estimates of the underlying distribution (and hence the inferences that listeners make based on those distributinos) far enough away from the true structure of the data. To take a concrete example, modeling each vowel as a single distribution of (un-normalized) formants across all talkers results in high-variance, overlapping distributions which have low recognition accuracy. But modeling them as two distributions---one for males, and one for females---provides much more specific estimates and higher classification accuracy [Figures @fig:vowel-vot-kl-plot and @fig:overall-accuracy-group-known; @Hillenbrand1995; @Feldman2013a].
+In fact, it can actually _hurt_ a listener to track cue distributions at a level that's not informative. The reason for this is related to the idea of bias-variance tradeoff from machine learning [@James2013, Section 2.2.2]. Given the same amount of data, tracking multiple, specific distributions will result in noisier, less accurate estimates than lumping together all the observations in a single distribution.  This price may be worth paying for a listener when there are large enough differences between groups that treating all observations as coming from the same distribution _biases_ the estimates of the underlying distribution (and hence the inferences that listeners make based on those distributinos) far enough away from the true structure of the data. To take a concrete example, modeling each vowel as a single distribution of (un-normalized) formants across all talkers results in high-variance, overlapping distributions which have low recognition accuracy. But modeling them as two distributions---one for males, and one for females---provides much more specific estimates and higher classification accuracy [Figures {@fig:vowel-vot-kl-plot} and @figaro:overall-accuracy-group-known; @Hillenbrand1995; @Feldman2013a].
 
 
 <!-- When adapting to an unfamiliar talker, listeners face a tradeoff.  On the one hand, a talker's own productions are the most informative about how that talker will realize their linguistic intentions in the future. On the other hand, listeners often have very few tokens from an unfamiliar talker themselves, and estimates of an underlying distribution from a small number of observations are either highly uncertain or noisy and more likely to be wrong. Thus, in cases where cue distributions are similar across talkers, listeners can benefit by treating those observations as if they came from the same underlying distribution. But in cases where talkers differ a lot, lumping observations from different talkers or groups together will lead to reduced comprehension accuracy and/or slowed adaptation to a talker's own cue distributions. The analyses reported here show that _both_ types of situations actually occur in variation across talkers. -->
