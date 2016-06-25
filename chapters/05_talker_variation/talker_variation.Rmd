@@ -1167,10 +1167,10 @@ Finally, it's important to point out that these predictions are best thought of 
 
 ## A lower bound
 
-A final caveat.
+Finally, it is important to note that our results here constitute a _lower bound_ on the informativity or utility of different levels of socio-indexical grouping.[^lower-bound-caveat] We model cue distributions for a particular group as a _single_ normal distribution over observed cue values. In reality, a hierarchical model is more appropriate, since different levels of grouping can nest within each other. For instance, each dialect group is likely better modeled as a _mixture_ of talker-specific distributions, which each exhibit dialect features to a varying degree. This is especially important for _adaptation_ to an unfamiliar talker, since a group-level distribution conflates _within_ and _between_ talker variation, both of which have separate roles to play in belief updating. 
 
-* Model each category as a single gaussian distribution.
-* Really, each category is a _mixture_ of talker-specific distributions.
-* For the purposes of _adaptation_, need to explicitly model this. But it's harder.
-* And really what we're trying to get at here is how far the group-level prior _alone_ gets you. This is a __lower bound__ on the utility of group-level knowledge for dealing with an unfamiliar talker.
-* Modeling each category as a single distribution of tokens provides an approximation of the predictive distribution you'd get for an _unfamiliar_ talker, where you marginalize out the talker-level models 
+The approach to group-level modeling that we take here is roughly equivalent to the _posterior predictive_ distribution of a fully hierarchical model, which integrates over lower levels of grouping to provide a single distribution of cues given the group (and phonetic category). This corresponds to the best guess a listener would have  _before_ hearing anything from an unfamiliar talker, if the only information they had about that talker was their group membership. As the listener hears more cue values from the talker, the hierarchical nature of grouping structure becomes more important and can provide (in principle) a significant advantage over what we measured here. But modeling this process is quite a bit more complicated and we leave it for future work. Nevertheless, modeling each category as a single, "flat" distribution per group may well prove a useful approximation, or even a boundedly-rational model of how listeners take advantage of different levels of grouping structure [and similar approaches have been used in, e.g., motor control @Kording2007].
+
+[^predictive-approx]: Depending on how variability at loewr levels of grouping is modeled.
+
+[^lower-bound-caveat]: Even above and beyond the limitations imposed by unqueal numbers of talkers in each group, which necessitates subsampling talkers in the larger groups in order to meaningfully compare accuracy.
