@@ -83,6 +83,68 @@ grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker
 
 # Introduction
 
+dual nature of talker variability. problem or source of
+   information.
+* speech perception work started by wanting to get rid of
+  variability. normalization and abstraction
+* sociolinguistics, on the other hand, has shown that people are very
+  sensitive to talker variability. it's a rich source of social information
+  about the talker that listeners are very sensitive to.
+* there's recently been a striking convergence between cognitive and
+  sociolinguistic thinking on talker variability:
+    * speech perception has come around to the fact that talker variability
+      is part of the basic nature of the problem of speech perception.
+    * In part this realization comes from computational-level analyses of
+      speech perception. These approaches start from the hypothesis that the
+      speech perception system is organized in order to be good at speech
+      perception in the world that it has to operate in. In the spirit of
+      ideal observer approaches to other domains
+      [like visual perception; @Marr1972] these approaches focus on spelling
+      out how the available information and structure of the world
+      constrain, in principle, how well a listener can do.
+    * These approaches suggest that speech perception is a process of
+      _inference under uncertainty_: because talkers produce a distribution
+      of acoustic cues for each underlying linguistic unit, the best a
+      listener can do is use knowledge of those distributions to infer how
+      likely each possible linguistic unit is as an explanation of the cues
+      they observe.
+    * On top of this, talkers themselves vary in the distributions they
+      produce for each linguistic unit. This talker variability means that
+      listeners must _also_ constantly be inferring the current talker's
+      linguistic generative model (the probabilistic distributions of cues
+      they produce for each underlying linguistic structure). 
+    * One prediction that follows from this approach is that, in order to adapt to talker variatoin as efficiently as possible, listeners
+      should take advantage of any additional information that's
+      informative about the cue distributions a talker will produce.
+    * Viewing speech perception this way reveals a striking unity between
+      speech recognition and sociolinguistics: to the extent that
+      socio-indexical features like gender, class, regional origin, etc. are
+      reliably correlated with how linguistic variables are realized, they
+      are helpful for speech perception. This informativity is moreover
+      _directly_ linked to how well a listener can _infer_ the
+      socio-indexical features.
+          * on the one hand: predicts that who you think a talker is
+            influences how you perceive speech they produce
+          * on the other: predicts that the cues you perceive tell you a
+            great deal about who a talker is.
+          * both old realizations in sociolinguistics.
+          * both predictions depend on exactly how much a particular
+            socio-indexical grouping---a particular sense of _who_ a talker
+            is---actually influences the cue distributions that talkers
+            produce.
+* <!-- TO BACKGROUND --> Most of the sociolinguistic work on this has been
+  descriptive. We want to show that the theoretical and computational tools of
+  the ideal adapter framework can provide further insight on issues that are
+  relevant to sociolinguistics, and to quantify the relationship between some
+  prominent socio-indexical grouping variables and acoustic-phonetic cue
+  distributions.  
+* <!-- TO GOALS --> In this paper we address: 
+    * how informative?
+    * how helpful for speech perception?
+    * can you infer socio-indexical variables?
+
+
+
 * Two traditions in speech perception: phonetics + sociolinguistics, very different approaches to _variation_.
 * For phonetics is a __problem__:
     * Have to cope with talker variability/lack of invariance.
@@ -112,6 +174,7 @@ grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker
     * Stylistic variation in both though. Dialect for vowels [@Clopper2005; @LabovDDDD], and dialect/native language background for voicing [French-English bilinguals, @Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011; Scottish English, @Docherty2011].
 * We also know that listeners are sensitive to (real or believed) socio-indexical groups:
     * @Niedzielski1999: say that talker is canadian, hear more canadian raising
+    * hay & drager stuffed kiwi studies [@Hay2010]
     * gender stereotypicality and visual cues affect perception of vowels and fricatives [@Strand1999;@Johnson1999;@Strand1996]
     * indirect evidence comes from recalibration studies that show different patterns of generalization from male to female talkers (and vice-versa) for different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007; @Reinisch2014]
 * Listeners can infer socio-indexical variables but it's not clear what linguistic variables they use.
