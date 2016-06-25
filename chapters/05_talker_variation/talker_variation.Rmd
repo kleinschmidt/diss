@@ -97,22 +97,31 @@ these approaches focus on spelling out how the nature of the task, the available
 information, and the structure of the world constrain, in principle, how well a
 listener can do.
 
-Applied to speech perception, these approaches reveal two important things.
-These approaches suggest that speech perception is a process of _inference under
-uncertainty_: because of noise in production processes, each linguistic unit is
-realized---even by a single talker---as a _distribution_ of acoustic cues [cf. @Lisker1964; @Peterson1952; @Hillenbrand1995; @Allen2001; @Newman2001]. As
+Applied to speech perception, this approach reveals two important things.
+First, it suggests that speech perception can be thought of as a process of
+_inference under uncertainty_ [@Clayards2008, @Norris2008]: because of noise in
+production processes, each linguistic unit is realized---even by a single
+talker---as a _distribution_ of acoustic cues
+[cf. @Lisker1964; @Peterson1952; @Hillenbrand1995; @Allen2001; @Newman2001]. As
 such, the best a listener can do is to _infer_ how likely each possible
 linguistic unit is as an explanation of the cues they observe, based on their
 knowledge of these cue distributions.
 
-    * On top of this, talkers themselves vary in the distributions they
-      produce for each linguistic unit. This talker variability means that
-      listeners must _also_ constantly be inferring the current talker's
-      linguistic generative model (the probabilistic distributions of cues
-      they produce for each underlying linguistic structure). 
-    * One prediction that follows from this approach is that, in order to adapt to talker variatoin as efficiently as possible, listeners
-      should take advantage of any additional information that's
-      informative about the cue distributions a talker will produce.
+Second, this approach provides a new perspective on talker variability, which is
+formalized in the "ideal adapter" framework [@Kleinschmidt2015]. One consequence
+of talker variability is that the distribution of cues for each linguistic unit
+_changes_ from one situation to the next, depending on who's talking
+[@Clopper2005; @Newman2001; @Allen2001]. Given that effective speech
+perception---in this perspective---depends on good knowledge of the underlying
+cue distributions, this means that listeners must _also_ constantly be inferring
+the current talker's linguistic generative model (the probabilistic
+distributions of cues they produce for each underlying linguistic structure).
+
+This second insight leads to an prediction. An "ideal adapter" will take advantage of any additional structure in the world that is informative about how cue distributions vary from one situation to the next. This may be as simple as the fact that individual talkers tend to be consistent in the cue distributions they produce [@Heald2015].
+
+## Parallels with sociolinguistics
+
+
     * Viewing speech perception this way reveals a striking unity between
       speech recognition and sociolinguistics: to the extent that
       socio-indexical features like gender, class, regional origin, etc. are
