@@ -99,10 +99,10 @@ listener can do.
 
 Applied to speech perception, this approach reveals two important things.
 First, it suggests that speech perception can be thought of as a process of
-_inference under uncertainty_ [@Clayards2008, @Norris2008]: because of noise in
+_inference under uncertainty_ [@Clayards2008; @Norris2008]: because of noise in
 production processes, each linguistic unit is realized---even by a single
 talker---as a _distribution_ of acoustic cues
-[cf. @Lisker1964; @Peterson1952; @Hillenbrand1995; @Allen2001; @Newman2001]. As
+[cf. @Lisker1964; @Peterson1952; @Hillenbrand1995; @Allen2003; @Newman2001]. As
 such, the best a listener can do is to _infer_ how likely each possible
 linguistic unit is as an explanation of the cues they observe, based on their
 knowledge of these cue distributions.
@@ -111,7 +111,7 @@ Second, this approach provides a new perspective on talker variability, which is
 formalized in the "ideal adapter" framework [@Kleinschmidt2015]. One consequence
 of talker variability is that the distribution of cues for each linguistic unit
 _changes_ from one situation to the next, depending on who's talking
-[@Clopper2005; @Newman2001; @Allen2001]. Given that effective speech
+[@Clopper2005; @Newman2001; @Allen2003]. Given that effective speech
 perception---in this perspective---depends on good knowledge of the underlying
 cue distributions, this means that listeners must _also_ constantly be inferring
 the current talker's linguistic generative model (the probabilistic
@@ -1238,7 +1238,7 @@ However, the notions of informativity and utility apply beyond better _speech_ r
 
 The results of this study also tell us something about how listeners might adapt to an unfamiliar talker. The ideal adapter links informativity to adaptation, and the results here allow us to make more specific predictions based on the ideal adapter, in two ways.
 
-First, the informativity of talker identity is a measure of the variability across talkers. When talker identity is highly informative, there's more variabiltiy across talkers, and the ideal adapter predicts that prior experience with other talkers will be less relevant, resulting in faster and more complete adaptation to an unfamiliar talker. We found here that talker identity is less informative about VOT distributions than it is for vowel formant distributions. Hence, the ideal adapter predicts that listeners will adapt to talker-specific VOT distributions more slowly, and be more constrained by prior experience with other talkers. The first prediction is borne out by @Kraljic2007, who compared recalibration of a voicing contrast with a fricative place contrast. It's also borne out indirectly by the modeling work in Chapters NNN and NNN, which found that the effective prior sample size for /b/-/d/ (which, like vowels, is primarily cued by formantf requencies) is much lower than for /b/-/p/ (cued by VOT).
+First, the informativity of talker identity is a measure of the variability across talkers. When talker identity is highly informative, there's more variabiltiy across talkers, and the ideal adapter predicts that prior experience with other talkers will be less relevant, resulting in faster and more complete adaptation to an unfamiliar talker. We found here that talker identity is less informative about VOT distributions than it is for vowel formant distributions. Hence, the ideal adapter predicts that listeners will adapt to talker-specific VOT distributions more slowly, and be more constrained by prior experience with other talkers. The first prediction is borne out by @Kraljic2007, who compared recalibration of a voicing contrast with a fricative place contrast. It's also borne out indirectly by the modeling work in Chapters NNN and NNN, which found that the effective prior sample size for /b/-/d/ (which, like vowels, is primarily cued by formant requencies) is much lower than for /b/-/p/ (cued by VOT).
 
 Second, the informativity of higher-level grouping variables is linked to _generalization_ across talkers: if two talkers are from groups that tend to differ, listeners should treat them separately and not generalize from experience with one talker to the other. Likewise, if two talkers are from the same group, listeners _should_ generalize. We found that talker sex is informative for vowel formant distributions, but not for VOT, which means that listeners _should_ generalize from a male to a female talker (and vice-versa) for a voicing contrast, but _not_ for a vowel contrast. Listeners do, in fact, tend to generalize voicing recalibration across talkers of different sexes [@Kraljic2006;@Kraljic2007]. While there's (to our knowledge) no data on cross-talker generalization for vowel recalibration, listeners tend not to generalize across talkers for fricative recalibration [@Eisner2005;@Kraljic2007], which (like vowels) are cued by spectral cues that vary across talkers and by gender [@Newman2001; @Jongman2000; @McMurray2011a].
 
