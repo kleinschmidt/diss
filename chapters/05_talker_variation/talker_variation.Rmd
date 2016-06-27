@@ -61,6 +61,15 @@ library(ggplot2)
 library(cowplot)
 ## theme_set(theme_bw())
 
+## cowplot theme + y axis gridlines
+theme_set(theme_cowplot() %+replace%
+            theme(panel.grid.major = element_line(colour='gray90', size=0.2),
+                  panel.grid.minor = element_line(colour='gray98', size=0.5),
+                  panel.grid.major.x = element_blank(),
+                  panel.grid.minor.x = element_blank()))
+rotate_x_axis_labs <- function(by=45) theme(axis.text.x = element_text(angle=by, hjust=1))
+
+
 ## devtools::install_github('kleinschmidt/daver')
 library(daver)
 
@@ -492,7 +501,7 @@ bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
   geom_pointrange(stat='summary', fun.data=mean_cl_boot,
                   position = position_dodge(w=0.5)) +
   facet_grid(.~contrast+cues, scales='free', space='free') +
-  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  rotate_x_axis_labs() +
   labs(x = 'Grouping (broadest to most specific)',
        y = 'KL Divergence of cue distributions\nfrom marginal (bits)')
 
@@ -886,7 +895,7 @@ accuracy_summary %>%
              position='jitter', alpha=0.2) +
   geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi), stat='identity') +
   facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
-  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  rotate_x_axis_labs() +
   labs(x = 'Grouping (broadest to most specific)',
        y = 'Probability of correct recognition') +
   lims(y = c(NA, 1))
@@ -995,7 +1004,7 @@ vowel_competitor_errors %>%
   facet_grid(cues~Dialect, space='free', scales='free') +
   ggtitle('Socio-linguistically predicted confusions') +
   labs(y = 'Proportion error occurred', x = 'Error') +
-  theme(axis.text.x = element_text(angle=45, hjust=1))
+  rotate_x_axis_labs()
 
 ```
 
@@ -1122,7 +1131,7 @@ index_acc_summary_exact %>%
   scale_shape_manual('', values = c(1, 16), breaks = c('Chance', 'Observed')) +
   labs(x = 'Grouping',
        y = 'Probability of correct classification\n(Socio-indexical group)') +
-  theme(axis.text.x = element_text(angle=45, hjust=1))
+  rotate_x_axis_labs()
 
 ```
 
@@ -1184,7 +1193,7 @@ accuracy_marginal_summary %>%
   geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi), stat='identity',
                   position = pd()) +
   facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
-  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  rotate_x_axis_labs() +
   labs(x = 'Grouping (broadest to most specific)',
        y = 'Probability of correct recognition') +
   lims(y = c(0, 1)) +
