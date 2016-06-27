@@ -569,6 +569,32 @@ vowel_kl %>%
 
 ```
 
+Finally, individual dialects also vary in how informative they are about vowel formant distributions. Figure @fig:vowel-kl-by-dialect shows that talkers from the North dialect region produce vowels---`ae` and `aa` in particular---with formant distributions that deviate markedly more from the marginal distributions than any of the other dialects. Other dialects have, on average, similar deviations from marginal. The high deviation of `uw` by New England talkers is the result of these talkers producing a very low-variance, back (low F2) distribution. Similarly, Mid-Atlantic talkers produce a low-variance `ey` distribution that is higher and fronter than average. Finally, the Mid-Atlantic `aa` is, like the Northern `aa`, non-merged with `ao` [@Clopper2005] and hence deviates from the marginal `aa` substantially.
+
+```{r vowel-kl-by-dialect, fig.width=7.5, fig.height=4.75, fig.cap='A small number of dialect/vowel combinations account for most of the divergence of dialect-specific vowel formant distributions. In particular, the distribution of `ae` and `aa` produced by Northern talkers diverge markedly more than any other vowel/dialect combination.'}
+
+## vowel_kl %>%
+##   filter(grouping=='Dialect') %>%
+##   ggplot(aes(x=group, y=KL)) +
+##   geom_pointrange(stat='summary', fun.data=mean_cl_boot) +
+##   facet_grid(.~cues)
+
+vowel_kl %>%
+  filter(grouping=='Dialect') %>%
+  ggplot(aes(x=group, y=KL)) +
+  geom_line(aes(group=Vowel, color=Vowel)) +
+  geom_text(data = vowel_kl %>%
+               filter(grouping == 'Dialect', str_detect(cues, 'Lobanov')) %>%
+               arrange(desc(KL)) %>%
+               head(5),
+            aes(label = Vowel, color=Vowel), show.legend=FALSE,
+            nudge_x = 0.25, nudge_y=0.05) +
+  facet_grid(.~cues) +
+  rotate_x_axis_labs()
+
+```
+
+
 ## Utility of socio-indexical groupings for speech recognition
 
 ```{r classification-helpers, cache=TRUE}
@@ -935,9 +961,32 @@ Figure {@fig:by-vowel-acc-group-known} shows probability of correct recognition 
 
 ### Does dialect contribute anything?
 
-Given the well-known dialect-specific variation in vowel production, it's somewhat surprising that dialect-level cue distributions do not, in our models, provide a substantial overall improvement in correct recognition.  But there are two reasons why these results can be misleading. 
+Given the well-known dialect-specific variation in vowel production, it's somewhat surprising that dialect-level cue distributions do not, in our models, provide a substantial overall improvement in correct recognition.  However, dialects themselves vary in how much they deviate from norms of Standard American English (Figure @fig:vowel-kl-by-dialect). There is corresponding variability in the utility of knowing a talker's dialect, depending on what that dialect is (Figure @fig:overall-acc-by-dialect). Knowing a dialect 
 
-First, not all vowels vary substantially from the norm in all dialects. To address this possibility, we examine how using dialect-level formant distributions affects the probability of making particular _errors_ that would result from ignoring dialect-specific shifts. For instance, in the Northern Citiies Shift, the `ae` vowel is raised, resulting in a distribution very much like the standard `eh` distribution. If dialect is ignored, then `ae` tokens from talkers from a dialect region with this shift will be mistaken for `eh`.
+shows, dialect increases the probability of correct recognition only for talkers from the Mid-Atlantic and North regions.
+
+To address this possibility, we examine how using dialect-level formant distributions affects the probability of making particular _errors_ that would result from ignoring dialect-specific shifts. For instance, in the Northern Citiies Shift, the `ae` vowel is raised, resulting in a distribution very much like the standard `eh` distribution. If dialect is ignored, then `ae` tokens from talkers from a dialect region with this shift will be mistaken for `eh`.
+
+```{r overall-acc-by-dialect, fig.width=10, fig.height=5, fig.cap='The utility of socio-indexical variables varies across dialects. Dialect itself is particularly informative only for talkers from the Mid-Atlantic and North regions.'}
+
+pd <- function() position_dodge(w=0.7)
+
+vowel_accuracy %>%
+  group_by(cues, grouping, group, Talker) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  left_join(nsp_vows %>%
+              group_by(Talker, Dialect) %>%
+              summarise()) %>%
+  ungroup() %>%
+  mutate(grouping=factor(grouping, levels=grouping_levels)) %>%
+  ggplot(aes(x=grouping, y=accuracy, color=grouping)) +
+  geom_pointrange(stat='summary', fun.data=mean_cl_boot, position=pd()) +
+  facet_grid(cues ~ Dialect) +
+  scale_y_continuous('Probability of correct recognition', limits=c(0,1)) +
+  rotate_x_axis_labs()
+
+```
+
 
 ```{r dialect-error-table, results='asis', tbl.cap='Dialect-predicted confusions, based on the summary by @Clopper2005.'}
 
@@ -989,8 +1038,6 @@ vowel_competitor_dialect_stars <-
   summarise(boot_p = min(boot_p)) %>%
   mutate(boot_p_stars = daver::p_val_to_stars(boot_p, approaching=TRUE)) 
 
-pd <- function() position_dodge(w=0.7)
-
 vowel_competitor_errors %>%
   ggplot(aes(x=pair, y=confusions)) +
   ## geom_bar(stat='summary', fun.y = mean, position=pd()) +
@@ -1008,7 +1055,7 @@ vowel_competitor_errors %>%
 
 ```
 
-Based on the summary by @Clopper2005, we compiled a list of likely dialect-specific errors (Table {@tbl:dialect-error-table}). Note that not all dialect-specific changes in vowel _distributions_ will lead to _errors_. For instance, `uw` fronting occurs in many dialects, but this shift moves `uw` into otherwise unoccupied territory and likely will have no consequences for correct recognition (at least to the extent that it occurs in this dataset). Figure {@fig:socio-relevant-vowel-acc} shows the error rates for each of these predicted confusions, under each level of socio-indexical grouping. Despite the high level of variabilty, knowing a dialect does help reduce at least some dialect-specific errors (e.g., `ao` raising to `uh` in the Mid-Atlantic dialect and, in the North dialect, the `ao`-`aa` non-merger, and `ae` raising to `eh` (although this is variable across the eight talkers in the dialect group and does not reach significance).
+Based on the summary by @Clopper2005, we compiled a list of likely dialect-specific errors (Table {@tbl:dialect-error-table}). Note that not all dialect-specific changes in vowel _distributions_ will lead to _errors_. For instance, `uw` fronting occurs in many dialects, but this shift moves `uw` into otherwise unoccupied territory and likely will have no consequences for correct recognition (at least to the extent that it occurs in this dataset). Figure {@fig:socio-relevant-vowel-acc} shows the error rates for each of these predicted confusions, under each level of socio-indexical grouping. Despite the high level of variabilty, knowing a dialect does help reduce at least some dialect-specific errors (e.g., `ao` raising to `uh` in the Mid-Atlantic dialect and, in the North dialect, the `ao`-`aa` non-merger, and `ae` raising to `eh`, although this is variable across the eight talkers in the dialect group and does not reach significance).
 
 Second, the errorbars in Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} plot variability across talkers, independently for each grouping level. But for assessing the utility of dialect, a more appropriate measure of uncertainty is the variability of the within-talker _difference_ between accuracy with and without considering dialect. If talkers vary in their baseline level of intelligibility, then this within-subject difference may be less variable.  Figure {@fig:dialect-over-marginal-sex} plots the average (and 95% bootstrapped CIs) within-talker increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
 
@@ -1033,6 +1080,14 @@ dialect_advantage_boot_ci <- dialect_advantage %>%
   gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
   group_by(cues, Vowel, measure, comparison) %>%
   do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
+
+
+dialect_advantage_by_dialect_boot_ci <- dialect_advantage %>%
+  filter(subsample_size == 3, group_is == 'Known') %>%
+  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
+  group_by(cues, Dialect, measure, comparison) %>%
+  do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
+
 
 dialect_advantage %>%
   filter(subsample_size == 3, group_is == 'Known') %>%
