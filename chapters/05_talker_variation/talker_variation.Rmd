@@ -1317,6 +1317,26 @@ vowel_accuracy_marginal %>%
 
 # General Discussion
 
+Our results show that, on the whole, socio-indexical grouping variables are
+_informative_ about phonetic cue distributions, _useful_ for improving speech
+recognition, and can be _inferred_ from phonetic cues themselves. However, the
+extent to which these are true depends on the particular grouping variable and
+particular phonetic categories/cues involved. Socio-indexical variables are more
+useful, more informative, and more easily inferred for vowel than for stop
+consonant voicing. Some variables are broadly useful (sex, talker identity)
+while others are useful only in certain, specific contexts (dialect for certain
+vowels/dialect combinations).
+
+Our results also speak to the relationship between informativity, utility, and
+inferrability themselves. In general, informativity and utility mirror each
+other: conditioning on a socio-indexical variable is more useful for speech
+recognition when the corresponding conditional cue distributions diverge more
+from the overall or marginal distributions. But being useful for speech
+recognition does not always mean that a socio-indexical variable can be easily
+inferred from phonetic cues alone, or vice-versa.
+
+These results 
+
 * Summary of results
     * on the whole, socio-indexical variables are _informative_ about linguistic
       cue distribution, _useful_ for improving speech recognition, and
@@ -1335,7 +1355,24 @@ vowel_accuracy_marginal %>%
        dialect.
     2. _Utility_
     3. _Inferability_
+* Points to discuss
+    * These results help us make more specific predictions about what
+      distributions listeners should (according to the ideal adapter) be
+      tracking.
+    * Help explain discrepancies in how listeners generalize experience from
+      one talker to another, for different cues/contrasts.
+    * More basically: show that we can think of socio-linguistic judgements as
+      an inference process, where listeners use their knowledge of the
+      distribution of variants produced by different groups to infer how likely
+      it is that a particular talker belongs to a group.
 
+
+
+* normalization vs. adaptation.
+    * both are well supported as strategies that listeners use for dealing with
+      variability [@WeatherholtzInPress]
+    * ...normalization changes usefulness of some variables. dialect is
+      basically useless without normalization.
 
 
 ## What to track?
@@ -1519,7 +1556,10 @@ test stimuli [@Reinisch2014].
   perspective contribute above and beyond "traditional" socioliguistics?
     * (quantifiable) notions of cue reliability. WHY some judgements block
       others, and which.
-    * for instance, if cues to gayness fall closer to normal range of variation may be easier to explain away than cues to class; prior belief that you can't be both gay and working class blocks the normal inference about gayness.
+    * for instance, if cues to gayness fall closer to normal range of variation
+      may be easier to explain away than cues to class; prior belief that you
+      can't be both gay and working class blocks the normal inference about
+      gayness.
 
 (( something about relevance to sociolinguistics...what do people have knowledge
 of? what sorts of inferences should they be able to make? what cues are actually
