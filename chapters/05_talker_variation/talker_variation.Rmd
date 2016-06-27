@@ -1430,9 +1430,38 @@ test stimuli [@Reinisch2014].
 
 ## Sociolinguistic stuff
 
+* Socio-linguistic judgements can also be thought of as inference.
+* simultaneously making all kinds of inferences: 
+    * what a talker is saying
+    * how a talker says things
+    * _who_ a talker is, relative to other talkers. important both for speech
+      perception, but also important in and of itself.
+* the important point here is that this way of thinking about speech perception
+  situates social inferences as a central aspect of speech processing. in fact,
+  in this view social inferences may well be inextricable from linguistic
+  inferences.
+* Important caveat: this is not, per se, a complete model of socio-linguistic
+  judgements. the inferences that a lisener would draw in this view depends on
+  the generative model of social variables that listeners have. one way to think
+  about this is that inference depends not only on the cue distributions but on
+  the prior over social variables themselves. 
+    * These need careful sociolinguistic work to tease out. A good example of
+      this work is @Levon2014. If listeners believe that a working class
+      identity and homosexuality identity cannot occur in the same person, then
+      their inferences about whether or not someone is a gay man will depend on
+      whether or not they believe that person to be working class
+      [@Levon2014 refers to these as a listener's stereotypes or ideologies]
+* (( PROBABLY TOO MUCH FOR THIS PAPER )) if this is true, what does this
+  perspective contribute above and beyond "traditional" socioliguistics?
+    * (quantifiable) notions of cue reliability. WHY some judgements block
+      others, and which.
+    * for instance, if cues to gayness fall closer to normal range of variation may be easier to explain away than cues to class; prior belief that you can't be both gay and working class blocks the normal inference about gayness.
+
 (( something about relevance to sociolinguistics...what do people have knowledge
 of? what sorts of inferences should they be able to make? what cues are actually
 informative? ))
+
+
 
 ## A lower bound
 
