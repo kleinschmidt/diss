@@ -322,11 +322,11 @@ It's unclear how much re-organization of the existing bits will be required. But
 ## June 20
 
 * Goals
-    * Draft of talker variation paper
+    * [mostly done] Draft of talker variation paper
         * Write out conceptual points bullets
         * Discussion bullets
         * Expand intro bullets into prose
-        * Expand discussion bullets into prose
+        * [mostly done] Expand discussion bullets into prose
 
 ### Status
 
@@ -359,8 +359,26 @@ It's unclear how much re-organization of the existing bits will be required. But
     * run indexical classifier analysis
     * write up indexical classifier analysis
     * run joint classifier analysis
+* Friday
+    * write up discussion (mostly)
 
 ## June 27
+
+### Status
+
+* Talker variation chapter
+    * Intro/background __written, revised__
+    * Methods/results __written__, needs to be __edited__ including adding
+      __discussion__ of results in each subsection
+    * Discussion __mostly written__, needs __summary__ to start and something
+      about relevance to sociolx
+    * Conclusion __needs written__
+
+### Done list
+
+* Monday
+    * make figures for vowel distributions by group
+    * revised introduction
 
 ## July 4
 
