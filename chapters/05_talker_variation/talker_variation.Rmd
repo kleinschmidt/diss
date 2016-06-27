@@ -343,7 +343,7 @@ n_vot_per_talker <- vot %>% group_by(phoneme, voicing, place, Talker) %>% tally(
 
 ```
 
-We analyzed data on word-initial stop consonant voicing in conversational speech from the Buckeye corpus [@Pitt2007]. Voice onset time (VOT) was automatically extracted for `r nrow(vot)` word initial stops, `r vot %>% filter(voicing=='voiced') %>% nrow()` voiced and `r vot %>% filter(voicing=='voiceless') %>% nrow()` voiceless, for labial, coronal, and dorsal places of articulation (Wedel, _in prep_). Data came from `r n_vot_talkers` talkers, who were balanced male and female and younger/older than 40 years. On average, each talker produced `r round(mean(n_vot_per_talker$n))` tokens for each phoneme (range of `r min(n_vot_per_talker$n)` -- `r max(n_vot_per_talker$n)`).
+We analyzed data on word-initial stop consonant voicing in conversational speech from the Buckeye corpus [@Pitt2007; extracted by Wedel, _in prep_]. Voice onset time (VOT) was automatically extracted for `r nrow(vot)` word initial stops, `r vot %>% filter(voicing=='voiced') %>% nrow()` voiced and `r vot %>% filter(voicing=='voiceless') %>% nrow()` voiceless, for labial, coronal, and dorsal places of articulation. Data came from `r n_vot_talkers` talkers, who were balanced male and female and younger/older than 40 years. On average, each talker produced `r round(mean(n_vot_per_talker$n))` tokens for each phoneme (range of `r min(n_vot_per_talker$n)` -- `r max(n_vot_per_talker$n)`).
 
 ## Modeling
 
