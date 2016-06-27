@@ -276,6 +276,44 @@ For vowels, we used data from the Nationwide Speech Project [@Clopper2005]. Spec
 
 Because much of the variability in talkers is due to overall differences in formant frequencies, we also used Lobanov-normalized formant frequencies as input, in addition to the un-normalized formant frequencies in Hertz. Lobanov normalization z-scores F1 and F2 separately for each talker [@Lobanov1971].
 
+```{r vowel-data-plot, eval=FALSE}
+
+## Plot group-level distributions of vowels. kind of a mess.
+
+vowel_data_grouped_long <- vowel_data_grouped %>%
+  mutate(group_size = map2_dbl(data, grouping, ~ .x %>%
+                                                 group_by_(.y) %>%
+                                                 summarise() %>%
+                                                 nrow())) %>%
+  unnest(map2(data, grouping, ~ rename_(.x, group=.y))) %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels))
+
+p_vow_group_hz <- vowel_data_grouped_long %>%
+  filter(cues == 'Un-normalized F1xF2') %>%
+  ggplot(aes(x=F2,y=F1,color=Vowel)) +
+  stat_ellipse(aes(group=Vowel), data = nsp_vows, type='norm', color='#888888') +
+  stat_ellipse(aes(group=paste(group, Vowel), alpha=1/group_size), type='norm') +
+  facet_grid(cues~grouping) +
+  scale_x_reverse('F2 (Hz)') +
+  scale_y_reverse('F1 (Hz)') +
+  scale_alpha_continuous(range=c(0.3, 1))
+
+p_vow_group_lob <- vowel_data_grouped_long %>%
+  filter(str_detect(cues, 'Lobanov')) %>% 
+  ggplot(aes(x=F2,y=F1)) +
+  stat_ellipse(aes(group=Vowel), data = nsp_vows_lob, type='norm', color='#888888') +
+  stat_ellipse(aes(color=Vowel, group=paste(group, Vowel), alpha=1/group_size), type='norm') +
+  facet_grid(cues~grouping) +
+  scale_x_reverse('F2 (Lobanov normalized)') +
+  scale_y_reverse('F1 (Lobanov normalized)') +
+  scale_alpha_continuous(range=c(0.3, 1)) +
+  theme(legend.position = 'none')
+
+plot_grid(p_vow_group_hz, p_vow_group_lob, ncol=1)
+
+```
+
+
 ### Stop voicing
 
 ```{r vot-data, cache=TRUE}
