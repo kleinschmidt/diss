@@ -1254,11 +1254,21 @@ vowel_accuracy_marginal %>%
 # General Discussion
 
 * Summary of results
-    * on the whole, socio-indexical variables are _informative_ about linguistic cue distribution, _useful_ for improving speech recognition, and themselves can be inferred on the basis of acoustic-phonetic cues alone.
-    * these variables differ in utility and informativity, both within a single phonetic contrast/set of cues, and between different contrasts/cues.
-    * on the whole, informativity and utility mirror each other. However, utility for speech recognition and socio-indexical judgements do not always mirror each other.
+    * on the whole, socio-indexical variables are _informative_ about linguistic
+      cue distribution, _useful_ for improving speech recognition, and
+      themselves can be inferred on the basis of acoustic-phonetic cues alone.
+    * these variables differ in utility and informativity, both within a single
+      phonetic contrast/set of cues, and between different contrasts/cues.
+    * on the whole, informativity and utility mirror each other. However,
+      utility for speech recognition and socio-indexical judgements do not
+      always mirror each other.
 * What of our goals?
-    1. _Informativity_: socio-indexical variables are more informative for vowels than for stop voicing. And talker identity is by far the most informative of all variables considered about both vowel and stop voicing. After that, other grouping variables are uniformly uninformative for stop voicing, and for vowels, talker sex is next, followed by dialect.
+    1. _Informativity_: socio-indexical variables are more informative for
+       vowels than for stop voicing. And talker identity is by far the most
+       informative of all variables considered about both vowel and stop
+       voicing. After that, other grouping variables are uniformly uninformative
+       for stop voicing, and for vowels, talker sex is next, followed by
+       dialect.
     2. _Utility_
     3. _Inferability_
 
@@ -1266,58 +1276,203 @@ vowel_accuracy_marginal %>%
 
 ## What to track?
 
-<!-- this is the major discussion point. -->
+<!-- this is the major discussion point. --> 
+
 <!-- TODO: clarify how this connects. gentler intro -->
 
-Treating speech perception as a problem of inference under uncertainty---as the ideal adapter does---highlights the importance of listeners' knowledge about the distributions of cues that are produced for each linguistic unit.  A major  question that this perspective raises is _what_ linguistic, socio-indexical, and acoustic/phonetic variables listeners are learning distributions for. The ideal adapter does not directly answer this question, but provides a set of conceptual and quantitative tools for addressing it. The studies reported here take these tools and apply them to data on how many different talkers produce two different sets of phonetic categories. We hope that by doing so we provide a proof of concept for the broad usefulness of these tools. One purpose they might be put to is to formulate hypotheses about what distributions listeners should track.
+Treating speech perception as a problem of inference under uncertainty---as the
+ideal adapter does---highlights the importance of listeners' knowledge about the
+distributions of cues that are produced for each linguistic unit.  A major
+question that this perspective raises is _what_ linguistic, socio-indexical, and
+acoustic/phonetic variables listeners are learning distributions for. The ideal
+adapter does not directly answer this question, but provides a set of conceptual
+and quantitative tools for addressing it. The studies reported here take these
+tools and apply them to data on how many different talkers produce two different
+sets of phonetic categories. We hope that by doing so we provide a proof of
+concept for the broad usefulness of these tools. One purpose they might be put
+to is to formulate hypotheses about what distributions listeners should track.
 
-<!-- missing the connection: listeners can benefit from _structure_ in variability over talkers/situations. we don't know what that structure is, at least in a way that allows for making more than qualitative predictions -->
+<!-- missing the connection: listeners can benefit from _structure_ in
+variability over talkers/situations. we don't know what that structure is, at
+least in a way that allows for making more than qualitative predictions -->
 
-At the highest level, the ideal adapter predicts that listeners should not track _everything_. Rather, listeners need only track the joint distributions of variables that are informative. At the level of phonetic categories themselves, this means that (for instance) there's no reason for listeners to track each vowel's distribution of preceding VOT[^vot-caveat] (or more absurdly, completely unrelated physical quantities like temperature or barometric pressure). This also applies at the level of socio-indexical grouping variables: listeners get no benefit for tracking separate distributions for different groups of talkers for a cue that does not systematically vary between those groups.
+At the highest level, the ideal adapter predicts that listeners should not track
+_everything_. Rather, listeners need only track the joint distributions of
+variables that are informative. At the level of phonetic categories themselves,
+this means that (for instance) there's no reason for listeners to track each
+vowel's distribution of preceding VOT[^vot-caveat] (or more absurdly, completely
+unrelated physical quantities like temperature or barometric pressure). This
+also applies at the level of socio-indexical grouping variables: listeners get
+no benefit for tracking separate distributions for different groups of talkers
+for a cue that does not systematically vary between those groups.
 
-[^vot-caveat]: Barring, of course, the possibility that VOT is systematically affected by neighboring vowels, and hence informative about them.
+[^vot-caveat]: Barring, of course, the possibility that VOT is systematically
+    affected by neighboring vowels, and hence informative about them.
 
-In fact, it can actually _hurt_ a listener to track cue distributions at a level that's not informative. The reason for this is related to the idea of bias-variance tradeoff from machine learning [@James2013, Section 2.2.2]. Given the same amount of data, tracking multiple, specific distributions will result in noisier, less accurate estimates than lumping together all the observations in a single distribution.  This price may be worth paying for a listener when there are large enough differences between groups that treating all observations as coming from the same distribution _biases_ the estimates of the underlying distribution (and hence the inferences that listeners make based on those distributinos) far enough away from the true structure of the data. To take a concrete example, modeling each vowel as a single distribution of (un-normalized) formants across all talkers results in high-variance, overlapping distributions which have low recognition accuracy. But modeling them as two distributions---one for males, and one for females---provides much more specific estimates and higher classification accuracy [Figures {@fig:vowel-vot-kl-plot} and @figaro:overall-accuracy-group-known; @Hillenbrand1995; @Feldman2013a].
+In fact, it can actually _hurt_ a listener to track cue distributions at a level
+that's not informative. The reason for this is related to the idea of
+bias-variance tradeoff from machine learning [@James2013, Section 2.2.2]. Given
+the same amount of data, tracking multiple, specific distributions will result
+in noisier, less accurate estimates than lumping together all the observations
+in a single distribution.  This price may be worth paying for a listener when
+there are large enough differences between groups that treating all observations
+as coming from the same distribution _biases_ the estimates of the underlying
+distribution (and hence the inferences that listeners make based on those
+distributinos) far enough away from the true structure of the data. To take a
+concrete example, modeling each vowel as a single distribution of
+(un-normalized) formants across all talkers results in high-variance,
+overlapping distributions which have low recognition accuracy. But modeling them
+as two distributions---one for males, and one for females---provides much more
+specific estimates and higher classification accuracy
+[Figures @fig:vowel-vot-kl-plot and @fig:overall-accuracy-group-known; @Hillenbrand1995; @Feldman2013a].
 
 
-<!-- When adapting to an unfamiliar talker, listeners face a tradeoff.  On the one hand, a talker's own productions are the most informative about how that talker will realize their linguistic intentions in the future. On the other hand, listeners often have very few tokens from an unfamiliar talker themselves, and estimates of an underlying distribution from a small number of observations are either highly uncertain or noisy and more likely to be wrong. Thus, in cases where cue distributions are similar across talkers, listeners can benefit by treating those observations as if they came from the same underlying distribution. But in cases where talkers differ a lot, lumping observations from different talkers or groups together will lead to reduced comprehension accuracy and/or slowed adaptation to a talker's own cue distributions. The analyses reported here show that _both_ types of situations actually occur in variation across talkers. -->
+<!-- When adapting to an unfamiliar talker, listeners face a tradeoff.  On the
+one hand, a talker's own productions are the most informative about how that
+talker will realize their linguistic intentions in the future. On the other
+hand, listeners often have very few tokens from an unfamiliar talker themselves,
+and estimates of an underlying distribution from a small number of observations
+are either highly uncertain or noisy and more likely to be wrong. Thus, in cases
+where cue distributions are similar across talkers, listeners can benefit by
+treating those observations as if they came from the same underlying
+distribution. But in cases where talkers differ a lot, lumping observations from
+different talkers or groups together will lead to reduced comprehension accuracy
+and/or slowed adaptation to a talker's own cue distributions. The analyses
+reported here show that _both_ types of situations actually occur in variation
+across talkers. -->
 
 
-Thus, the ideal adapter predicts that listeners should learn separate cue distributions for levels of a socio-indexical grouping variable when that variable has high _informativity_ about some categories' cue distributions and/or high _utility_ for speech recognition. However, 
-However, the notions of informativity and utility apply beyond better _speech_ recognition per se. Listeners extract a lot of non-phonetic/linguistic information from speech signal. To properly define the informativity or utility of a particular grouping variable, we need  to consider the _goals_ of speech perception, which go beyond just recognizing phonetic categories. Sociolinguistics recognizes that, in many cases, the communication of social information is just as if not more important than the communication of linguistic information. Groupings that are _socially meaningful_ can thus be informative and justify being tracked, even if ignoring them has a negligible effect on speech recognition, as long as the corresponding cue distributions carry some information about relevant social variables. In our results, dialect is a good example: on the whole, ignoring dialect doesn't have huge consequences on recognition accuracy. But it can be inferred (at least above chance) based on vowel F1 and F2, and listeners are plausibly interested in determining a talker's regional origins for a variety of reasons. <!-- unlearning southern accents? -->
+Thus, the ideal adapter predicts that listeners should learn separate cue
+distributions for levels of a socio-indexical grouping variable when that
+variable has high _informativity_ about some categories' cue distributions
+and/or high _utility_ for speech recognition. However, However, the notions of
+informativity and utility apply beyond better _speech_ recognition per
+se. Listeners extract a lot of non-phonetic/linguistic information from speech
+signal. To properly define the informativity or utility of a particular grouping
+variable, we need to consider the _goals_ of speech perception, which go beyond
+just recognizing phonetic categories. Sociolinguistics recognizes that, in many
+cases, the communication of social information is just as if not more important
+than the communication of linguistic information. Groupings that are _socially
+meaningful_ can thus be informative and justify being tracked, even if ignoring
+them has a negligible effect on speech recognition, as long as the corresponding
+cue distributions carry some information about relevant social variables. In our
+results, dialect is a good example: on the whole, ignoring dialect doesn't have
+huge consequences on recognition accuracy. But it can be inferred (at least
+above chance) based on vowel F1 and F2, and listeners are plausibly interested
+in determining a talker's regional origins for a variety of reasons. <!--
+unlearning southern accents? -->
     
 ## Consequences for adapting to unfamiliar talkers
 
-The results of this study also tell us something about how listeners might adapt to an unfamiliar talker. The ideal adapter links informativity to adaptation, and the results here allow us to make more specific predictions based on the ideal adapter, in two ways.
+The results of this study also tell us something about how listeners might adapt
+to an unfamiliar talker. The ideal adapter links informativity to adaptation,
+and the results here allow us to make more specific predictions based on the
+ideal adapter, in two ways.
 
-First, the informativity of talker identity is a measure of the variability across talkers. When talker identity is highly informative, there's more variabiltiy across talkers, and the ideal adapter predicts that prior experience with other talkers will be less relevant, resulting in faster and more complete adaptation to an unfamiliar talker. We found here that talker identity is less informative about VOT distributions than it is for vowel formant distributions. Hence, the ideal adapter predicts that listeners will adapt to talker-specific VOT distributions more slowly, and be more constrained by prior experience with other talkers. The first prediction is borne out by @Kraljic2007, who compared recalibration of a voicing contrast with a fricative place contrast. It's also borne out indirectly by the modeling work in Chapters NNN and NNN, which found that the effective prior sample size for /b/-/d/ (which, like vowels, is primarily cued by formant requencies) is much lower than for /b/-/p/ (cued by VOT).
+First, the informativity of talker identity is a measure of the variability
+across talkers. When talker identity is highly informative, there's more
+variabiltiy across talkers, and the ideal adapter predicts that prior experience
+with other talkers will be less relevant, resulting in faster and more complete
+adaptation to an unfamiliar talker. We found here that talker identity is less
+informative about VOT distributions than it is for vowel formant
+distributions. Hence, the ideal adapter predicts that listeners will adapt to
+talker-specific VOT distributions more slowly, and be more constrained by prior
+experience with other talkers. The first prediction is borne out by
+@Kraljic2007, who compared recalibration of a voicing contrast with a fricative
+place contrast. It's also borne out indirectly by the modeling work in Chapters
+NNN and NNN, which found that the effective prior sample size for /b/-/d/
+(which, like vowels, is primarily cued by formant requencies) is much lower than
+for /b/-/p/ (cued by VOT).
 
-Second, the informativity of higher-level grouping variables is linked to _generalization_ across talkers: if two talkers are from groups that tend to differ, listeners should treat them separately and not generalize from experience with one talker to the other. Likewise, if two talkers are from the same group, listeners _should_ generalize. We found that talker sex is informative for vowel formant distributions, but not for VOT, which means that listeners _should_ generalize from a male to a female talker (and vice-versa) for a voicing contrast, but _not_ for a vowel contrast. Listeners do, in fact, tend to generalize voicing recalibration across talkers of different sexes [@Kraljic2006;@Kraljic2007]. While there's (to our knowledge) no data on cross-talker generalization for vowel recalibration, listeners tend not to generalize across talkers for fricative recalibration [@Eisner2005;@Kraljic2007], which (like vowels) are cued by spectral cues that vary across talkers and by gender [@Newman2001; @Jongman2000; @McMurray2011a].
+Second, the informativity of higher-level grouping variables is linked to
+_generalization_ across talkers: if two talkers are from groups that tend to
+differ, listeners should treat them separately and not generalize from
+experience with one talker to the other. Likewise, if two talkers are from the
+same group, listeners _should_ generalize. We found that talker sex is
+informative for vowel formant distributions, but not for VOT, which means that
+listeners _should_ generalize from a male to a female talker (and vice-versa)
+for a voicing contrast, but _not_ for a vowel contrast. Listeners do, in fact,
+tend to generalize voicing recalibration across talkers of different sexes
+[@Kraljic2006;@Kraljic2007]. While there's (to our knowledge) no data on
+cross-talker generalization for vowel recalibration, listeners tend not to
+generalize across talkers for fricative recalibration
+[@Eisner2005;@Kraljic2007], which (like vowels) are cued by spectral cues that
+vary across talkers and by gender [@Newman2001; @Jongman2000; @McMurray2011a].
 
-There is also evidence for the prediction of generalization _within_ informative groups. In the absence of evidence that two talkers from the same group (e.g. two males) produce a contrast differently, experience with one provides an informative starting point for comprehending (and adapting to) the other. Along these lines, @VanderZande2014 found that listeners generalize from experience with one male talker's pronunciation of a /b/-/d/ contrast to another, unfamiliar male.
+There is also evidence for the prediction of generalization _within_ informative
+groups. In the absence of evidence that two talkers from the same group
+(e.g. two males) produce a contrast differently, experience with one provides an
+informative starting point for comprehending (and adapting to) the other. Along
+these lines, @VanderZande2014 found that listeners generalize from experience
+with one male talker's pronunciation of a /b/-/d/ contrast to another,
+unfamiliar male.
 
-Finally, it's important to point out that these predictions are best thought of as _biases_ that can be overcome with enough of the right kind of evidence [@Kleinschmidt2015]. For instance, listeners can overcome their bias to generalize experience with VOT and learn talker-specific VOT distributions, but it requires hundreds of observations from talkers who produce very different VOT distributions [@Munson2011]. Likewise, listeners will generalize recalibration of a fricative contrast from a female to a male talker given the right kind of test stimuli [@Reinisch2014].
+Finally, it's important to point out that these predictions are best thought of
+as _biases_ that can be overcome with enough of the right kind of evidence
+[@Kleinschmidt2015]. For instance, listeners can overcome their bias to
+generalize experience with VOT and learn talker-specific VOT distributions, but
+it requires hundreds of observations from talkers who produce very different VOT
+distributions [@Munson2011]. Likewise, listeners will generalize recalibration
+of a fricative contrast from a female to a male talker given the right kind of
+test stimuli [@Reinisch2014].
 
 ## Distributions vs. recognition accuracy
 
-* Generative model: good for more than just correct/incorrect recognition accuracy. not always 100% certain, lots of uncertainty/overlap in normal speech, need to have a good model of cue distributions in order to deal with that uncertainty effectively.
-    * (( evidence that people are sensitive to the distributions? McMurray, Clayards, ))
-    * (( what does this have to do with what we've shown here...is there anywhere where these measures make opposite predictions? and where would that really matter? uncertainty maintenance is one place))
+* Generative model: good for more than just correct/incorrect recognition
+  accuracy. not always 100% certain, lots of uncertainty/overlap in normal
+  speech, need to have a good model of cue distributions in order to deal with
+  that uncertainty effectively.
+    * (( evidence that people are sensitive to the distributions? McMurray,
+      Clayards, ))
+    * (( what does this have to do with what we've shown here...is there
+      anywhere where these measures make opposite predictions? and where would
+      that really matter? uncertainty maintenance is one place))
 
 ## Sociolinguistic stuff
 
-(( something about relevance to sociolinguistics...what do people have knowledge of? what sorts of inferences should they be able to make? what cues are actually informative? ))
+(( something about relevance to sociolinguistics...what do people have knowledge
+of? what sorts of inferences should they be able to make? what cues are actually
+informative? ))
 
 ## A lower bound
 
-Finally, it is important to note that our results here constitute a _lower bound_ on the informativity or utility of different levels of socio-indexical grouping.[^lower-bound-caveat] We model cue distributions for a particular group as a _single_ normal distribution over observed cue values. In reality, a hierarchical model is more appropriate, since different levels of grouping can nest within each other. For instance, each dialect group is likely better modeled as a _mixture_ of talker-specific distributions, which each exhibit dialect features to a varying degree. This is especially important for _adaptation_ to an unfamiliar talker, since a group-level distribution conflates _within_ and _between_ talker variation, both of which have separate roles to play in belief updating. 
+Finally, it is important to note that our results here constitute a _lower
+bound_ on the informativity or utility of different levels of socio-indexical
+grouping.[^lower-bound-caveat] We model cue distributions for a particular group
+as a _single_ normal distribution over observed cue values. In reality, a
+hierarchical model is more appropriate, since different levels of grouping can
+nest within each other. For instance, each dialect group is likely better
+modeled as a _mixture_ of talker-specific distributions, which each exhibit
+dialect features to a varying degree. This is especially important for
+_adaptation_ to an unfamiliar talker, since a group-level distribution conflates
+_within_ and _between_ talker variation, both of which have separate roles to
+play in belief updating.
 
-The approach to group-level modeling that we take here is roughly equivalent to the _posterior predictive_ distribution of a fully hierarchical model, which integrates over lower levels of grouping to provide a single distribution of cues given the group (and phonetic category). This corresponds to the best guess a listener would have  _before_ hearing anything from an unfamiliar talker, if the only information they had about that talker was their group membership. As the listener hears more cue values from the talker, the hierarchical nature of grouping structure becomes more important and can provide (in principle) a significant advantage over what we measured here. But modeling this process is quite a bit more complicated and we leave it for future work. Nevertheless, modeling each category as a single, "flat" distribution per group may well prove a useful approximation, or even a boundedly-rational model of how listeners take advantage of different levels of grouping structure [and similar approaches have been used in, e.g., motor control @Kording2007].
+The approach to group-level modeling that we take here is roughly equivalent to
+the _posterior predictive_ distribution of a fully hierarchical model, which
+integrates over lower levels of grouping to provide a single distribution of
+cues given the group (and phonetic category). This corresponds to the best guess
+a listener would have _before_ hearing anything from an unfamiliar talker, if
+the only information they had about that talker was their group membership. As
+the listener hears more cue values from the talker, the hierarchical nature of
+grouping structure becomes more important and can provide (in principle) a
+significant advantage over what we measured here. But modeling this process is
+quite a bit more complicated and we leave it for future work. Nevertheless,
+modeling each category as a single, "flat" distribution per group may well prove
+a useful approximation, or even a boundedly-rational model of how listeners take
+advantage of different levels of grouping structure
+[and similar approaches have been used in, e.g., motor control @Kording2007].
 
-[^predictive-approx]: Depending on how variability at lower levels of grouping is modeled.
+[^predictive-approx]: Depending on how variability at lower levels of grouping
+    is modeled.
 
-[^lower-bound-caveat]: Even above and beyond the limitations imposed by unqueal numbers of talkers in each group, which necessitates subsampling talkers in the larger groups in order to meaningfully compare accuracy.
+[^lower-bound-caveat]: Even above and beyond the limitations imposed by unqueal
+    numbers of talkers in each group, which necessitates subsampling talkers in
+    the larger groups in order to meaningfully compare accuracy.
 
 # Conclusion
 
-* __take home point__: inference under uncertainty/ideal adapter provides a unified approach to speech perception. a set of _conceptual tools_ to address both socio- and psycholinguistically interesting questions. and novel combinations that are of interest to both.
+* __take home point__: inference under uncertainty/ideal adapter provides a
+  unified approach to speech perception. a set of _conceptual tools_ to address
+  both socio- and psycholinguistically interesting questions. and novel
+  combinations that are of interest to both.
