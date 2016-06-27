@@ -1314,7 +1314,7 @@ Finally, it is important to note that our results here constitute a _lower bound
 
 The approach to group-level modeling that we take here is roughly equivalent to the _posterior predictive_ distribution of a fully hierarchical model, which integrates over lower levels of grouping to provide a single distribution of cues given the group (and phonetic category). This corresponds to the best guess a listener would have  _before_ hearing anything from an unfamiliar talker, if the only information they had about that talker was their group membership. As the listener hears more cue values from the talker, the hierarchical nature of grouping structure becomes more important and can provide (in principle) a significant advantage over what we measured here. But modeling this process is quite a bit more complicated and we leave it for future work. Nevertheless, modeling each category as a single, "flat" distribution per group may well prove a useful approximation, or even a boundedly-rational model of how listeners take advantage of different levels of grouping structure [and similar approaches have been used in, e.g., motor control @Kording2007].
 
-[^predictive-approx]: Depending on how variability at loewr levels of grouping is modeled.
+[^predictive-approx]: Depending on how variability at lower levels of grouping is modeled.
 
 [^lower-bound-caveat]: Even above and beyond the limitations imposed by unqueal numbers of talkers in each group, which necessitates subsampling talkers in the larger groups in order to meaningfully compare accuracy.
 
