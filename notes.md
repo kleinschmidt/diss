@@ -322,8 +322,11 @@ It's unclear how much re-organization of the existing bits will be required. But
 ## June 20
 
 * Goals
-    * write intro, get feedback
-    * outline conclusion
+    * Draft of talker variation paper
+        * Write out conceptual points bullets
+        * Discussion bullets
+        * Expand intro bullets into prose
+        * Expand discussion bullets into prose
 
 ### Status
 

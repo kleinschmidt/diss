@@ -1267,6 +1267,7 @@ vowel_accuracy_marginal %>%
 ## What to track?
 
 <!-- this is the major discussion point. -->
+<!-- TODO: clarify how this connects. gentler intro -->
 
 Treating speech perception as a problem of inference under uncertainty---as the ideal adapter does---highlights the importance of listeners' knowledge about the distributions of cues that are produced for each linguistic unit.  A major  question that this perspective raises is _what_ linguistic, socio-indexical, and acoustic/phonetic variables listeners are learning distributions for. The ideal adapter does not directly answer this question, but provides a set of conceptual and quantitative tools for addressing it. The studies reported here take these tools and apply them to data on how many different talkers produce two different sets of phonetic categories. We hope that by doing so we provide a proof of concept for the broad usefulness of these tools. One purpose they might be put to is to formulate hypotheses about what distributions listeners should track.
 

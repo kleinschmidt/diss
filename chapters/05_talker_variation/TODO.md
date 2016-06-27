@@ -6,6 +6,7 @@
         * normalized formant frequencies in dist plots figure...
         * aspect ratio for vowel-specific KL?
     * what about results for bilinguals? footnote or something at least...
+    * clean up figure seven (dialect advantage) and add caption
 * finish discussion
     * summary of results and big take away points to start (base on introduction)
     * check commented bits in "what to track" subsection
@@ -16,3 +17,5 @@
         * generate hypotheses about relative contributions of different acoustic-phonetic cues for social variables based on lots of production data.
         * raises questions about how people deal with _uncertainty_ in their socio-linguistic inferences.
 * conclusion
+* editing
+    * sex -> gender? (would require renaming results, or in data and then re-running)
