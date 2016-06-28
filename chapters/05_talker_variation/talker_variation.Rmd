@@ -506,7 +506,7 @@ bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
                   position = position_dodge(w=0.5)) +
   facet_grid(.~contrast+cues, scales='free', space='free') +
   rotate_x_axis_labs() +
-  labs(x = 'Grouping (broadest to most specific)',
+  labs(x = 'Grouping',
        y = 'KL Divergence of cue distributions\nfrom marginal (bits)')
 
 ```
@@ -528,7 +528,10 @@ gg_vowels_by_sex <-
   scale_x_reverse() +
   scale_y_reverse() +
   facet_grid(.~Sex) +
-  labs(color = 'Sex')
+  labs(color = 'Sex',
+       x='F2 (Lobanov normalized)',
+       y='F1 (Lobanov normalized)') +
+  theme(panel.grid = element_blank())
 
 gg_vot_by_talker <-
   ggplot(vot, aes(x=vot, group=voicing)) +
@@ -542,7 +545,9 @@ gg_vot_by_talker <-
   scale_color_manual("", values = c('black', 'gray')) +
   theme(axis.text.y = element_blank(),
         axis.title.y = element_blank(),
-        axis.ticks.y = element_blank())
+        axis.ticks.y = element_blank(),
+        panel.grid = element_blank()) +
+  labs(x = 'VOT (ms)')
 
 ggdraw() +
   draw_plot(gg_vowels_by_sex, 0, 0.5, 1, 0.5) +
@@ -557,7 +562,7 @@ Second, there are substantial differences in the informativity of the socio-inde
 
 As Figure {@fig:vowel-kl-by-category}, while the relative ordering of grouping variables' informativity is consistent across vowels, their actual degree of informativity varies quite a bit. Dialect (and Dialect+Sex) is particularly informative for `aa`, `ae`, `eh`, and `uw`, vowels with distinctive variants in at least one of the dialect regions from the NSP. `aa` is undergoing a merger with `ao` in some regions, `ae` and `eh` participate in the northern cities chain shift, and `uw` is fronted in some regions [and in others, but only by female talkers; @Clopper2005].
 
-```{r vowel-kl-by-category, fig.cap='Individual vowels vary substantially in the informativity of grouping variables about their cue distributions. Only normalized F1xF2 is shown to emphasize dialect effects.'}
+```{r vowel-kl-by-category, fig.width=7, fig.height=3.45, fig.cap='Individual vowels vary substantially in the informativity of grouping variables about their cue distributions. Only normalized F1xF2 is shown to emphasize dialect effects.'}
 
 vowel_kl %>%
   mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
@@ -594,7 +599,9 @@ vowel_kl %>%
             aes(label = Vowel, color=Vowel), show.legend=FALSE,
             nudge_x = 0.25, nudge_y=0.05) +
   facet_grid(.~cues) +
-  rotate_x_axis_labs()
+  rotate_x_axis_labs() +
+  labs(x = 'Dialect',
+       y = 'KL divergence from marginal (bits)')
 
 ```
 
@@ -929,7 +936,7 @@ accuracy_summary %>%
   geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi), stat='identity') +
   facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
   rotate_x_axis_labs() +
-  labs(x = 'Grouping (broadest to most specific)',
+  labs(x = 'Grouping',
        y = 'Probability of correct recognition') +
   lims(y = c(NA, 1))
 
@@ -942,7 +949,7 @@ Normalized input results in higher vowel recognition accuracy across the board, 
 
 Also paralleling the cue distributions themselves, classifying according to sex-specific distributions provides the biggest boost in recognition for un-normalized formant accuracy. For normalized input, none of the socio-indexical grouping factors provide much of an advantage over the marginal distributions. In both cases, dialect provides minimal benefit for recognition, alone or in combination with sex.
 
-```{r by-vowel-acc-group-known, fig.width=10, fig.height=5}
+```{r by-vowel-acc-group-known, fig.width=10, fig.height=5, fig.cap='Probability of correct recognition varies across vowels, overall and according to the socio-indexical grouping variable.'}
 
 acc_by_vowel <- accuracy %>%
   filter(contrast == 'Vowels') %>%
@@ -960,7 +967,8 @@ acc_by_vowel_summary %>%
   ggplot(aes(x=Vowel, y=accuracy, color=grouping)) +
   geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi),
                   position = position_dodge(w=0.7)) +
-  facet_grid(cues~.)
+  facet_grid(cues~.) +
+  labs(y = 'Probability of correct recognition')
 
 ```
 
