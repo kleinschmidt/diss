@@ -16,6 +16,7 @@
     * how to tie back in with soclx?
         * generate hypotheses about relative contributions of different acoustic-phonetic cues for social variables based on lots of production data.
         * raises questions about how people deal with _uncertainty_ in their socio-linguistic inferences.
-* conclusion
+    * normalization vs. adaptation (what should be learned depends a lot on whether input is normalized)
+* conclusion + abstract
 * editing
     * sex -> gender? (would require renaming results, or in data and then re-running)

@@ -1197,7 +1197,7 @@ _informative_ about phonetic cue distributions, _useful_ for improving speech
 recognition, and can be _inferred_ from phonetic cues themselves. However, the
 extent to which these are true depends on the particular grouping variable and
 particular phonetic categories/cues involved. Socio-indexical variables are more
-useful, more informative, and more easily inferred for vowel than for stop
+useful, more informative, and more easily inferred for vowels than for stop
 consonant voicing. Some variables are broadly useful (sex, talker identity)
 while others are useful only in certain, specific contexts (dialect for certain
 vowels/dialect combinations).
@@ -1210,26 +1210,8 @@ from the overall or marginal distributions. But being useful for speech
 recognition does not always mean that a socio-indexical variable can be easily
 inferred from phonetic cues alone, or vice-versa.
 
-These results 
+These results ... <points to discuss>
 
-* Summary of results
-    * on the whole, socio-indexical variables are _informative_ about linguistic
-      cue distribution, _useful_ for improving speech recognition, and
-      themselves can be inferred on the basis of acoustic-phonetic cues alone.
-    * these variables differ in utility and informativity, both within a single
-      phonetic contrast/set of cues, and between different contrasts/cues.
-    * on the whole, informativity and utility mirror each other. However,
-      utility for speech recognition and socio-indexical judgements do not
-      always mirror each other.
-* What of our goals?
-    1. _Informativity_: socio-indexical variables are more informative for
-       vowels than for stop voicing. And talker identity is by far the most
-       informative of all variables considered about both vowel and stop
-       voicing. After that, other grouping variables are uniformly uninformative
-       for stop voicing, and for vowels, talker sex is next, followed by
-       dialect.
-    2. _Utility_
-    3. _Inferability_
 * Points to discuss
     * These results help us make more specific predictions about what
       distributions listeners should (according to the ideal adapter) be
@@ -1243,7 +1225,7 @@ These results
 
 
 
-* normalization vs. adaptation.
+* (( WHERE DOES THIS GO )) normalization vs. adaptation.
     * both are well supported as strategies that listeners use for dealing with
       variability [@WeatherholtzInPress]
     * ...normalization changes usefulness of some variables. dialect is
