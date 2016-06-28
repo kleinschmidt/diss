@@ -1265,6 +1265,26 @@ acc_marginal_by_vowel_summary %>%
 
 ```
 
+```{r group-inferred-dialect-acc, fig.cap='When group must be inferred simultaneously with category labels, accuracy actually _increases_ in many cases (relative to when the talker's true group is known, lighter points, replotted from Figure @fig:overall-acc-by-dialect). This effect is especially strong for dialect-level grouping, suggesting that individual talkers vary in how similar their distributions are to same-dialect talkers.'}
+
+accuracy_marginal %>%
+  bind_rows(accuracy) %>%
+  filter(subsample_size == 3 | grouping=='Talker', contrast=='Vowels') %>%
+  group_by(cues, group_is, grouping, Talker) %>%
+  summarise(accuracy=mean(accuracy)) %>%
+  left_join(nsp_vows %>%
+              group_by(Talker, Dialect) %>%
+              summarise()) %>%
+  ggplot(aes(x=grouping, y=accuracy, color=grouping, alpha=group_is)) +
+  stat_summary(fun.data=mean_cl_boot, geom='pointrange', position=pd()) +
+  facet_grid(cues  ~Dialect) +
+  scale_alpha_manual(values=c(1, 0.3))+
+  lims(y=c(0,1)) +
+  rotate_x_axis_labs()
+
+```
+
+
 ```{r vowel-confusion-mats, eval=FALSE}
 
 vowel_class_all %>%
