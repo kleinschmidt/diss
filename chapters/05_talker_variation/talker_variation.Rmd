@@ -1040,8 +1040,8 @@ midatl_adv_raw <-
 Given the well-known dialect-specific variation in vowel production, it's
 somewhat surprising that dialect-level cue distributions do not, in our models,
 provide a substantial overall improvement in correct recognition.  However,
-dialects themselves vary in how much they deviate from norms of Standard
-American English (Figure @fig:vowel-kl-by-dialect). There is corresponding
+dialects themselves vary in how much they deviate from both the norms of Standard
+American English [@Clopper2005] and from the marginal cue distributions in this dataset (Figure @fig:vowel-kl-by-dialect). There is corresponding
 variability in the utility of knowing a talker's dialect, depending on what that
 dialect is (Figure @fig:overall-acc-by-dialect).
 
