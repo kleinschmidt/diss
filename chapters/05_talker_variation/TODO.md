@@ -1,12 +1,12 @@
 
-* clean up results
-    * gentler introduction in each results section
-    * get rid of joint inference (or put in appendix or something. the result that accuracy goes up but posterior probability goes down is pretty puzzling and probably hard to explain)
-    * check figures. (esp captions and axes labels)
+* [done] clean up results
+    * [done] gentler introduction in each results section
+    * [done] get rid of joint inference (or put in appendix or something. the result that accuracy goes up but posterior probability goes down is pretty puzzling and probably hard to explain)
+    * [check figures. (esp captions and axes labels)
         * normalized formant frequencies in dist plots figure...
         * aspect ratio for vowel-specific KL?
-    * what about results for bilinguals? footnote or something at least...
-    * clean up figure seven (dialect advantage) and add caption
+    * [done] what about results for bilinguals? footnote or something at least...
+    * [done] clean up figure seven (dialect advantage) and add caption
 * finish discussion
     * summary of results and big take away points to start (base on introduction)
     * check commented bits in "what to track" subsection
