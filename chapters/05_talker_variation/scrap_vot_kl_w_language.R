@@ -62,3 +62,9 @@ vot_kl_w_lang %>%
   group_by(grouping, group) %>%
   summarise(KL = mean(KL)) %>%
   do({ boot_ci(.$KL, function(d,i) mean(d[i])) })
+
+vot_kl_w_lang %>%
+  filter(grouping == 'lang') %>%
+  group_by(group) %>%
+  summarise(KL = mean(KL))
+  
