@@ -1,0 +1,137 @@
+
+## Joint inference of categories and groups
+
+The fact that it's possible to infer many grouping variables from unlabeled observations suggests that these grouping variables can be helpful even when they're not known to listeners a priori. For instance, knowing a talker's sex substantially improves vowel recognition, and sex can be inferred from vowel productions even without knowing the category of each vowel. To evaluate this, we computed the joint posterior over categories and group, and then marginalized (averaged) over groups in order to compare with the known-group accuracy.
+
+```{r group-inferred-accuracy}
+
+vowel_accuracy_marginal <-
+  vowel_class_all %>%
+  filter(group_is == 'Inferred',
+         subsample_size == 3) %>%
+  get_accuracy('Vowel', method=acc_method)
+
+vot_accuracy_marginal <-
+  vot_class_all %>%
+  filter(group_is == 'Inferred') %>%
+  get_accuracy('voicing', method=acc_method)
+
+accuracy_marginal <-
+  vowel_accuracy_marginal %>%
+  select(-Age) %>%
+  mutate(contrast = 'Vowels') %>%
+  bind_rows(vot_accuracy_marginal %>% mutate(contrast = 'Stop voicing')) %>%
+  filter(grouping != 'Marginal') %>%
+  ungroup() %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels))
+
+accuracy_marginal_summary <-
+  accuracy_marginal %>%
+  group_by(contrast, cues, grouping, group_is, Talker) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+```
+
+```{r group-inferred-acc-plot, fig.width=8.3, fig.height=4.2}
+
+accuracy_marginal_summary %>%
+  bind_rows(accuracy_summary) %>%
+  ggplot(aes(x = grouping, y=accuracy,
+             color = grouping, alpha = group_is)) +
+  ## geom_point(data = accuracy %>%
+  ##              group_by(grouping, Talker, cues, contrast) %>%
+  ##              summarise(accuracy = mean(accuracy)),
+  ##            position='jitter', alpha=0.2) +
+  geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi), stat='identity',
+                  position = pd()) +
+  facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
+  rotate_x_axis_labs() +
+  labs(x = 'Grouping (broadest to most specific)',
+       y = 'Probability of correct recognition') +
+  lims(y = c(0, 1)) +
+  scale_alpha_manual(values = c(1, 0.4))
+
+```
+
+```{r group-inferred-vowel-acc-plot}
+
+acc_marginal_by_vowel_summary <-
+  vowel_accuracy_marginal %>%
+  group_by(cues, grouping, group_is, Vowel, Talker) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+
+acc_marginal_by_vowel_summary %>%
+  filter(grouping != 'Marginal') %>%
+  bind_rows(acc_by_vowel_summary) %>%
+  ungroup() %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
+  ggplot(aes(x=Vowel, y=accuracy, color=grouping, alpha=group_is)) +
+  geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi),
+                  position = position_dodge(w=0.7)) +
+  lims(y = c(0, 1)) +
+  scale_alpha_manual(values = c(1, 0.4)) +
+  facet_grid(cues~.)
+
+
+```
+
+```{r group-inferred-dialect-acc, fig.cap='When group must be inferred simultaneously with category labels, accuracy actually _increases_ in many cases (relative to when the talker's true group is known, lighter points, replotted from Figure @fig:overall-acc-by-dialect). This effect is especially strong for dialect-level grouping, suggesting that individual talkers vary in how similar their distributions are to same-dialect talkers.'}
+
+accuracy_marginal %>%
+  bind_rows(accuracy) %>%
+  filter(subsample_size == 3 | grouping=='Talker', contrast=='Vowels') %>%
+  group_by(cues, group_is, grouping, Talker) %>%
+  summarise(accuracy=mean(accuracy)) %>%
+  left_join(nsp_vows %>%
+              group_by(Talker, Dialect) %>%
+              summarise()) %>%
+  ggplot(aes(x=grouping, y=accuracy, color=grouping, alpha=group_is)) +
+  stat_summary(fun.data=mean_cl_boot, geom='pointrange', position=pd()) +
+  facet_grid(cues  ~Dialect) +
+  scale_alpha_manual(values=c(1, 0.3))+
+  lims(y=c(0,1)) +
+  rotate_x_axis_labs()
+
+```
+
+
+```{r vowel-confusion-mats, eval=FALSE}
+
+vowel_class_all %>%
+  filter(subsample_size == 3) %>%
+  ungroup() %>%
+  select(group_is, Vowel, category_model, cues, grouping, Talker, Token,
+         posterior_choice) %>%
+  spread(group_is, posterior_choice) %>%
+  mutate(posterior = Inferred-Known) %>%
+  group_by(cues, grouping, Vowel, category_model) %>%
+  summarise(p = mean(posterior)) %>%
+  mutate(category_model=factor(category_model, levels=levels(Vowel))) %>%
+  ggplot(aes(x=category_model, y=Vowel, fill=p)) +
+  geom_tile() +
+  facet_grid(cues ~ grouping) +
+  scale_fill_gradient2()
+
+vowel_accuracy_marginal %>%
+  ungroup() %>%
+  select(cues, grouping, Talker, Vowel, Token, group, category_model) %>%
+  left_join(vowel_accuracy,
+            by=c('cues', 'grouping', 'Talker', 'Vowel', 'Token', 'group'),
+            suffix=c('.inferred', '.known')) %>%
+  group_by(cues, grouping, category_model.inferred, category_model.known) %>%
+  tally() %>%
+  ggplot(aes(x=category_model.inferred, y=category_model.known, fill=n)) +
+  geom_tile() +
+  facet_grid(cues ~ grouping)
+
+```
+
