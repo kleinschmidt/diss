@@ -434,6 +434,8 @@ For the vowel data, the different levels of grouping have very different group s
 
 ## Informativity of socio-indexical groupings about cue distributions
 
+We first analyze how informative each socio-indexical grouping variable is about the cue distributions of each phonetic category. As described in the methods, we measure informativity by the average KL divergence between the group-conditional cue distributions and the unconditioned (marginal) cue distributions.
+
 ```{r kl-helpers, cache=TRUE}
 
 run_kl <- function(data_grouped, reference_grouping,
@@ -596,6 +598,8 @@ vowel_kl %>%
 
 
 ## Utility of socio-indexical groupings for speech recognition
+
+Next, we evaluate the _utility_ of each grouping variable for speech recognition. The utility of a grouping variable---like dialect---can be quantified as the probability of correct recognition given the cue distributions conditioned on each group---e.g., each dialect---using an ideal listener model [@Clayards2008; @Kleinschmidt2015].
 
 ```{r classification-helpers, cache=TRUE}
 
@@ -1077,6 +1081,8 @@ vowel_accuracy %>%
 
 
 ## Inferring socio-indexical variables from cue distributions
+
+Finally, we assess how well listeners could infer socio-indexical variables from unlabeled acoustic-phonetic cues, based on the group-conditional cue distributions. We measure this by the accuracy with which an "ideal listener" can categorize a talker's group membership for each socio-indexical grouping variable.
 
 ```{r indexical-classification, cache=TRUE}
 
