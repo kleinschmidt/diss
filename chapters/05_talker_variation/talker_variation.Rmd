@@ -961,9 +961,97 @@ Figure {@fig:by-vowel-acc-group-known} shows probability of correct recognition 
 
 ### Does dialect contribute anything?
 
-Given the well-known dialect-specific variation in vowel production, it's somewhat surprising that dialect-level cue distributions do not, in our models, provide a substantial overall improvement in correct recognition.  However, dialects themselves vary in how much they deviate from norms of Standard American English (Figure @fig:vowel-kl-by-dialect). There is corresponding variability in the utility of knowing a talker's dialect, depending on what that dialect is (Figure @fig:overall-acc-by-dialect). Knowing a dialect 
+```{r vowel-dialect-advantage}
 
-shows, dialect increases the probability of correct recognition only for talkers from the Mid-Atlantic and North regions.
+## compute within-talker dialect advantage
+dialect_advantage <-
+  vowel_accuracy %>%
+  filter(grouping != 'Talker') %>%
+  group_by(cues, subsample_size, group_is, Talker, Vowel, grouping) %>%
+  summarise(proportion = mean(accuracy),
+            logodds = log(sum(accuracy)+0.5) - log(sum(!accuracy)+0.5)) %>%
+  gather('measure', 'accuracy', proportion, logodds) %>%
+  group_by(measure, add=TRUE) %>%
+  ## select(-Dialect, -Marginal, -Sex, -Dialect_Sex, -group) %>%
+  spread(grouping, accuracy) %>%
+  transmute(Dialect_over_marginal = Dialect - Marginal,
+            Dialect_over_sex = Dialect_Sex - Sex) %>%
+  left_join(nsp_vows %>% group_by(Talker, Dialect, Sex) %>% summarise())
+
+## bootstrapped CIs by vowel
+dialect_advantage_boot_ci <- dialect_advantage %>%
+  filter(subsample_size == 3, group_is == 'Known') %>%
+  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
+  group_by(cues, Vowel, measure, comparison) %>%
+  do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
+
+## bootstrapped CIs by dialect
+dialect_advantage_by_dialect_boot_ci <- dialect_advantage %>%
+  filter(subsample_size == 3, group_is == 'Known') %>%
+  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
+  group_by(cues, Dialect, measure, comparison) %>%
+  do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
+
+format_advantage <- function(d, ci_descrip='95% CI', p=TRUE, paren=TRUE) {
+  adv_string <- sprintf('%.0f%%', 100*d$observed)
+  ci_string <- sprintf('%s %.0f--%.0f%%',
+                       ci_descrip, 100*d$ci_lo, 100*d$ci_high)
+  p_string <- paste(',', daver::p_val_to_less_than(d$boot_p))
+
+  if (paren) paste0(adv_string, ' (', ci_string, ifelse(p, p_string, ''), ')')
+  else paste0(adv_string, ', ', ci_string, ifelse(p, p_string, ''))
+}
+
+north_adv_lob <-
+  dialect_advantage_by_dialect_boot_ci %>%
+  filter(Dialect == 'North',
+         measure == 'proportion',
+         str_detect(cues, 'Lobanov'),
+         boot_p < 0.05)
+
+north_adv_raw <-
+  dialect_advantage_by_dialect_boot_ci %>%
+  filter(Dialect == 'North',
+         measure == 'proportion',
+         !str_detect(cues, 'Lobanov'),
+         boot_p < 0.05)
+
+midatl_adv_lob <-
+  dialect_advantage_by_dialect_boot_ci %>%
+  filter(Dialect == 'Mid-Atlantic',
+         measure == 'proportion',
+         str_detect(cues, 'Lobanov'),
+         boot_p < 0.05)
+
+midatl_adv_raw <-
+  dialect_advantage_by_dialect_boot_ci %>%
+  filter(Dialect == 'Mid-Atlantic',
+         measure == 'proportion',
+         !str_detect(cues, 'Lobanov'),
+         boot_p < 0.05)
+
+```
+
+Given the well-known dialect-specific variation in vowel production, it's
+somewhat surprising that dialect-level cue distributions do not, in our models,
+provide a substantial overall improvement in correct recognition.  However,
+dialects themselves vary in how much they deviate from norms of Standard
+American English (Figure @fig:vowel-kl-by-dialect). There is corresponding
+variability in the utility of knowing a talker's dialect, depending on what that
+dialect is (Figure @fig:overall-acc-by-dialect).
+
+Knowing a talker's dialect is particularly helpful for talkers from the North and Mid-Atlantic regions.  For Northern talkers, there's a significant advantage to using dialect-specific cue distributions over marginal for normalized formants, which increases accuracy by 
+`r format_advantage(north_adv_lob)`,
+and over sex-specific for raw formants, increasing accuracy by 
+`r format_advantage(north_adv_raw)`.
+For Mid-Atlantic talkers, conditioning on dialect significantly improves accuracy relative to marginal formant distributions, both for normalized
+(`r format_advantage(midatl_adv_lob, paren=FALSE)`)
+and raw input
+(`r format_advantage(midatl_adv_raw, paren=FALSE)`).[^logodds]
+
+[^logodds]: These comparisons are also significant when using log-odds of
+    correct recognition, rather than raw probabilities.
+
 
 To address this possibility, we examine how using dialect-level formant distributions affects the probability of making particular _errors_ that would result from ignoring dialect-specific shifts. For instance, in the Northern Citiies Shift, the `ae` vowel is raised, resulting in a distribution very much like the standard `eh` distribution. If dialect is ignored, then `ae` tokens from talkers from a dialect region with this shift will be mistaken for `eh`.
 
@@ -1059,35 +1147,7 @@ Based on the summary by @Clopper2005, we compiled a list of likely dialect-speci
 
 Second, the errorbars in Figures {@fig:overall-accuracy-group-known} and {@fig:by-vowel-acc-group-known} plot variability across talkers, independently for each grouping level. But for assessing the utility of dialect, a more appropriate measure of uncertainty is the variability of the within-talker _difference_ between accuracy with and without considering dialect. If talkers vary in their baseline level of intelligibility, then this within-subject difference may be less variable.  Figure {@fig:dialect-over-marginal-sex} plots the average (and 95% bootstrapped CIs) within-talker increase in correct recognition of each vowel for knowing each talkers dialect. Two different baselines are used: the marginal cue distributions, and the sex-specific distributions (compared with dialect+sex).  This suggests that there may be weak effects for `ey`, `ae`, `eh`, and `uh`, but it is hard to draw firm conclusions for two reasons. First, correct recognition is at ceiling for many talkers/vowels. Second, the training data subsampling procedure that is necessary to even allow for comparison across different levels of grouping introduces additional variance that's not directly accounted for here (even though it is indirectly accounted for by bootstrapping over talkers, each of whose models was trained on a different random subsample of talkers).
 
-```{r dialect-over-marginal-sex, fig.width=8.9, fig.height=3.7}
-
-dialect_advantage <-
-  vowel_accuracy %>%
-  filter(grouping != 'Talker') %>%
-  group_by(cues, subsample_size, group_is, Talker, Vowel, grouping) %>%
-  summarise(proportion = mean(accuracy),
-            logodds = log(sum(accuracy)+0.5) - log(sum(!accuracy)+0.5)) %>%
-  gather('measure', 'accuracy', proportion, logodds) %>%
-  group_by(measure, add=TRUE) %>%
-  ## select(-Dialect, -Marginal, -Sex, -Dialect_Sex, -group) %>%
-  spread(grouping, accuracy) %>%
-  transmute(Dialect_over_marginal = Dialect - Marginal,
-            Dialect_over_sex = Dialect_Sex - Sex) %>%
-  left_join(nsp_vows %>% group_by(Talker, Dialect, Sex) %>% summarise())
-
-dialect_advantage_boot_ci <- dialect_advantage %>%
-  filter(subsample_size == 3, group_is == 'Known') %>%
-  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
-  group_by(cues, Vowel, measure, comparison) %>%
-  do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
-
-
-dialect_advantage_by_dialect_boot_ci <- dialect_advantage %>%
-  filter(subsample_size == 3, group_is == 'Known') %>%
-  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
-  group_by(cues, Dialect, measure, comparison) %>%
-  do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
-
+```{r plot-dialect-over-marginal-sex, fig.width=8.9, fig.height=3.7}
 
 dialect_advantage %>%
   filter(subsample_size == 3, group_is == 'Known') %>%
