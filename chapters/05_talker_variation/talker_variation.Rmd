@@ -1486,7 +1486,14 @@ advantage of different levels of grouping structure
 
 # Conclusion
 
-* __take home point__: inference under uncertainty/ideal adapter provides a
-  unified approach to speech perception. a set of _conceptual tools_ to address
-  both socio- and psycholinguistically interesting questions. and novel
-  combinations that are of interest to both.
+Socio-linguistic variables like age, sex, and regional origin have been
+identified by sociolinguistics as factors that systematically affect the
+realization of linguistic categories. Using an ideal observer framework, we
+quantified the extent to which a range of these variables are _informative_
+about the distributions of acoustic cues corresponding to linguistic categories,
+_useful_ for recognizing those categories, and can themselves be _inferred_ from
+unlabeled cues. Our results show that the utility and informativity of a
+particular socio-indexical variable are closely related but not identical, while inferrability is distinct.  Moreover, we demonstrate how this method for quantifying these factors allows them to be compared across phonetic categories as well as cues/contrasts (VOT vs. F1xF2).
+
+Together, these results show that the idea of inference under uncertainty, when applied to speech perception, provides a unifying perspective on both linguistic and socio-linguistic perception. This perspective leads to conceptual and computational tools for addressings questions that are of interest to psycholinguistics and sociolinguistics, as well as developing new bridges between the two.
+
