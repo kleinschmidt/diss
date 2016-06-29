@@ -721,111 +721,89 @@ min_talker_per_group <- function(d) {
     min()
 }
 
-## steps in this analysis:
-## 1. split data into LOO train/test sets, restricted to same group
-## 2. generate NNN random subsamplings of talkers in training group
-## 3. for each subsampling, train models, classify test data, and compute acc
-
 #' @param d data frame with columns for groups, category, and holdout
-#' @param groups
-train_test_same_group <- function(d, groups, category, holdout, ...) {
-  assert_that(has_name(d, groups))
+#' @param category name of column with phonetic category (e.g. 'Vowel')
+#' @param holdout name of column with factor to define cv folds (e.g. 'Talker')
+#' @param subsample_size number of levels of 'holdout' to sample as subset for
+#'   training data
+#' @param n_repetitions =10 number of times to repeat resampling
+#' @return data frame with accuracy of each observation by repetition.
+train_test_acc_same_group <- function(d, category, holdout,
+                                      subsample_size, n_repetitions=10, ...) {
   assert_that(has_name(d, holdout))
   assert_that(has_name(d, category))
   
   train <- partial(train_models, grouping = category, ...)
 
   ## split data into train/test split, restricting to same group
-x<-  d %>%
-    by_slice(train_test_split, holdout=holdout) %>%
-  unnest(.out)
+  ## (assumes that d is already grouped)
+  split_within_group <- function(d) {
+    d %>%
+      by_slice(train_test_split, holdout=holdout) %>%
+      unnest(.out)
+  }
 
+  ## classify and get accuracy
   ## don't care about groups within train/test split (already restricted to same
   ## group) so we can just use train_models and classify directly
-  train_test <- function(data_train, data_test) {
+  train_test_acc <- function(data_train, data_test) {
     data_train %>%
       train() %>%
       rename_(category=category) %>%
       classify(data_test, ., 'category') %>%
-      rename_(category_model = 'model')
+      rename_(category_model = 'model') %>%
+      get_accuracy(category_col = category)
   }
 
-  ## get_accuracy(category_col = category)
+  ## repeat for some random subsamplings
+  repeat_w_subsample <- function(data_train, data_test) {
+    replicate(n_repetitions,
+              data_train %>%
+                sample_n_groups(group=holdout, n=subsample_size) %>%
+                train_test_acc(data_test),
+              simplify=FALSE) %>%
+      do.call(bind_rows, .)
+  }
+
+  ## on resample talkers if there are > subsample_size talkers in the smallest
+  ## group
+  group_size <- min_talker_per_group(d)
+  if (group_size <= subsample_size+1) {
+    get_acc <- train_test_acc
+  } else {
+    get_acc <- repeat_w_subsample
+  }
+
+  ## put it all together
+  acc <- d %>%
+    split_within_group() %>%
+    mutate(acc = map2(data_train, data_test, get_acc)) %>%
+    unnest(acc)
 
 }
 
-
 set.seed(100)
 
-vowel_models <-
-
-
+vowel_acc_same_group_rep <-
   vowel_data_grouped %>%
   mutate(group_size = map_dbl(data, min_talker_per_group)) %>%
   right_join(cross_d(list(group_size = unique(.$group_size),
                           subsample_size = c(3,7))) %>%
                filter(group_size > subsample_size)) %>%
-  mutate(train_test = map2(data, grouping,
-                           train_test_same_group,
-                           category = 'Vowel', holdout = 'Talker'))
-
-
-```
-
-```{r vowel-classification-models, cache=TRUE, dependson=c('vowel-data', 'classification-helpers')}
-
-min_talker_per_group <- function(d) {
-  d %>%
-    do(n = length(unique(.$Talker))) %>%
-    select_('n') %>%
-    unlist() %>%
-    min()
-}
-
-set.seed(100)
-
-vowel_models <-
-  vowel_data_grouped %>%
-  mutate(group_size = map_dbl(data, min_talker_per_group)) %>%
-  right_join(cross_d(list(group_size = unique(.$group_size),
-                          subsample_size = c(3,7))) %>%
-               filter(group_size > subsample_size)) %>%
-  mutate(trained = pmap(list(data, grouping, subsample_size),
-                        train_models_indexical_subsample_holdout),
-         joint_posteriors = map(trained, trained_to_joint_post,
-                                obs_vars = c('Vowel', 'Token')))
+  mutate(acc = map2(data, subsample_size,
+                    train_test_acc_same_group,
+                    category = 'Vowel', holdout = 'Talker',
+                    n_repetitions=20)) %>%
+  unnest(map2(acc, grouping, ~ rename_(.x, group=.y)))
 
 ```
 
-```{r vowel-classification, cache=TRUE, dependson=c('vowel-classification-models', 'classification-helpers')}
-
-vowel_joint_class <-
-  vowel_models %>%
-  unnest(map2(joint_posteriors, grouping, ~ rename_(.x, group=.y))) %>%
-  group_by(cues, grouping, subsample_size)
-
-vowel_marginal_class <-
-  vowel_joint_class %>%
-  group_by(Talker, Vowel, Token, group, category_model, add=TRUE) %>%
-  marginalize_log('log_posterior') %>%
-  normalize_log_probability('log_posterior') %>%
-  mutate(group_is = 'Inferred')
-
-vowel_true_group_class <-
-  vowel_joint_class %>%
-  filter(group == group_model) %>%
-  group_by(Talker, Vowel, Token, add=TRUE) %>%
-  normalize_log_probability('log_posterior') %>%
-  mutate(group_is = 'Known')
+```{r vowel-classification, cache=TRUE, dependson=c('classification-helpers')}
 
 vowel_talker_class <-
   vowel_data %>%
-  unnest(map(data, classify_by_talker_cv, holdout='Token'))
-
-vowel_class <-
-  bind_rows(vowel_marginal_class,
-            vowel_true_group_class,
-            vowel_talker_class)
+  unnest(map(data, classify_by_talker_cv, holdout='Token')) %>%
+  mutate(group_is = 'Known')
 
 ```
 
@@ -885,14 +863,7 @@ vot_class <-
 
 ```
 
-```{r check-classification, results='hide', cache=TRUE, dependson=c('vowel-classification', 'vot-classification')}
-
-vowel_class %>%
-  group_by(cues, group_is, grouping, subsample_size, Talker, Vowel, Token) %>%
-  summarise(n_choice = sum(posterior_choice),
-            sum_post = sum(posterior)) %$%
-  assert_that(all(n_choice == 1),
-              all.equal(sum_post, rep(1, length(sum_post))))
+```{r check-classification, results='hide', cache=TRUE, dependson=c('vot-classification')}
 
 vot_class %>%
   group_by(cues, place, group_is, grouping, Talker, voicing, Token) %>%
@@ -903,60 +874,25 @@ vot_class %>%
 
 ```
 
-```{r vowel-class-subset, cache=TRUE, dependson=c('vowel-classification')}
-
-## only use known group, subsample
-vowel_class_all <- vowel_class
-
-vowel_class <-
-  vowel_class_all %>%
-  filter(group_is == 'Known',
-         subsample_size == 3 | grouping == 'Talker')
-
-vot_class_all <- vot_class
-
-vot_class <-
-  vot_class_all %>%
-  filter(group_is == 'Known')
-```
-
 
 ```{r classification-accuracy}
 
-#' Two methods to compute accuracy from classifier
-#'
-#' @param tbl classifier output
-#' @param category_col name of column specifying true category
-#' @param method if 'choice' (default), accuracy is 1 if choice is correct,
-#'   0 if not. if 'posterior', accuracy is posterior probability of true
-#'   category
-#' @return tbl with accuracy in column \code{accuracy}
-get_accuracy <- function(tbl, category_col, method='choice') {
-  assert_that(method %in% c('choice', 'posterior'))
-  assert_that(has_name(tbl, category_col))
-
-  category_eq_mod <- lazyeval::interp(~var==category_model,
-                                      var=as.name(category_col))
-
-  if (method == 'choice') {
-    tbl %>%
-      filter(posterior_choice) %>%
-      mutate_(accuracy = category_eq_mod)
-  } else if (method == 'posterior') {
-    tbl %>%
-      filter_(category_eq_mod) %>%
-      mutate_(accuracy = ~ posterior)
-  }
-
-}
-
 acc_method <- 'choice'
-
-vowel_accuracy <- 
-  vowel_class %>% get_accuracy('Vowel', method=acc_method)
 
 vot_accuracy <-
   vot_class %>% get_accuracy('voicing', method=acc_method)
+
+
+vowel_talker_acc <-
+  vowel_talker_class %>% get_accuracy('Vowel', method=acc_method)
+
+vowel_accuracy <-
+  vowel_acc_same_group_rep %>%
+  filter(subsample_size==3) %>%
+  group_by(cues, grouping, subsample_size, group, Talker, Vowel, Token) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  bind_rows(vowel_talker_acc) %>%
+  mutate(group_is = 'Known')
 
 accuracy <- 
   vowel_accuracy %>%
