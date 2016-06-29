@@ -1374,18 +1374,6 @@ distributions [@Munson2011]. Likewise, listeners will generalize recalibration
 of a fricative contrast from a female to a male talker given the right kind of
 test stimuli [@Reinisch2014].
 
-## Distributions vs. recognition accuracy
-
-* Generative model: good for more than just correct/incorrect recognition
-  accuracy. not always 100% certain, lots of uncertainty/overlap in normal
-  speech, need to have a good model of cue distributions in order to deal with
-  that uncertainty effectively.
-    * (( evidence that people are sensitive to the distributions? McMurray,
-      Clayards, ))
-    * (( what does this have to do with what we've shown here...is there
-      anywhere where these measures make opposite predictions? and where would
-      that really matter? uncertainty maintenance is one place))
-
 ## Sociolinguistic stuff
 
 * Socio-linguistic judgements can also be thought of as inference.
