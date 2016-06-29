@@ -1236,12 +1236,6 @@ socio-linguistic judgements can be productively viewed as a sort of inference
 under uncertainty. This suggests the potential for a tighter integration of
 sociolinguistic and psycholinguistic perspectives on speech perception.
 
-* (( WHERE DOES THIS GO? maybe what to track )) normalization vs. adaptation.
-    * both are well supported as strategies that listeners use for dealing with
-      variability [@WeatherholtzInPress]
-    * ...normalization changes usefulness of some variables. dialect is
-      basically useless without normalization.
-
 
 ## What to track?
 
@@ -1260,10 +1254,6 @@ tools and apply them to data on how many different talkers produce two different
 sets of phonetic categories. We hope that by doing so we provide a proof of
 concept for the broad usefulness of these tools. One purpose they might be put
 to is to formulate hypotheses about what distributions listeners should track.
-
-<!-- missing the connection: listeners can benefit from _structure_ in
-variability over talkers/situations. we don't know what that structure is, at
-least in a way that allows for making more than qualitative predictions -->
 
 At the highest level, the ideal adapter predicts that listeners should not track
 _everything_. Rather, listeners need only track the joint distributions of
@@ -1295,22 +1285,6 @@ as two distributions---one for males, and one for females---provides much more
 specific estimates and higher classification accuracy, as shown by Figures
 @fig:vowel-vot-kl-plot and @fig:overall-accuracy-group-known
 [and in @Hillenbrand1995; @Feldman2013a].
-
-
-<!-- When adapting to an unfamiliar talker, listeners face a tradeoff.  On the
-one hand, a talker's own productions are the most informative about how that
-talker will realize their linguistic intentions in the future. On the other
-hand, listeners often have very few tokens from an unfamiliar talker themselves,
-and estimates of an underlying distribution from a small number of observations
-are either highly uncertain or noisy and more likely to be wrong. Thus, in cases
-where cue distributions are similar across talkers, listeners can benefit by
-treating those observations as if they came from the same underlying
-distribution. But in cases where talkers differ a lot, lumping observations from
-different talkers or groups together will lead to reduced comprehension accuracy
-and/or slowed adaptation to a talker's own cue distributions. The analyses
-reported here show that _both_ types of situations actually occur in variation
-across talkers. -->
-
 
 Thus, the ideal adapter predicts that listeners should learn separate cue
 distributions for levels of a socio-indexical grouping variable when that
