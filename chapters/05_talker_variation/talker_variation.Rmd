@@ -1210,20 +1210,20 @@ from the overall or marginal distributions. But being useful for speech
 recognition does not always mean that a socio-indexical variable can be easily
 inferred from phonetic cues alone, or vice-versa.
 
-These results ... <points to discuss>
-
-* Points to discuss
-    * These results help us make more specific predictions about what
-      distributions listeners should (according to the ideal adapter) be
-      tracking.
-    * Help explain discrepancies in how listeners generalize experience from
-      one talker to another, for different cues/contrasts.
-    * More basically: show that we can think of socio-linguistic judgements as
-      an inference process, where listeners use their knowledge of the
-      distribution of variants produced by different groups to infer how likely
-      it is that a particular talker belongs to a group.
-
-
+Here we discuss the implications of these results. First, the ideal adapter
+generally predicts that listeners should track conditional distributions for
+groups that are informative and useful for speech recognition. By directly
+quantifying the utility and informativity of a number of grouping variables, our
+results are an important step towards making more specific predictions about
+what group-level representations listeners should maintain if, as assumed by the
+ideal adapter, they are taking advantage of the structure that is actually
+present in cross-talker variability. Second, our results shed light on
+discrepancies between phonetic contrasts in listeners' willingness to generalize
+recalbration/perceptual learning from one talker to another. Third, this paper
+provides a proof of concept for the idea that, like phonetic judgements,
+socio-linguistic judgements can be productively viewed as a sort of inference
+under uncertainty. This suggests the potential for a tighter integration of
+sociolinguistic and psycholinguistic perspectives on speech perception.
 
 * (( WHERE DOES THIS GO? maybe what to track )) normalization vs. adaptation.
     * both are well supported as strategies that listeners use for dealing with
@@ -1337,6 +1337,17 @@ important aspect of the research program laid out by the ideal adapter framework
 is to probe listeners' prior beliefs _directly_ (which the previous chapter is a
 first step towards) <!-- TODO: remove "chapter" for TopiCS -->
 
+Finally, our results suggest that the input representation---the cue space over
+which categories are distributions---can affect which variables are informative
+or not. For vowels, using Lobanov-normalized formants as input substantially
+reduces the informativity and utility of sex as a grouping factor, but
+_increases_ the utility of dialect in many cases. From a listener's perspective,
+dialect would appear to be relatively uninformative without normalization. This
+points to a complex interaction between normalization and adaptation/perceptual
+learning as strategies for coping with talker variability. Both strategies are,
+in fact, used by listeners, but the interaction between them is poorly
+understood [@WeatherholtzInPress].
+
 ## Consequences for adapting to unfamiliar talkers
 
 The results of this study also tell us something about how listeners might adapt
@@ -1393,18 +1404,19 @@ test stimuli [@Reinisch2014].
 
 ## Sociolinguistic inference
 
-One thing that these results reveal is that socio-linguistic judgements
-can---like linguistic judgements---be viewed as probabilistic inference. In this
-view, both social and linguistic judgements rely on knowledge of how different
-underlying categories---social and linguistic---are probabilistically realized
-as distributions of observable cues. Just like each vowel (for instance) is
+Our findings suggest that socio-linguistic judgements can---like linguistic
+judgements---be viewed as probabilistic inference. In this view, both social and
+linguistic judgements rely on knowledge of how different underlying
+categories---social and linguistic---are probabilistically realized as
+distributions of observable cues. Just like each vowel (for instance) is
 realized as a distribution of F1 and F2 values, each dialect is _also_ realized
 as an F1xF2 distribution (along with many other cues). When a listener hears a
 talker produce particular cue values, they can use knowledge of these
 distributions to compare how well each possible underlying social variable
-_explains_ the speech they've observed.  We find that this kind of
-model can classify a talker's dialect at roughly the same accuracy (10-40%) as
-human listeners in a forced-choice task based on sentences spoken by the same talkers [@Clopper2006].
+_explains_ the speech they've observed.  We find that this kind of model can
+classify a talker's dialect at roughly the same accuracy (10-40%) as human
+listeners in a forced-choice task based on sentences spoken by the same talkers
+[@Clopper2006].
 
 The idea of socio-linguistic judgements of inference fits naturally within the ideal adapter framework, which holds that listeners are simultaneously making at least three kinds of inferences in the normal course of speech perception: 
 
@@ -1493,7 +1505,15 @@ quantified the extent to which a range of these variables are _informative_
 about the distributions of acoustic cues corresponding to linguistic categories,
 _useful_ for recognizing those categories, and can themselves be _inferred_ from
 unlabeled cues. Our results show that the utility and informativity of a
-particular socio-indexical variable are closely related but not identical, while inferrability is distinct.  Moreover, we demonstrate how this method for quantifying these factors allows them to be compared across phonetic categories as well as cues/contrasts (VOT vs. F1xF2).
+particular socio-indexical variable are closely related but not identical, while
+inferrability is distinct.  Moreover, we demonstrate how this method for
+quantifying these factors allows them to be compared across phonetic categories
+as well as cues/contrasts (VOT vs. F1xF2).
 
-Together, these results show that the idea of inference under uncertainty, when applied to speech perception, provides a unifying perspective on both linguistic and socio-linguistic perception. This perspective leads to conceptual and computational tools for addressings questions that are of interest to psycholinguistics and sociolinguistics, as well as developing new bridges between the two.
+Together, these results show that the idea of inference under uncertainty, when
+applied to speech perception, provides a unifying perspective on both linguistic
+and socio-linguistic perception. This perspective leads to conceptual and
+computational tools for addressings questions that are of interest to
+psycholinguistics and sociolinguistics, as well as developing new bridges
+between the two.
 
