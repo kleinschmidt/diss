@@ -366,19 +366,25 @@ It's unclear how much re-organization of the existing bits will be required. But
 
 ### Status
 
-* Talker variation chapter
-    * Intro/background __written, revised__
-    * Methods/results __written__, needs to be __edited__ including adding
-      __discussion__ of results in each subsection
-    * Discussion __mostly written__, needs __summary__ to start and something
-      about relevance to sociolx
-    * Conclusion __needs written__
+* Talker variation chapter: __draft completed__
+* Infer prior chapter
+    * intro: cog sci intro is pretty good. could benefit from __extended background__ on distributional learning (connect w/ acquisition) and __prior work__ on restricted adaptation (at the moment just briefly mention Sumner and Idemaru&Holt papers.). also need to revise to __intro two experiments__
+    * experiment 1 and model are written up. revise to reflect that this is experiment 1 now.
+    * experiment 2 methods, results, and modeling: __TODO__.
+    * discussion: need to make a list of the points to make here. probably __cog sci__ plus __caveats about other sources of constraints__ (e.g., production)
 
 ### Done list
 
 * Monday
     * make figures for vowel distributions by group
     * revised introduction
+* Tuesday
+    * finished discussion and results writeup
+* Wednesday
+    * run multiple subsampling repetitions
+    * re-write results
+    * add bars + stars for dialect effects
+    * finished draft of chapter
 
 ## July 4
 
