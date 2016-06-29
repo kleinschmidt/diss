@@ -418,7 +418,23 @@ For all of these classifications, we assume a flat prior on categories/groups. W
 
 [^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
 
-### Controls
+### Controls and assessing significance
+
+We use a bootstrapping procedure to assess group differences and calculate
+confidence intervals for our estimates of utility, informativity, and
+inferability. In general, we resample talkers, in order to estimate the
+population-level variability from the limited sample of talkers in our
+datasets. However, for informativity, we have a single observations from each
+_group_ (not talker), and so we resample groups instead.[^kl-boot] For testing
+group differences, we use the proportion of resampled datasets with same-sign
+difference as the bootstrapped $p$ value.
+
+[^kl-boot]: While it's possible to resample talkers _before_ calculating the KL
+    divergence of group-level distributions from marginal, this systematically
+    _increases_ the KL divergence. The reason for this is that in bootstrapping,
+    talkers are resampled with replacement, which means that the variance of the
+    resulting resampled group-level distributions goes down, increasing the KL
+    divergence from the (already higher variance) marginal distributions.
 
 #### Cross-validation
 
@@ -428,7 +444,16 @@ Cross-validation is not only important because it provides an unbiased measure o
 
 #### Different group sizes
 
-For the vowel data, the different levels of grouping have very different group sizes, and this requires some caution. The broadest (sex) has 24 talkers per group (23 after holdout), while the most specific (dialect+sex) has only 4 (3 after holdout).  This introduces a systematic bias in favor of broader groupings, because small sample sizes lead to noisier estimates of the underlying model, and hence lower accuracy (on average) at test [@James2013, Section 2.2.2]. To correct for this, after holding out the test talker, we randomly subsampled talkers (without replacement) within each group in the training set to be the same as the smallest group (3 talkers, based on Dialect+Sex[^seven-talkers]). We use a different random subsample for each talker's training set. Thus, any additional variance introduced is accounted for by bootstrapping talkers.  The estimates obtained in this way allow us to compare accuracy across groupings with different group sizes, but at the cost of underestimating the true group-level accuracy across the board. As such, they must be considered a useful lower bound on the utility of socio-indexical groupings.
+For the vowel data, the different levels of grouping have very different group sizes, and this requires some caution. The broadest (sex) has 24 talkers per group (23 after holdout), while the most specific (dialect+sex) has only 4 (3 after holdout).  This introduces a systematic bias in favor of broader groupings, because small sample sizes lead to noisier estimates of the underlying model, and hence lower accuracy (on average) at test [@James2013, Section 2.2.2]. To correct for this, after holding out the test talker, we randomly subsampled talkers (without replacement) within each group in the training set to be the same as the smallest group (3 talkers, based on Dialect+Sex[^seven-talkers]). 
+
+We use 20 different random subsamples for each talker, averaging accuracy over
+each resampled training set. A different subsampling is used for every talker,
+and thus any additional variance introduced by this procedure is accounted for
+by bootstrapping talkers.  The estimates obtained in this way allow us to
+compare accuracy across groupings with different group sizes, but at the cost of
+underestimating the true group-level accuracy across the board. As such, they
+must be considered a useful lower bound on the utility of socio-indexical
+groupings.
 
 [^seven-talkers]: We also ran the analyses resampling each group to 7 talkers, which corresponds to the Dialect-level group size after holdout (excluding the Dialect+Sex grouping, since there are only 4 talkers per group before holdout). Besides a small increase in overall accuracy (because of the reduced variance of the distribution estimates), this did not substantially change the results.
 
