@@ -1137,11 +1137,11 @@ acc_by_vowel_summary %>%
 The utility of socio-indexical grouping for recognizing individual vowels largely
 mirrors the overall pattern (Figure {@fig:by-vowel-acc-group-known}). The exception is that the utility of conditioning on dialect varies substantially from one vowel to the next. For most vowels, conditioning on dialect makes little difference to correct recognition. But for a few---particularly `ae` and `eh`---conditioning on dialect increases accuracy by nearly 10%. In the case of normalized formant input, accuracy using dialect-conditioned distributions actually equals or surpasses the accuracy with talker-specific distributions.
 
-THe overall utility of dialect also varies substantially based on the talker's
+The overall utility of dialect also varies substantially based on the talker's
 actual dialect (Figure @fig:overall-acc-by-dialect). This is consistent with the
 fact that dialects themselves vary in how much they deviate from both the norms
 of Standard American English [@Clopper2005] and from the marginal cue
-distributions in this dataset (Figure @fig:vowel-kl-by-dialect). Most notably, conditioning on dialect provides a consistent advantage for talkers from the Norht dialect region, on the order of 10%.
+distributions in this dataset (Figure @fig:vowel-kl-by-dialect). Most notably, conditioning on dialect provides a consistent advantage for talkers from the North dialect region, on the order of 10%.
 
 [^logodds]: These comparisons are also significant when using log-odds of
     correct recognition, rather than raw probabilities.
