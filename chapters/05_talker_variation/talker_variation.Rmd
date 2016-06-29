@@ -1103,8 +1103,8 @@ un-normalized formant accuracy. For normalized input, none of the
 socio-indexical grouping factors provide much of an advantage over the marginal
 distributions. In both cases, dialect provides a small but consistent advantage
 for recognition, both alone and in combination with sex (increasing accuracy by
-`r dialect_avg_advantage %$% round(observed*100)`% on average, all $`r
-dialect_avg_advantage %$% p_val_to_less_than(boot_p)`$).
+`r dialect_avg_advantage %$% round(observed*100)`% on average, all 
+$`r dialect_avg_advantage %$% p_val_to_less_than(boot_p)`$).
 
 ```{r by-vowel-acc-group-known, fig.width=10, fig.height=5, fig.cap='Probability of correct recognition varies across vowels, overall and according to the socio-indexical grouping variable. Bars and stars show significant improvement from conditioning on dialect, above marginal or in addition to sex alone.'}
 
