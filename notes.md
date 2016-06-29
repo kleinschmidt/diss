@@ -281,13 +281,104 @@ It's unclear how much re-organization of the existing bits will be required. But
         * Write discussion
         * Write introduction
 
+### Status
+
+* Introduction: minimal outline.
+* Vowel/VOT: 
+    * intro partially outlined (background WIP). __don't worry too much about this because it's probably going to take some re-writing. just get down some kind of draft__
+    * methods: written.
+    * results: still in report, need to __decide on a set of results__ and move into chapter.
+    * discussion: partially outlined.
+* Infer prior
+    * intro: cog sci intro is pretty good. could benefit from __extended background__ on distributional learning (connect w/ acquisition) and __prior work__ on restricted adaptation (at the moment just briefly mention Sumner and Idemaru&Holt papers.). also need to revise to __intro two experiments__
+    * experiment 1 and model are written up. revise to reflect that this is experiment 1 now.
+    * experiment 2 methods, results, and modeling: __TODO__.
+    * discussion: need to make a list of the points to make here. probably __cog sci__ plus __caveats about other sources of constraints__ (e.g., production)
+
+
+* TODO/Did
+    * Mon 13
+        * vowel/vot: 
+            * conceptual points and intro
+            * methods bullets
+            * found bug (missing tokens from improper grouping)
+    * Tue 14
+        * Organize list of sections for diss
+        * Outline introduction for diss
+        * debug missing tokens
+    * Wed 15
+        * Infer prior: Generate predictions based on prev model fits
+        * Infer prior: draft discussion of model prediction results from exp 2
+    * Thu 16
+        * vowel/vot: move material to outline for diss chapter. discussion bullets. progress on intro/background
+        * vowel/vot: bootstrap KL across talkers.
+    * Fri 17
+        * write down what i did last few days :)
+        * corpus paper 
+            * methods for corpus paper
+            * read background papers
+            * draft goals/intro bullets
+
 ## June 20
 
 * Goals
-    * write intro, get feedback
-    * outline conclusion
+    * [mostly done] Draft of talker variation paper
+        * Write out conceptual points bullets
+        * Discussion bullets
+        * Expand intro bullets into prose
+        * [mostly done] Expand discussion bullets into prose
+
+### Status
+
+* Talker variation chapter
+    * Intro/background outlined, needs to be __written up__.
+    * Methods: __done__.
+    * Results: mostly __done__. need to write up __joint inference__ results (or cut).
+    * Discussion: some bullets, needs to be __organized and fleshed out__
+* infer prior chapter
+    * see last week.
+* Intro chapter
+    * some notes/outline
+
+### Done list
+
+* Monday
+    * expanded intro outline
+    * read a bunch of papers on indexical classification
+    * wrote up KL results + figures
+* Tuesday
+    * run vot/vowel classifiers and make figures
+    * debug classifier code and packages
+* Wednesday
+    * puzzle over + write up classifier accuracy results
+    * analyze advantage of dialect
+    * write up dialect results
+* Thursday
+    * write up dialect specific errors
+    * finish writeup of dialect stuff
+    * run indexical classifier analysis
+    * write up indexical classifier analysis
+    * run joint classifier analysis
+* Friday
+    * write up discussion (mostly)
 
 ## June 27
+
+### Status
+
+* Talker variation chapter
+    * Intro/background __written, revised__
+    * Methods/results __written__, needs to be __edited__ including adding
+      __discussion__ of results in each subsection
+    * Discussion __mostly written__, needs __summary__ to start and something
+      about relevance to sociolx
+    * Conclusion __needs written__
+
+### Done list
+
+* Monday
+    * make figures for vowel distributions by group
+    * revised introduction
 
 ## July 4
 

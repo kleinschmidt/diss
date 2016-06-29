@@ -1,3 +1,7 @@
 *.docx
 *.html
 /Thesis Manual Jan. 2016.pdf
+*.knit.md
+*.utf8.md
+*_cache/
+*_files/

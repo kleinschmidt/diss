@@ -1,0 +1,1598 @@
+---
+bibliography: /Users/dkleinschmidt/Documents/papers/library-clean.bib
+output:
+    html_document:
+        code_folding: hide
+        dev: png
+        keep_md: true
+        md_extensions: +implicit_figures
+        pandoc_args:
+        - --filter
+        - pandoc-fignos
+        - --filter
+        - pandoc-tablenos
+    pdf_document:
+        md_extensions: +implicit_figures
+        pandoc_args:
+        - --filter
+        - pandoc-fignos
+        - --filter
+        - pandoc-tablenos
+---
+
+```{r preamble, message=FALSE, warning=FALSE, error=FALSE, echo=FALSE, results='hide'}
+
+library(knitr)
+opts_chunk$set(message=FALSE,
+               warning=FALSE,
+               error=FALSE,
+               echo=opts_knit$get("rmarkdown.pandoc.to") != 'latex')
+
+## Produce markdown-formatted figures so that pandoc knows what to do with
+## the captions. requires pandoc-fignos to parse the IDs. refer to figures
+## in text with {@fig:label} or just @fig:label
+## 
+## (see https://github.com/tomduck/pandoc-fignos)
+knit_hooks$set(plot = function(x, options) {
+  paste0('![', options$fig.cap, ']',
+         '(', opts_knit$get('base.url'), paste(x, collapse='.'), ')',
+         '{#fig:', options$label, '}')
+})
+## Produce markdown-formatted table captions with anchors for cross-refs.
+## Requires pandoc-tablenos to parse the IDs. Refer to tables
+## in text with {@tbl:label} or @tbl:label.
+## Based partly on http://stackoverflow.com/a/18672268
+##
+## (see https://github.com/tomduck/pandoc-tablenos)
+knit_hooks$set(tbl.cap = function(before, options, envir) {
+  if(!before){
+    paste0('\n\nTable: ', options$tbl.cap,
+           ' {#tbl:', options$label, '}', sep = '')
+  }
+})
+
+library(magrittr)
+library(dplyr)
+library(purrr)
+library(tidyr)
+library(stringr)
+
+library(svglite)
+library(ggplot2)
+library(cowplot)
+## theme_set(theme_bw())
+
+## cowplot theme + y axis gridlines
+theme_set(theme_cowplot() %+replace%
+            theme(panel.grid.major = element_line(colour='gray90', size=0.2),
+                  panel.grid.minor = element_line(colour='gray98', size=0.5),
+                  panel.grid.major.x = element_blank(),
+                  panel.grid.minor.x = element_blank()))
+rotate_x_axis_labs <- function(by=45) theme(axis.text.x = element_text(angle=by, hjust=1))
+
+
+## devtools::install_github('kleinschmidt/daver')
+library(daver)
+
+## devtools::install_bitbucket('hlplab/nspvowels')
+library(nspvowels)
+
+## devtools::install_bitbucket('hlplab/votcorpora')
+library(votcorpora)
+
+apply_groupings <- function(d, groupings) {
+  groupings %>% 
+    map(~ d %>% mutate(data = map(data, . %>% group_by_(.x)),
+                       grouping = .x)) %>%
+    reduce(bind_rows)
+}
+
+grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker')
+
+```
+
+# Introduction
+
+There are two broad traditions in the study of speech perception, and these two
+traditions have very different approaches to _variability_ in speech. On the one
+hand, for the cognitive/psycholinguistic tradition, variabiltiy is a _problem_
+that listeners must cope with. In this view, variability is such a severe
+problem that it is traditionally referred to only indirectly, as the "lack of
+invariance" [@Liberman1967]. The sociolinguistic tradition, on the other hand,
+views variation as a rich source of social information. The particular variety
+of language that you speak says a lot about who you are as a person.
+
+However, these two approaches have recently begun to converge in how they
+approach variability. In particular, psycholinguistic theories of speech
+perception have started to take variation seriously, instead of wishing it would
+go away.
+<!-- something about exemplar theories would be appropriate here --> In part
+this realization comes from computational-level analyses of speech perception
+[@Clayards2008; @Feldman2009; @Feldman2013a; @Norris2008; @Kleinschmidt2015]. These
+approaches start from the hypothesis that the speech perception system is
+organized in order to be good at speech perception in the world that it has to
+operate in. In the spirit of ideal observer approaches to other domains
+[like visual perception, @Marr1982; or memory, @Anderson1990; @Anderson1991]
+these approaches focus on spelling out how the nature of the task, the available
+information, and the structure of the world constrain, in principle, how well a
+listener can do.
+
+Applied to speech perception, this approach reveals two important things.
+First, it suggests that speech perception can be thought of as a process of
+_inference under uncertainty_ [@Clayards2008; @Norris2008]: because of noise in
+production processes, each linguistic unit is realized---even by a single
+talker---as a _distribution_ of acoustic cues
+[cf. @Lisker1964; @Peterson1952; @Hillenbrand1995; @Allen2003; @Newman2001]. As
+such, the best a listener can do is to _infer_ how likely each possible
+linguistic unit is as an explanation of the cues they observe, based on their
+knowledge of these cue distributions.
+
+Second, this approach provides a new perspective on talker variability, which is
+formalized in the "ideal adapter" framework [@Kleinschmidt2015]. One consequence
+of talker variability is that the distribution of cues for each linguistic unit
+_changes_ from one situation to the next, depending on who's talking
+[@Clopper2005; @Newman2001; @Allen2003]. Given that effective speech
+perception---in this perspective---depends on good knowledge of the underlying
+cue distributions, this means that listeners must _also_ constantly be inferring
+the current talker's linguistic generative model (the probabilistic
+distributions of cues they produce for each underlying linguistic structure).
+
+This second insight leads to the following prediction. An "ideal adapter" will
+take advantage of any additional structure in the world that is informative
+about how cue distributions vary from one situation to the next. This structure
+may be as simple as the fact that individual talkers tend to be consistent in
+the cue distributions they produce [@Heald2015], meaning that prior experience
+with a familiar talker is informative about the cue distributions they will
+produce in the future. But structure can occur at other levels, too, and here is
+one place that psycholinguistic theories begin to parallel sociolinguistics.  To
+the extent that variables like gender, class, regional origin, etc. are
+sociolinguistically relevant, they are reliably informative about how linguistic
+variables are realized, and hence helpful for speech perception.
+
+This means that a listener can potentially learn a lot about a talker's cue
+distributions just by knowing _who_ a talker is. Conversely, listeners can learn
+a lot about who a talker is based on the distributions of cues that they
+produce. These two long-standing insights from sociolinguistics follow
+straightforwardly from the ideal adapter framework. However, the extent to which
+either of these is plausible _in practice_ depends on exactly how much a
+particular socio-indexical variable---a particular sense of _who_ a talker
+is---actually influences the cue distributions that talkers produce.
+
+## Background ##
+
+What do we already know about the relationship between speech perception and
+socio-linguistic variables?[^English]
+
+[^English]: For the current study, we restrict ourselves to English, and focus
+    primarily (but not exclusively) on _American_ English.
+
+First, we know that the _amount_ and _structure_ of talker variability differs
+between cues and phonetic categories.  Vowels and fricatives have a lot of
+talker variability, much of it conditioned on sex
+[@Peterson1952; @Hillenbrand1995; @Jongman2000; @McMurray2011a; @Newman2001]. For
+vowels this can be largely attributed to differences in vocal tract length, but
+not entirely [@Bladon1984; @Johnson2005; @Johnson2006].  There appears to be
+less talker variabiltiy for stop voicing (e.g., /b/ vs. /p/), and little
+systematic effect of sex [@Allen2003; @Lisker1964; @Chodroff2015].  Despite
+differences in the overall degree of talker variabiltiy, there is stylistic
+variation in both. For instance, regional dialects of American English differ in
+their pronunciation of vowel categories [@Clopper2005; @Labov2005].  Use of
+voice onset time (VOT) as a cue to stop voicing varies based on language
+background
+[e.g., monolingual English speakers vs. French bilinguals; @Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011],
+as well as regionally in the UK [@Docherty2011].
+
+We also know that listeners use socio-indexical group information to guide
+speech recognition. @Niedzielski1999 found that if listeners believe that a
+talker is Canadian, they hear more Canadian raising than if they believe the
+talker is American. @Hay2010 found a similar sensitivity to dialect group using
+an even subtler manipulation, manipulating listeners perceptions based on a
+stuffed animal that cued New Zealand or Australia.  Perception of vowels and
+fricatives is affected by the perceived gender of a talker, which can be cued by
+voice quality, visual presentation of a male or female face, or even explicit
+instruction [@Strand1999;@Johnson1999;@Strand1996] Indirect evidence that
+listeners are sensitive to socio-indexical grouping variables comes from
+recalibration (also known as perceptual learning) studies that show different
+patterns of generalization from male to female talkers (and vice-versa) for
+different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007; 
+@Reinisch2014]
+
+Finally, listeners can _infer_ socio-indexical variables based on speech, but
+it's not clear what linguistic variables they use [cf. @Thomas2002]. Of
+particular interest, listeners can infer a talker's regional dialect based on
+short excerpts [@Clopper2006,@Clopper2007]. Listeners can also infer talker
+_identity_ from sine-wave speech [@Remez1997], which removes non-phonetic voice
+quality cues to identity but preserves most phonetic information.
+
+## Our goals
+
+In the current study, we aim to use the theoretical and computational tools of
+the ideal adapter framework to quantify the relationship between a number of
+socio-indexical and linguistic variables.  Most
+[but not all, e.g., @Clopper2005; @McMurray2011a] of the work on this
+relationship between has been descriptive, aimed at establishing that
+differences between particular groups of talkers _exist_ in the first place, and
+that listeners are sensitive to these differences at all. But the mere existence
+of differences does not establish exactly how _informative_ or _useful_ such
+grouping variables are for speech perception. In the ideal adapter framework,
+whether or not a listener is predicted to track cue distributions conditional on
+a particular grouping variable (like sex or dialect) critically depends on the
+informativity and utility of that grouping for speech perception.
+
+We thus have two main goals in the current paper.  First, quantifying this
+relationship between socio-indexical and linguistic variables would go a long
+way towards refining the predictions of the ideal adapter framework, and in turn
+understanding how listeners efficiently adapt to many different talkers. Second,
+we aim to show that the conceptual and computational tools of the ideal adapter
+framework offer a unifying perspective on linguistic and socio-linguistic
+perception. In this view, both can be seen as processes of _inference_, which
+relies on the same basic knowledge about the cue distributions that correspond
+to different underlying lingiustic and social variables.
+
+Specifically, we aim to answer these three questions:
+
+1. How _informative_ are socio-indexical variables about the distribution of
+   different acoustic-phonetic cues?
+2. How _useful_ is socio-indexical grouping for correct speech recognition?
+3. How well can you _infer_ socio-indexical variables based on acoustic-phonetic
+   cue distributions alone?
+
+We address these goals at different levels of socio-indexical grouping, and for
+two different sets of phonetic cues/contrasts. Next, we describe the datasets we
+analyze, the techniques we use, our findings, and finally the conclusions we can
+draw.
+
+# Methods
+
+## Datasets
+
+We analyze speech from two corpora, one focusing on vowels and the other on stop consonant voicing.
+
+### Vowels
+
+```{r nsp-data, cache=TRUE, results='hide'}
+
+nsp_vows <- nspvowels::nsp_vows %>%
+  ungroup() %>%
+  mutate(Marginal='all', Dialect_Sex = paste(Sex, Dialect, sep='_'))
+
+nsp_vows_lob <- nsp_vows %>%
+  group_by(Talker) %>%
+  mutate_each(funs(. %>% scale() %>% as.numeric()), F1:F2) %>%
+  ungroup()
+
+## check normalization
+nsp_vows_lob %>%
+  gather(formant, value, F1:F2) %>%
+  group_by(Talker, formant) %>%
+  summarise_each(funs(mean, sd), value) %$%
+  assert_that(all.equal(mean, rep(0, length(mean))),
+              all.equal(sd, rep(1, length(sd))))
+
+vowel_data <- data_frame(cues = c('Un-normalized F1xF2', 'Lobanov Normalized F1xF2'),
+                         data = list(nsp_vows, nsp_vows_lob))
+vowel_groupings <- c('Marginal', 'Sex', 'Dialect', 'Dialect_Sex', 'Talker')
+vowel_data_grouped <- apply_groupings(vowel_data, vowel_groupings)
+
+token_per_vow <- nsp_vows %>% group_by(Talker, Vowel) %>% tally() %$% mean(n)
+n_talkers <- nsp_vows %>% group_by(Talker) %>% summarise() %>% tally()
+
+n_per_dialect_sex <- nsp_vows %>% group_by(Dialect, Sex, Talker) %>% summarise() %>% tally() %$% unique(n)
+n_dialect <- nsp_vows %$% Dialect %>% unique() %>% length()
+
+```
+
+For vowels, we used data from the Nationwide Speech Project [@Clopper2005]. Specifically, we analyzed first and second formant frequencies (F1xF2, measured in Hertz) recorded at vowel midpoints in isolated, read "hVd" words. This corpus contains `r n_talkers` talkers, `r n_per_dialect_sex` male and female from each of `r n_dialect` regional varieties of English: North, New England, Midland, Mid-Atlantic, South, and West [see map in @Clopper2005; regions based on @Labov2005].  Each talker provided approximately `r round(token_per_vow, 1)` repetitions of each of 11 English monophthong vowels (plus "ey"), for a total of `r nrow(nsp_vows)` observations.
+
+Because much of the variability in talkers is due to overall differences in formant frequencies, we also used Lobanov-normalized formant frequencies as input, in addition to the un-normalized formant frequencies in Hertz. Lobanov normalization z-scores F1 and F2 separately for each talker [@Lobanov1971].
+
+```{r vowel-data-plot, eval=FALSE}
+
+## Plot group-level distributions of vowels. kind of a mess.
+
+vowel_data_grouped_long <- vowel_data_grouped %>%
+  mutate(group_size = map2_dbl(data, grouping, ~ .x %>%
+                                                 group_by_(.y) %>%
+                                                 summarise() %>%
+                                                 nrow())) %>%
+  unnest(map2(data, grouping, ~ rename_(.x, group=.y))) %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels))
+
+p_vow_group_hz <- vowel_data_grouped_long %>%
+  filter(cues == 'Un-normalized F1xF2') %>%
+  ggplot(aes(x=F2,y=F1,color=Vowel)) +
+  stat_ellipse(aes(group=Vowel), data = nsp_vows, type='norm', color='#888888') +
+  stat_ellipse(aes(group=paste(group, Vowel), alpha=1/group_size), type='norm') +
+  facet_grid(cues~grouping) +
+  scale_x_reverse('F2 (Hz)') +
+  scale_y_reverse('F1 (Hz)') +
+  scale_alpha_continuous(range=c(0.3, 1))
+
+p_vow_group_lob <- vowel_data_grouped_long %>%
+  filter(str_detect(cues, 'Lobanov')) %>% 
+  ggplot(aes(x=F2,y=F1)) +
+  stat_ellipse(aes(group=Vowel), data = nsp_vows_lob, type='norm', color='#888888') +
+  stat_ellipse(aes(color=Vowel, group=paste(group, Vowel), alpha=1/group_size), type='norm') +
+  facet_grid(cues~grouping) +
+  scale_x_reverse('F2 (Lobanov normalized)') +
+  scale_y_reverse('F1 (Lobanov normalized)') +
+  scale_alpha_continuous(range=c(0.3, 1)) +
+  theme(legend.position = 'none')
+
+plot_grid(p_vow_group_hz, p_vow_group_lob, ncol=1)
+
+```
+
+
+### Stop voicing
+
+```{r vot-data, cache=TRUE}
+
+vot <-
+  votcorpora::vot %>%
+  filter(source == 'buckeye') %>%
+  rename(Talker = subject,
+         Sex = sex,
+         Age = age_group) %>%
+  group_by(phoneme, Talker) %>%
+  mutate(Token = row_number(),
+         cues = 'VOT') %>%
+  ungroup() %>%
+  mutate(Marginal = 'all')
+
+vot_by_place <-
+  vot %>%
+  group_by(place, cues) %>%
+  nest()
+
+vot_groupings <- c('Marginal', 'Sex', 'Age', 'Talker')
+vot_by_place_grouped <- apply_groupings(vot_by_place, vot_groupings)
+
+n_vot_talkers <- vot %>% group_by(Talker) %>% summarise() %>% nrow()
+n_vot_per_talker <- vot %>% group_by(phoneme, voicing, place, Talker) %>% tally()
+
+```
+
+We analyzed data on word-initial stop consonant voicing in conversational speech from the Buckeye corpus [@Pitt2007, extracted by Wedel, _in prep_]. Voice onset time (VOT) was automatically extracted for `r nrow(vot)` word initial stops, `r vot %>% filter(voicing=='voiced') %>% nrow()` voiced and `r vot %>% filter(voicing=='voiceless') %>% nrow()` voiceless, for labial, coronal, and dorsal places of articulation. Data came from `r n_vot_talkers` talkers, who were balanced male and female and younger/older than 40 years. On average, each talker produced `r round(mean(n_vot_per_talker$n))` tokens for each phoneme (range of `r min(n_vot_per_talker$n)` -- `r max(n_vot_per_talker$n)`).
+
+The major strength of this dataset is that it contains observations of both voiced and voiceless stops, which allows us to assess the utility of socio-indexical grouping factors for recognizing voiced vs. voiceless stops.  However, it does not not contain data from talkers who vary on socio-indexical variables that are known to correlate with differences in VOT distributions, like native language background. Preliminary analyses of a collection of VOTs for only voiceless stops from French-English bilinguals [@Lev-Ari2013] suggests that, even though these groups are known to produce different VOT distributions, the size of this effect is much smaller than even talker-level variability _within_ the monolingual talkers in the Buckeye corpus (which, to foreshadow our results, is substantially smaller than for vowels).
+
+## Modeling
+
+Each phonetic category was modeled as a normal distribution: stop voicing as univariate distributions of VOT, and vowels as bivariate distributions of F1 and F2. We used the maximum likelihood estimators for the model parameters, which are the sample mean and covariance matrix.
+
+For each socio-indexical grouping level, we trained separate models for each phonetic category based on all tokens from that category and grouping level (holding out test data when necessary, see below). The grouping levels we considered were
+
+* Marginal (all tokens)
+* Sex (male/female)
+* Age (younger/older than 40, VOT only)
+* Dialect (six regions, vowels only)
+* Diaelct+Sex (12 levels, vowels only)
+* Talker
+
+### Comparing cue distributions
+
+In order to evalute the _informativity_ of socio-indexical variables with respect to cue distributions themselves, we use Kullback-Leibler (KL) divergence to measure how much the group-specific cue distributions differ from the overall (marginal) cue distributions. This measures the expected cost (in bits of extra message length) of encoding data from each group using a code that's optimized for the marginal distribution.
+We do this separately for each linguistic category and group, and then average the results, calculating bootstrapped confidence intervals over groups.
+
+The KL divergence of $Q$ from $P$ is $DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$ (with density functions $q$ and $p$ respectively). In our case, $P=\mathcal{N}_G$ is a multivariate[^multivariate] normal cue distribution for the group, with mean $\mu_G$ and covariance $\Sigma_G$, while $Q=\mathcal{N}_M$ is the marginal multivariate normal cue distribution with mean $\mu_M$ and covariance $\Sigma_M$. With some simplification[^gaus-kl], the KL divergence of the marginal from the group distribution works out to be
+$$
+DL(\mathcal{N}_M || \mathcal{N}_G) = \frac{1}{2} \left( \mathrm{tr}(\Sigma_M^{-1} \Sigma_G) + (\mu_M - \mu_G) \Sigma_M^{-1} (\mu_M - \mu_G) - d + \log\frac{|\Sigma_M|}{|\Sigma_G|} \right)
+$$
+where $d$ is the dimensionality of the distribution, and logs are natural logarithms (we report KL divergence in bits, which is the above quantity divided by $log(2)$).
+
+[^multivariate]: The math is the same for the univariate special case, as with VOT.
+[^gaus-kl]: See, for instance, [http://stanford.edu/~jduchi/projects/general_notes.pdf](), p. 13.
+
+### Speech recognition
+
+Next, to address the _utility_ of socio-indexical grouping for speech recognition, we calculate, for each level of socio-indexical grouping, the probability of correct recognition of phonetic categories. We do this using an "ideal listener" model [@Clayards2008; @Kleinschmidt2015] that compute the posterior probability of a category given an observed cue value based on the likelihood of that cue being generated by each category's cue distribution. By doing this using, for instance, the cue distributions of each category produced by female talkers provides an estimate of how well a listener would be able to recognize speech from an unfamiliar female talker if all they knew was the talker's sex.
+
+We want to determine the phonetic category $v_i$[^notation] of each of the cues $x_i$ produced by a talker. If we assume that the listener knows that this talker belongs to group $g=j$, this inference is a straightforward application of Bayes Rule:
+$$
+p(v_i | x_i, g=j) \propto p(x_i | v_i, g=j) p(v_i)
+$$
+If, on the other hand, the listener does not know which group the talker belongs to, they have to marginalize out group. This ammounts to taking a weighted average of the posterior probabilities under each group, weighted by the probability that the talker belongs to that group, $p(g | x)$ (which we compute below):
+$$
+p(v_i | x_i) = \sum_j p(v_i | x_i, g=j) p(g=j | x)
+$$
+(where $x$ refers to all the tokens produced by this talker).
+
+For vowels, we classified vowel categories directly. For voicing, the only cue available is VOT, which does not (reliably) distinguish place of articulation. Thus, we classified voicing separately for each place of articulation, and then average the resulting accuracy.
+
+### Indexical group recognition
+
+Finally, to address much cue distributions tell listeners about socio-indexical variables themselves, we classify each talker's socio-indexical group (at each level). This provides a measure of how well a listener would be able to determine, for instance, whether a talker was male or female based only on the distributions of cues they produce (even without knowing the intended category of each production).
+
+As for speech recognition, we use an ideal observer model. That is, we compute the posterior probability of each socio-indexical group $g=j$, given all of the talker's observed cue values $x$:
+$$
+p(g | x) \propto p(x | g) p(g) = \left(\prod_i p(x_i | g) \right) p(g)
+$$
+
+The only complication is that, without knowing the the phonetic category of each observation a priori, each observation may have been generated by any of the phonetic categories. Thus, to determine the _overall_ likelihood of observing a cue value $x_i$ under group $g$, we first have to marginalize over categories $v_i$:
+$$
+p(x_i | g) = \sum_k p(x_i | v_i=k, g) p(v_i=k | g)
+$$
+
+For all of these classifications, we assume a flat prior on categories/groups. We perform this analysis separately for each level of socio-indexical grouping. For instance, we compute both $p(\mathrm{sex} | x)$ and $p(\mathrm{dialect} | x)$ for each talker.
+
+[^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
+
+### Controls and assessing significance
+
+We use a bootstrapping procedure to assess group differences and calculate
+confidence intervals for our estimates of utility, informativity, and
+inferability. In general, we resample talkers, in order to estimate the
+population-level variability from the limited sample of talkers in our
+datasets. However, for informativity, we have a single observations from each
+_group_ (not talker), and so we resample groups instead.[^kl-boot] For testing
+group differences, we use the proportion of resampled datasets with same-sign
+difference as the bootstrapped $p$ value.
+
+[^kl-boot]: While it's possible to resample talkers _before_ calculating the KL
+    divergence of group-level distributions from marginal, this systematically
+    _increases_ the KL divergence. The reason for this is that in bootstrapping,
+    talkers are resampled with replacement, which means that the variance of the
+    resulting resampled group-level distributions goes down, increasing the KL
+    divergence from the (already higher variance) marginal distributions.
+
+#### Cross-validation
+
+For classification, if test data is included in the training set, this artificially inflates accuracy at test [@James2013, Section 5.1].  Cross-validation controls for this by splitting data into training and test sets.  For group-level models (sex, age, dialect, and dialect+sex), we use leave-one-talker-out cross-validation: train each group's models with test talker's observations held out. For the talker-specific models, we use 6-fold cross-validation (or leave-one-out when there were fewer than 6 tokens in a category for a talker), where each phonetic category is randomly split into 6 approximately equal subsets. Then, one subset of each category is selected for test, the models are trained on the remaining five, and the test data is classified as above.
+
+Cross-validation is not only important because it provides an unbiased measure of classifier accuracy. It is also essential for testing the hypothesis that _group-level_ cue distributions are useful to listeners.  If the test talker is included in the training dataset, then the utility of that talker's own productions is confounded with any utility of the group itself.
+
+#### Different group sizes
+
+For the vowel data, the different levels of grouping have very different group sizes, and this requires some caution. The broadest (sex) has 24 talkers per group (23 after holdout), while the most specific (dialect+sex) has only 4 (3 after holdout).  This introduces a systematic bias in favor of broader groupings, because small sample sizes lead to noisier estimates of the underlying model, and hence lower accuracy (on average) at test [@James2013, Section 2.2.2]. To correct for this, after holding out the test talker, we randomly subsampled talkers (without replacement) within each group in the training set to be the same as the smallest group (3 talkers, based on Dialect+Sex[^seven-talkers]). 
+
+We use 20 different random subsamples for each talker, averaging accuracy over
+each resampled training set. A different subsampling is used for every talker,
+and thus any additional variance introduced by this procedure is accounted for
+by bootstrapping talkers.  The estimates obtained in this way allow us to
+compare accuracy across groupings with different group sizes, but at the cost of
+underestimating the true group-level accuracy across the board. As such, they
+must be considered a useful lower bound on the utility of socio-indexical
+groupings.
+
+[^seven-talkers]: We also ran the analyses resampling each group to 7 talkers, which corresponds to the Dialect-level group size after holdout (excluding the Dialect+Sex grouping, since there are only 4 talkers per group before holdout). Besides a small increase in overall accuracy (because of the reduced variance of the distribution estimates), this did not substantially change the results.
+
+
+# Results
+
+## Informativity of socio-indexical groupings about cue distributions
+
+We first analyze how informative each socio-indexical grouping variable is about the cue distributions of each phonetic category. As described in the methods, we measure informativity by the average KL divergence between the group-conditional cue distributions and the unconditioned (marginal) cue distributions.
+
+```{r kl-helpers, cache=TRUE}
+
+run_kl <- function(data_grouped, reference_grouping,
+                   category_col='Vowel', cue_cols=c('F1', 'F2'), ...) {
+  ## check input format
+  assert_that(has_name(data_grouped, 'data'),
+              has_name(data_grouped, 'grouping'))
+
+  train <- partial(train_models, grouping=category_col, formants=cue_cols,  ...)
+  
+  models <- data_grouped %>%
+    mutate(models = map2(data, grouping, ~ train(.x) %>% rename_(group=.y)))
+
+  models %>%
+    filter(grouping == reference_grouping) %>%
+    mutate(reference_models = map(models, rename_, reference_group = 'group')) %>%
+    select(-grouping, -data, -models) %>%
+    left_join(models %>% filter(grouping != reference_grouping)) %>%
+    mutate(kl_from_reference = map2(models, reference_models,
+                                    ~ left_join(.x, .y, by=category_col) %>%
+                                      mutate(KL = map2_dbl(model.x, model.y,
+                                                           KL_mods)) %>%
+                                      select_('group', 'reference_group',
+                                              category_col, 'KL')
+                                    )
+           ) %>%
+    unnest(kl_from_reference)
+    
+}
+
+```
+
+```{r vowel-kl, cache=TRUE, dependson=c('kl-helpers', 'vowel-data')}
+
+vowel_kl <-
+  vowel_data_grouped %>%
+  run_kl(reference_grouping = 'Marginal',
+         category_col = 'Vowel',
+         cue_cols = c('F1', 'F2')) %>%
+  filter(!is.na(KL))                    # NAs come from one vowel ('uh') that
+                                        # only has one token for one talker.
+
+
+```
+
+```{r vot-kl, cache=TRUE, dependson=c('kl-helpers', 'vot-data')}
+
+vot_kl <-
+  vot_by_place_grouped %>%
+  run_kl(reference_grouping = 'Marginal',
+         category_col = 'voicing',
+         cue_cols = 'vot')
+
+```
+
+```{r vowel-vot-kl-plot, fig.width=8.3, fig.height=4.2, fig.cap='Socio-indexical variables are more informative about cue distributions for vowel (formants) than for stop voicing (vot). On top of this, more specific groupings (like Talker and Dialect+Sex) are more informative than broader groupings (Sex). This is indicated by higher KL divergence of each grouping level from marginal (showing mean and 95% bootstrapped CIs over groups).'}
+
+bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
+          vowel_kl %>% mutate(contrast = 'Vowels')) %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
+  group_by(contrast, cues, grouping, group) %>%
+  summarise(KL = mean(KL)) %>%
+  ggplot(aes(x=grouping, y=KL, color=grouping)) +
+  geom_point(position='jitter', alpha=0.2) + 
+  geom_pointrange(stat='summary', fun.data=mean_cl_boot,
+                  position = position_dodge(w=0.5)) +
+  facet_grid(.~contrast+cues, scales='free', space='free') +
+  rotate_x_axis_labs() +
+  labs(x = 'Grouping',
+       y = 'KL Divergence of cue distributions\nfrom marginal (bits)')
+
+```
+
+Figure {@fig:vowel-vot-kl-plot} plots the KL divergence of cue distributions at different levels of grouping from marginal distributions, across contrasts (vowels and stop voicing) and cues (vot, raw/Lobanov-normalized F1xF2). There are two clear patterns. 
+
+First, socio-indexical variables are in general more informative for vowels than for stop voicing, even using normalized formants as input. Strikingly, the _most_ informative variable for VOT---talker identity---is roughly as informative as the _least_ informative variable for Lobanov-normalized F1xF2 (Sex). As Figure {@fig:vot-vs-vowel-dists} shows, this means that, on average, individual talkers' VOT distributions diverge from the marginal distribution (B) at roughly the same level that the male and female distributions of normalized F1xF2 diverge from the marginal normalized F1xF2 distributions (A).
+
+```{r vot-vs-vowel-dists, fig.width=6.2, fig.height=6.0, fig.cap='Male and female distributions of Normalized F1xF2 diverge from the marginal distributions (A) only slightly less than talker-specific VOT distributions diverge from marginal (B).'}
+
+gg_vowels_by_sex <-
+  ggplot(nsp_vows_lob, aes(x=F2, y=F1, group=Vowel)) +
+  ## stat_density2d(data = nsp_vows_lob %>% select(-Sex),
+  ##                geom='contour', bins=4, color='#888888') +
+  ## stat_density2d(geom='contour', bins=4, aes(color=Sex)) +
+  stat_ellipse(data = nsp_vows_lob %>% select(-Sex),
+               color='#888888', type='norm') +
+  stat_ellipse(aes(color=Sex), type='norm') +
+  scale_x_reverse() +
+  scale_y_reverse() +
+  facet_grid(.~Sex) +
+  labs(color = 'Sex',
+       x='F2 (Lobanov normalized)',
+       y='F1 (Lobanov normalized)') +
+  theme(panel.grid = element_blank())
+
+gg_vot_by_talker <-
+  ggplot(vot, aes(x=vot, group=voicing)) +
+  stat_density(aes(group=paste(Talker,voicing), color='Talker'),
+               geom='line',
+               position='identity',
+               alpha = 0.5) +
+  stat_density(aes(color='Marginal'),
+               geom='line',
+               position='identity') +
+  scale_color_manual("", values = c('black', 'gray')) +
+  theme(axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid = element_blank()) +
+  labs(x = 'VOT (ms)')
+
+ggdraw() +
+  draw_plot(gg_vowels_by_sex, 0, 0.5, 1, 0.5) +
+  draw_plot(gg_vot_by_talker, 0.07, 0, 0.93, 0.5) +
+  draw_plot_label(c("A", "B"), c(0, 0), c(1, 0.5), size = 15)
+
+## plot_grid(gg_vowels_by_sex, gg_vot_by_talker, labels=c('A', 'B'), nrow=2)
+
+```
+
+Second, there are substantial differences in the informativity of the socio-indexical grouping variables we considered. The overall pattern is that more specific grouping factors are more informative than broader groupings. The noteable exception to this pattern is the Sex is the most informative variable for un-normalized F1xF2 distributions, which reflects the fact that overall sex differences explain much (but not all) of the talker variation in F1xF2 [@Hillenbrand1995;@Johnson2006].
+
+As Figure {@fig:vowel-kl-by-category}, while the relative ordering of grouping variables' informativity is consistent across vowels, their actual degree of informativity varies quite a bit. Dialect (and Dialect+Sex) is particularly informative for `aa`, `ae`, `eh`, and `uw`, vowels with distinctive variants in at least one of the dialect regions from the NSP. `aa` is undergoing a merger with `ao` in some regions, `ae` and `eh` participate in the northern cities chain shift, and `uw` is fronted in some regions [and in others, but only by female talkers; @Clopper2005].
+
+```{r vowel-kl-by-category, fig.width=7, fig.height=3.45, fig.cap='Individual vowels vary substantially in the informativity of grouping variables about their cue distributions. Only normalized F1xF2 is shown to emphasize dialect effects.'}
+
+vowel_kl %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels)) %>%
+  filter(str_detect(cues, 'Normalize')) %>%
+  group_by(cues, Vowel, grouping, group) %>%
+  summarise(KL = mean(KL)) %>%
+  ggplot(aes(x=Vowel, y=KL, color=grouping)) +
+  geom_pointrange(stat='summary', fun.data=mean_cl_boot,
+                  position = position_dodge(w=0.5)) +
+  facet_grid(cues ~ ., scales='free', space='free') +
+  labs(x = 'Vowel',
+       y = 'KL Divergence of cue distributions\nfrom marginal (bits)')
+
+```
+
+Finally, individual dialects also vary in how informative they are about vowel formant distributions. Figure @fig:vowel-kl-by-dialect shows that talkers from the North dialect region produce vowels---`ae` and `aa` in particular---with formant distributions that deviate markedly more from the marginal distributions than any of the other dialects. Other dialects have, on average, similar deviations from marginal. The high deviation of `uw` by New England talkers is the result of these talkers producing a very low-variance, back (low F2) distribution. Similarly, Mid-Atlantic talkers produce a low-variance `ey` distribution that is higher and fronter than average. Finally, the Mid-Atlantic `aa` is, like the Northern `aa`, non-merged with `ao` [@Clopper2005] and hence deviates from the marginal `aa` substantially.
+
+```{r vowel-kl-by-dialect, fig.width=7.5, fig.height=4.75, fig.cap='A small number of dialect/vowel combinations account for most of the divergence of dialect-specific vowel formant distributions. In particular, the distribution of `ae` and `aa` produced by Northern talkers diverge markedly more than any other vowel/dialect combination.'}
+
+## vowel_kl %>%
+##   filter(grouping=='Dialect') %>%
+##   ggplot(aes(x=group, y=KL)) +
+##   geom_pointrange(stat='summary', fun.data=mean_cl_boot) +
+##   facet_grid(.~cues)
+
+vowel_kl %>%
+  filter(grouping=='Dialect') %>%
+  ggplot(aes(x=group, y=KL)) +
+  geom_line(aes(group=Vowel, color=Vowel)) +
+  geom_text(data = vowel_kl %>%
+               filter(grouping == 'Dialect', str_detect(cues, 'Lobanov')) %>%
+               arrange(desc(KL)) %>%
+               head(5),
+            aes(label = Vowel, color=Vowel), show.legend=FALSE,
+            nudge_x = 0.25, nudge_y=0.05) +
+  facet_grid(.~cues) +
+  rotate_x_axis_labs() +
+  labs(x = 'Dialect',
+       y = 'KL divergence from marginal (bits)')
+
+```
+
+
+## Utility of socio-indexical groupings for speech recognition
+
+Next, we evaluate the _utility_ of each grouping variable for speech recognition. The utility of a grouping variable---like dialect---can be quantified as the probability of correct recognition given the cue distributions conditioned on each group---e.g., each dialect---using an ideal listener model [@Clayards2008; @Kleinschmidt2015].
+
+```{r classification-helpers, cache=TRUE}
+
+## 1. Likelihood of each token under each vowel for each dialect model
+#' Compute posterior vowel category conditional on group
+#'
+#' Applies classify_vowels to test data for each group_model.
+#'
+#' @param data_test test data to calculate posteriors for
+#' @param group_models named list of group models, each of which is a named list
+#'   of vowel models
+#' @return data frame with one row per data_test row x group x vowel model, with
+#'   added columns group_model (name of group model), vowel_model (name of vowel
+#'   model), lhood p(x | vowel_model, group_model), posterior (p(vowel_model |
+#'   x, group_model)).
+compute_category_post_given_group <- function(data_test, group_models) {
+  group_models %>%
+    map(~ unlist_models(., 'category')) %>%
+    map(~ classify(data_test, ., 'category')) %>%
+    data_frame(group_model=names(.),
+               x=.) %>%
+    unnest(x) %>%
+    rename(category_model=model)
+}
+
+#' Combine category | group posteriors with group posteriors
+#'
+#' @param group_category_posteriors category posterior probabilities conditional
+#'   on group, in the form of a data frame with at least columns category_model,
+#'   group_model, and posterior (e.g., output of
+#'   compute_category_post_given_group)
+#' @param group_posterior marginal group posterior probabilities, in the form of
+#'   a data frame with columns group_model and log_posterior (e.g., output of
+#'   compute_group_marginal_posterior)
+#' @return a data frame with the joint posterior of category category and group,
+#'   in posterior and log_posterior.
+#' 
+compute_joint_category_group_post <- function(group_category_posteriors, group_posteriors) {
+  group_posteriors %>%
+    select(group_model, group_log_posterior=log_posterior) %>%
+    inner_join(group_category_posteriors, by = 'group_model') %>%
+    mutate(log_posterior = log(posterior) + group_log_posterior,
+           posterior = exp(log_posterior))
+}
+
+#' Compute joint indexical-linguistic posterior
+#'
+#' @param trained data frame with \code{models} and \code{data_test} (as
+#'   produced by \code{\link{train_models_indexical_with_holdout}}).
+#' @param obs_vars quoted names of columns in test data that together indentify
+#'   a single observation (e.g., \code{c('Vowel', 'Token')})
+#' @return a data frame with one observation per combination of group (e.g.,
+#'   Dialect), category (e.g. "ae"), and row in the ORIGINAL, un-nested data
+#'   set, with new columns \code{group_model}, \code{category_model},
+#'   \code{lhood}, \code{posterior}, and \code{log_posterior}. Posterior
+#'   probabilities sum to 1 within each cross-validation fold (e.g., Talker) +
+#'   observation (e.g., Vowel+Token) combination, over all values of category
+#'   and group.
+#' 
+trained_to_joint_post <- function(trained, obs_vars) {
+
+  trained %>%
+    mutate(conditional_posteriors = map2(data_test, models,
+                                         compute_category_post_given_group),
+           group_posteriors = map(conditional_posteriors,
+                                  . %>%
+                                    group_by_(.dots=obs_vars) %>%
+                                    mutate(log_lhood = log(lhood)) %>%
+                                    marginalize_log('log_lhood', 'group_model') %>%
+                                    ungroup() %>%
+                                    aggregate_log_lhood('log_lhood', 'group_model') %>%
+                                    normalize_log_probability('log_lhood')),
+           joint_posteriors = map2(conditional_posteriors, group_posteriors,
+                                   compute_joint_category_group_post)) %>%
+    unnest(joint_posteriors)
+
+}
+
+
+#' @param d data frame
+#' @param holdout Column defining cross validation folds
+#' @param ... additional arguments passed to \code{\link{train_models}}.
+classify_by_talker_cv <- function(d, holdout='Token', category='Vowel', ...) {
+  train <- partial(train_models, grouping=category, ...)
+
+  d %>%
+    nspvowels::train_test_split(holdout=holdout) %>%
+    mutate(models_trained = map(data_train,
+                                . %>% group_by(Talker) %>% train()),
+           models_tested = map2(data_test, models_trained, classify,
+                                category=category)) %>%
+    unnest(models_tested) %>%
+    mutate(grouping = 'Talker',
+           group_is = 'Known',
+           group = Talker) %>%
+    rename(category_model = model)
+}
+
+
+```
+
+```{r vowel-classification-models-group-known, cache=TRUE, dependson=c('vowel-data', 'classification-helpers')}
+
+min_talker_per_group <- function(d) {
+  d %>%
+    do(n = length(unique(.$Talker))) %>%
+    select_('n') %>%
+    unlist() %>%
+    min()
+}
+
+#' @param d data frame with columns for groups, category, and holdout
+#' @param category name of column with phonetic category (e.g. 'Vowel')
+#' @param holdout name of column with factor to define cv folds (e.g. 'Talker')
+#' @param subsample_size number of levels of 'holdout' to sample as subset for
+#'   training data
+#' @param n_repetitions =10 number of times to repeat resampling
+#' @return data frame with accuracy of each observation by repetition.
+train_test_acc_same_group <- function(d, category, holdout,
+                                      subsample_size, n_repetitions=10, ...) {
+  assert_that(has_name(d, holdout))
+  assert_that(has_name(d, category))
+  
+  train <- partial(train_models, grouping = category, ...)
+
+  ## split data into train/test split, restricting to same group
+  ## (assumes that d is already grouped)
+  split_within_group <- function(d) {
+    d %>%
+      by_slice(train_test_split, holdout=holdout) %>%
+      unnest(.out)
+  }
+
+  ## classify and get accuracy
+  ## don't care about groups within train/test split (already restricted to same
+  ## group) so we can just use train_models and classify directly
+  train_test_acc <- function(data_train, data_test) {
+    data_train %>%
+      train() %>%
+      rename_(category=category) %>%
+      classify(data_test, ., 'category') %>%
+      rename_(category_model = 'model') %>%
+      get_accuracy(category_col = category)
+  }
+
+  ## repeat for some random subsamplings
+  repeat_w_subsample <- function(data_train, data_test) {
+    replicate(n_repetitions,
+              data_train %>%
+                sample_n_groups(group=holdout, n=subsample_size) %>%
+                train_test_acc(data_test),
+              simplify=FALSE) %>%
+      do.call(bind_rows, .)
+  }
+
+  ## on resample talkers if there are > subsample_size talkers in the smallest
+  ## group
+  group_size <- min_talker_per_group(d)
+  if (group_size <= subsample_size+1) {
+    get_acc <- train_test_acc
+  } else {
+    get_acc <- repeat_w_subsample
+  }
+
+  ## put it all together
+  acc <- d %>%
+    split_within_group() %>%
+    mutate(acc = map2(data_train, data_test, get_acc)) %>%
+    unnest(acc)
+
+}
+
+set.seed(100)
+
+vowel_acc_same_group_rep <-
+  vowel_data_grouped %>%
+  mutate(group_size = map_dbl(data, min_talker_per_group)) %>%
+  right_join(cross_d(list(group_size = unique(.$group_size),
+                          subsample_size = c(3,7))) %>%
+               filter(group_size > subsample_size)) %>%
+  mutate(acc = map2(data, subsample_size,
+                    train_test_acc_same_group,
+                    category = 'Vowel', holdout = 'Talker',
+                    n_repetitions=20)) %>%
+  unnest(map2(acc, grouping, ~ rename_(.x, group=.y)))
+
+```
+
+```{r vowel-classification, cache=TRUE, dependson=c('classification-helpers')}
+
+vowel_talker_class <-
+  vowel_data %>%
+  unnest(map(data, classify_by_talker_cv, holdout='Token')) %>%
+  mutate(group_is = 'Known')
+
+```
+
+```{r vot-classification-models, cache=TRUE, dependson=c('vot-data', 'classification-helpers')}
+
+set.seed(101)
+
+vot_models <-
+  vot_by_place_grouped %>%
+  filter(grouping != 'Talker') %>%
+  mutate(trained = map2(data, grouping,
+                        ~ train_models_indexical_with_holdout(.x,
+                                                              .y,
+                                                              category = 'voicing',
+                                                              formants = 'vot')),
+         joint_posteriors = map(trained, trained_to_joint_post,
+                                obs_vars = c('voicing', 'Token')))
+
+```
+
+```{r vot-classification, cache=TRUE, dependson=c('vot-classification-models', 'classification-helpers')}
+
+vot_joint_class <-
+  vot_models %>%
+  unnest(map2(joint_posteriors, grouping, ~ rename_(.x, group=.y))) %>%
+  group_by(place, cues, grouping)
+
+vot_marginal_class <-
+  vot_joint_class %>%
+  group_by(Talker, voicing, Token, group, category_model, add=TRUE) %>%
+  marginalize_log('log_posterior') %>%
+  normalize_log_probability('log_posterior') %>%
+  mutate(group_is = 'Inferred')
+
+vot_true_group_class <-
+  vot_joint_class %>%
+  filter(group == group_model) %>%
+  group_by(Talker, voicing, Token, add=TRUE) %>%
+  normalize_log_probability('log_posterior') %>%
+  mutate(group_is = 'Known')
+
+vot_talker_class <-
+  vot_by_place %>%
+  unnest(map(data, . %>%
+                     group_by(Talker, voicing) %>%
+                     mutate(split=ntile(runif(length(Talker)), 6)) %>%
+                     classify_by_talker_cv(holdout='split',
+                                           category='voicing',
+                                           formants='vot')
+             )
+         )
+
+vot_class <-
+  bind_rows(vot_marginal_class,
+            vot_true_group_class,
+            vot_talker_class)
+
+```
+
+```{r check-classification, results='hide', cache=TRUE, dependson=c('vot-classification')}
+
+vot_class %>%
+  group_by(cues, place, group_is, grouping, Talker, voicing, Token) %>%
+  summarise(n_choice = sum(posterior_choice),
+            sum_post = sum(posterior)) %$%
+  assert_that(all(n_choice == 1),
+              all.equal(sum_post, rep(1, length(sum_post))))
+
+```
+
+
+```{r classification-accuracy}
+
+acc_method <- 'choice'
+
+vot_accuracy <-
+  vot_class %>% get_accuracy('voicing', method=acc_method)
+
+
+vowel_talker_acc <-
+  vowel_talker_class %>% get_accuracy('Vowel', method=acc_method)
+
+vowel_accuracy <-
+  vowel_acc_same_group_rep %>%
+  filter(subsample_size==3) %>%
+  group_by(cues, grouping, subsample_size, group, Talker, Vowel, Token) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  bind_rows(vowel_talker_acc) %>%
+  mutate(group_is = 'Known')
+
+accuracy <- 
+  vowel_accuracy %>%
+  select(-Age) %>%
+  mutate(contrast = 'Vowels') %>%
+  bind_rows(vot_accuracy %>% mutate(contrast = 'Stop voicing')) %>%
+  ungroup() %>%
+  mutate(grouping = factor(grouping, levels=grouping_levels))
+
+accuracy_summary <-
+  accuracy %>%
+  group_by(contrast, cues, grouping, group_is, Talker) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+## Talker advantage
+## (TODO: incorporate)
+talker_advantage_acc <- 
+  accuracy %>%
+  group_by(cues, contrast, grouping, Talker) %>%
+  summarise(accuracy=mean(accuracy)) %>%
+  rename(Talker_=Talker) %>%
+  spread(grouping, accuracy) %>%
+  gather(comparison, accuracy, -cues, -contrast, -Talker, -Talker_) %>%
+  mutate(talker_advantage = Talker - accuracy) %>%
+  group_by(contrast, cues, comparison) %>%
+  do({ boot_ci(.$talker_advantage, function(d,i) mean(d[i], na.rm=TRUE), h0=0) }) %>%
+  filter(is.finite(observed))
+
+
+```
+
+```{r vowel-dialect-advantage}
+
+boot_dialect_advantage <- function(d) {
+  d %>%
+    filter(grouping != 'Talker') %>%
+    group_by(Talker, grouping, add=TRUE) %>%
+    summarise(proportion = mean(accuracy),
+              logodds = log(sum(accuracy)+0.5) - log(sum(1-accuracy)+0.5)) %>%
+    gather('measure', 'accuracy', proportion, logodds) %>%
+    group_by(measure, add=TRUE) %>%
+    spread(grouping, accuracy) %>%
+    transmute(Dialect_over_marginal = Dialect - Marginal,
+              Dialect_Sex_over_sex = Dialect_Sex - Sex) %>%
+    gather('comparison', 'value', Dialect_over_marginal, Dialect_Sex_over_sex) %>%
+    group_by(measure, comparison, add=TRUE) %>%
+    do({ boot_ci(.$value, function(d,i) mean(d[i]), h0=0) })
+}
+
+## compute within-talker dialect advantage
+dialect_advantage_boot_ci <-
+  vowel_accuracy %>%
+  group_by(cues, grouping) %>%
+  boot_dialect_advantage()
+
+dialect_avg_advantage <-
+  dialect_advantage_boot_ci %>%
+  filter(measure == 'proportion') %>%
+  ungroup() %>%
+  summarise(boot_p = max(boot_p),
+            observed = mean(observed))
+
+dialect_advantage_by_vowel_boot_ci <-
+  vowel_accuracy %>%
+  group_by(cues, grouping, Vowel) %>%
+  boot_dialect_advantage()
+
+dialect_advantage_by_dialect_boot_ci <-
+  vowel_accuracy %>%
+  select(-Dialect) %>%
+  left_join(nsp_vows %>% group_by(Talker, Dialect) %>% summarise(),
+            by = 'Talker') %>%
+  rename(Dialect_ = Dialect) %>%
+  group_by(cues, grouping, Dialect_) %>%
+  boot_dialect_advantage() %>%
+  rename(Dialect = Dialect_)
+
+format_advantage <- function(d, ci_descrip='95% CI', p=TRUE, paren=TRUE) {
+  adv_string <- sprintf('%.0f%%', 100*d$observed)
+  ci_string <- sprintf('%s %.0f--%.0f%%',
+                       ci_descrip, 100*d$ci_lo, 100*d$ci_high)
+  p_string <- paste(',', daver::p_val_to_less_than(d$boot_p))
+
+  if (paren) paste0(adv_string, ' (', ci_string, ifelse(p, p_string, ''), ')')
+  else paste0(adv_string, ', ', ci_string, ifelse(p, p_string, ''))
+}
+
+north_adv_lob <-
+  dialect_advantage_by_dialect_boot_ci %>%
+  filter(Dialect == 'North',
+         measure == 'proportion',
+         str_detect(cues, 'Lobanov'))
+
+north_adv_raw <-
+  dialect_advantage_by_dialect_boot_ci %>%
+  filter(Dialect == 'North',
+         measure == 'proportion',
+         !str_detect(cues, 'Lobanov'))
+
+midatl_adv_lob <-
+  dialect_advantage_by_dialect_boot_ci %>%
+  filter(Dialect == 'Mid-Atlantic',
+         measure == 'proportion',
+         str_detect(cues, 'Lobanov'))
+
+midatl_adv_raw <-
+  dialect_advantage_by_dialect_boot_ci %>%
+  filter(Dialect == 'Mid-Atlantic',
+         measure == 'proportion',
+         !str_detect(cues, 'Lobanov'))
+
+```
+
+```{r stars-and-bars}
+
+make_stars_and_bars <- function(advantage, data_summary,
+                                ci_hi_col = 'accuracy_hi') {
+  advantage %>%
+    ungroup() %>%
+    filter(boot_p< 0.05, measure=='proportion') %>%
+    mutate(boot_p_stars = p_val_to_stars(boot_p)) %>%
+    separate(comparison, c('To', 'From'), sep='_over_') %>%
+    mutate(From = tools::toTitleCase(From)) %>%
+    left_join(data_summary) %>%
+    filter(To == grouping | From == grouping) %>%
+    group_by_('To', 'From',
+              .dots = groups(data_summary) %>% discard(equals, 'grouping'),
+              add=TRUE) %>%
+    filter_(lazyeval::interp(~ x == max(x), x=as.name(ci_hi_col)))
+}
+
+## draw significance stars
+geom_stars <- function(...) {
+  stars_and_bars <- make_stars_and_bars(...)
+  geom_text(data=stars_and_bars,
+            aes(x=To, y=accuracy_hi, label=boot_p_stars),
+            nudge_x=-0.5, nudge_y = 0.03, color='black')
+}
+
+## draw bars connecting significantly different pairs
+geom_bars <- function(...) {
+  stars_and_bars <- make_stars_and_bars(...)
+  geom_segment(data=stars_and_bars,
+               aes(x=From, xend=To, y=accuracy_hi+0.02, yend=accuracy_hi+0.02),
+               color='black')
+}
+
+```
+
+
+```{r overall-accuracy-group-known, fig.width=8.3, fig.height=4.2, fig.cap='Speech recognition accuracy using for marginal, group-level, and talker-specific cue distributions. Small points show individual talkers, and large points and lines show mean and bootstrapped 95% CIs over talkers. Marginal and group-level accuracy is based on leave-one-talker out cross-validation, and talker-specific on 6-fold cross-validation (or leave-one-token-per-category out if there are fewer than 6 tokens per category). Bars and stars show signficant increases in accuracy when conditioning on dialect, alone or in addition to sex. Here and elsewhere: `*` $p<0.05$, `**` $p<0.01$, and `***` $p<0.001$.'}
+
+accuracy_summary %>%
+  ggplot(aes(x = grouping, y=accuracy,
+             color = grouping)) +
+  geom_point(data = accuracy %>%
+               group_by(grouping, Talker, cues, contrast) %>%
+               summarise(accuracy = mean(accuracy)),
+             position='jitter', alpha=0.2) +
+  geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi), stat='identity') +
+  geom_stars(dialect_advantage_boot_ci, accuracy_summary) +
+  geom_bars(dialect_advantage_boot_ci, accuracy_summary) +
+  facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
+  rotate_x_axis_labs() +
+  labs(x = 'Grouping',
+       y = 'Probability of correct recognition') +
+  lims(y = c(NA, 1))
+
+```
+
+Figure {@fig:overall-accuracy-group-known} shows the probability of correct recognition for stop voicing/vowel, based on the cue distrbutions at each level of grouping.  As with informativity about the distributions themselves, there's an asymmetry between vowels and stop voicing in the overall utility of socio-indexical variables for speech recognition. Probability of correct recognition is overall higher for stop voicing than vowels.  Voicing recognition is also less sensitive to the particular grouping variable, which is consistent with the finding above that VOT distributions do not differ substantially at different levels of socio-indexical grouping. There is, however, a slight advantage for using talker-specific VOT distributions for recognition, over marginal, age-, and sex-conditional distributions (on the order of 2% increase in accuracy, all three 
+`r talker_advantage_acc %>% filter(cues=='VOT') %$% boot_p %>% max() %>% daver::p_val_to_less_than()`).[^logodds]
+
+Normalized input results in higher vowel recognition accuracy across the board, again paralleling the findings about the cue distributions themselves. The one exception is at the level of talker-specific distributions, where recognition accuracy is unchanged (since Lobanov normalization is a linear transformation of the input, which leaves the structure of the categories within each talker unchanged).
+
+Also paralleling the cue distributions themselves, classifying according to
+sex-specific distributions provides the biggest boost in recognition for
+un-normalized formant accuracy. For normalized input, none of the
+socio-indexical grouping factors provide much of an advantage over the marginal
+distributions. In both cases, dialect provides a small but consistent advantage
+for recognition, both alone and in combination with sex (increasing accuracy by
+`r dialect_avg_advantage %$% round(observed*100)`% on average, all 
+$`r dialect_avg_advantage %$% p_val_to_less_than(boot_p)`$).
+
+```{r by-vowel-acc-group-known, fig.width=10, fig.height=5, fig.cap='Probability of correct recognition varies across vowels, overall and according to the socio-indexical grouping variable. Bars and stars show significant improvement from conditioning on dialect, above marginal or in addition to sex alone.'}
+
+acc_by_vowel <- accuracy %>%
+  filter(contrast == 'Vowels') %>%
+  group_by(cues, group_is, grouping, subsample_size, Vowel, Talker) %>%
+  summarise_each(funs(mean), accuracy)
+
+acc_by_vowel_summary <-
+  acc_by_vowel %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+acc_by_vowel_summary %>%
+  ggplot(aes(x=grouping, y=accuracy, color=grouping)) +
+  geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi),
+                  position = position_dodge(w=0.7)) +
+  facet_grid(cues~Vowel) +
+  labs(y = 'Probability of correct recognition') +
+  geom_stars(dialect_advantage_by_vowel_boot_ci,
+             acc_by_vowel_summary) +
+  geom_bars(dialect_advantage_by_vowel_boot_ci,
+            acc_by_vowel_summary) +
+  theme(axis.text.x= element_blank())
+
+```
+
+The utility of socio-indexical grouping for recognizing individual vowels largely
+mirrors the overall pattern (Figure {@fig:by-vowel-acc-group-known}). The exception is that the utility of conditioning on dialect varies substantially from one vowel to the next. For most vowels, conditioning on dialect makes little difference to correct recognition. But for a few---particularly `ae` and `eh`---conditioning on dialect increases accuracy by nearly 10%. In the case of normalized formant input, accuracy using dialect-conditioned distributions actually equals or surpasses the accuracy with talker-specific distributions.
+
+The overall utility of dialect also varies substantially based on the talker's
+actual dialect (Figure @fig:overall-acc-by-dialect). This is consistent with the
+fact that dialects themselves vary in how much they deviate from both the norms
+of Standard American English [@Clopper2005] and from the marginal cue
+distributions in this dataset (Figure @fig:vowel-kl-by-dialect). Most notably, conditioning on dialect provides a consistent advantage for talkers from the North dialect region, on the order of 10%.
+
+[^logodds]: These comparisons are also significant when using log-odds of
+    correct recognition, rather than raw probabilities.
+
+```{r overall-acc-by-dialect, fig.width=10, fig.height=5, fig.cap='The utility of socio-indexical variables varies across dialects. Dialect itself is particularly informative only for talkers from the Mid-Atlantic and North regions. Each line shows a single talker, to emphasize within-talker changes in accuracy with grouping level, and large points and confidence intervals show mean accuracy and bootstrapped 95% CIs over talkers.'}
+
+pd <- function() position_dodge(w=0.7)
+
+vowel_acc_by_talker <-
+  vowel_accuracy %>%
+  group_by(cues, grouping, group, Talker) %>%
+  summarise(accuracy = mean(accuracy)) %>%
+  left_join(nsp_vows %>%
+              group_by(Talker, Dialect) %>%
+              summarise()) %>%
+  ungroup() %>%
+  mutate(grouping=factor(grouping, levels=grouping_levels))
+
+vowel_acc_by_talker_summary <-
+  vowel_acc_by_talker %>%
+  group_by(cues, Dialect, grouping) %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+dialect_stars_and_bars <-
+  make_stars_and_bars(dialect_advantage_by_dialect_boot_ci,
+                      vowel_acc_by_talker_summary)
+
+
+ggplot(vowel_acc_by_talker, aes(x=grouping, y=accuracy, color=grouping)) +
+  geom_line(aes(group=Talker), color='grey90') +
+  geom_pointrange(data=vowel_acc_by_talker_summary, stat='identity',
+                  aes(ymin=accuracy_lo, ymax=accuracy_hi)) +
+  facet_grid(cues ~ Dialect) +
+  scale_y_continuous('Probability of correct recognition', limits=c(0,1)) +
+  geom_bars(dialect_advantage_by_dialect_boot_ci,
+            vowel_acc_by_talker_summary) +
+  geom_stars(dialect_advantage_by_dialect_boot_ci,
+             vowel_acc_by_talker_summary) +
+  rotate_x_axis_labs()
+
+```
+
+
+## Inferring socio-indexical variables from cue distributions
+
+Finally, we assess how well listeners could infer socio-indexical variables from unlabeled acoustic-phonetic cues, based on the group-conditional cue distributions. We measure this by the accuracy with which an "ideal listener" can categorize a talker's group membership for each socio-indexical grouping variable.
+
+```{r indexical-classification, cache=TRUE}
+
+## have to re-train models without subsampling
+vowel_index_class <-
+  vowel_data_grouped %>%
+  filter(! grouping %in% c('Marginal', 'Talker')) %>%
+  mutate(trained = map2(data, grouping, train_models_indexical_with_holdout),
+         posteriors = map(trained, classify_indexical_with_holdout)) %>%
+  unnest(map2(posteriors, grouping, ~ rename_(.x, group = .y)))
+
+vot_index_class <-
+  vot_by_place_grouped %>%
+  filter(! grouping %in% c('Marginal', 'Talker')) %>%
+  mutate(trained = map2(data, grouping,
+                        ~ train_models_indexical_with_holdout(.x,
+                                                              .y,
+                                                              category='voicing',
+                                                              formants='vot')),
+         posteriors = map(trained, classify_indexical_with_holdout)) %>%
+  unnest(map2(posteriors, grouping, ~ rename_(.x, group = .y))) %>%
+  group_by(cues, grouping, Talker, group, model) %>%
+  aggregate_log_lhood('log_posterior') %>%
+  normalize_log_probability('log_posterior')
+
+```
+
+```{r indexical-accuracy, cache=TRUE, dependson=c('indexical-classification')}
+
+vowel_index_acc <-
+  vowel_index_class %>%
+  filter(as.logical(posterior_choice)) %>%
+  mutate(accuracy = group == model)
+
+vot_index_acc <-
+  vot_index_class %>%
+  filter(posterior_choice) %>%
+  mutate(accuracy = group == model)
+
+index_acc <-
+  bind_rows(vowel_index_acc %>% mutate(contrast = 'Vowel'),
+            vot_index_acc %>% mutate(contrast = 'Stop voicing')) %>%
+  mutate(grouping = factor(grouping, levels = grouping_levels))
+
+## compute chance accuracy
+index_chance_acc <-
+  bind_rows(vowel_index_class, vot_index_class) %>%
+  mutate(grouping = factor(grouping, levels = grouping_levels)) %>%
+  group_by(cues, grouping, group) %>%
+  summarise() %>%
+  summarise(chance = 1/n())
+
+## bootstrapped CIs
+index_acc_summary <-
+  index_acc %>%
+  left_join(index_chance_acc) %>%
+  group_by(cues, grouping) %>%
+  do({ boot_ci(.$accuracy, function(d,i) mean(d[i]), h0=.$chance[1]) })
+
+## exact binomial CIs (kosher because talker accs are single binary observations)
+binomial_ci = function(p, x) qbeta(p, sum(x)+0.5, length(x)-sum(x)+0.5)
+index_acc_summary_exact <-
+  index_acc %>%
+  left_join(index_chance_acc) %>%
+  group_by(contrast, cues, grouping) %>%
+  summarise_each(funs(mean,
+                      ci_low=binomial_ci(0.025, .),
+                      ci_high=binomial_ci(0.975, .)),
+                 accuracy)
+
+```
+
+```{r indexical-acc-plot, fig.width=8.25, fig.height=3.5, fig.cap="Probability of correctly classifying a talker's socio-indexical group varies with the grouping variable, contrast, and cues. A talker is correctly classified if the overall posterior probability of their actual group given their unlabeled productions is the highest of all groups."}
+
+index_acc_summary_exact %>%
+  left_join(index_chance_acc) %>%
+  ggplot(aes(x=grouping, y=mean, color=grouping)) +
+  geom_point(aes(shape='Observed'), size=3) +
+  geom_linerange(aes(ymin=ci_low, ymax=ci_high)) +
+  geom_point(aes(y=chance, shape='Chance'), size=3) +
+  facet_grid(.~contrast + cues, scales='free_x', space='free_x') +
+  ylim(c(0,1)) +
+  scale_shape_manual('', values = c(1, 16), breaks = c('Chance', 'Observed')) +
+  labs(x = 'Grouping',
+       y = 'Probability of correct classification\n(Socio-indexical group)') +
+  rotate_x_axis_labs()
+
+```
+
+For most groupings, it is possible to infer each talker's group with above chance accuracy, given only that talker's unlabeled observed cues (Figure {@fig:indexical-acc-plot}; all $p<0.01$, except for inferring a talker's sex based on their VOT distributions, and dialect from un-normalized F1xF2 distributions, both $p>0.15$).
+
+In some respects, these results mirror the patterns of informativity about the cue distributions themselves (Figure {@fig:vowel-vot-kl-plot}). Vowel formant distributions vary more according to group than do stop VOT distributions, and likewise socio-indexical group can, on the whole, be inferred with higher accuracy based on vowel formants than on VOT. For vowels specifically, much of the variability across talkers is driven by sex differences, and this is the grouping variable that's easiest to infer of the three we tested.
+
+However, in other respects, these results do _not_ simply mirror informativity. For instance, un-normalized F1xF2 distributions diverge from marginal more for dialect+sex than they do for sex alone, but accuracy at inferring a talker's sex is nearly at ceiling, while accuracy is barely above chance for inferring a talker's dialect+sex. Likewise, normalized F1xF2 distributions given dialect and dialect+sex diverge from marginal less than non-normalized, but accuracy at inferring these two grouping variables is higher for normalized than non-normalized.
+
+Why the discrepancy? The informativity measure we used was the average
+divergence of _each category's_ cue distribution. For inferring indexical
+groups, we assumed that listeners do not know the intended category of each
+observation, and so the relevant likelihoods are each based on a _mixture_ of
+the category-specific distributions. Even if there are some categories whose
+individual distributions diverge across groups, the overall mixture distribution
+of all categories may still be too similar to allow for the group to be reliably
+inferred.
+
+# General Discussion
+
+Our results show that, on the whole, socio-indexical grouping variables are
+_informative_ about phonetic cue distributions, _useful_ for improving speech
+recognition, and can be _inferred_ from phonetic cues themselves. However, the
+extent to which these are true depends on the particular grouping variable and
+particular phonetic categories/cues involved. Socio-indexical variables are more
+useful, more informative, and more easily inferred for vowels than for stop
+consonant voicing. Some variables are broadly useful (sex, talker identity)
+while others are useful only in certain, specific contexts (dialect for certain
+vowels/dialect combinations).
+
+Our results also speak to the relationship between informativity, utility, and
+inferrability themselves. In general, informativity and utility mirror each
+other: conditioning on a socio-indexical variable is more useful for speech
+recognition when the corresponding conditional cue distributions diverge more
+from the overall or marginal distributions. But being useful for speech
+recognition does not always mean that a socio-indexical variable can be easily
+inferred from phonetic cues alone, or vice-versa.
+
+Here we discuss the implications of these results. First, the ideal adapter
+generally predicts that listeners should track conditional distributions for
+groups that are informative and useful for speech recognition. By directly
+quantifying the utility and informativity of a number of grouping variables, our
+results are an important step towards making more specific predictions about
+what group-level representations listeners should maintain if, as assumed by the
+ideal adapter, they are taking advantage of the structure that is actually
+present in cross-talker variability. Second, our results shed light on
+discrepancies between phonetic contrasts in listeners' willingness to generalize
+recalbration/perceptual learning from one talker to another. Third, this paper
+provides a proof of concept for the idea that, like phonetic judgements,
+socio-linguistic judgements can be productively viewed as a sort of inference
+under uncertainty. This suggests the potential for a tighter integration of
+sociolinguistic and psycholinguistic perspectives on speech perception.
+
+
+## What to track?
+
+<!-- this is the major discussion point. --> 
+
+<!-- TODO: clarify how this connects. gentler intro -->
+
+Treating speech perception as a problem of inference under uncertainty---as the
+ideal adapter does---highlights the importance of listeners' knowledge about the
+distributions of cues that are produced for each linguistic unit.  A major
+question that this perspective raises is _what_ linguistic, socio-indexical, and
+acoustic/phonetic variables listeners are learning distributions for. The ideal
+adapter does not directly answer this question, but provides a set of conceptual
+and quantitative tools for addressing it. The studies reported here take these
+tools and apply them to data on how many different talkers produce two different
+sets of phonetic categories. We hope that by doing so we provide a proof of
+concept for the broad usefulness of these tools. One purpose they might be put
+to is to formulate hypotheses about what distributions listeners should track.
+
+At the highest level, the ideal adapter predicts that listeners should not track
+_everything_. Rather, listeners need only track the joint distributions of
+variables that are informative. At the level of phonetic categories themselves,
+this means that (for instance) there's no reason for listeners to track each
+vowel's distribution of preceding VOT[^vot-caveat] (or more absurdly, completely
+unrelated physical quantities like temperature or barometric pressure). This
+also applies at the level of socio-indexical grouping variables: listeners get
+no benefit for tracking separate distributions for different groups of talkers
+for a cue that does not systematically vary between those groups.
+
+[^vot-caveat]: Barring, of course, the possibility that VOT is systematically
+    affected by neighboring vowels, and hence informative about them.
+
+In fact, it can actually _hurt_ a listener to track cue distributions at a level
+that's not informative. The reason for this is related to the idea of
+bias-variance tradeoff from machine learning [@James2013, Section 2.2.2]. Given
+the same amount of data, tracking multiple, specific distributions will result
+in noisier, less accurate estimates than lumping together all the observations
+in a single distribution.  This price may be worth paying for a listener when
+there are large enough differences between groups that treating all observations
+as coming from the same distribution _biases_ the estimates of the underlying
+distribution (and hence the inferences that listeners make based on those
+distributinos) far enough away from the true structure of the data. To take a
+concrete example, modeling each vowel as a single distribution of
+(un-normalized) formants across all talkers results in high-variance,
+overlapping distributions which have low recognition accuracy. But modeling them
+as two distributions---one for males, and one for females---provides much more
+specific estimates and higher classification accuracy, as shown by Figures
+@fig:vowel-vot-kl-plot and @fig:overall-accuracy-group-known
+[and in @Hillenbrand1995; @Feldman2013a].
+
+Thus, the ideal adapter predicts that listeners should learn separate cue
+distributions for levels of a socio-indexical grouping variable when that
+variable has high _informativity_ about some categories' cue distributions
+and/or high _utility_ for speech recognition. However, However, the notions of
+informativity and utility apply beyond better _speech_ recognition per
+se. Listeners extract a lot of non-phonetic/linguistic information from speech
+signal. To properly define the informativity or utility of a particular grouping
+variable, we need to consider the _goals_ of speech perception, which go beyond
+just recognizing phonetic categories. Sociolinguistics recognizes that, in many
+cases, the communication of social information is just as if not more important
+than the communication of linguistic information. Groupings that are _socially
+meaningful_ can thus be informative and justify being tracked, even if ignoring
+them has a negligible effect on speech recognition, as long as the corresponding
+cue distributions carry some information about relevant social variables. In our
+results, dialect is a good example: on the whole, ignoring dialect doesn't have
+huge consequences on recognition accuracy. But it can be inferred (at least
+above chance) based on vowel F1 and F2, and listeners are plausibly interested
+in determining a talker's regional origins for a variety of reasons. <!--
+unlearning southern accents? -->
+
+An additional consideration is that listeners are not simply told which
+variables are informative and which are not. They must actually _infer_ what
+distributions are actually worth tracking. Moreover, every listener's experience
+with talker variability will be different, and so a variable that is informative
+in one listener's experience may be irrelevant in another's. While the analyses
+we present here go a long way toward focusing the predictions of the ideal
+adapter framework, they must be combined with knowledge of each listener's own
+personal history---either assumed, or somehow measured, even approximately---in
+order to make specific predictions for a particular subject or population of
+subjects. This same logic applies to which socio-indexical variables are of
+direct interest to a listener: social categories that are highly important in
+one person's social world may be completely meaningless in another's. An
+important aspect of the research program laid out by the ideal adapter framework
+is to probe listeners' prior beliefs _directly_ (which the previous chapter is a
+first step towards) <!-- TODO: remove "chapter" for TopiCS -->
+
+Finally, our results suggest that the input representation---the cue space over
+which categories are distributions---can affect which variables are informative
+or not. For vowels, using Lobanov-normalized formants as input substantially
+reduces the informativity and utility of sex as a grouping factor, but
+_increases_ the utility of dialect in many cases. From a listener's perspective,
+dialect would appear to be relatively uninformative without normalization. This
+points to a complex interaction between normalization and adaptation/perceptual
+learning as strategies for coping with talker variability. Both strategies are,
+in fact, used by listeners, but the interaction between them is poorly
+understood [@WeatherholtzInPress].
+
+## Consequences for adapting to unfamiliar talkers
+
+The results of this study also tell us something about how listeners might adapt
+to an unfamiliar talker. The ideal adapter links informativity to adaptation,
+and the results here allow us to make more specific predictions based on the
+ideal adapter, in two ways.
+
+First, the informativity of talker identity is a measure of the variability
+across talkers. When talker identity is highly informative, there's more
+variabiltiy across talkers, and the ideal adapter predicts that prior experience
+with other talkers will be less relevant, resulting in faster and more complete
+adaptation to an unfamiliar talker. We found here that talker identity is less
+informative about VOT distributions than it is for vowel formant
+distributions. Hence, the ideal adapter predicts that listeners will adapt to
+talker-specific VOT distributions more slowly, and be more constrained by prior
+experience with other talkers. The first prediction is borne out by
+@Kraljic2007, who compared recalibration of a voicing contrast with a fricative
+place contrast. It's also borne out indirectly by the modeling work in Chapters
+NNN and NNN, which found that the effective prior sample size for /b/-/d/
+(which, like vowels, is primarily cued by formant requencies) is much lower than
+for /b/-/p/ (cued by VOT).
+
+Second, the informativity of higher-level grouping variables is linked to
+_generalization_ across talkers: if two talkers are from groups that tend to
+differ, listeners should treat them separately and not generalize from
+experience with one talker to the other. Likewise, if two talkers are from the
+same group, listeners _should_ generalize. We found that talker sex is
+informative for vowel formant distributions, but not for VOT, which means that
+listeners _should_ generalize from a male to a female talker (and vice-versa)
+for a voicing contrast, but _not_ for a vowel contrast. Listeners do, in fact,
+tend to generalize voicing recalibration across talkers of different sexes
+[@Kraljic2006;@Kraljic2007]. While there's (to our knowledge) no data on
+cross-talker generalization for vowel recalibration, listeners tend not to
+generalize across talkers for fricative recalibration
+[@Eisner2005;@Kraljic2007], which (like vowels) are cued by spectral cues that
+vary across talkers and by gender [@Newman2001; @Jongman2000; @McMurray2011a].
+
+There is also evidence for the prediction of generalization _within_ informative
+groups. In the absence of evidence that two talkers from the same group
+(e.g. two males) produce a contrast differently, experience with one provides an
+informative starting point for comprehending (and adapting to) the other. Along
+these lines, @VanderZande2014 found that listeners generalize from experience
+with one male talker's pronunciation of a /b/-/d/ contrast to another,
+unfamiliar male.
+
+Finally, it's important to point out that these predictions are best thought of
+as _biases_ that can be overcome with enough of the right kind of evidence
+[@Kleinschmidt2015]. For instance, listeners can overcome their bias to
+generalize experience with VOT and learn talker-specific VOT distributions, but
+it requires hundreds of observations from talkers who produce very different VOT
+distributions [@Munson2011]. Likewise, listeners will generalize recalibration
+of a fricative contrast from a female to a male talker given the right kind of
+test stimuli [@Reinisch2014].
+
+## Sociolinguistic inference
+
+Our findings suggest that socio-linguistic judgements can---like linguistic
+judgements---be viewed as probabilistic inference. In this view, both social and
+linguistic judgements rely on knowledge of how different underlying
+categories---social and linguistic---are probabilistically realized as
+distributions of observable cues. Just like each vowel (for instance) is
+realized as a distribution of F1 and F2 values, each dialect is _also_ realized
+as an F1xF2 distribution (along with many other cues). When a listener hears a
+talker produce particular cue values, they can use knowledge of these
+distributions to compare how well each possible underlying social variable
+_explains_ the speech they've observed.  We find that this kind of model can
+classify a talker's dialect at roughly the same accuracy (10-40%) as human
+listeners in a forced-choice task based on sentences spoken by the same talkers
+[@Clopper2006].
+
+The idea of socio-linguistic judgements of inference fits naturally within the ideal adapter framework, which holds that listeners are simultaneously making at least three kinds of inferences in the normal course of speech perception: 
+
+1. _What_ a talker is saying
+2. _How_ that talker says things
+3. _Who_ that talker is, in relation to other talkers
+
+The third level of inference is essential for talker-invariant speech
+perception: knowing _who_ a talker is allows listeners to take advantage of
+their prior experience with other, similar talkers [@Kleinschmidt2015]. Of
+course, listeners likely also want to know who a talker is for reasons that have
+nothing to do with accurate speech recognition per se. To the extent that a
+talker's way of realizing linguistic variables says anything about who they are
+their speech is informative about their identity, at the same time as their
+identity is informative about their speech. Thus both sociolingusitic and
+psycholinguistic considerations lead to the idea that social inferences may well
+be inextricable from linguistic inferences.
+
+Realizing that socio-linguistic judgements can be treated as a kind of inference
+is a potentially powerful idea, but it is impotant to realize that it is not,
+per se, a complete _model_ of socio-linguistic judgements. Rather, it is a
+framework for developing such a model. In this view, the particular inferences
+that a listener would draw based on particular linguistic input depends not only
+on the distributions of cues in the world but just as much on the listener's
+own, internal model of how social variables relate to each other. Or, as it's
+more commonly put, a listener's stereotypes or ideologies about language use and
+social identity.
+
+Careful sociolinguistic work is required to tease these factors out. One example
+comes from @Levon2014. He finds that when UK listeners hear a male talker with
+high /s/ spectral center of gravity (COG), they infer that the talker is a gay
+man. But when they hear a male talker with high /s/ spectral COG _and_
+TH-fronting (i.e., /f/ for /TH/), they judge the talker to be a working class
+straight man. That is, the inference that the talker is working class _blocks_
+the inference that he is gay. These sorts of effects are perfectly compatible
+with an inference-based perspective, but they depend on the specific contents of
+the listeners internal model of how social variables are related to each other
+and to observable cues [for examples in other domains, see @Jacobs2010]. Such
+internal models are not directly derivable from production data like we analyze
+here, but rather require probing a listner's subjective, implicit beliefs (as in
+the previous chapter).
+
+
+## A lower bound
+
+Finally, it is important to note that our results here constitute a _lower
+bound_ on the informativity or utility of different levels of socio-indexical
+grouping.[^lower-bound-caveat] We model cue distributions for a particular group
+as a _single_ normal distribution over observed cue values. In reality, a
+hierarchical model is more appropriate, since different levels of grouping can
+nest within each other. For instance, each dialect group is likely better
+modeled as a _mixture_ of talker-specific distributions, which each exhibit
+dialect features to a varying degree. This is especially important for
+_adaptation_ to an unfamiliar talker, since a group-level distribution conflates
+_within_ and _between_ talker variation, both of which have separate roles to
+play in belief updating.
+
+The approach to group-level modeling that we take here is roughly equivalent to
+the _posterior predictive_ distribution of a fully hierarchical model, which
+integrates over lower levels of grouping to provide a single distribution of
+cues given the group (and phonetic category). This corresponds to the best guess
+a listener would have _before_ hearing anything from an unfamiliar talker, if
+the only information they had about that talker was their group membership. As
+the listener hears more cue values from the talker, the hierarchical nature of
+grouping structure becomes more important and can provide (in principle) a
+significant advantage over what we measured here. But modeling this process is
+quite a bit more complicated and we leave it for future work. Nevertheless,
+modeling each category as a single, "flat" distribution per group may well prove
+a useful approximation, or even a boundedly-rational model of how listeners take
+advantage of different levels of grouping structure
+[and similar approaches have been used in, e.g., motor control @Kording2007].
+
+[^predictive-approx]: Depending on how variability at lower levels of grouping
+    is modeled.
+
+[^lower-bound-caveat]: Even above and beyond the limitations imposed by unqueal
+    numbers of talkers in each group, which necessitates subsampling talkers in
+    the larger groups in order to meaningfully compare accuracy.
+
+# Conclusion
+
+Socio-linguistic variables like age, sex, and regional origin have been
+identified by sociolinguistics as factors that systematically affect the
+realization of linguistic categories. Using an ideal observer framework, we
+quantified the extent to which a range of these variables are _informative_
+about the distributions of acoustic cues corresponding to linguistic categories,
+_useful_ for recognizing those categories, and can themselves be _inferred_ from
+unlabeled cues. Our results show that the utility and informativity of a
+particular socio-indexical variable are closely related but not identical, while
+inferrability is distinct.  Moreover, we demonstrate how this method for
+quantifying these factors allows them to be compared across phonetic categories
+as well as cues/contrasts (VOT vs. F1xF2).
+
+Together, these results show that the idea of inference under uncertainty, when
+applied to speech perception, provides a unifying perspective on both linguistic
+and socio-linguistic perception. This perspective leads to conceptual and
+computational tools for addressings questions that are of interest to
+psycholinguistics and sociolinguistics, as well as developing new bridges
+between the two.
+
