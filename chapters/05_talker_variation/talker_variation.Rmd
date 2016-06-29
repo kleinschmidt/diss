@@ -721,6 +721,8 @@ min_talker_per_group <- function(d) {
     min()
 }
 
+set.seed(100)
+
 vowel_models <-
   vowel_data_grouped %>%
   mutate(group_size = map_dbl(data, min_talker_per_group)) %>%
@@ -767,6 +769,8 @@ vowel_class <-
 ```
 
 ```{r vot-classification-models, cache=TRUE, dependson=c('vot-data', 'classification-helpers')}
+
+set.seed(101)
 
 vot_models <-
   vot_by_place_grouped %>%
