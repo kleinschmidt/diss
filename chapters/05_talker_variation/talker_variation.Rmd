@@ -20,12 +20,13 @@ output:
         - pandoc-tablenos
 ---
 
-```{r preamble, message=FALSE, warning=FALSE, error=FALSE}
+```{r preamble, message=FALSE, warning=FALSE, error=FALSE, echo=FALSE, results='hide'}
 
 library(knitr)
 opts_chunk$set(message=FALSE,
                warning=FALSE,
-               error=FALSE)
+               error=FALSE,
+               echo=opts_knit$get("rmarkdown.pandoc.to") != 'latex')
 
 ## Produce markdown-formatted figures so that pandoc knows what to do with
 ## the captions. requires pandoc-fignos to parse the IDs. refer to figures
