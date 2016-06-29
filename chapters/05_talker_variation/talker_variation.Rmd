@@ -1320,7 +1320,23 @@ huge consequences on recognition accuracy. But it can be inferred (at least
 above chance) based on vowel F1 and F2, and listeners are plausibly interested
 in determining a talker's regional origins for a variety of reasons. <!--
 unlearning southern accents? -->
-    
+
+An additional consideration is that listeners are not simply told which
+variables are informative and which are not. They must actually _infer_ what
+distributions are actually worth tracking. Moreover, every listener's experience
+with talker variability will be different, and so a variable that is informative
+in one listener's experience may be irrelevant in another's. While the analyses
+we present here go a long way toward focusing the predictions of the ideal
+adapter framework, they must be combined with knowledge of each listener's own
+personal history---either assumed, or somehow measured, even approximately---in
+order to make specific predictions for a particular subject or population of
+subjects. This same logic applies to which socio-indexical variables are of
+direct interest to a listener: social categories that are highly important in
+one person's social world may be completely meaningless in another's. An
+important aspect of the research program laid out by the ideal adapter framework
+is to probe listeners' prior beliefs _directly_ (which the previous chapter is a
+first step towards) <!-- TODO: remove "chapter" for TopiCS -->
+
 ## Consequences for adapting to unfamiliar talkers
 
 The results of this study also tell us something about how listeners might adapt
