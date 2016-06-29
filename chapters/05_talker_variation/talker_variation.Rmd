@@ -413,7 +413,7 @@ $$
 p(x_i | g) = \sum_k p(x_i | v_i=k, g) p(v_i=k | g)
 $$
 
-For all of these classifications, we assume a flat prior on categories/groups. We perform this analysis separately for each level of socio-indexical grouping. For instance, we compute both $p(\mathrm{sex} | x)$ and $p(\mathrm{dialect} | x) for each talker.
+For all of these classifications, we assume a flat prior on categories/groups. We perform this analysis separately for each level of socio-indexical grouping. For instance, we compute both $p(\mathrm{sex} | x)$ and $p(\mathrm{dialect} | x)$ for each talker.
 
 [^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
 
