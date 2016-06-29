@@ -1374,42 +1374,61 @@ distributions [@Munson2011]. Likewise, listeners will generalize recalibration
 of a fricative contrast from a female to a male talker given the right kind of
 test stimuli [@Reinisch2014].
 
-## Sociolinguistic stuff
+## Sociolinguistic inference
 
-* Socio-linguistic judgements can also be thought of as inference.
-* simultaneously making all kinds of inferences: 
-    * what a talker is saying
-    * how a talker says things
-    * _who_ a talker is, relative to other talkers. important both for speech
-      perception, but also important in and of itself.
-* the important point here is that this way of thinking about speech perception
-  situates social inferences as a central aspect of speech processing. in fact,
-  in this view social inferences may well be inextricable from linguistic
-  inferences.
-* Important caveat: this is not, per se, a complete model of socio-linguistic
-  judgements. the inferences that a lisener would draw in this view depends on
-  the generative model of social variables that listeners have. one way to think
-  about this is that inference depends not only on the cue distributions but on
-  the prior over social variables themselves. 
-    * These need careful sociolinguistic work to tease out. A good example of
-      this work is @Levon2014. If listeners believe that a working class
-      identity and homosexuality identity cannot occur in the same person, then
-      their inferences about whether or not someone is a gay man will depend on
-      whether or not they believe that person to be working class
-      [@Levon2014 refers to these as a listener's stereotypes or ideologies]
-* (( PROBABLY TOO MUCH FOR THIS PAPER )) if this is true, what does this
-  perspective contribute above and beyond "traditional" socioliguistics?
-    * (quantifiable) notions of cue reliability. WHY some judgements block
-      others, and which.
-    * for instance, if cues to gayness fall closer to normal range of variation
-      may be easier to explain away than cues to class; prior belief that you
-      can't be both gay and working class blocks the normal inference about
-      gayness.
+One thing that these results reveal is that socio-linguistic judgements
+can---like linguistic judgements---be viewed as probabilistic inference. In this
+view, both social and linguistic judgements rely on knowledge of how different
+underlying categories---social and linguistic---are probabilistically realized
+as distributions of observable cues. Just like each vowel (for instance) is
+realized as a distribution of F1 and F2 values, each dialect is _also_ realized
+as an F1xF2 distribution (along with many other cues). When a listener hears a
+talker produce particular cue values, they can use knowledge of these
+distributions to compare how well each possible underlying social variable
+_explains_ the speech they've observed.  We find that this kind of
+model can classify a talker's dialect at roughly the same accuracy (10-40%) as
+human listeners in a forced-choice task based on sentences spoken by the same talkers [@Clopper2006].
 
-(( something about relevance to sociolinguistics...what do people have knowledge
-of? what sorts of inferences should they be able to make? what cues are actually
-informative? ))
+The idea of socio-linguistic judgements of inference fits naturally within the ideal adapter framework, which holds that listeners are simultaneously making at least three kinds of inferences in the normal course of speech perception: 
 
+1. _What_ a talker is saying
+2. _How_ that talker says things
+3. _Who_ that talker is, in relation to other talkers
+
+The third level of inference is essential for talker-invariant speech
+perception: knowing _who_ a talker is allows listeners to take advantage of
+their prior experience with other, similar talkers [@Kleinschmidt2015]. Of
+course, listeners likely also want to know who a talker is for reasons that have
+nothing to do with accurate speech recognition per se. To the extent that a
+talker's way of realizing linguistic variables says anything about who they are
+their speech is informative about their identity, at the same time as their
+identity is informative about their speech. Thus both sociolingusitic and
+psycholinguistic considerations lead to the idea that social inferences may well
+be inextricable from linguistic inferences.
+
+Realizing that socio-linguistic judgements can be treated as a kind of inference
+is a potentially powerful idea, but it is impotant to realize that it is not,
+per se, a complete _model_ of socio-linguistic judgements. Rather, it is a
+framework for developing such a model. In this view, the particular inferences
+that a listener would draw based on particular linguistic input depends not only
+on the distributions of cues in the world but just as much on the listener's
+own, internal model of how social variables relate to each other. Or, as it's
+more commonly put, a listener's stereotypes or ideologies about language use and
+social identity.
+
+Careful sociolinguistic work is required to tease these factors out. One example
+comes from @Levon2014. He finds that when UK listeners hear a male talker with
+high /s/ spectral center of gravity (COG), they infer that the talker is a gay
+man. But when they hear a male talker with high /s/ spectral COG _and_
+TH-fronting (i.e., /f/ for /TH/), they judge the talker to be a working class
+straight man. That is, the inference that the talker is working class _blocks_
+the inference that he is gay. These sorts of effects are perfectly compatible
+with an inference-based perspective, but they depend on the specific contents of
+the listeners internal model of how social variables are related to each other
+and to observable cues [for examples in other domains, see @Jacobs2010]. Such
+internal models are not directly derivable from production data like we analyze
+here, but rather require probing a listner's subjective, implicit beliefs (as in
+the previous chapter).
 
 
 ## A lower bound
