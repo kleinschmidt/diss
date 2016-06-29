@@ -1003,6 +1003,42 @@ midatl_adv_raw <-
 
 ```
 
+```{r stars-and-bars}
+
+make_stars_and_bars <- function(advantage, data_summary,
+                                ci_hi_col = 'accuracy_hi') {
+  advantage %>%
+    ungroup() %>%
+    filter(boot_p< 0.05, measure=='proportion') %>%
+    mutate(boot_p_stars = p_val_to_stars(boot_p)) %>%
+    separate(comparison, c('To', 'From'), sep='_over_') %>%
+    mutate(From = tools::toTitleCase(From)) %>%
+    left_join(data_summary) %>%
+    filter(To == grouping | From == grouping) %>%
+    group_by_('To', 'From',
+              .dots = groups(data_summary) %>% discard(equals, 'grouping'),
+              add=TRUE) %>%
+    filter_(lazyeval::interp(~ x == max(x), x=as.name(ci_hi_col)))
+}
+
+## draw significance stars
+geom_stars <- function(...) {
+  stars_and_bars <- make_stars_and_bars(...)
+  geom_text(data=stars_and_bars,
+            aes(x=To, y=accuracy_hi, label=boot_p_stars),
+            nudge_x=-0.5, nudge_y = 0.03, color='black')
+}
+
+## draw bars connecting significantly different pairs
+geom_bars <- function(...) {
+  stars_and_bars <- make_stars_and_bars(...)
+  geom_segment(data=stars_and_bars,
+               aes(x=From, xend=To, y=accuracy_hi+0.02, yend=accuracy_hi+0.02),
+               color='black')
+}
+
+```
+
 
 ```{r overall-accuracy-group-known, fig.width=8.3, fig.height=4.2, fig.cap='Speech recognition accuracy using for marginal, group-level, and talker-specific cue distributions. Small points show individual talkers, and large points and lines show mean and bootstrapped 95% CIs over talkers. Marginal and group-level accuracy is based on leave-one-talker out cross-validation, and talker-specific on 6-fold cross-validation (or leave-one-token-per-category out if there are fewer than 6 tokens per category).'}
 
@@ -1014,6 +1050,8 @@ accuracy_summary %>%
                summarise(accuracy = mean(accuracy)),
              position='jitter', alpha=0.2) +
   geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi), stat='identity') +
+  geom_stars(dialect_advantage_boot_ci, accuracy_summary) +
+  geom_bars(dialect_advantage_boot_ci, accuracy_summary) +
   facet_grid(.~contrast+cues, scales='free_x', space='free_x') +
   rotate_x_axis_labs() +
   labs(x = 'Grouping',
@@ -1043,32 +1081,16 @@ acc_by_vowel_summary <-
          accuracy_lo = ymin,
          accuracy_hi = ymax)
 
-make_stars_and_bars <- function(advantage, data_summary,
-                                ci_hi_col = 'accuracy_hi') {
-  advantage %>%
-    ungroup() %>%
-    filter(boot_p< 0.05, measure=='proportion') %>%
-    mutate(boot_p_stars = p_val_to_stars(boot_p)) %>%
-    separate(comparison, c('To', 'From'), sep='_over_') %>%
-    mutate(From = tools::toTitleCase(From)) %>%
-    left_join(data_summary) %>%
-    filter(To == grouping | From == grouping) %>%
-    group_by(cues, Vowel, measure, To, From) %>%
-    filter_(lazyeval::interp(~ x == max(x), x=as.name(ci_hi_col)))
-}
-
 acc_by_vowel_summary %>%
   ggplot(aes(x=grouping, y=accuracy, color=grouping)) +
   geom_pointrange(aes(ymin=accuracy_lo, ymax=accuracy_hi),
                   position = position_dodge(w=0.7)) +
   facet_grid(cues~Vowel) +
   labs(y = 'Probability of correct recognition') +
-  geom_text(data=stars_and_bars,
-            aes(x=To, y=accuracy_hi, label=boot_p_stars),
-            nudge_x=-0.5, nudge_y = 0.03, color='black') +
-  geom_segment(data=stars_and_bars,
-               aes(x=From, xend=To, y=accuracy_hi+0.02, yend=accuracy_hi+0.02),
-               color='black') +
+  geom_stars(dialect_advantage_by_vowel_boot_ci,
+             acc_by_vowel_summary) +
+  geom_bars(dialect_advantage_by_vowel_boot_ci,
+            acc_by_vowel_summary) +
   theme(axis.text.x= element_blank())
 
 ```
@@ -1102,20 +1124,39 @@ and raw input
 
 pd <- function() position_dodge(w=0.7)
 
-vowel_accuracy %>%
+vowel_acc_by_talker <-
+  vowel_accuracy %>%
   group_by(cues, grouping, group, Talker) %>%
   summarise(accuracy = mean(accuracy)) %>%
   left_join(nsp_vows %>%
               group_by(Talker, Dialect) %>%
               summarise()) %>%
   ungroup() %>%
-  mutate(grouping=factor(grouping, levels=grouping_levels)) %>%
-  ggplot(aes(x=grouping, y=accuracy, color=grouping)) +
+  mutate(grouping=factor(grouping, levels=grouping_levels))
+
+vowel_acc_by_talker_summary <-
+  vowel_acc_by_talker %>%
+  group_by(cues, Dialect, grouping) %>%
+  do({ mean_cl_boot(.$accuracy) }) %>%
+  rename(accuracy = y,
+         accuracy_lo = ymin,
+         accuracy_hi = ymax)
+
+dialect_stars_and_bars <-
+  make_stars_and_bars(dialect_advantage_by_dialect_boot_ci,
+                      vowel_acc_by_talker_summary)
+
+
+ggplot(vowel_acc_by_talker, aes(x=grouping, y=accuracy, color=grouping)) +
   geom_line(aes(group=Talker), color='grey90') +
-  geom_pointrange(stat='summary', fun.data=mean_cl_boot, position=pd()) +
-  ## geom_point(position='jitter', alpha=0.2) +
+  geom_pointrange(data=vowel_acc_by_talker_summary, stat='identity',
+                  aes(ymin=accuracy_lo, ymax=accuracy_hi)) +
   facet_grid(cues ~ Dialect) +
   scale_y_continuous('Probability of correct recognition', limits=c(0,1)) +
+  geom_bars(dialect_advantage_by_dialect_boot_ci,
+            vowel_acc_by_talker_summary) +
+  geom_stars(dialect_advantage_by_dialect_boot_ci,
+             vowel_acc_by_talker_summary) +
   rotate_x_axis_labs()
 
 ```
