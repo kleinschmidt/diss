@@ -983,34 +983,42 @@ Figure {@fig:by-vowel-acc-group-known} shows probability of correct recognition 
 
 ```{r vowel-dialect-advantage}
 
+boot_dialect_advantage <- function(d) {
+  d %>%
+    filter(grouping != 'Talker') %>%
+    group_by(Talker, grouping, add=TRUE) %>%
+    summarise(proportion = mean(accuracy),
+              logodds = log(sum(accuracy)+0.5) - log(sum(1-accuracy)+0.5)) %>%
+    gather('measure', 'accuracy', proportion, logodds) %>%
+    group_by(measure, add=TRUE) %>%
+    spread(grouping, accuracy) %>%
+    transmute(Dialect_over_marginal = Dialect - Marginal,
+              Dialect_over_sex = Dialect_Sex - Sex) %>%
+    gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
+    group_by(measure, comparison, add=TRUE) %>%
+    do({ boot_ci(.$value, function(d,i) mean(d[i]), h0=0) })
+}
+
 ## compute within-talker dialect advantage
-dialect_advantage <-
+dialect_advantage_boot_ci <-
   vowel_accuracy %>%
-  filter(grouping != 'Talker') %>%
-  group_by(cues, subsample_size, group_is, Talker, Vowel, grouping) %>%
-  summarise(proportion = mean(accuracy),
-            logodds = log(sum(accuracy)+0.5) - log(sum(!accuracy)+0.5)) %>%
-  gather('measure', 'accuracy', proportion, logodds) %>%
-  group_by(measure, add=TRUE) %>%
-  ## select(-Dialect, -Marginal, -Sex, -Dialect_Sex, -group) %>%
-  spread(grouping, accuracy) %>%
-  transmute(Dialect_over_marginal = Dialect - Marginal,
-            Dialect_over_sex = Dialect_Sex - Sex) %>%
-  left_join(nsp_vows %>% group_by(Talker, Dialect, Sex) %>% summarise())
+  group_by(cues, grouping) %>%
+  boot_dialect_advantage()
 
-## bootstrapped CIs by vowel
-dialect_advantage_boot_ci <- dialect_advantage %>%
-  filter(subsample_size == 3, group_is == 'Known') %>%
-  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
-  group_by(cues, Vowel, measure, comparison) %>%
-  do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
+dialect_advantage_by_vowel_boot_ci <-
+  vowel_accuracy %>%
+  group_by(cues, grouping, Vowel) %>%
+  boot_dialect_advantage()
 
-## bootstrapped CIs by dialect
-dialect_advantage_by_dialect_boot_ci <- dialect_advantage %>%
-  filter(subsample_size == 3, group_is == 'Known') %>%
-  gather('comparison', 'value', Dialect_over_marginal, Dialect_over_sex) %>%
-  group_by(cues, Dialect, measure, comparison) %>%
-  do({ boot_ci(., function(d,i) mean(d$value[i]), h0=0) })
+dialect_advantage_by_dialect_boot_ci <-
+  vowel_accuracy %>%
+  select(-Dialect) %>%
+  left_join(nsp_vows %>% group_by(Talker, Dialect) %>% summarise(),
+            by = 'Talker') %>%
+  rename(Dialect_ = Dialect) %>%
+  group_by(cues, grouping, Dialect_) %>%
+  boot_dialect_advantage() %>%
+  rename(Dialect = Dialect_)
 
 format_advantage <- function(d, ci_descrip='95% CI', p=TRUE, paren=TRUE) {
   adv_string <- sprintf('%.0f%%', 100*d$observed)
