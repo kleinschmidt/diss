@@ -676,11 +676,15 @@ trained_to_joint_post <- function(trained, obs_vars) {
            group_posteriors = map(conditional_posteriors,
                                   . %>%
                                     group_by_(.dots=obs_vars) %>%
-                                    marginalize('group_model') %>%
-                                    aggregate_lhood('group_model')),
+                                    mutate(log_lhood = log(lhood)) %>%
+                                    marginalize_log('log_lhood', 'group_model') %>%
+                                    ungroup() %>%
+                                    aggregate_log_lhood('log_lhood', 'group_model') %>%
+                                    normalize_log_probability('log_lhood')),
            joint_posteriors = map2(conditional_posteriors, group_posteriors,
                                    compute_joint_category_group_post)) %>%
     unnest(joint_posteriors)
+
 }
 
 
@@ -725,7 +729,8 @@ vowel_models <-
                filter(group_size > subsample_size)) %>%
   mutate(trained = pmap(list(data, grouping, subsample_size),
                         train_models_indexical_subsample_holdout),
-         joint_posteriors = map(trained, trained_to_joint_post))
+         joint_posteriors = map(trained, trained_to_joint_post,
+                                obs_vars = c('Vowel', 'Token')))
 
 ```
 
@@ -771,9 +776,8 @@ vot_models <-
                                                               .y,
                                                               category = 'voicing',
                                                               formants = 'vot')),
-         joint_posteriors = map(trained,
-                                ~ trained_to_joint_post(., c('voicing', 'Token')))
-         )
+         joint_posteriors = map(trained, trained_to_joint_post,
+                                obs_vars = c('voicing', 'Token')))
 
 ```
 
