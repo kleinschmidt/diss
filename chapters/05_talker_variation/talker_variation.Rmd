@@ -224,9 +224,9 @@ way towards refining the predictions of the ideal adapter framework, and in turn
 understanding how listeners efficiently adapt to many different talkers. Second,
 we aim to show that the conceptual and computational tools of the ideal adapter
 framework offer a unifying perspective on linguistic and socio-linguistic
-perception, both of which can be seen as processes of _inference_ that rely on
-the same basic knowledge about the cue distributions that correspond to
-different underlying lingiustic and social variables.
+perception. In this view, both can be seen as processes of _inference_, which
+relies on the same basic knowledge about the cue distributions that correspond
+to different underlying lingiustic and social variables.
 
 Specifically, we aim to answer these three questions:
 
@@ -1225,7 +1225,7 @@ These results ... <points to discuss>
 
 
 
-* (( WHERE DOES THIS GO )) normalization vs. adaptation.
+* (( WHERE DOES THIS GO? maybe what to track )) normalization vs. adaptation.
     * both are well supported as strategies that listeners use for dealing with
       variability [@WeatherholtzInPress]
     * ...normalization changes usefulness of some variables. dialect is
@@ -1281,8 +1281,9 @@ concrete example, modeling each vowel as a single distribution of
 (un-normalized) formants across all talkers results in high-variance,
 overlapping distributions which have low recognition accuracy. But modeling them
 as two distributions---one for males, and one for females---provides much more
-specific estimates and higher classification accuracy
-[Figures @fig:vowel-vot-kl-plot and @fig:overall-accuracy-group-known; @Hillenbrand1995; @Feldman2013a].
+specific estimates and higher classification accuracy, as shown by Figures
+@fig:vowel-vot-kl-plot and @fig:overall-accuracy-group-known
+[and in @Hillenbrand1995; @Feldman2013a].
 
 
 <!-- When adapting to an unfamiliar talker, listeners face a tradeoff.  On the
