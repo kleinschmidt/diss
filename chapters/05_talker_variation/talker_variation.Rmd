@@ -711,6 +711,66 @@ classify_by_talker_cv <- function(d, holdout='Token', category='Vowel', ...) {
 
 ```
 
+```{r vowel-classification-models-group-known, cache=TRUE, dependson=c('vowel-data', 'classification-helpers')}
+
+min_talker_per_group <- function(d) {
+  d %>%
+    do(n = length(unique(.$Talker))) %>%
+    select_('n') %>%
+    unlist() %>%
+    min()
+}
+
+## steps in this analysis:
+## 1. split data into LOO train/test sets, restricted to same group
+## 2. generate NNN random subsamplings of talkers in training group
+## 3. for each subsampling, train models, classify test data, and compute acc
+
+#' @param d data frame with columns for groups, category, and holdout
+#' @param groups
+train_test_same_group <- function(d, groups, category, holdout, ...) {
+  assert_that(has_name(d, groups))
+  assert_that(has_name(d, holdout))
+  assert_that(has_name(d, category))
+  
+  train <- partial(train_models, grouping = category, ...)
+
+  ## split data into train/test split, restricting to same group
+x<-  d %>%
+    by_slice(train_test_split, holdout=holdout) %>%
+  unnest(.out)
+
+  ## don't care about groups within train/test split (already restricted to same
+  ## group) so we can just use train_models and classify directly
+  train_test <- function(data_train, data_test) {
+    data_train %>%
+      train() %>%
+      rename_(category=category) %>%
+      classify(data_test, ., 'category') %>%
+      rename_(category_model = 'model')
+  }
+
+  ## get_accuracy(category_col = category)
+
+}
+
+
+set.seed(100)
+
+vowel_models <-
+
+
+  vowel_data_grouped %>%
+  mutate(group_size = map_dbl(data, min_talker_per_group)) %>%
+  right_join(cross_d(list(group_size = unique(.$group_size),
+                          subsample_size = c(3,7))) %>%
+               filter(group_size > subsample_size)) %>%
+  mutate(train_test = map2(data, grouping,
+                           train_test_same_group,
+                           category = 'Vowel', holdout = 'Talker'))
+
+
+```
 
 ```{r vowel-classification-models, cache=TRUE, dependson=c('vowel-data', 'classification-helpers')}
 
