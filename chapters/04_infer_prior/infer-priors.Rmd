@@ -919,7 +919,8 @@ these distributions, /b/ and /p/ mean VOT varied semi-independently (Figure
 implied category boundaries (from -15 to 45ms VOT) than Experiment 1 (10 to
 50ms), especially on the lower end. They also varied in the distance between
 clusters (from 40 to 130ms VOT), unlike Experiment 1 which maintained a constant
-separation between /b/ and /p/ mean VOT of 40ms.
+separation between /b/ and /p/ mean VOT of 40ms. Note that the condition with
+/b/ mean of 10ms and /p/ mean of 50ms VOT is the same as in Experiment 1.
 
 #### Subjects
 
@@ -949,6 +950,11 @@ active_time <- supunsup::separatemeans %>%
   mutate(time_min = time / 60000) %>%
   do(daver::boot_ci(.$time_min, function(d,i) mean(d[i])))
 
+post_test_len <-
+  sepmeans_test %>%
+  filter(subject==first(subject)) %>%
+  nrow()
+
 ```
 
 We recruited `r n_total2` subjects via Amazon's Mechanical Turk, who were paid
@@ -958,7 +964,8 @@ We recruited `r n_total2` subjects via Amazon's Mechanical Turk, who were paid
 minutes between accepting and submitting the
 HIT). As in Experiment 1, we excluded subjects 
 ($n=`r n_excl2 %$% sum(n)`$) 
-who failed to classify words with unambiguous VOTs reliably, after which 
+who failed to classify words with unambiguous VOTs reliably during exposure (not
+post-test, see below), after which
 `r n_clean2 %$% sum(n)` subjects remained for analysis (no subjects had previously
 participated in a VOT study). Subjects were evently distributed across conditions (range of `r n_clean2 %$% min(n)` to `r n_clean2 %$% max(n)` per condition).
 
@@ -967,11 +974,11 @@ participated in a VOT study). Subjects were evently distributed across condition
 The procedure was identical to Experiment 1, with one exception. After
 completing the 222 trial exposure phase as in Experiment 1, listeners completed
 a test phase in order to assess their category boundaries. This phase consisted
-of `r sepmeans_test %>% filter(subject==first(subject)) %>% nrow()` additional
-trials with VOTs evenly distributed from -10 to 50ms. This additional phase was
-necessary because of the large separtion between /b/ and /p/ clusters in the
-exposure distributions meant that in some conditions there were no trials with
-VOTs anywhere near the predicted (or typical) boundaries.
+of `r post_test_len` additional trials with VOTs evenly distributed from -10 to
+50ms. This additional phase was necessary because of the large separtion between
+/b/ and /p/ clusters in the exposure distributions meant that in some conditions
+there were no trials with VOTs anywhere near the predicted (or typical)
+boundaries.
 
 Critically, listeners were not told about the change from exposure to test
 phase: the procedures were identical, and there was no break in between.
@@ -986,10 +993,90 @@ distributions.
 
 ### Results
 
+We evaluated listeners adaptation by their classification functions measured
+during post-test.  These classification functions were estimated by fitting a
+logistic GLM with predictors for VOT and trial (to account for any un-learning
+effects that might happen during post-test). The trial halfway through the first
+third of the post-test was used to visualize the fitted classification functions
+and to estimate listeners' category boundaries.[^why-not-beginning]
+
+[^why-not-beginning]: The predictions from a regression model are more uncertain
+    and more driven by noise at the estreme ranges of continuous predictors,
+    like trial number. Thus we use the one-sixth of the post-test to estimate
+    classification functions, rather than the very beginning, because it is
+    _close_ to the beginning of the post test, but not so close that the
+    predictions substantially affected by the extra instability of the
+    predictions that come at the edge of a continuous predictors range.
+
+```{r fit-cat-bounds}
+
+bound_at_trial <- post_test_len / 6
+
+## estimate category boundares at 1/6 of post test trials (bound_at_trial)
+boundaries_exp2 <- sepmeans %>%
+  filter(is_test) %>%
+  group_by(bvotCond, pvotCond, subject) %>%
+  mutate(trial = trial - min(trial) - bound_at_trial) %>% 
+  do({ glm(respP ~ vot + trial, family='binomial', data=.) %>%
+         broom::tidy() %>%
+         select(term, estimate)
+  }) %>%
+  ungroup() %>%
+  spread(term, estimate) %>%
+  mutate(boundary = -`(Intercept)` / vot,
+         ideal_boundary = (bvotCond + pvotCond)/2,
+         prior_boundary = prior_bound,
+         prop_shift = (boundary-prior_boundary)/(ideal_boundary-prior_boundary)) %>%
+  left_join(sepmeans_conds) %>%
+  filter(boundary < 100, boundary > -100)
+
+```
+
+```{r boundary-exposure-vs-test-exp2, fig.width=7, fig.height=3, fig.cap="Category boundaries estimated during post-test are correlated with estimates from exposure (in the 10, 50 condition where such an estimate is possible), but more variable."}
+
+boundaries_exp2_exposure <-
+  sepmeans %>%
+  filter(!is_test, bvotCond == 10, pvotCond == 50) %>%
+  group_by(subject) %>%
+  do({ glm(respP ~ vot, family='binomial', data=.) %>%
+         broom::tidy() %>%
+         select(term,estimate) }) %>%
+  spread(term, estimate) %>%
+  mutate(boundary_exposure = -`(Intercept)` / vot)
+
+boundaries_exp2_exp_v_test_summary <- 
+  boundaries_exp2_exposure %>%
+  left_join(boundaries_exp2 %>% select(subject, boundary)) %>%
+  ungroup() %>%
+  do(daver::boot_ci(., function(d,i) with(d[i, ], mean(boundary_exposure - boundary))))
+
+boundaries_exp2_exposure %>%
+  left_join(boundaries_exp2 %>% select(subject, boundary)) %>%
+  ggplot(aes(x=boundary, y=boundary_exposure)) +
+  geom_abline() +
+  geom_point() +
+  stat_smooth(method='lm') +
+  coord_equal() +
+  labs(x='Category boundary estimated from post-test',
+       y='Boundary estimated\nfrom exposure')
+
+```
+
+The exposure phase from the condition with /b/ and /p/ means of 10 and 50ms VOT
+is identical with one condition from Experiment 1, and allows a direct
+comparison between the boundaries estimated during exposure and post-test within
+the same listeners. As Figure @fig:boundary-exposure-vs-test-exp2 shows, the
+post-test estimates are more variable but are not biased, differing by 
+`r boundaries_exp2_exp_v_test_summary$observed` ms VOT on average 
+(95% CI of 
+`r boundaries_exp2_exp_v_test_summary %$% sprintf('%.1f--%.1f', ci_lo, ci_high)` 
+ms VOT). See also Figure @fig:boundary-violin-plots-exp2, which shows the corresponding distribution of boundaries from Experiment 1.
+
+
 ```{r fig.width=10, fig.height=2, fig.cap="Listeners' categorization functions in Experiment 2 (during post-test) reflect partial adaptation to the exposure talker, especially for more extreme conditions extreme distributions. Adaptation was even less complete than in Experiment 1. Classification functions are estimated with a logistic GLM including trial; curves show predictions for the beginning of the post-test phase to minimize impact of unlearning during test."}
 
-## generate and plot predictions AT TRIAL 0 (beginning of test phase)
-exp2_predict_at <- data_frame(trial = 0,
+## generate and plot predictions halfway through first third (1/6 of 70 = 
+exp2_predict_at <- data_frame(trial = bound_at_trial,
                               vot = seq(min(sepmeans_test$vot),
                                         max(sepmeans_test$vot)))
 
@@ -1014,28 +1101,6 @@ sepmeans_test %>%
 
 ```
 
-### Category boundary analysis ###
-
-```{r fit-cat-bounds}
-
-boundaries_exp2 <- sepmeans %>%
-  filter(is_test) %>%
-  group_by(bvotCond, pvotCond, subject) %>%
-  mutate(trial = trial - min(trial)) %>% 
-  do({ glm(respP ~ vot + trial, family='binomial', data=.) %>%
-         broom::tidy() %>%
-         select(term, estimate)
-  }) %>%
-  ungroup() %>%
-  spread(term, estimate) %>%
-  mutate(boundary = -`(Intercept)` / vot,
-         ideal_boundary = (bvotCond + pvotCond)/2,
-         prior_boundary = prior_bound,
-         prop_shift = (boundary-prior_boundary)/(ideal_boundary-prior_boundary)) %>%
-  left_join(sepmeans_conds) %>%
-  filter(boundary < 100, boundary > -100)
-
-```
 
 ```{r boundary-violin-plots-exp2, fig.width=6.5, fig.height=4.5, fig.cap="The distribution of listeners' individual category boundaries in Experiment 2 reflects partial adaptation to the exposure talker's VOT distributions. Extreme shifts have minimal additional effect on listeners' boundaries, corroborating the strong prior biases observed in Experiment 1. The un-filled distribution shows the boundaries from listeners in the corresponding 10ms VOT /b/ mean condition from Experiment 1. These conditions had the same exposure distributions, but differed in whether category boundaries were measured during exposure (Experiment 1) or during a post-test phase (Experiment 2)."}
 
@@ -1072,8 +1137,6 @@ ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
               fill=NA, aes(color=vot_cond))
 
 ```
-
-
 
 
 ### Predicted adaptation from inferred priors ###
