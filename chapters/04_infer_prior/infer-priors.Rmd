@@ -1,6 +1,25 @@
 ---
 Title: What do you expect from an unfamiliar talker?
 Author: Dave Kleinschmidt
+bibliography: /Users/dkleinschmidt/Documents/papers/library-clean.bib
+output:
+    html_document:
+        code_folding: hide
+        dev: png
+        keep_md: true
+        md_extensions: +implicit_figures
+        pandoc_args:
+        - --filter
+        - pandoc-fignos
+        - --filter
+        - pandoc-tablenos
+    pdf_document:
+        md_extensions: +implicit_figures
+        pandoc_args:
+        - --filter
+        - pandoc-fignos
+        - --filter
+        - pandoc-tablenos
 ---
 
 ```{r preamble}
@@ -10,6 +29,7 @@ library(magrittr)
 library(dplyr)
 library(tidyr)
 library(purrr)
+library(stringr)
 library(lme4)
 library(ggplot2)
 
@@ -18,9 +38,34 @@ library(supunsup)
 ## devtools::install_github('kleinschmidt/beliefupdatr')
 library(beliefupdatr)
 
-knitr::opts_chunk$set(warning = FALSE,
-                      message = FALSE,
-                      error = FALSE)
+library(knitr)
+opts_chunk$set(warning = FALSE,
+               message = FALSE,
+               error = FALSE,
+               echo=opts_knit$get("rmarkdown.pandoc.to") != 'latex')
+
+## Produce markdown-formatted figures so that pandoc knows what to do with
+## the captions. requires pandoc-fignos to parse the IDs. refer to figures
+## in text with {@fig:label} or just @fig:label
+## 
+## (see https://github.com/tomduck/pandoc-fignos)
+knit_hooks$set(plot = function(x, options) {
+  paste0('![', options$fig.cap, ']',
+         '(', opts_knit$get('base.url'), paste(x, collapse='.'), ')',
+         '{#fig:', options$label, '}')
+})
+## Produce markdown-formatted table captions with anchors for cross-refs.
+## Requires pandoc-tablenos to parse the IDs. Refer to tables
+## in text with {@tbl:label} or @tbl:label.
+## Based partly on http://stackoverflow.com/a/18672268
+##
+## (see https://github.com/tomduck/pandoc-tablenos)
+knit_hooks$set(tbl.cap = function(before, options, envir) {
+  if(!before){
+    paste0('\n\nTable: ', options$tbl.cap,
+           ' {#tbl:', options$label, '}', sep = '')
+  }
+})
 
 ```
 
