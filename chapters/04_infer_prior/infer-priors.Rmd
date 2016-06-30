@@ -969,7 +969,7 @@ ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   scale_color_discrete() +
   geom_violin(data = boundaries_exp1 %>%
                 filter(bvotCond == 10) %>%
-                mutate(vot_cond = '10 50'),
+                mutate(vot_cond = '10, 50'),
               fill=NA, aes(color=vot_cond))
 
 ```
