@@ -290,6 +290,8 @@ prior_bound <- no_learning %>%
   filter(row_number() ==1) %$%
   vot
 
+vot_limits <- data_exp1 %$% vot %>% range()
+
 ggplot(data_exp1, aes(x=vot, y=respP, color=bvotCond)) +
   geom_line(aes(group=subject), stat='smooth', method='glm', 
             method.args=list(family='binomial'), alpha=0.2) +
@@ -308,7 +310,7 @@ ggplot(data_exp1, aes(x=vot, y=respP, color=bvotCond)) +
             x = 90, y = 0.75, label = 'Actual\nlisteners',
             size = 3.5, hjust=1, vjust=1, color=hcl(15, c=100, l=65),
             lineheight=1) + 
-  scale_x_continuous('VOT (ms)') +
+  scale_x_continuous('VOT (ms)', limits = vot_limits) +
   scale_y_continuous('Probability /p/ response') + 
   scale_color_discrete('/b/ mean\nVOT')
 
@@ -858,7 +860,7 @@ sepmeans_conds <-
   summarise() %>%
   ungroup() %>%
   arrange(bvotCond, pvotCond) %>%
-  mutate(vot_cond = paste(bvotCond, pvotCond),
+  mutate(vot_cond = paste(bvotCond, pvotCond, sep=', '),
          vot_cond = factor(vot_cond, levels=vot_cond))
 
 sepmeans_stats <-
@@ -878,51 +880,40 @@ sepmeans_exposure_class <-
   sepmeans_exposure_lhood %>%
   do({lhood_to_classification(.)})
 
-sepmeans_conds <-
+sepmeans_test <-
   sepmeans %>%
-  group_by(bvotCond, pvotCond) %>%
-  summarise() %>%
-  ungroup() %>%
-  arrange(bvotCond, pvotCond) %>%
-  mutate(vot_cond = paste(bvotCond, pvotCond),
-         vot_cond = factor(vot_cond, levels=vot_cond))
-
-```
-
-```{r fig.width=10, fig.height=2}
-
-sepmeans %>%
   filter(is_test) %>%
-  left_join(sepmeans_conds) %>%
-  ggplot(aes(x=vot, y=respP)) +
-  stat_smooth(method='glm', method.args=list(family='binomial'), geom='line',
-              aes(group=subject, color=vot_cond), alpha=0.2) +
-  stat_smooth(method='glm', method.args=list(family='binomial'), geom='line',
-              aes(color=vot_cond), size=2) +
-  geom_line(data = prior_class %>% filter(vot <= 50, vot >= -10),
-            linetype=2, color='black', aes(x=vot, y=prob_p)) + 
-  geom_line(data = sepmeans_exposure_class %>% filter(vot <= 50, vot >= -10),
-            linetype=2, size=2, aes(x=vot, y=prob_p, color=vot_cond)) + 
-  facet_grid(.~vot_cond)
-
+  left_join(sepmeans_conds)
 
 ```
 
-```{r }
+```{r fig.width=10, fig.height=2, fig.cap="Listeners' categorization functions in Experiment 2 (during post-test) reflect partial adaptation to the exposure talker, especially for more extreme conditions extreme distributions. Adaptation was even less complete than in Experiment 1. Classification functions are estimated with a logistic GLM including trial; curves show predictions for the beginning of the post-test phase to minimize impact of unlearning during test."}
 
-sepmeans %>%
-  filter(is_test) %>%
-  left_join(sepmeans_conds) %>%
-  ggplot(aes(x=vot, y=respP)) +
-  stat_smooth(method='glm', method.args=list(family='binomial'), geom='line',
-              aes(color=vot_cond), size=2) +
-  geom_line(data = prior_class %>% filter(vot <= 50, vot >= -10),
-            linetype=2, color='black', aes(x=vot, y=prob_p)) + 
-  geom_line(data = sepmeans_exposure_class %>% filter(vot <= 50, vot >= -10),
-            linetype=2, size=2, aes(x=vot, y=prob_p, color=vot_cond))
+## generate and plot predictions AT TRIAL 0 (beginning of test phase)
+exp2_predict_at <- data_frame(trial = 0,
+                              vot = seq(min(sepmeans_test$vot),
+                                        max(sepmeans_test$vot)))
+
+sepmeans_test %>%
+  group_by(subject, vot_cond) %>%
+  mutate(trial = trial - min(trial)) %>%
+  nest() %>%
+  mutate(mod = map(data, glm, formula=respP ~ vot+trial, family='binomial'),
+         pred = map(mod, predict, exp2_predict_at, type='response')) %>%
+  unnest(map(pred, ~ mutate(exp2_predict_at, prob_p = .))) %>%
+  ggplot(aes(x=vot, y=prob_p, color=vot_cond)) +
+  geom_line(aes(group=subject), alpha=0.2) +
+  geom_line(data = prior_class,
+            linetype=2, color='black') +
+  geom_line(data = sepmeans_exposure_class,
+            linetype=2, size=1) +
+  facet_grid(.~vot_cond) +
+  scale_x_continuous('VOT (ms)', limits = vot_limits) +
+  scale_y_continuous('Probability /p/ response') + 
+  scale_color_discrete('/b/, /p/\nmean VOT')
+
 
 ```
-
 
 ## Category boundary analysis
 
@@ -946,16 +937,6 @@ boundaries_exp2 <- sepmeans %>%
   filter(boundary < 100, boundary > -100)
 
 ```
-
-```{r}
-
-ggplot(boundaries_exp2, aes(x=vot_cond, y=boundary)) +
-  geom_violin() +
-  stat_summary(fun.data=mean_cl_boot, geom='pointrange') +
-  lims(y = c(-20, 60))
-
-```
-
 
 ```{r boundary-violin-plots-exp2, fig.width=6.5, fig.height=4.5, fig.cap="The distribution of listeners' individual category boundaries in Experiment 2 reflects partial adaptation to the exposure talker's VOT distributions. Extreme shifts have minimal additional effect on listeners' boundaries, corroborating the strong prior biases observed in Experiment 1. The un-filled distribution shows the boundaries from listeners in the corresponding 10ms VOT /b/ mean condition from Experiment 1. These conditions had the same exposure distributions, but differed in whether category boundaries were measured during exposure (Experiment 1) or during a post-test phase (Experiment 2)."}
 
@@ -992,6 +973,8 @@ ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
               fill=NA, aes(color=vot_cond))
 
 ```
+
+
 
 
 ## Predicted adaptation from inferred priors
