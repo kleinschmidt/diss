@@ -9,3 +9,5 @@ chapters/04_infer_prior/models
 /chapters/05_talker_variation/talker_variation.md
 /chapters/05_talker_variation/talker_variation.pdf
 examples
+/chapters/04_infer_prior/infer-priors.md
+/chapters/04_infer_prior/tmp.Rnw
