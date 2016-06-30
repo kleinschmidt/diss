@@ -26,6 +26,77 @@ knitr::opts_chunk$set(warning = FALSE,
 
 # Introduction
 
+A longstanding problem in speech perception is how listeners manage to
+cope with substantial differences in how individual talkers produce
+speech. Recent evidence suggests that one strategy listeners employ is
+to *rapidly adapt* to unfamiliar talkers [@Bertelson2003; @Clarke2004; @Kraljic2007 among others]. Such adaptation can be
+understood as a form of statistical inference. This insight is captured
+by a recent proposal, the *ideal adapter* framework [@Kleinschmidt2015].
+Each talker's particular accent (way of talking) can be formalized as
+the distribution of acoustic cues that they produce for each phonetic
+category (or other underlying linguistic unit). Listeners are taken to
+adapt to an unfamiliar talker via *distributional learning*, inferring
+the underlying talker-specific cue distributions from the talker's
+productions.
+
+Critically, this statistical inference process draws on implicit beliefs
+about *how* talkers tend to differ from each other. As a consequence,
+adaptation to an unfamiliar talker should depend on a listener's prior
+experience with other talkers, rather than only on the speech produced
+by the unfamiliar talker themselves. Specifically, a listener's
+experience with other talkers provides the starting point for the
+distributional learning required for adaptation, or, in Bayesian terms,
+a *prior belief* about the probability of different possible accents
+(cue distributions). More informative prior beliefs can substantially
+reduce the amount of direct evidence needed to converge on accurate
+beliefs about the current talker's cue distributions.
+
+The goals of the present work are two-fold. First, we test a critical
+prediction of the ideal adapter framework. To the extent that a
+listener's prior beliefs are informative, they must take some
+probability *away* from unlikely accents. Confronted by a talker whose
+accent falls well outside the range of what they expect based on their
+previous experience, the ideal adapter framework predicts that a
+listener will require more evidence to adapt, leading to slowed or
+incomplete adaptation. There is some evidence that this is the case. For
+instance, @Idemaru2011 found that listeners have difficulty adapting to
+a talker who produces anti-correlated distributions of two cues that are
+typically positively or un-correlated. @Sumner2011 found that listeners
+had trouble adapting to a talker who produced a distribution of cues for
+the /b/ and /p/ sounds that had substantially lower means than a typical
+talker.
+
+However, no studies have systematically probed whether and how a
+listener's prior expectations constrain phonetic adaptation, or even
+what kind of prior beliefs listeners have. To that end, we expose
+listeners to a range of different accents, which differ (only) in the
+cue distributions for /b/ and /p/. By parametrically manipulating these
+distributions, we create a range of accents that are more or less
+similar to what a typical talker of English produces. We then assess the
+degree to which listeners adapt their beliefs about the novel talker's
+cue distributions, depending on the *a priori* typicality of these
+distributions.
+
+To anticipate the results, we find that typicality of the novel talker's
+cue distribution predicts the degree to which listeners adapt to the
+talker. This suggests that listeners not only have beliefs about the cue
+distributions for a *particular* single talker [as suggested by previous
+work, @Clayards2008; @Feldman2009; @Kleinschmidt2015; @Kronrod2012]),
+but also have implicit beliefs about the ways in which talkers tend to
+*differ* from each other, and hence what to expect from an unfamiliar
+talker. This leads to the second question we address here: what is the
+content of listeners' prior beliefs about inter-talker variability? To
+this end, we use a Bayesian belief-updating model to work backwards from
+listeners' adaptation behavior across talkers and *infer* listeners'
+shared prior beliefs. This approach provides a more direct assessment of
+listeners' subjective prior beliefs than production data from many
+different talkers, which moreover requires costly and time-consuming
+annotation. If successful, this would provide a powerful method for
+investigating listeners' prior beliefs that could be applied to other
+cues, categories, and even social variables (like gender, native
+language background, etc.).
+
+
 ```{r typical-talker}
 
 prior_lhood <- 
@@ -49,6 +120,214 @@ data_exp1 <- supunsup::supunsup_clean %>%
          respCatNum = as.numeric(respCat))
 
 ```
+
+
+```{r vot-dists-exp1, fig.width=8, fig.height=2, fig.cap='Each subject heard one of these five synthetic accents, which differ only in the distribution of VOTs of the word-initial stops. Black dashed lines show VOT distributions from a hypothetical typical talker (as estimated by \cite{Kronrod2012}). Note that the 0 and 10ms shifted accents are reasonably close to this typical talker, while the $-10$, 20, and 30ms shifted accents deviate substantially.'}
+
+exposure_stats <- data_exp1 %>%
+  group_by(bvotCond, category=trueCat) %>%
+  summarise(mean=mean(vot), sd=sd(vot))
+
+sd_noise = sqrt(82)
+
+exposure_lhood <- exposure_stats %>%
+  group_by(bvotCond) %>%
+  do(supunsup::stats_to_lhood(., sd_noise))
+
+data_exp1 %>%
+  group_by(bvotCond, vot) %>%
+  filter(subject == first(subject)) %>%
+  tally() %>%
+  ggplot(aes(x=vot)) +
+  geom_bar(stat='identity', aes(y=n, fill=bvotCond)) +
+  geom_line(data=prior_lhood, aes(y=lhood*1600, group=category),
+            color="black", linetype=2) +
+  geom_text(data=data.frame(bvotCond=-10), x = 10, y = 60,
+            label = 'Typical Talker',
+            color='black', hjust=0, vjust=0.3, size=3) +
+  geom_text(data=data.frame(bvotCond=-10), x = 40, y = 50,
+            label = 'Exposure\nTalker',
+            color=hcl(h=15, c=100, l=65), hjust=0, vjust=0.8, size=3,
+            lineheight=1) + 
+  facet_grid(.~bvotCond) +
+  scale_x_continuous('VOT (ms)') +
+  scale_y_continuous('Frequency') +
+  scale_fill_discrete('/b/ mean\nVOT') ## +
+  ## theme(legend.position='none')
+
+``` 
+
+We tested the role that listeners prior expectations play in adapting to an
+unfamiliar talker by exposing them to one of five synthetic "accents" (Figure
+@fig:vot-dists-exp1). These accents differed only in the distribution of
+voice onset time (VOT), the primary cue to word-initial stop consonant voicing
+in English (e.g., "beach" vs. "peach"). Adaptation was assessed based on
+listeners' classification function, or how they labeled each VOT as /b/ or /p/.
+
+## Methods {#sec:methods}
+
+### Subjects {#sec:subjects}
+
+```{r participants-exp1}
+
+n_subj <- data_exp1 %>% group_by(subject) %>% summarise() %>% tally()
+
+excluded <- supunsup::supunsup_excluded %>%
+  filter(supCond == 'unsupervised') %>%
+  group_by(subject) %>% 
+  summarise() %>% 
+  right_join(supunsup::excludes) %>%
+  select(subject, exclude80PercentAcc, rank)
+
+n_excluded <- nrow(excluded)
+n_subj_repeat <- sum(!is.na(excluded$rank))
+n_subj_bad <- sum(!is.na(excluded$exclude80PercentAcc))
+n_both <- n_subj_repeat + n_subj_bad - n_excluded 
+
+n_total <- n_subj + n_excluded
+
+```
+
+We recruited `r n_total` subjects via Amazon's Mechanical Turk, who were paid
+\$2.00 for participation, which took about 20 minutes. We excluded subjects who
+participated more than once ($n=`r n_subj_repeat`$) or whose accuracy at and
+VOT---as extrapolated via a logistic GLM---was less than 80% correct ($n=`r
+n_subj_bad`$; $n=`r n_both`$ for both reasons). Excluded subjects were roughly
+equally distributed across conditions (maximum of 5 in 0ms /b/ VOT condition,
+and minimum of 1 in 20ms /b/ VOT condition). After these exclusions, data from
+`r n_subj` subjects remained for analysis for analysis.
+
+### Procedure
+
+Our distributional learning procedure is described in @Kleinschmidt2015a, and is
+based on @Clayards2008. On each trial, two response option images appeared,
+which corresponded to one of three /b/-/p/ minimal pairs (beach/peach,
+bees/peas, or beak/peak). Subjects then clicked on a central button which played
+the corresponding minimal pair word, and then clicked on the picture to indicate
+whether they heard the /b/ or /p/ member of the minimal pair (Figure
+@fig:beach-peach). Subjects performed 222 of these trials.
+
+Each trial's word was synthesized with a voice onset time (VOT) that was
+randomly drawn from a bimodal distribution, with low and high VOT clusters
+implicitly corresponding to /b/ and /p/, respectively. This distribution defined
+the *accent* that the subject heard, and each subject was pseudorandomly
+assigned to one of five accent conditions (Figure @fig:vot-dists). Each of these
+accents implies a different /b/-/p/ category boundary, and listeners' adaptation
+was evaluated by comparing their /b/-/p/ classification function (fitted by a
+logistic GLM) to the classification function derived from the typical talker's
+cue distributions (corresponding to no adaptation) and the exposure distribution
+(corresponding to maximal---but not necessarily optimal---adaptation).
+
+## Results and Discussion
+
+```{r class-curves, fig.height=2, fig.width=8, fig.cap="Listeners' responses, smoothed with logistic functions (thin lines), compared with the classification functions expected based on a typical talker (no learning; dashed black lines) and complete adaptation to the exposure distributions (thick dashed colored lines). Listeners' actual category boundaries lie between the typical talker and exposure talker boundaries (see Table {@tbl:boundary-shift})."}
+
+## generate predicted classification functions assuming Bayes-optimal classifier
+## + noise
+
+perfect_learning <- exposure_stats %>%
+  group_by(bvotCond) %>%
+  do(stats_to_lhood(.)) %>%
+  lhood_to_classification
+
+no_learning <- prior_stats %>%
+  stats_to_lhood %>%
+  lhood_to_classification
+
+prior_bound <- no_learning %>%
+  arrange(abs(prob_p - 0.5)) %>%
+  filter(row_number() ==1) %$%
+  vot
+
+
+boundaries <- data_exp1 %>%
+  group_by(bvotCond, subject) %>%
+  do({ glm(respP ~ vot, family='binomial', data=.) %>%
+         broom::tidy() %>%
+         select(term, estimate)
+  }) %>%
+  ungroup() %>%
+  spread(term, estimate) %>%
+  mutate(boundary = -`(Intercept)` / vot,
+         ideal_boundary = as.numeric(as.character(bvotCond)) + 20,
+         prior_boundary = prior_bound,
+         prop_shift = (boundary-prior_boundary)/(ideal_boundary-prior_boundary))
+
+boundary_summary <- boundaries %>%
+  group_by(bvotCond) %>%
+  summarise(median_shift_perc = round(100*median(prop_shift)),
+            shift_text = paste(median_shift_perc, '%', sep='')) %>%
+  filter(bvotCond != 0)                 # basically no shift possible
+
+ggplot(data_exp1, aes(x=vot, y=respP, color=bvotCond)) +
+  geom_line(aes(group=subject), stat='smooth', method='glm', 
+            method.args=list(family='binomial'), alpha=0.2) +
+  facet_grid(.~bvotCond) +
+  geom_line(data=perfect_learning, aes(y=prob_p), group=1, linetype=2, size=1) +
+  geom_line(data=no_learning, aes(y=prob_p), group=1, linetype=2, color='black') +
+  geom_text(data=data.frame(bvotCond=-10),
+            x = 30, y = 0, label = 'Typical\ntalker',
+            size = 3.5, hjust=0, vjust = 0, color='black',
+            lineheight=1) + 
+  geom_text(data=data.frame(bvotCond=-10),
+            x = 12, y = 1, label = 'Expo-\nsure',
+            size = 3.5, hjust=1, vjust=1, color=hcl(15, c=100, l=65),
+            lineheight=1, fontface='bold') + 
+  geom_text(data=data.frame(bvotCond=-10),
+            x = 90, y = 0.75, label = 'Actual\nlisteners',
+            size = 3.5, hjust=1, vjust=1, color=hcl(15, c=100, l=65),
+            lineheight=1) + 
+  ## geom_text(data=boundary_summary, aes(x=75, y=0.1, label=shift_text), color='black') + 
+  ## theme(legend.position='none') +
+  scale_x_continuous('VOT (ms)') +
+  scale_y_continuous('Probability /p/ response') + 
+  scale_color_discrete('/b/ mean\nVOT')
+
+```
+
+Figure {@fig:class-curves} shows the classification functions for each
+individual listener. In each accent, these classification functions tend to fall
+in between the boundaries predicted by the typical talker distributions and the
+boundaries implied by the exposure distributions.  We can quantify this by the
+percentage of the predicted shift in category boundary from the classification
+function for the typical talker to the boundary implied by the input
+distribution (Table {@tbl:boundary-shift}). A 0% shift corresponds to no
+adaptation at all, while a shift of 100% corresponds to complete adaptation to
+the exposure distributions, with no (remaining) influence of any prior beliefs.
+
+In all conditions, the average shift percentage was between 0% and 100%
+(except the 0ms shift condition, which is so close to the typical talker that
+estimating the percentage is numerically unstable). More interestingly, the more
+extreme conditions show less complete adaptation than the less extreme conditions.
+Together, these results suggest that listeners' adaptation was constrained by
+their prior expectations (given the finite amount of evidence they received
+about the unfamiliar talker).  This provides qualitative evidence that listeners
+combine their prior expectations with observed cue distributions in order to
+rapidly adapt to unfamiliar talkers, as predicted by the ideal adapter framework
+[@Kleinschmidt2015].
+
+
+```{r boundary-shift, results='asis', tbl.cap="Percentage of boundary shift from typical talker to each exposure talker (see Figure {@fig:class-curves}), averaged over subjects with 95% bootstrapped confidence intervals.  0\% shift corresponds to no adaptation at all, while 100\% corresponds to perfect adaptation, ignoring any prior  beliefs. Typical and exposure talker boundaries were too close together to reliably determine boundary shift percentage in the 0ms condition."}
+
+## bootstrapped boundary summary
+boundaries %>% 
+  group_by(bvotCond) %>% 
+  do(daver::boot_ci(., function(d,i) {mean(d$prop_shift[i])})) %>%
+  mutate(observed = round(observed * 100),
+         ci_lo = round(ci_lo * 100),
+         ci_high = round(ci_high * 100)) %>%
+  ungroup() %>%
+  transmute(`/b/ mean VOT` = bvotCond,
+            `Mean shift` = ifelse(bvotCond == 0,
+                                  '---',
+                                  sprintf('%d%%', observed)),
+            `95% CI` = ifelse(bvotCond == 0,
+                                '---',
+                                sprintf('%d--%d%%', ci_lo, ci_high))) %>%
+  knitr::kable(escape = FALSE)
+
+```
+
 
 ## Modeling
 
