@@ -957,9 +957,7 @@ ggplot(boundaries_exp2, aes(x=vot_cond, y=boundary)) +
 ```
 
 
-```{r boundary-violin-plots-exp2, fig.width=6.5, fig.height=4.5}
-
-
+```{r boundary-violin-plots-exp2, fig.width=6.5, fig.height=4.5, fig.cap="The distribution of listeners' individual category boundaries in Experiment 2 reflects partial adaptation to the exposure talker's VOT distributions. Extreme shifts have minimal additional effect on listeners' boundaries, corroborating the strong prior biases observed in Experiment 1. The un-filled distribution shows the boundaries from listeners in the corresponding 10ms VOT /b/ mean condition from Experiment 1. These conditions had the same exposure distributions, but differed in whether category boundaries were measured during exposure (Experiment 1) or during a post-test phase (Experiment 2)."}
 
 ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   ## this is an awful hack: plot the violins first to force continuous x
