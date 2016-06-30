@@ -167,7 +167,7 @@ data_exp1 <- supunsup::supunsup_clean %>%
 ```
 
 
-```{r vot-dists-exp1, fig.width=8, fig.height=2, fig.cap='Each subject heard one of these five synthetic accents, which differ only in the distribution of VOTs of the word-initial stops. Black dashed lines show VOT distributions from a hypothetical typical talker (as estimated by \cite{Kronrod2012}). Note that the 0 and 10ms shifted accents are reasonably close to this typical talker, while the $-10$, 20, and 30ms shifted accents deviate substantially.'}
+```{r vot-dists-exp1, fig.width=8, fig.height=2, fig.cap="Each subject heard one of these five synthetic accents, which differ only in the distribution of VOTs of the word-initial stops. Black dashed lines show VOT distributions from a hypothetical typical talker [as estimated by @Kronrod2012]. Note that the 0 and 10ms shifted accents are reasonably close to this typical talker, while the $-10$, 20, and 30ms shifted accents deviate substantially."}
 
 exposure_stats <- data_exp1 %>%
   group_by(bvotCond, category=trueCat) %>%
@@ -236,13 +236,18 @@ n_total <- n_subj + n_excluded
 We recruited `r n_total` subjects via Amazon's Mechanical Turk, who were paid
 \$2.00 for participation, which took about 20 minutes. We excluded subjects who
 participated more than once ($n=`r n_subj_repeat`$) or whose accuracy at and
-VOT---as extrapolated via a logistic GLM---was less than 80% correct ($n=`r
-n_subj_bad`$; $n=`r n_both`$ for both reasons). Excluded subjects were roughly
+VOT---as extrapolated via a logistic GLM---was less than 80% correct 
+($n=`r n_subj_bad`$; $n=`r n_both`$ for both reasons). 
+Excluded subjects were roughly
 equally distributed across conditions (maximum of 5 in 0ms /b/ VOT condition,
 and minimum of 1 in 20ms /b/ VOT condition). After these exclusions, data from
 `r n_subj` subjects remained for analysis for analysis.
 
 ### Procedure
+
+![Example trial display (beach/peach). Listeners first click on the
+    green button to play the word, then click on one picture to indicate what
+    they heard.](figure_manual/beach_peach.png){#fig:beach-peach}
 
 Our distributional learning procedure is described in @Kleinschmidt2015a, and is
 based on @Clayards2008. On each trial, two response option images appeared,
@@ -256,7 +261,7 @@ Each trial's word was synthesized with a voice onset time (VOT) that was
 randomly drawn from a bimodal distribution, with low and high VOT clusters
 implicitly corresponding to /b/ and /p/, respectively. This distribution defined
 the *accent* that the subject heard, and each subject was pseudorandomly
-assigned to one of five accent conditions (Figure @fig:vot-dists). Each of these
+assigned to one of five accent conditions (Figure @fig:vot-dists-exp1). Each of these
 accents implies a different /b/-/p/ category boundary, and listeners' adaptation
 was evaluated by comparing their /b/-/p/ classification function (fitted by a
 logistic GLM) to the classification function derived from the typical talker's
@@ -275,8 +280,7 @@ perfect_learning <- exposure_stats %>%
   do(stats_to_lhood(.)) %>%
   lhood_to_classification
 
-no_learning <- prior_stats %>%
-  stats_to_lhood %>%
+no_learning <- prior_lhood %>%
   lhood_to_classification
 
 prior_bound <- no_learning %>%
@@ -352,7 +356,7 @@ rapidly adapt to unfamiliar talkers, as predicted by the ideal adapter framework
 [@Kleinschmidt2015].
 
 
-```{r boundary-shift, results='asis', tbl.cap="Percentage of boundary shift from typical talker to each exposure talker (see Figure {@fig:class-curves}), averaged over subjects with 95% bootstrapped confidence intervals.  0\% shift corresponds to no adaptation at all, while 100\% corresponds to perfect adaptation, ignoring any prior  beliefs. Typical and exposure talker boundaries were too close together to reliably determine boundary shift percentage in the 0ms condition."}
+```{r boundary-shift, results='asis', tbl.cap="Percentage of boundary shift from typical talker to each exposure talker (see Figure {@fig:class-curves}), averaged over subjects with 95% bootstrapped confidence intervals.  0% shift corresponds to no adaptation at all, while 100% corresponds to perfect adaptation, ignoring any prior  beliefs. Typical and exposure talker boundaries were too close together to reliably determine boundary shift percentage in the 0ms condition."}
 
 ## bootstrapped boundary summary
 boundaries %>% 
