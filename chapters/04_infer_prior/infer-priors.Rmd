@@ -44,6 +44,8 @@ opts_chunk$set(warning = FALSE,
                error = FALSE,
                echo=opts_knit$get("rmarkdown.pandoc.to") != 'latex')
 
+options(digits=0)
+
 ## Produce markdown-formatted figures so that pandoc knows what to do with
 ## the captions. requires pandoc-fignos to parse the IDs. refer to figures
 ## in text with {@fig:label} or just @fig:label
@@ -167,7 +169,7 @@ data_exp1 <- supunsup::supunsup_clean %>%
 ```
 
 
-```{r vot-dists-exp1, fig.width=8, fig.height=2, fig.cap="Each subject heard one of these five synthetic accents, which differ only in the distribution of VOTs of the word-initial stops. Black dashed lines show VOT distributions from a hypothetical typical talker [as estimated by @Kronrod2012]. Note that the 0 and 10ms shifted accents are reasonably close to this typical talker, while the $-10$, 20, and 30ms shifted accents deviate substantially."}
+```{r vot-dists-exp1, fig.width=8, fig.height=2, fig.cap="Each subject heard one of these five synthetic accents, which differ only in the distribution of VOTs of the word-initial stops. Black dashed lines show VOT distributions from a hypothetical typical talker [as estimated by @Kronrod2012]. Note that the 0 and 10ms shifted accents are reasonably close to this typical talker, while the -10, 20, and 30ms shifted accents deviate substantially."}
 
 exposure_stats <- data_exp1 %>%
   group_by(bvotCond, category=trueCat) %>%
@@ -698,13 +700,14 @@ behavior. Figure {@fig:model-fit-classification} shows listeners' average
 classification functions, compared with the posterior predictive classification
 functions from the belief-updating model.  The first thing to notice is that the
 model fits the data well (log-likelihood ratio vs. an intercept-only binomial
-null model of `r round(mod_goodness_of_fit[['LL_ratio']])`, and Spearman's
-$\rho$ = `r mod_goodness_of_fit[['rho']]`, $p<10^{-10}$ in both cases) capturing
-the different classification functions that result from exposure to each input
-distribution.  This in and of itself is an interesting result: it shows that
-there does exist some set of prior beliefs such that the range of adaptation
-behavior we observed can be explained by a model where the listeners assigned to
-the different accent conditions all start from a common set of prior beliefs.
+null model of $`r mod_goodness_of_fit[['LL_ratio']] %>% sprintf('%.1e', .)`$,
+and Spearman's $\rho$ = `r mod_goodness_of_fit[['rho']]`, $p<10^{-10}$ in both
+cases) capturing the different classification functions that result from
+exposure to each input distribution.  This in and of itself is an interesting
+result: it shows that there does exist some set of prior beliefs such that the
+range of adaptation behavior we observed can be explained by a model where the
+listeners assigned to the different accent conditions all start from a common
+set of prior beliefs.
 
 ```{r inferred-prior, fig.width=4, fig.height=2, fig.cap="Expected cue distributions based on the prior beliefs inferred here from behavioral adaptation data (solid lines). Plotted with VOT distributions measured by @Kronrod2012 based on a combination of classification and discrimination behavior (dashed lines)."}
 
