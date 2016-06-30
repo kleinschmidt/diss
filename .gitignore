@@ -5,3 +5,7 @@
 *.utf8.md
 *_cache/
 *_files/
+chapters/04_infer_prior/models
+/chapters/05_talker_variation/talker_variation.md
+/chapters/05_talker_variation/talker_variation.pdf
+examples
