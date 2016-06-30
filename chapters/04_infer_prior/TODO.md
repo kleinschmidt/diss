@@ -12,7 +12,7 @@
     * this is now expt 1, revise accordingly
 * expt2
     * intro (why)
-    * methods/participants
+    * [done] methods/participants
 * discussion
     * incorporate cog sci discussion??
     * other sources of constraints (self-production, innate auditory)

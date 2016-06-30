@@ -386,6 +386,11 @@ It's unclear how much re-organization of the existing bits will be required. But
     * add bars + stars for dialect effects
     * finished draft of chapter
     * copied over cog sci Rnw to chapter Rmd
+* Thursday
+    * integrate expt2 results
+    * make expt2 results figures
+    * write up methods/subjects
+    * validate boundary estimates
 
 ## July 4
 
