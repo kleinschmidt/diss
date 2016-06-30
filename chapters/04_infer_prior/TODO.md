@@ -1,8 +1,8 @@
 * expt1 results
-    * boundary analysis figure (now in table). base on svalp slides
+    * [done] boundary analysis figure (now in table). base on svalp slides
 * clean up experiment 2 results
-    * get rid of lmer models
-    * nice boundary figures
+    * [done] get rid of lmer models
+    * [done] nice boundary figures (violing from svalp)
     * goodness of fit a la expt1
 * intro:
     * expand background (more detail on studies showing constraints)
