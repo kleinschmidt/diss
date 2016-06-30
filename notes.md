@@ -385,6 +385,7 @@ It's unclear how much re-organization of the existing bits will be required. But
     * re-write results
     * add bars + stars for dialect effects
     * finished draft of chapter
+    * copied over cog sci Rnw to chapter Rmd
 
 ## July 4
 
