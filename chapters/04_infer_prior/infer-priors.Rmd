@@ -151,6 +151,8 @@ experiment. Finally, we present the results of Experiment 2 which uses a wider
 range of distributions, and assess how well the inferred prior beliefs predict
 listeners' adaptation behavior in Experiment 2.
 
+## Experiment 1 ##
+
 ```{r typical-talker}
 
 prior_lhood <- 
@@ -161,8 +163,6 @@ prior_lhood <-
 prior_class <- prior_lhood %>% lhood_to_classification()
 
 ```
-
-## Experiment 1 ##
 
 ```{r expt1-data}
 
