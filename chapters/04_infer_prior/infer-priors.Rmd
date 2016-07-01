@@ -871,6 +871,36 @@ contrast (where the latter exhibits larger variability across talkers; e.g.,
 
 ## Experiment 2 ##
 
+The results of Experiment 1 show that listeners' adaptation to an unfamiliar
+talker is _constrained_. Such constraints are predicted by the ideal adapter
+framework, which says that listeners use their experience with how (in this
+case) VOT distributions vary _across_ talkers to guide their adaptation to an
+unfamiliar talker.  Our modeling results provide further evidence for this
+explanation, and show that the constraints are consistent with belief updating
+starting from a single set of prior beliefs about cross-talker variability in
+VOT distributions.
+
+In Experiment 2, we provide a further, more specific test of the ideal adapter
+explanation. There are many ways that cue distributions can vary, and in
+Experiment 1 we manipulated just one of them, shifting a single bimodal VOT
+distribution up or down but leaving the overall shape the same. In this
+experiment, we go one step beyond this, shifting the means of the /b/ and /p/
+clusters semi-independently. This results in bimodal distributions that differ
+both in the _overall_ mean VOT, and in the _separation_ of the /b/ and /p/
+clusters (Figure @fig:exposure-dists-exp2).
+
+The main goal of this experiment is to test the predictive power of the model
+and prior beliefs it inferred listeners to have. Belief updating---starting from
+these inferred prior beliefs---provides an excellent fit to listeners'
+adaptation behavior across conditions in Experiment 1, but the real utility of a
+model is its ability to predict behavior in new situations. The qualitatively
+different set of input distributions we use in this experiment provide a
+stringent test of the predictive utility of this framework.
+
+The particular set of distributions we chose was informed by the particular way that the model fit the data. In particular the model's _uncertainty_ about the joint combination of category means and variances given the data was telling: <!-- MEH. we don't really address this by updating the modeling beliefs, right? so why bother. -->
+
+Another, secondary goal is to 
+
 * Why?
     * There's lots of other possible distributions. varied only one thing: the
       overall mean VOT. Go one step beyond that, varying the distance between
