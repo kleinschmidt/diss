@@ -115,16 +115,15 @@ had trouble adapting to a talker who produced a distribution of cues for
 the /b/ and /p/ sounds that had substantially lower means than a typical
 talker.
 
-However, no studies have systematically probed whether and how a
-listener's prior expectations constrain phonetic adaptation, or even
-what kind of prior beliefs listeners have. To that end, we expose
-listeners to a range of different accents, which differ (only) in the
-cue distributions for /b/ and /p/. By parametrically manipulating these
-distributions, we create a range of accents that are more or less
-similar to what a typical talker of English produces. We then assess the
-degree to which listeners adapt their beliefs about the novel talker's
-cue distributions, depending on the *a priori* typicality of these
-distributions.
+However, no studies have systematically probed whether and how a listener's
+prior expectations constrain phonetic adaptation, or even what kind of prior
+beliefs listeners have. To that end, in two experiments we expose listeners to a
+range of different accents, which differ (only) in the cue distributions for /b/
+and /p/.  By parametrically manipulating these distributions, we create a range
+of accents that are more or less similar to what a typical talker of English
+produces. We then assess the degree to which listeners adapt their beliefs about
+the novel talker's cue distributions, depending on the *a priori* typicality of
+these distributions.
 
 To anticipate the results, we find that typicality of the novel talker's
 cue distribution predicts the degree to which listeners adapt to the
@@ -145,6 +144,11 @@ investigating listeners' prior beliefs that could be applied to other
 cues, categories, and even social variables (like gender, native
 language background, etc.).
 
+We first present the design and results of Experiment 1. Then we use a belief
+updating model to infer listeners' prior beliefs based on the results of that
+experiment. Finally, we present the results of Experiment 2 which uses a wider
+range of distributions, and assess how well the inferred prior beliefs predict
+listeners' adaptation behavior in Experiment 2.
 
 ```{r typical-talker}
 
