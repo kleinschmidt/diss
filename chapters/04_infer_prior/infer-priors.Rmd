@@ -897,22 +897,33 @@ model is its ability to predict behavior in new situations. The qualitatively
 different set of input distributions we use in this experiment provide a
 stringent test of the predictive utility of this framework.
 
-The particular set of distributions we chose was informed by the particular way that the model fit the data. In particular the model's _uncertainty_ about the joint combination of category means and variances given the data was telling: <!-- MEH. we don't really address this by updating the modeling beliefs, right? so why bother. -->
+<!-- MEH. we don't really address this by updating the modeling beliefs, right?
+so why bother. --> The particular set of distributions we chose was informed by
+the particular way that the model fit the data. In particular the model's
+pattern of _uncertainty_ about the joint combination of category means and
+variances given the data revealed that our data was more informative about the
+category boundary location implied by the prior cue distributions (which is
+largely determined by the midpoint between the /b/ and /p/ prior means) than
+about the separation between the two clusters. By varying the separation between
+the clusters we expect to gain more information that can further constrain the
+inferred beliefs, as well as testing how much the uncertainty inherent in the
+structure of the first experiment affects the predictive power of the model.
 
-Another, secondary goal is to 
-
-* Why?
-    * There's lots of other possible distributions. varied only one thing: the
-      overall mean VOT. Go one step beyond that, varying the distance between
-      distributions as well.
-    * In particular, how do people handle negative VOTs? Suggested that high
-      variance of /b/ is a compromise that reflects mixture of short-lag and
-      prevoiced /b/ distributions. if people's judgements are driven by both of
-      those, then shifting the /b/ cluster way down shouldn't have much of an
-      effect, since the short-lag distribution will be unaffected. <!-- needs
-      more explanation here -->
-    * test predictive power of model: can it predict adaptation to distributions
-      not trained on?
+Another, secondary goal is to test how listeners adapt to large, negative
+VOTs. The inferred prior beliefs about the /b/ VOT distribution of a typical
+talker have higher variance than the short-lag distribution generally considered
+to be typical of American English, but are consistent with a comprpomise between
+short-lag and prevoiced distributions.  One way to determine whether listeners
+consider prevoiced and short-lag VOT distributions are a single cluster or two
+different clusters is to directly compare adaptation to short-lag and prevoiced
+distributions, which informs the specific choice of distributions we used in
+this second experiment. In the short term, this allows us to assess how well the
+model's inferred prior beliefs generalize to adaptation to prevoiced
+distributions. In the long term, it provides data to directly compare the
+current model (that treats /b/ as a single VOT cluster) to a model that treats
+/b/ as a mixture of short-lag and prevoiced clusters. Such a model is a
+conceptually straightforward---but computationally substantially more
+complex---extension of the current model.
 
 ```{r separatemeans-data}
 
