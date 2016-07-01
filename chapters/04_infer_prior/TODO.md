@@ -10,6 +10,9 @@
     * [done] two experiments now
 * expt 1
     * [done; didn't need anything really] this is now expt 1, revise accordingly
+* modeling
+    * goldrick prevoiced VOT data
+    * compare inferred beliefs with actual cross talker variability from corpora
 * expt2
     * intro (why)
         * [done] bullets
