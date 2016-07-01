@@ -1315,7 +1315,10 @@ predicted_prob_p %>%
   ## geom_line() +
   geom_ribbon(aes(ymin=prob_p_lapse_lo, ymax=prob_p_lapse_hi),
               alpha=0.2, color=NA) +
-  geom_pointrange(data = filter(sepmeans_test_by_subject_thirds, third==1),
+  geom_pointrange(data = sepmeans_test %>%
+                    filter(ntile(trial,3) == 1) %>%
+                    group_by(vot_cond, vot, subject) %>%
+                    summarise(resp_p = mean(respP)),
                   aes(y=resp_p),
                   stat='summary', fun.data=mean_cl_boot) +
   facet_grid(.~vot_cond)
