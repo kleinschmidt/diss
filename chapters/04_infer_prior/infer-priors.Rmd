@@ -1259,12 +1259,12 @@ predicted_prob_p %>%
 
 ```
 
-```{r plot-exp2-predictions-first-third, fig.width=10, fig.height=2}
+```{r plot-exp2-predictions-first-third, fig.width=8, fig.height=2, fig.cap="The prior beliefs inferred from Experiment 1 predict how much listeners adapt to each of the input distributions of Experiment 2. Shaded regions show the 95% posterior predictive intervals, and dots and lines show mean and 95% bootstrapped CIs for subject mean classification. Note the additional uncertainty in predictions relative to the posterior predictive distribution given Experiment 1's conditions (Figure {@fig:model-fit-classification})."}
 
 predicted_prob_p %>%
   left_join(sepmeans_conds) %>%
   ggplot(aes(x=vot, y=prob_p_lapse_mean, color=vot_cond, fill=vot_cond)) +
-  geom_line() +
+  ## geom_line() +
   geom_ribbon(aes(ymin=prob_p_lapse_lo, ymax=prob_p_lapse_hi),
               alpha=0.2, color=NA) +
   geom_pointrange(data = filter(sepmeans_test_by_subject_thirds, third==1),
