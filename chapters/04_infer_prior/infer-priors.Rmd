@@ -497,13 +497,27 @@ trials does not matter. Second, we assume that listeners pick up on the
 cluster structure of the input they receive, accurately detecting the
 mean and variance of each cluster, but for categorizing they use their
 *posterior* beliefs which combine their prior beliefs with these
-observed statistics. Backing off these assumptions is possible, but
-computationally more demanding, and we leave it for future work to
-determine how they might affect our results. Finally, we also add a
-lapse rate parameter (maximum a posteriori value of $5%$), that allows
-for some proportion of responses to be attributed to random guessing
-[e.g., because of attentional blinks, see @Clayards2008 for a
-discussion].
+observed statistics. 
+
+At first blush, this seems to leave a lot of information in our dataset on the
+table, since we don't consider listeners' own judgements about the category of
+each observation when modeling how beliefs are updated. However, incorporating
+these judgements into the belief updating part of the model itself is
+surprisingly subtle and challenging. For instance, one seemingly obvious fix is
+to treat listeners' responses themselves as the cateogry labels to be used for
+belief updating (rather than the experimenter-defined categories). But doing
+this eliminate the possibility that listeners could go back and re-evaluate
+their previous judgements, which is anethema to a Bayesian belief updating
+model, because from the models' point of view these labels are fixed.
+
+It is, of course, possible to back off on this assumption in better ways, but
+they are substantially more computationally demanding, and we leave it for
+future work to determine how they might affect our results. 
+
+Finally, we also add a lapse rate parameter (maximum a posteriori value of
+$5%$), that allows for some proportion of responses to be attributed to random
+guessing
+[e.g., because of attentional blinks, see @Clayards2008 for a discussion].
 
 ```{r run-model, eval=FALSE}
 
