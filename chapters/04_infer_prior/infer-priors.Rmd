@@ -634,8 +634,8 @@ essentially uniform on the whole range from completely ignoring prior
 beliefs to not adapting at all). The prior for the lapsing rate was
 uniform on $[0,1]$. We ran four chains for 1000 samples each, discarding
 the first 500 as burn-in for a total of 2000 samples overall. This
-sampler converged well and achieved good mixing (maximum
-$\hat{R}= `r round(max_Rhat, 3)`$; @Gelman1992).
+sampler converged well and achieved good mixing [maximum
+$\hat{R}= `r round(max_Rhat, 3)`$; @Gelman1992].
 
 ### Results ###
 
@@ -778,7 +778,7 @@ prior_summary %>%
 ```
 
 The second way to evaluate this model is based on the prior beliefs it infers
-listeners to have.  Table {@tab:prior-params} shows the posterior expectation
+listeners to have.  Table {@tbl:prior-params} shows the posterior expectation
 and 95% highest posterior density intervals for each of the prior belief
 parameters given the adaptation data above.  The behavioral data was consistent
 with high confidence in prior beliefs with the prior confidence about category
