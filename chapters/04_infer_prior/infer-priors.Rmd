@@ -213,9 +213,9 @@ voice onset time (VOT), the primary cue to word-initial stop consonant voicing
 in English (e.g., "beach" vs. "peach"). Adaptation was assessed based on
 listeners' classification function, or how they labeled each VOT as /b/ or /p/.
 
-### Methods {#sec:methods} ###
+### Methods {#sec:methods}
 
-#### Subjects {#sec:subjects} ####
+#### Subjects {#sec:subjects}
 
 ```{r participants-exp1}
 
@@ -437,7 +437,7 @@ boundaries_exp1 %>%
 
 ```
 
-## Inferring prior beliefs about talker variability {#sec:model} ##
+## Inferring prior beliefs about talker variability {#sec:model}
 
 Our second goal in this paper is to test whether it is possible to infer
 listeners' prior beliefs about talker variability, based on their
@@ -453,7 +453,7 @@ parameter. Here, we wish to fit both the content of (prior expected mean
 and variance of each category) and the confidence in prior beliefs,
 based on adaptation data presented above.
 
-### Methods {#sec:methods-model} ###
+### Methods {#sec:methods-model}
 
 We denote the listener's beliefs about the *current* talker's generative
 model as the parameters of a two-component mixture of gaussians
@@ -912,8 +912,8 @@ sepmeans %>%
 ```
 
 
-As in Experiment 1, listners performed a distributional learning task, hearing a
-talker who produced one of five different bimodal VOT distributions. Across
+As in Experiment 1, listeners performed a distributional learning task, hearing
+a talker who produced one of five different bimodal VOT distributions. Across
 these distributions, /b/ and /p/ mean VOT varied semi-independently (Figure
 {@fig:exposure-dists-exp2}). In particular, they covered a wider range of
 implied category boundaries (from -15 to 45ms VOT) than Experiment 1 (10 to
@@ -1146,6 +1146,7 @@ ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
 ```
 
 
+
 ### Predicted adaptation from inferred priors ###
 
 How well do the prior beliefs inferred on the basis of Experiment 1 predict the adaptation we observed in Experiment 2?
@@ -1282,7 +1283,7 @@ At first glance, this is surprising. But when you consider the _structure_ of ho
 Another possibility is that listeners are sensitive to the possibility of talkers producing a distinct cluster of pre-voiced /b/s that have large negative VOTs. When the /b/ mean enters this very-low-VOT range, it no longer affects the category boundary any more, since that is primarily determined by the short-lag category that most talkers who prevoice still produce occasionally.
 
 
-## Conclusion {#sec:conclusion} ##
+## Conclusion {#sec:conclusion}
 
 <!-- from cog sci paper -->
 
