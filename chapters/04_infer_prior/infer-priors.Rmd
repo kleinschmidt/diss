@@ -969,7 +969,7 @@ post-test, see below), after which
 `r n_clean2 %$% sum(n)` subjects remained for analysis (no subjects had previously
 participated in a VOT study). Subjects were evently distributed across conditions (range of `r n_clean2 %$% min(n)` to `r n_clean2 %$% max(n)` per condition).
 
-#### Procedure
+#### Procedure: assessing category boundaries
 
 The procedure was identical to Experiment 1, with one exception. After
 completing the 222 trial exposure phase as in Experiment 1, listeners completed
@@ -991,14 +991,13 @@ test phase, whenever possible we limit ourselves to the early parts of the test
 phase, when listeners behavior should be minimally affected by the change in
 distributions.
 
-### Results
-
-We evaluated listeners adaptation by their classification functions measured
-during post-test.  These classification functions were estimated by fitting a
-logistic GLM with predictors for VOT and trial (to account for any un-learning
-effects that might happen during post-test). The trial halfway through the first
-third of the post-test was used to visualize the fitted classification functions
-and to estimate listeners' category boundaries.[^why-not-beginning]
+As in Experiment 1, we evaluated listeners adaptation by their classification
+functions, which we estimated by fitting a logistic GLM. In addition to VOT, we
+included a predictor for trial in order to account for any un-learning effects
+that might happen during post-test. In order to visualize the fitted
+classification functions and to estimate listeners' category boundaries, we used
+the classification function estimates fro the trial halfway through the first
+third of the post-test.[^why-not-beginning]
 
 [^why-not-beginning]: The predictions from a regression model are more uncertain
     and more driven by noise at the estreme ranges of continuous predictors,
@@ -1062,16 +1061,24 @@ boundaries_exp2_exposure %>%
 
 ```
 
-The exposure phase from the condition with /b/ and /p/ means of 10 and 50ms VOT
-is identical with one condition from Experiment 1, and allows a direct
-comparison between the boundaries estimated during exposure and post-test within
-the same listeners. As Figure @fig:boundary-exposure-vs-test-exp2 shows, the
-post-test estimates are more variable but are not biased, differing by 
-`r boundaries_exp2_exp_v_test_summary$observed` ms VOT on average 
-(95% CI of 
-`r boundaries_exp2_exp_v_test_summary %$% sprintf('%.1f--%.1f', ci_lo, ci_high)` 
-ms VOT). See also Figure @fig:boundary-violin-plots-exp2, which shows the corresponding distribution of boundaries from Experiment 1.
+To validate this way of measuring listeners' category boundaries, we included
+the 10ms mean /b/ VOT exposure distribution conditions from Experiment 1 as a
+condition in Experiment 2 (where we refer to it as the 10ms /b/, 50ms /p/
+condition). This allowed us to compare the method of assessing listener's
+category boundaries from Experiment 1 (using exposure trials themselves) with
+the following post-test trials _within_ the same subjects, as well as
+replicating the results of Experiment 1 (and testing out-of-sample, same
+condition prediction accuracy for the model results). Figure
+@fig:boundary-exposure-vs-test-exp2 shows that the post-test estimates are more
+variable, but correlated with the exposure estimates. Critically, they are not
+biased, differing by
+`r boundaries_exp2_exp_v_test_summary$observed` ms VOT 
+on average (95% CI of 
+`r boundaries_exp2_exp_v_test_summary %$% sprintf('%.1f--%.1f', ci_lo, ci_high)`
+ms VOT). See also Figure @fig:boundary-violin-plots-exp2, which shows the
+corresponding distribution of boundaries from Experiment 1.
 
+### Results
 
 ```{r fig.width=10, fig.height=2, fig.cap="Listeners' categorization functions in Experiment 2 (during post-test) reflect partial adaptation to the exposure talker, especially for more extreme conditions extreme distributions. Adaptation was even less complete than in Experiment 1. Classification functions are estimated with a logistic GLM including trial; curves show predictions for the beginning of the post-test phase to minimize impact of unlearning during test."}
 
