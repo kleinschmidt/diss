@@ -1104,7 +1104,7 @@ boundaries_exp2 <- sepmeans %>%
 
 ```
 
-```{r boundary-exposure-vs-test-exp2, fig.width=7, fig.height=3, fig.cap="Category boundaries estimated during post-test are correlated with estimates from exposure (in the 10, 50 condition where such an estimate is possible), but more variable."}
+```{r boundary-exposure-vs-test-exp2, fig.width=5, fig.height=2.5, fig.cap="Category boundaries estimated during post-test are correlated with estimates from exposure (in the 10, 50 condition where such an estimate is possible), but more variable."}
 
 boundaries_exp2_exposure <-
   sepmeans %>%
@@ -1116,19 +1116,26 @@ boundaries_exp2_exposure <-
   spread(term, estimate) %>%
   mutate(boundary_exposure = -`(Intercept)` / vot)
 
-boundaries_exp2_exp_v_test_summary <- 
+boundaries_exp2_comparison <- 
   boundaries_exp2_exposure %>%
   left_join(boundaries_exp2 %>% select(subject, boundary)) %>%
-  ungroup() %>%
+  ungroup()
+
+boundaries_exp2_exp_v_test_summary <- 
+  boundaries_exp2_comparison %>%
   do(daver::boot_ci(., function(d,i) with(d[i, ], mean(boundary_exposure - boundary))))
 
-boundaries_exp2_exposure %>%
-  left_join(boundaries_exp2 %>% select(subject, boundary)) %>%
+
+boundaries_exp2_comparison %>%
   ggplot(aes(x=boundary, y=boundary_exposure)) +
   geom_abline() +
   geom_point() +
+  geom_text(data = boundaries_exp2_comparison %>%
+              filter(boundary == min(boundary)),
+            label = 'One subject', hjust=0, vjust=0,
+            nudge_x = .5, nudge_y = .5) +
   stat_smooth(method='lm') +
-  coord_equal() +
+  coord_equal(ylim=c(20,36)) +
   labs(x='Category boundary estimated from post-test',
        y='Boundary estimated\nfrom exposure')
 
