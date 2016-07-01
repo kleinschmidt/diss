@@ -44,7 +44,7 @@ opts_chunk$set(warning = FALSE,
                error = FALSE,
                echo=opts_knit$get("rmarkdown.pandoc.to") != 'latex')
 
-options(digits=0)
+options(digits=2)
 
 ## Produce markdown-formatted figures so that pandoc knows what to do with
 ## the captions. requires pandoc-fignos to parse the IDs. refer to figures
@@ -748,8 +748,12 @@ prior_summary <-
                         'observations', 
                         'ms VOT'))
 
-prior_expected <- prior_summary$mean
-names(prior_expected) <- prior_summary$stat
+prior_expected <-
+  prior_summary %>%
+  select(stat, mean) %>%
+  spread(stat, mean) %>%
+  map(round) %>%
+  as_vector()
 
 prior_samples_df %>% 
   group_by(category) %>% 
