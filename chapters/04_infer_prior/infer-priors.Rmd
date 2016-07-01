@@ -1365,8 +1365,8 @@ mod_pred_gof_exp2_by_cond <-
 
 mod_pred_gof_exp2_by_third <- 
   sepmeans_test %>%
-  mutate(thirds=ntile(trial, 3)) %>%
-  exp2_gof(predicted_prob_p, thirds)
+  mutate(third=ntile(trial, 3)) %>%
+  exp2_gof(predicted_prob_p, third)
 
 ```
 
