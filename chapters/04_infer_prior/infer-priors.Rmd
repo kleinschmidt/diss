@@ -118,8 +118,9 @@ talker.
 However, no studies have systematically probed whether and how a listener's
 prior expectations constrain phonetic adaptation, or even what kind of prior
 beliefs listeners have. To that end, in two experiments we expose listeners to a
-range of different accents, which differ (only) in the cue distributions for /b/
-and /p/.  By parametrically manipulating these distributions, we create a range
+range of different accents, which differ (only) in the distributions of voice
+onset time (VOT), the primary cue to word-intial consonant voicing (e.g., /b/
+vs. /p/).  By parametrically manipulating these distributions, we create a range
 of accents that are more or less similar to what a typical talker of English
 produces. We then assess the degree to which listeners adapt their beliefs about
 the novel talker's cue distributions, depending on the *a priori* typicality of
