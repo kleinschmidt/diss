@@ -1287,8 +1287,10 @@ predicted_lhood <- updated_nix2_samples %>%
                             do.call(what=rbind))) %>%
   unnest(test_lhood)
 
-lapse_rate_samples <- mod_samples['lapse_rate'] %>%
-  as_data_frame() %>%
+lapse_rate_samples <-
+  mod_samples[['lapse_rate']] %>%
+  as.numeric() %>%
+  data_frame(lapse_rate=.) %>%
   mutate(sample = row_number())
 
 predicted_prob_p <-
@@ -1320,7 +1322,48 @@ predicted_prob_p %>%
 
 ```
 
-Overall, the predicted classification curves line up reasonably well with listeners' actual category boundaries at test. The biggest discrepancy is in the /b/ 10ms, /p/ 80ms condition, where the model predicts a bigger category boundary shift than is actually observed. The model also predicts a clearer assymptote for some of the lower conditions, although this may be a side-effect of more variability in individual listeners' category boundaries (which has the effect of smoothing out the average boundary plotted here).
+```{r exp2-mod-goodness-of-fit}
+
+#' @param d_test test data
+#' @param pred model predictions (i.e., predicted_prob_p)
+#' @param ... additional arguments passed to group_by for output summary
+exp2_gof <- function(d_test, pred, ...) {
+  d_test %>%
+    group_by(subject, vot, bvotCond, pvotCond, vot_cond, respCat, ...) %>%
+    tally() %>%
+    spread(respCat, n, fill=0) %>%
+    left_join(pred) %>%
+    group_by(...) %>%
+    mutate(LL_mod = dbinom(x = p, size = b+p, prob = prob_p_lapse_mean,
+                           log = TRUE),
+           LL_null = dbinom(x = p, size = b+p, prob = mean(p/(b+p)),
+                            log = TRUE)) %>%
+    summarise(LL_mod = sum(LL_mod),
+              LL_null = sum(LL_null),
+              rho = cor(p/(b+p), prob_p_lapse_mean, method='spearman'),
+              n = n()) %>%
+    mutate(LL_ratio = LL_mod - LL_null,
+           pseudo_R2_mcfadden = 1 - LL_mod/LL_null,
+           pseudo_R2_nagelkerke = (1 - exp(2/n * -LL_ratio)) / (1-exp(2/n*LL_null)))
+}
+
+mod_pred_gof_exp2 <- sepmeans_test %>% exp2_gof(predicted_prob_p)
+
+## by condition
+mod_pred_gof_exp2_by_cond <-
+  sepmeans_test %>%
+  filter(ntile(trial,3) == 1) %>%
+  exp2_gof(predicted_prob_p, vot_cond) %>%
+  mutate(LL_mod_each = LL_mod/n, LL_ratio_each = LL_ratio/n)
+
+mod_pred_gof_exp2_by_third <- 
+  sepmeans_test %>%
+  mutate(thirds=ntile(trial, 3)) %>%
+  exp2_gof(predicted_prob_p, thirds)
+
+```
+
+Overall, the predicted classification curves line up reasonably well with listeners' actual category boundaries at test (Figure @fig:plot-exp2-predictions-first-third). The biggest discrepancy is in the /b/ 10ms, /p/ 80ms condition, where the model predicts a bigger category boundary shift than is actually observed. The model also predicts a clearer assymptote for some of the lower conditions, although this may be a side-effect of more variability in individual listeners' category boundaries (which has the effect of smoothing out the average boundary plotted here).
 
 The model accuracy appears to be slightly better earlier in the test phase, which is consistent with other work that shows that phonetic adaptation (recalibration) can be undone by prolonged testing [@Kraljic2005; @Vroomen2004].
 
