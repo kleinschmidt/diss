@@ -33,6 +33,9 @@ library(stringr)
 library(lme4)
 library(ggplot2)
 
+## devtools::install_github('kleinschmidt/daver')
+library(daver)
+
 ## devtools::install_github('kleinschmidt/phonetic-sup-unsup')
 library(supunsup)
 ## devtools::install_github('kleinschmidt/beliefupdatr')
