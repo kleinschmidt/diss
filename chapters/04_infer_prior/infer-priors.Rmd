@@ -866,6 +866,19 @@ contrast (where the latter exhibits larger variability across talkers; e.g.,
 
 ## Experiment 2 ##
 
+* Why?
+    * There's lots of other possible distributions. varied only one thing: the
+      overall mean VOT. Go one step beyond that, varying the distance between
+      distributions as well.
+    * In particular, how do people handle negative VOTs? Suggested that high
+      variance of /b/ is a compromise that reflects mixture of short-lag and
+      prevoiced /b/ distributions. if people's judgements are driven by both of
+      those, then shifting the /b/ cluster way down shouldn't have much of an
+      effect, since the short-lag distribution will be unaffected. <!-- needs
+      more explanation here -->
+    * test predictive power of model: can it predict adaptation to distributions
+      not trained on?
+
 ```{r separatemeans-data}
 
 sepmeans <- supunsup::separatemeans_clean
