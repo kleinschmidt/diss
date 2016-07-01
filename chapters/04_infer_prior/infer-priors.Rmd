@@ -1375,14 +1375,26 @@ mod_pred_gof_exp2_by_third <-
 
 Overall, the predicted classification curves line up reasonably well with
 listeners' actual category boundaries at test (Figure
-@fig:plot-exp2-predictions-first-third). The biggest discrepancy is in the /b/
-10ms, /p/ 80ms condition, where the model predicts a bigger category boundary
-shift than is actually observed. The model also predicts a clearer assymptote
-for some of the lower conditions, although this may be a side-effect of more
-variability in individual listeners' category boundaries (which has the effect
-of smoothing out the average boundary plotted here).
+@fig:plot-exp2-predictions-first-third; 
+Spearman's $\rho=`r mod_pred_gof_exp2_by_third %>% filter(third==1) %$% rho`$,
+log-likelihood ratio with intercept-only null model of 
+`r mod_pred_gof_exp2_by_third %>% filter(third==1) %$% LL_ratio`).
 
-The model accuracy appears to be slightly better earlier in the test phase,
+The biggest discrepancy is in the /b/ 10ms, /p/ 80ms condition, where the model
+predicts a bigger category boundary shift than is actually observed. 
+<!-- evidence for prevoicing? -->
+
+
+The model
+also predicts a clearer assymptote for some of the lower conditions, although
+this may be a side-effect of more variability in individual listeners' category
+boundaries (which has the effect of smoothing out the average boundary plotted
+here).
+
+The model predictions are more slightly accurate earlier in the test phase
+(likelihood ratios vs. null model for the first, second, and final third of the
+post-test phase of
+`r mod_pred_gof_exp2_by_third %$% LL_ratio %>% round() %>% paste_and()`),
 which is consistent with other work that shows that phonetic adaptation
 (recalibration) can be undone by prolonged testing [@Kraljic2005; @Vroomen2004].
 
