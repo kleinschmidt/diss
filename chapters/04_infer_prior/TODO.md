@@ -6,13 +6,16 @@
     * goodness of fit a la expt1
 * intro:
     * expand background (more detail on studies showing constraints)
-    * tie in with distributional learning
-    * two experiments now
+    * [could] tie in with distributional learning
+    * [done] two experiments now
 * expt 1
-    * this is now expt 1, revise accordingly
+    * [done; didn't need anything really] this is now expt 1, revise accordingly
 * expt2
     * intro (why)
+        * [done] bullets
+        * write
     * [done] methods/participants
+    * write results
 * discussion
     * incorporate cog sci discussion??
     * other sources of constraints (self-production, innate auditory)

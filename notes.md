@@ -368,9 +368,9 @@ It's unclear how much re-organization of the existing bits will be required. But
 
 * Talker variation chapter: __draft completed__
 * Infer prior chapter
-    * intro: cog sci intro is pretty good. could benefit from __extended background__ on distributional learning (connect w/ acquisition) and __prior work__ on restricted adaptation (at the moment just briefly mention Sumner and Idemaru&Holt papers.). also need to revise to __intro two experiments__
-    * experiment 1 and model are written up. revise to reflect that this is experiment 1 now.
-    * experiment 2 methods, results, and modeling: __TODO__.
+    * intro: cog sci intro is pretty good. could benefit from __extended background__ on distributional learning (connect w/ acquisition) and __prior work__ on restricted adaptation (at the moment just briefly mention Sumner and Idemaru&Holt papers.).
+    * experiment 1 and model are written up. decided __not__ to revise to reflect that this is experiment 1 now (didn't seem necessary).
+    * experiment 2 methods written; results and modeling: __to write__.
     * discussion: need to make a list of the points to make here. probably __cog sci__ plus __caveats about other sources of constraints__ (e.g., production)
 
 ### Done list
@@ -391,6 +391,10 @@ It's unclear how much re-organization of the existing bits will be required. But
     * make expt2 results figures
     * write up methods/subjects
     * validate boundary estimates
+    * read about bookdown as an alternative to rmarkdown
+    * revise intro with multiple studies
+    * expand discussion of assumptions slightly
+    * bullets for motivating expt2
 
 ## July 4
 
