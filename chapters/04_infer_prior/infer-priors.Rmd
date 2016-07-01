@@ -466,10 +466,10 @@ where $\mu$ is a category's mean VOT and $\sigma^2$ is its variance. As in
 each category, with parameters [@Gelman2003]
 
 $$\begin{aligned}
-\phi &=& \{ \mu_{0,\mathrm{b}}, \sigma^2_{\mathrm{b}}, 
+\phi &= \{ \mu_{0,\mathrm{b}}, \sigma^2_{\mathrm{b}},
             \mu_{0,\mathrm{p}}, \sigma^2_{\mathrm{p}}, 
             \kappa_0, \nu_0 \} \\ 
-\theta | \phi &\sim& 
+\theta | \phi &\sim
     \prod_{c \in \{\mathrm{b,p}\}} 
     \mathrm{Normal} \left(\mu_c | \mu_{0,c}, \frac{\sigma_c^2}{\kappa_0}\right) 
     \chi^{-2} (\sigma_c^2 | \sigma^2_{0,c}, \nu_0)
@@ -488,8 +488,8 @@ $y$ and input VOTs $x$) using Bayesian inference, marginalizing over
 $\theta$:
 
 $$\begin{aligned}
-  p(\phi | x, y) &\propto& p(y | \phi, x) p(\phi) \\
-                 &\propto& \int \ud \theta p(y | \theta, x) p(\theta | x, \phi)
+  p(\phi | x, y) &\propto p(y | \phi, x) p(\phi) \\
+                 &\propto \int \mathrm{d} \theta p(y | \theta, x) p(\theta | x, \phi)
                            p(\phi)\end{aligned}$$
 
 We two simplifying assumptions. First, we assume that the order of the
