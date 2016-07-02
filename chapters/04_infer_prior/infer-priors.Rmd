@@ -1364,10 +1364,13 @@ short-lag distribution, we'd thus expect listeners' category boundaries to be
 unchanged from a typical talker. This is in fact exactly what we observe in the
 Experiment 2 conditions with large negative /b/ mean VOTs.
 
-Of course, there are other possible explanations for the lack of large shifts in these conditions. 
-
-* prior
-* ???
+Of course, there are other possible explanations for the lack of large shifts in
+these conditions. For instance, even if listeners treat /b/ as a single unimodal
+cluster, the negative VOT distributions we used are still extreme relative to
+the range of /b/ mean VOTs across talkers.  In the next section, we take one
+approach to addressing this possibility, by evaluating how well the prior
+beliefs inferred from Experiment 1---assuming a single /b/ cluster---predict the
+pattern of adaptation here.
 
 #### Predicted adaptation from inferred priors
 
