@@ -158,7 +158,7 @@ listeners' adaptation behavior in Experiment 2.
 
 ```{r typical-talker}
 
-prior_stats <-
+prior_stats_by_talker <-
   votcorpora::vot %>%
   filter(source %in% c('gva13', 'bbg09', 'buckeye'),
          place == 'lab') %>%
@@ -167,14 +167,31 @@ prior_stats <-
                          source)) %>%
   group_by(source, prevoiced, subject, phoneme) %>%
   summarise_each(funs(mu=mean,sigma2=var,sigma=sd), vot) %>%
-  group_by(source, prevoiced, phoneme) %>%
+  rename(category = phoneme)
+
+## plot single-talker distributions to get a sense of talker variability
+## prior_stats_by_talker %>%
+##   rename(mean=mu, sd=sigma) %>%
+##   group_by(source, prevoiced, subject) %>%
+##   by_slice(stats_to_lhood, xlim=c(-100, 100), noise_sd=0, .collate='rows') %>%
+##   left_join(votcorpora::vot %>%
+##               group_by(subject, prevoiced) %>%
+##               tally() %>%
+##               mutate(prop_prevoiced = n / sum(n))) %>% 
+##   group_by(source, subject, category, vot) %>%
+##   summarise(lhood=sum(lhood * prop_prevoiced)) %>%
+##   ggplot(aes(x=vot, y=lhood, color=source, group=paste(subject, category))) +
+##   geom_line()
+
+prior_stats <-
+  prior_stats_by_talker %>%
+  group_by(source, prevoiced, category) %>%
   summarise_each(funs(mean, var), mu, sigma2, sigma) %>%
-  transmute(category = phoneme,
+  transmute(category,
             mean = mu_mean,
             sd = sqrt(sigma2_mean)) %>%
   bind_rows(supunsup::prior_stats %>%
               filter(source=='kronrod2012'))
-
 
 prior_lhood <- 
   prior_stats %>%
