@@ -851,6 +851,58 @@ talker, with one exception: the mean for /b/ is slightly lower
 standard deviation of /b/ is slightly higher
 ($E(\sigma_{0,\mathrm{b}}) = `r prior_expected['sigma_0_b']`$ ms).
 
+```{r prior-variance, eval=FALSE}
+
+## Compare with actual variance across talkers
+
+## devtools::install_bitbucket('hlplab/votcorpora')
+prior_stats_variability <-
+  votcorpora::vot %>%
+  filter(source %in% c('gva13', 'bbg09', 'buckeye'),
+         place == 'lab') %>%
+  group_by(source, prevoiced, subject, phoneme) %>%
+  summarise_each(funs(mu=mean,sigma2=var,sigma=sd), vot) %>%
+  group_by(source, prevoiced, phoneme) %>%
+  summarise_each(funs(mean, var), mu, sigma2, sigma)
+
+## plot inferred prior vs. typical talker from different sources
+prior_stats_variability %>%
+  transmute(category = phoneme,
+            mean = mu_mean,
+            sd = sqrt(sigma2_mean)) %>%
+  bind_rows(supunsup::prior_stats %>%
+              filter(source=='kronrod2012'),
+            prior_samples_df %>%
+              group_by(category) %>%
+              summarise(mean = mean(mu_0), sd = mean(sigma_0)) %>%
+              mutate(source='inferred prior') ) %>%
+  by_slice(stats_to_lhood, xlim=c(-100,100), noise_sd=0, .collate='rows') %>%
+  group_by(source, category, vot) %>%
+  summarise(lhood = mean(lhood)) %>%
+  ggplot(aes(x=vot, y=lhood, color=source, group=paste(source, category))) +
+  geom_line()
+
+```
+
+* how does model fit cross-talker variability?
+    * not very well. much lower than actually predicted
+    * problem is with the prior: mathematically convenient but at the price of
+      linking cross-talker variability with within talker variability and
+      confidence.
+    * there's a more general problem though: ideal adapter predicts that
+      _confience_ is still linked to the expected variability across talkers. so
+      the high level of confidence required to explain the relatively strong
+      constraints on adaptation we observed may be incompatible with the actual
+      level of talker variability.
+    * is that a problem? it may be the case that there's just not enough of the
+      right kind of talker variability for listeners to track it across
+      situations. that the cost of doing so might outweigh any benefits (see
+      next chapter)
+    * if that's true, then it suggests that there are interesting limits on
+      adaptation that go beyond the in-principle, computational limitations that
+      the ideal adapter proposes
+
+
 ### Discussion ###
 
 These modeling results show that the pattern of adaptation behavior observed
