@@ -1078,7 +1078,6 @@ sepmeans %>%
 
 ```
 
-
 As in Experiment 1, listeners performed a distributional learning task, hearing
 a talker who produced one of five different bimodal VOT distributions. Across
 these distributions, /b/ and /p/ mean VOT varied semi-independently (Figure
@@ -1319,11 +1318,27 @@ ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
 
 ```
 
-
+As in Experiment 1, listeners adapted to the different input distributions, but
+only incompletely. On average, listeners' classification functions were
+intermediate between the classification functions corresponding to the typical
+talker and exposure talker's distributions. Listeners adapted on average just as
+much in the one condition that was shared with Experiment 1 (mean VOT of 10ms
+for /b/, 50ms for /p/), but their boundaries were much more variable (Figure
+@fig:boundary-violin-plots-exp2, empty vs. filled distrbution). Listeners showed
+very little sensitivity to increasingly large negative VOTs: the average
+category boundaries were very similar in the -20, -50, and -80ms /b/ mean
+conditions. On average these were comparable to the 0ms /b/, 40ms /p/ mean
+condition from Experiment 1, which had a higher /b/ mean but lower /p/
+mean. This suggests that listeners are more sensitive to variation in /p/ than
+in /b/. Nevertheless, listeners in the 10ms /b/, 80ms /p/ still did not fully
+adapt to the exposure distribution, producing category boundaries that were not
+significantly different from those in the 10ms /b/, 50ms /p/ condition.
 
 ### Predicted adaptation from inferred priors ###
 
-How well do the prior beliefs inferred on the basis of Experiment 1 predict the adaptation we observed in Experiment 2?
+Next, we ask how well do the prior beliefs inferred on the basis of Experiment 1
+can predict the pattern of adaptation across exposure distributions we observed
+in Experiment 2.
 
 ```{r predict-expt2-from-inferred, cache=TRUE}
 
