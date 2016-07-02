@@ -158,8 +158,26 @@ listeners' adaptation behavior in Experiment 2.
 
 ```{r typical-talker}
 
+prior_stats <-
+  votcorpora::vot %>%
+  filter(source %in% c('gva13', 'bbg09', 'buckeye'),
+         place == 'lab') %>%
+  mutate(source = ifelse(source %in% c('gva13', 'bbg09'),
+                         'goldricketal',
+                         source)) %>%
+  group_by(source, prevoiced, subject, phoneme) %>%
+  summarise_each(funs(mu=mean,sigma2=var,sigma=sd), vot) %>%
+  group_by(source, prevoiced, phoneme) %>%
+  summarise_each(funs(mean, var), mu, sigma2, sigma) %>%
+  transmute(category = phoneme,
+            mean = mu_mean,
+            sd = sqrt(sigma2_mean)) %>%
+  bind_rows(supunsup::prior_stats %>%
+              filter(source=='kronrod2012'))
+
+
 prior_lhood <- 
-  supunsup::prior_stats %>%
+  prior_stats %>%
   filter(source == 'kronrod2012') %>%
   supunsup::stats_to_lhood()
 
