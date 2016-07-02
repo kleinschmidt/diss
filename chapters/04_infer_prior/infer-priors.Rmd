@@ -1525,17 +1525,18 @@ log-likelihood ratio with intercept-only null model of
 
 The biggest discrepancy in predicted category boundary is in the /b/ 10ms, /p/
 80ms condition, where the model predicts a bigger category boundary shift than
-is actually observed.
-<!-- evidence for prevoicing? would expect _smaller_ (relative to model fits) shifts for negative VOT /p/ dists than high /p/ dists. well I mean we DO find that, just not _relative to model predictions_. -->
+is actually observed. There are also some inferred prior parameters that are consistent with the generally poor adaptation to large negative /b/ mean VOTs. This suggests one of two things. First, this means we cannot rule out the possibility that listeners really do treat /b/ as a single unimodal cluster on the basis of these results. Second, it could be the case that listeners do, in fact, treat /b/ as a mixture of short-lag and prevoiced VOT clusters, and that the model-inferred beliefs reflect the best approximation of these by a model that incorrectly assumes a single unimodal cluster.
 
-The model predictions are more slightly accurate earlier in the test phase
+The model predictions are also more slightly accurate earlier in the test phase
 (likelihood ratios vs. null model for the first, second, and final third of the
 post-test phase of
-`r mod_pred_gof_exp2_by_third %$% LL_ratio %>% round() %>% paste_and()`),
-which is consistent with other work that shows that phonetic adaptation
-(recalibration) can be undone by prolonged testing [@Kraljic2005; @Vroomen2004].
+`r mod_pred_gof_exp2_by_third %$% LL_ratio %>% round() %>% paste_and()`).
+This suggests that listeners may be unlearning the distributions encountered in
+the test phase. Such unlearning would be consistent with other work that shows
+that phonetic adaptation (recalibration) can be undone by prolonged testing
+[@Kraljic2005; @Vroomen2004].
 
-One intresting feature of the model predictions themselves is that the
+Finally, one intresting feature of the model predictions themselves is that the
 uncertainty is quite a bit higher for the two extreme negative /b/ VOT (-80ms
 and -50ms) conditions. This suggests that there is uncertainty in the posterior
 over prior beliefs inferred from Experiment 1, but that this uncertainty is not
@@ -1547,27 +1548,18 @@ overall mean. This goes to show the importance of checking model predictions for
 conditions that are different from those used to train it.
 
 
-
-We can quantify the effects of the additional information provided by Experiment
-2 by updating the inferred prior beliefs, re-weighting the samples from the
-inferred beliefs from Experiment 1 using the likelihood of the data from
-Experiment 2. This weighted sample can then be used to approximate functions of
-the posterior (e.g., the expected prior beliefs given our data).
-
-```{r importance-weights-expt2}
-
-
-
-```
-
 ### Discussion ###
 
-The effect of this manipulation is pretty small. In fact, it appears that moving the /b/ mean VOT from -20 to -50 and even -80 has little additional effect on the category boundary, even though each of these changes would move the boundary by -15ms VOT each (if the prior was completely ignored).
+Relative to Experiment 1, the effect of the distribution manipulation in
+Experient 2 is pretty small. In fact, it appears that moving the /b/ mean VOT
+from -20 to -50 and even -80 has little additional effect on the category
+boundary, even though each of these changes would move the boundary by -15ms VOT
+each (if the prior was completely ignored).
 
+<!-- todo: a little casual in tone -->
 At first glance, this is surprising. But when you consider the _structure_ of how mean VOT varies across categories, it begins to make some sense. @Chodroff2015, for instance, found that across talkers, the VOTs of different places of articulation and voicing categories were strongly positively correlated. If listeners are sensitive to this correlation structure, the resulting prior on their adaptation would effectively filter out portions of the variability that are not positively correlated across categories.
 
-Another possibility is that listeners are sensitive to the possibility of talkers producing a distinct cluster of pre-voiced /b/s that have large negative VOTs. When the /b/ mean enters this very-low-VOT range, it no longer affects the category boundary any more, since that is primarily determined by the short-lag category that most talkers who prevoice still produce occasionally.
-
+However, computational modeling reveals that these apparent differences between Experiments 1 and 2 are not only _consistent_ with belief updating starting from a singel set of prior beliefs, but are actually _predicted_ based on the adaptation in Experiment 1.
 
 ## Conclusion {#sec:conclusion}
 
