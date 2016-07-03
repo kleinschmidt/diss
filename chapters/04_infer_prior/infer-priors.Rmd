@@ -1580,11 +1580,40 @@ At first glance, this is surprising. But when you consider the _structure_ of ho
 
 However, computational modeling reveals that these apparent differences between Experiments 1 and 2 are not only _consistent_ with belief updating starting from a singel set of prior beliefs, but are actually _predicted_ based on the adaptation in Experiment 1.
 
+## General discussion
+
+* further evidence that listeners can adapt to unusual accents distributional
+  learning. goes beyond prior work by showing that distributional learning is
+  _constrained_
+* where do constraints come from? 
+    * one idea: prior experience with other talkers. we've showed that the
+      constraints we observed are at least _consistent_ with this possibility
+        * evidence for the importance of prior beliefs that are informed by the
+          structure of the world in other domains too. [@Anderson1991 and from
+          conclusion...]
+    * other possible sources of constraints (self-production, innate auditory)
+    * testing with other contrasts/cues will help resolve this. 
+    * (for instance: next chapter shows that talker variability for VOT is
+      qualitatively and quantitatively different than for vowels. vowels are
+      particularly interested because there's both stylistic variation that has
+      to be learned, and physiological variation that can be normalized using
+      basic auditory processes)
+* you can infer prior beliefs, which are similar to actual patterns of
+  cross-talker variability and which predict adaptation to other distributions
+    * useful tool: probe listeners' subjective expectations (which may well be
+      different from variation in the world, and require perception data that is
+      somewhat easier to collect and analyze than production data)
+    * there are limits on the usefulness of this tool though. the prior beliefs you
+      infer are fundamentally bound by the model you use. you can still have
+      predictive accuracy with a model that does not even match the structure of the
+      data, to say nothing of what people are actually doing.
+
+
 ## Conclusion {#sec:conclusion}
 
 <!-- from cog sci paper -->
 
-A central prediction of the ideal adapter framework @Kleinschmidt2015 is that
+A central prediction of the ideal adapter framework [@Kleinschmidt2015] is that
 listeners adapt to unfamiliar talkers by combining their prior beliefs with
 observed evidence about that particular talker's cue distributions. In this
 paper, we have shown first that for a range of different accents (cue
