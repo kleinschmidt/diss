@@ -1372,10 +1372,8 @@ One interpretation of this lack of sensitivity to large negative /b/ mean VOTs
 is that listeners treat /b/ as being a mixture of a short-lag cluster (with a
 mean around 0ms VOT) and a prevoiced cluster (with a large negative mean
 VOT). Most American English talkers produce at least some short-lag VOTs, even
-if they produce mostly prevoiced. @Goldrick2013 found that, across
-`r nrow(prop_pre_by_talker)` 
-talkers, the highest percentage of prevoiced word-initial stops was 
-`r prop_pre_by_talker %$% round(prop_pre*100) %>% max()`%. 
+if they produce mostly prevoiced. @Goldrick2013 found that, even the talker who prevoiced the most still produced short-lag VOTs
+`r prop_pre_by_talker %$% round(100 - prop_pre*100) %>% min()`% of the time. 
 Thus, even for a talker who produces mostly prevoiced /b/s, a listener needs to
 be ready for some short-lag /b/s as well. Because the short-lag distribution is
 closer to the /p/ distribution, it is the one that largely determines where a
