@@ -166,7 +166,10 @@ prior_stats_by_talker <-
                          'goldricketal',
                          source)) %>%
   group_by(source, prevoiced, subject, phoneme) %>%
-  summarise_each(funs(mu=mean,sigma2=var,sigma=sd), vot) %>%
+  summarise(mu = mean(vot),
+            sigma2 = var(vot),
+            sigma = sd(vot),
+            n = n()) %>%
   rename(category = phoneme)
 
 ## plot single-talker distributions to get a sense of talker variability
@@ -186,12 +189,14 @@ prior_stats_by_talker <-
 prior_stats <-
   prior_stats_by_talker %>%
   group_by(source, prevoiced, category) %>%
-  summarise_each(funs(mean, var), mu, sigma2, sigma) %>%
+  summarise_each(funs(mean, var, sum), mu, sigma2, sigma, n) %>%
   transmute(category,
             mean = mu_mean,
-            sd = sqrt(sigma2_mean)) %>%
+            sd = sqrt(sigma2_mean),
+            n = n_sum) %>%
   bind_rows(supunsup::prior_stats %>%
-              filter(source=='kronrod2012'))
+              filter(source=='kronrod2012') %>%
+              mutate(n = 1))
 
 prior_lhood <- 
   prior_stats %>%
@@ -770,7 +775,8 @@ range of adaptation behavior we observed can be explained by a model where the
 listeners assigned to the different accent conditions all start from a common
 set of prior beliefs.
 
-```{r inferred-prior, fig.width=4, fig.height=2, fig.cap="Expected cue distributions based on the prior beliefs inferred here from behavioral adaptation data (solid lines). Plotted with VOT distributions measured by @Kronrod2012 based on a combination of classification and discrimination behavior (dashed lines)."}
+
+```{r inferred-prior, fig.width=4, fig.height=2, fig.cap="Expected cue distributions based on the prior beliefs inferred here from behavioral adaptation data (solid lines). Plotted with VOT distributions measured by @Kronrod2012 based on a combination of classification and discrimination behavior, and from production data by @Baese-Berk2009 (for /p/) and @Goldrick2013 (/b/)."}
 
 prior_summary <- 
   prior_samples_df %>% 
@@ -793,14 +799,26 @@ prior_expected <-
   map(round) %>%
   as_vector()
 
+
+typical_talker_lhoods <- 
+  prior_stats %>%
+  group_by(source, prevoiced, n) %>%
+  by_slice(stats_to_lhood, xlim=c(-100, 100), .collate='rows') %>%
+  group_by(source, category, vot) %>%
+  summarise(lhood = sum(lhood * n) / sum(n)) # combine prevoiced and non, weighted
+
+## Plot prior vs. typical talker from various sources
 prior_samples_df %>% 
   group_by(category) %>% 
   summarise(mean = mean(mu_0), sd = mean(sigma_0)) %>%
-  stats_to_lhood(noise_sd = 0) %>%
+  stats_to_lhood(xlim=c(-100,100), noise_sd = 0) %>%
   ggplot(aes(x=vot, y=lhood, group=category)) +
-  geom_line(aes(linetype='Inferred\nprior')) +
-  geom_line(data=prior_lhood, aes(linetype='Kronrod et\nal. (2012)')) +
-  scale_linetype_discrete('Source') +
+  geom_line(data = typical_talker_lhoods %>%
+              filter(source %in% c('goldricketal', 'kronrod2012')),
+            aes(color=source, group=paste(source, category)),
+            size = 1) +
+  geom_line(aes(color='Inferred prior'), size=2) +
+  scale_color_discrete('Source') +
   scale_x_continuous('VOT (ms)') +
   scale_y_continuous('Likelihood')
 
@@ -1550,6 +1568,7 @@ conditions that are different from those used to train it.
 
 ### Discussion ###
 
+<!-- TODO: this is rough, revise it -->
 Relative to Experiment 1, the effect of the distribution manipulation in
 Experient 2 is pretty small. In fact, it appears that moving the /b/ mean VOT
 from -20 to -50 and even -80 has little additional effect on the category
