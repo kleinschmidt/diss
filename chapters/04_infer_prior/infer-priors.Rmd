@@ -1662,15 +1662,44 @@ distributions, then knowing that a talker is male or female should lead to more
 constrained adaptation than if they do not know the gender of the talker (all
 else being equal, including other cues to gender).
 
-* you can infer prior beliefs, which are similar to actual patterns of
-  cross-talker variability and which predict adaptation to other distributions
-    * useful tool: probe listeners' subjective expectations (which may well be
-      different from variation in the world, and require perception data that is
-      somewhat easier to collect and analyze than production data)
-    * there are limits on the usefulness of this tool though. the prior beliefs you
-      infer are fundamentally bound by the model you use. you can still have
-      predictive accuracy with a model that does not even match the structure of the
-      data, to say nothing of what people are actually doing.
+### Measuring listeners' subjective beliefs about unfamiliar talkers
+
+Our other major finding is that it is possible to infer what cue distributions
+listeners expect from an unfamiliar talker, based solely on listeners adaptation
+behavior (as measured by phonetic classification). The actual beliefs that our
+model infers listeners to have provide a good fit to this adaptation behavior,
+can predict adaptation for distributions that were not used to train the model,
+and align reasonably well with distributions that talkers actually produce. The
+combination of presenting listeners with a parametrically manipulated range of
+distributions and analyzing the resulting changes in phonetic classification
+with a belief updating model provides a potentially powerful tool for measuring
+listeners' expectations. This is important because these expectations are an
+essential part of how listeners manage to adapt to efficiently to talker
+variability, but are difficult to measure, being implicit and subjective. The
+subjective nature of these expectations is particularly important, because they
+may deviate in substantial ways from the actual nature of cross-talker variation
+[for one example, see @Niedzielski1999].
+
+This tool nevertheless still has limitations. Most importantly, the prior
+beliefs a model can infer are fundamentally bound by the assumptions the model
+makes about that nature of those beliefs and how they are updated. If the
+structure of the world does not align with what is assumed by the model, the
+models' inferences may be misleading in subtle ways, _even if the predictive
+accuracy of the model is good_.  For instance, we assumed that each phonetic
+category is a single normal distribution, but in reality the way people actually
+produce /b/ appears to be a mixture of two distinct clusters. Even so, our model
+effectively predicted adaptation to different distributions, even with negative
+VOTs where the structure of the /b/ category seems like it should make a
+difference. The beliefs that the model infers listeners to have for /b/, though,
+do not look like distributions of VOTs that talkers actually produce for
+/b/. Instead, they look like a good _approximation_ of the true distrbution
+using only a single cluster, with a mean and variance that is intermediate
+between the two clusters talkers actually produce. It would be premature to
+conclude that listeners actually believe a typical talker would produce this
+distribution. Rather, this discrepancy highlights areas where more data is
+needed. That is, a model need not be _true_ for it to be _useful_, as long as
+it's understood as a means for interpreting and guiding empirical work and not a
+source of ground truth.
 
 
 ## Conclusion {#sec:conclusion}
