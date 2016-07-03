@@ -918,7 +918,10 @@ prior_stats_variability %>%
       next chapter)
     * if that's true, then it suggests that there are interesting limits on
       adaptation that go beyond the in-principle, computational limitations that
-      the ideal adapter proposes
+      the ideal adapter proposes.
+        * like: some kind of particle filter/digging in thing where previous
+          judgements can't be revised after a certain point. how much
+          uncertainty is maintained?
 
 
 ### Discussion ###
@@ -1739,3 +1742,6 @@ perception, are critical to effectively coping with non-stationarity in sensory
 statistics.
 
 
+* big thign: provides evidence supporting a basic prediction of ideal adapter:
+  listeners use experience with variability across talkers to infrom starting
+  point for adaptation

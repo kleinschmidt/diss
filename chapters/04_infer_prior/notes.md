@@ -18,3 +18,8 @@
 # Discussion
 
 * WHere do constraints come from? other sources: innate/self-productions.
+* Points to make
+    * people adapt by distributional learning
+    * but it is _constrained_
+    * you can infer prior beliefs, which are similar to actual patterns of cross-talker variability and which predict adaptation to other distributions
+    * nevertheless, the prior beliefs you infer are fundamentally bound by the model you use. you can still have predictive accuracy with a model that does not even match the structure of the data, to say nothing of what people are actually doing.

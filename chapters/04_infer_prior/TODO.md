@@ -3,22 +3,30 @@
 * clean up experiment 2 results
     * [done] get rid of lmer models
     * [done] nice boundary figures (violing from svalp)
-    * goodness of fit a la expt1
+    * [done] goodness of fit a la expt1
 * intro:
     * expand background (more detail on studies showing constraints)
     * [could] tie in with distributional learning
     * [done] two experiments now
+    * [could] "what is a typical talker". more variable estimates for /b/ across sources, including prevoicing.. variabiltiy _across talkers_ too.
 * expt 1
     * [done; didn't need anything really] this is now expt 1, revise accordingly
 * modeling
-    * goldrick prevoiced VOT data
+    * [done] goldrick prevoiced VOT data (incorporate into beliefs plot)
     * compare inferred beliefs with actual cross talker variability from corpora
-* expt2
-    * intro (why)
+        * analysis
         * [done] bullets
         * write
+    * [could] fit model to exp2?
+* expt2
+    * [done] intro (why)
+        * [done] bullets
+        * [done] write
     * [done] methods/participants
-    * write results
+    * [done] write results
 * discussion
-    * incorporate cog sci discussion??
-    * other sources of constraints (self-production, innate auditory)
+    * [done] write up
+* conclusion
+    * integrate cog sci conclusion (or scrap; maybe redundant with new discussion)
+    * [wip] bullets
+    * write
