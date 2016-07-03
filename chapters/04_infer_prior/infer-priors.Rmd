@@ -1582,16 +1582,59 @@ However, computational modeling reveals that these apparent differences between 
 
 ## General discussion
 
-* further evidence that listeners can adapt to unusual accents distributional
-  learning. goes beyond prior work by showing that distributional learning is
-  _constrained_
+In two experiments, we have evaluated how well listeners can adapt to different
+"accents" by learning distributions of VOTs. Our results confirm previous
+findings that listeners can adapt to novel accents like these via distributional
+learning [@Clayards2008; @Munson2011]. We go beyond previous work by
+systematically evaluating adaptation performance on a range of different
+distributions. Our results show that listeners do not adapt as well to extreme
+distributions that deviate substantially from what it typical of American
+English. This goes to show that while distributional learning is, in principle,
+a very powerful general-purpose approach to dealing with the lack of invariance,
+it is _constrained_ in actual practice.
+
+### Constraints on distributional learning
+
+Where do these constraints come from? A central tenet of the ideal adapter
+framework [@Kleinschmidt2015] is that listeners can---and should---benefit from
+structure in how talkers vary in the cue distributions they produce. Even if all
+a listener knows is that a talker is speaking English, their prior experience
+with other speakers of English provides a lot of information about the cue
+distributions that they should expect, which makes the process of inferring that
+particular talkers' distributions much more efficient. In this view, listeners
+will pay a price when they encounter a talker whos distributions fall outside
+the range they expect. Thus, listeners expectations should be matched to the
+actual variability in the world, in order to get as much benefit from the head
+start provided by prior expectations while avoiding over-confidence.
+
+Our modeling results show that this explanation is at least consistent with the
+pattern of constraints that we observed behaviorally. The range of adaptation
+behavior across different distributions in Experiment 1 can be fit very well by
+a model that assumes that listeners update their beliefs based on the
+distributions they experience, starting from a prior expectation about what a
+typical talker sounds like and how much talkers vary. Moreover, the beliefs that
+we can infer listeners have for an unfamiliar talker match the actual cue
+distributions produced by American English speakers reasonably well (with the
+caveat that our model makes potentially problematic assumptions about the
+structure of categories within and across talkers, which we discuss below).
+
+There are, of course, other possible sources for these constraints. For
+instance, the basic nature of the mammalian auditory system may constrain the
+distributions that are actually psychoacoustically distinguishable. Failure to
+adapt to particular distributions may then simply be a side effect of these
+distributions being difficult to perceive because of non-linearities in the
+underlying psychoacoustic dimensions (which we model as linear in VOT). This is
+a plausible explanation for VOT in particular, since non-human animals are also
+more inclined to categorize voiced and voiceless stops along human phonetic
+category boundaries [@Kuhl1975]. Moreover, the standard boundary between voiced
+and voiceless word initial stops more or less corresponds to the temopral
+asynchrony required for neural responses to separately time lock to two events,
+[@Steinschneider1994].
+
+
 * where do constraints come from? 
-    * one idea: prior experience with other talkers. we've showed that the
-      constraints we observed are at least _consistent_ with this possibility
-        * evidence for the importance of prior beliefs that are informed by the
-          structure of the world in other domains too. [@Anderson1991 and from
-          conclusion...]
-    * other possible sources of constraints (self-production, innate auditory)
+    * other possible sources of constraints
+        * self-production
     * testing with other contrasts/cues will help resolve this. 
     * (for instance: next chapter shows that talker variability for VOT is
       qualitatively and quantitatively different than for vowels. vowels are
