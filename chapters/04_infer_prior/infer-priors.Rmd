@@ -776,7 +776,7 @@ listeners assigned to the different accent conditions all start from a common
 set of prior beliefs.
 
 
-```{r inferred-prior, fig.width=4, fig.height=2, fig.cap="Expected cue distributions based on the prior beliefs inferred here from behavioral adaptation data (solid lines). Plotted with VOT distributions measured by @Kronrod2012 based on a combination of classification and discrimination behavior, and from production data by @Baese-Berk2009 (for /p/) and @Goldrick2013 (/b/)."}
+```{r inferred-prior, fig.width=6, fig.height=2.5, fig.cap="Expected cue distributions based on the prior beliefs inferred here from behavioral adaptation data. Plotted with VOT distributions measured by @Kronrod2012 based on a combination of classification and discrimination behavior, and from production data by @Baese-Berk2009 (for /p/) and @Goldrick2013 (/b/)."}
 
 prior_summary <- 
   prior_samples_df %>% 
