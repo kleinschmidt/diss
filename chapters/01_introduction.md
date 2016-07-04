@@ -1,18 +1,18 @@
 * Perception is inference
     * Problem of perception:
         * want to infer "latent variables" (facts about the world). 
-            * helmholtz?
+            * [@Helmholtz1924; @Knill1996]
         * **uncertain** world: facts about the world only probabilistically related
           to observables
-            * noise in perceptual system
-            * inherent ambiguity from generative process (inverse optics)
+            * noise in perceptual system [@Knill2004]
+            * inherent ambiguity from generative process (inverse optics) [e.g., @Marr1982]
         * **nonstationary** world: probabilistic relationships themselves change
     * Tradition of "ideal observer". Mind is adapted to the world that it has to function in. We can understand a lot about the mind just by looking at the task it has to do and the structure of the world it exists in.
     * Big questions:
         * How to cope with nonstationarity?  Existing theories tend to focus on
           detecting changes and learning quickly. [e.g., @Courville2006; @Gallistel2001; cf. @Qian2012]
-        * Link between nonstationarity and adaptation
-    * The proposal:
+        * Link between nonstationarity and adaptation? [@Webster2005; @Wei2012; @Seydell2010]
+    * The central motivation of the work described here is two-fold.:
         * Perception requires inference not just about latent variables, but about
           _generative model_ that links observations and latent variables.
         * Moreover, requries inference about the _underlying structure in the
@@ -31,7 +31,7 @@
             * [@Clopper2005; @Heald2015; @Labov1972; @Labov2005; @Eckert2013; among others]
         * Listeners are _sensitive_ to this structure and _use_ it to guide their
           inferences about the underlying linguistic categories
-            * [@Johnson1999; @Strand1996; @Hay2006a; @Hay2010; @Creel2011; @Creel2011a; @Creel2008; @Niedzielski1999; ]
+            * [@Johnson1999; @Strand1996; @Hay2006a; @Hay2010; @Creel2011; @Creel2011a; @Creel2008; @Niedzielski1999]
     * Importantly, we know something about both the _linguistic_ and _indexical_
       structure of speech variability. (e.g., to a first order of approximation,
       what the categories and relevant cues are, on the one hand, and how the
@@ -42,14 +42,14 @@
           variability that's required to link that variability with listeners'
           strategies for dealing with it.
 * Overall point to make:
-    * Need to take variability _seriously_ in any model of speech perception.
-    * The computational framework developed here treats variability as a central part of the problem/task of speech perception, and in doing so unifies and makes sense out of a lot of confusing and apparently contradictory work.
+    * Need to take variability _seriously_ in any model of speech perception. It's not a _bug_ but a _basic feature_ of language, and as such is a fundamental constraint that the speech perception system must be adapted to in order to function.
+    * The computational framework developed here treats variability as a central part of the problem/task of speech perception. Surprisingly, this alone unifies and makes sense out of a lot of confusing and apparently contradictory work.
     * Moreover, this framework opens doors for new directions of research on speech perception, some of which I start to explore in later chpaters. These point to underexplored connections between, e.g., perception and production, cognitive and sociolinguistic approaches to language, and neural and computational levels of analysis of perception.
 * Outline for chapters
     1. Introduce a computational framework for understanding speech perception in the face of non-stationarity. Develop a computational model for rapid adaptation, test it against existing and novel data. The idea of inference at multiple levels captures the whole range of strategies that listeners have been shown to use for dealing with talker variabiltiy. Review the far-reaching consequences of this approach for speech perception and language comprehension more broadly.
     2. Distributional learning connects adaptation in speech peception with sensory adaptation more generally. Critically review evidence against distributional learning as a model for selective adaptation in speech, in light of a modern understanding of sensory adaptation.
-    3. What do listeners expect from an unfamiliar talker? Probe listeners __prior beliefs__ using distributional learning, and evaluate the extent to which they match what we know about the variability across talkers.
-    4. How informative are socio-indexical variables like age, gender, dialect, etc. about the structure of variability in talkers' cue distributions? This is a first step in addressing a need for data on the _structure_ of talker variability, a need that is identified by the ideal adapter framework. Having such data enables predictions about what kinds of grouping listeners should track, suggesting future studies on cross-talker generalization with different contrasts and cues.
+    3. What do listeners expect from an unfamiliar talker? According to the ideal adapter, these expectations are vitally important to efficiently adapting to multiple, different talkers. But this efficiency is predicted to come at a cost when listeners encounter a talker whose accent falls outside the range they expect. Thus, an ideal adapter will _fail_ to fully adapt in some circumstances, and the particular constraints can be informative about the underlying expectations. Probe listeners __prior beliefs__ using distributional learning, and evaluate the extent to which they match what we know about the variability across talkers.
+    4. Predict that listeners pick up on structure of how talkers vary in the world, and use this to guide adaptation. The particular structure that listeners are predicted to extract depends on how informative different groupings of talkers are about their underlying cue distributions.  Here we use the computational tools of ideal listener/adapter approaches to quantify the informativity of socio-indexical grouping variables for different phonetic categories and cues. Having such data enables more specific predictions about what kinds of grouping listeners should track, and hence how they can best generalize from their experience with one talker to another.
 
 
 
