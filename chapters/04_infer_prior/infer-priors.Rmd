@@ -586,7 +586,7 @@ they are substantially more computationally demanding, and we leave it for
 future work to determine how they might affect our results. 
 
 Finally, we also add a lapse rate parameter (maximum a posteriori value of
-$5%$), that allows for some proportion of responses to be attributed to random
+5%), that allows for some proportion of responses to be attributed to random
 guessing
 [e.g., because of attentional blinks, see @Clayards2008 for a discussion].
 
@@ -925,7 +925,7 @@ order of a standard deviation of 3ms VOT for /b/ [short-lag; @Goldrick2013] and
 15ms VOT for /p/ [@Baese-Berk2009]. That is, the model underestimates the level of variability across talkers.
 
 This is likely due to the particular mathematical form we assumed listeners'
-prior beliefs to have. The conjugate Normal-$\Chi^{-2}$ prior is mathematically
+prior beliefs to have. The conjugate Normal-$\chi^{-2}$ prior is mathematically
 convenient (in that it allows Bayesian belief updating to be expressed
 analytically in closed form), but it makes the assumption that cross-talker
 variance is proportional to within-talker variance [@Gelman2003]. This
