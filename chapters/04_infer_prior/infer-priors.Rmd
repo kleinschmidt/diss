@@ -112,14 +112,6 @@ previous experience, the ideal adapter framework predicts that a
 listener will require more evidence to adapt, leading to slowed or
 incomplete adaptation. 
 
-There is some evidence that this is the case. For instance, @Idemaru2011 found
-that listeners have difficulty adapting to a talker who produces anti-correlated
-distributions of two cues that are typically positively or un-correlated. 
-Listeners had no trouble adapting to un- or positively correlated distributions 
-of these cues.
-<!-- idea here is to emphasize that they get as close as they can within the
-limits of what talkers actually do. --> 
-
 For instance, @Idemaru2011 tested how well listeners adapt to distributions of
 two cues that distinguish voicing (e.g., /b/ vs. /p/), voice onset time (VOT)
 and the pitch of the following vowel (f0).  These two cues are typically
