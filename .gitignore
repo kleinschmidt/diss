@@ -11,3 +11,5 @@ chapters/04_infer_prior/models
 examples
 /chapters/04_infer_prior/infer-priors.md
 /chapters/04_infer_prior/tmp.Rnw
+/chapters/04_infer_prior/infer-priors.tex
+/chapters/04_infer_prior/infer-priors.pdf
