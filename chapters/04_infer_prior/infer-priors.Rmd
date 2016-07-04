@@ -110,14 +110,35 @@ probability *away* from unlikely accents. Confronted by a talker whose
 accent falls well outside the range of what they expect based on their
 previous experience, the ideal adapter framework predicts that a
 listener will require more evidence to adapt, leading to slowed or
-incomplete adaptation. There is some evidence that this is the case. For
-instance, @Idemaru2011 found that listeners have difficulty adapting to
-a talker who produces anti-correlated distributions of two cues that are
-typically positively or un-correlated. @Sumner2011 found that listeners
-had trouble adapting to a talker who produced a distribution of cues for
-the /b/ and /p/ sounds that had substantially lower means than a typical
-talker.
+incomplete adaptation. 
 
+There is some evidence that this is the case. For instance, @Idemaru2011 found
+that listeners have difficulty adapting to a talker who produces anti-correlated
+distributions of two cues that are typically positively or un-correlated. 
+Listeners had no trouble adapting to un- or positively correlated distributions 
+of these cues.
+<!-- idea here is to emphasize that they get as close as they can within the
+limits of what talkers actually do. --> 
+
+For instance, @Idemaru2011 tested how well listeners adapt to distributions of
+two cues that distinguish voicing (e.g., /b/ vs. /p/), voice onset time (VOT)
+and the pitch of the following vowel (f0).  These two cues are typically
+positively correlated in English, with /p/ corresponding to high VOT and high
+f0, and /b/ to low values of both cues. When exposed to a talker who produced an
+accent with a positively correlated distribution of these cues, listeners used
+f0 to categorize stops with ambiguous VOTs. Listeners also learned from a talker
+who produced an _un_correlated distribution, ignoring f0 even for ambiguous
+VOTs. But when exposed to a talker who produced an _anti_correlated
+distribution, listeners did not adapt, instead ignoring f0, despite the fact
+that f0 was just as informative for this accent as for the positively correlated
+accent. This suggests that listeners have ruled out the possibility of a
+reversed mapping between f0 and voicing (/b/ vs. /p/), possibly perhaps American
+English talkers typically do not typically produce it [e.g., @House1953].
+Likewise, @Sumner2011 found that listeners had trouble adapting to a talker who
+produced VOT distributions for /b/ and /p/ that had substantially lower means
+than a typical talker.
+
+<!-- this might be too strong. both @Idemaru2011 and @Sumner2011 do in fact manipulate distributions parametrically -->
 However, no studies have systematically probed whether and how a listener's
 prior expectations constrain phonetic adaptation, or even what kind of prior
 beliefs listeners have. To that end, in two experiments we expose listeners to a
