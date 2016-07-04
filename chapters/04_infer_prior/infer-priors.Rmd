@@ -1738,8 +1738,6 @@ source of ground truth.
 
 ## Conclusion {#sec:conclusion}
 
-<!-- from cog sci paper -->
-
 A central prediction of the ideal adapter framework [@Kleinschmidt2015] is that
 listeners adapt to unfamiliar talkers by combining their prior beliefs with
 observed evidence about that particular talker's cue distributions. In this
@@ -1749,7 +1747,8 @@ reflects a compromise between what would be expected for the cue distributions
 produced by a typical talker and the exposure talker. Second, the range of
 adaptation behavior observed across the various accents that listeners heard can
 be captured by a belief-updating model with a single set of prior expectations
-that are updated based on experience with the exposure talker.
+that are updated based on experience with the exposure talker. Moreover, these
+inferred beliefs effectively predict adaptation to different distributions.
 
 These results emphasize the importance of listeners' prior expectations for
 robust speech perception in the face of talker variability. Even if all the
@@ -1771,8 +1770,3 @@ role in a number of perceptual and memory domains [e.g,. @Brady2013; @Froyen2015
 expectations about the *statistics* of the sensory world, which, as in speech
 perception, are critical to effectively coping with non-stationarity in sensory
 statistics.
-
-
-* big thign: provides evidence supporting a basic prediction of ideal adapter:
-  listeners use experience with variability across talkers to infrom starting
-  point for adaptation
