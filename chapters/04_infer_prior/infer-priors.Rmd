@@ -866,7 +866,7 @@ prior_summary %>%
 ```
 
 The second way to evaluate this model is based on the prior beliefs it infers
-listeners to have.  Table {@tbl:prior-params} shows the posterior expectation
+listeners to have.  Table {@tbl:inferred-prior-params} shows the posterior expectation
 and 95% highest posterior density intervals for each of the prior belief
 parameters given the adaptation data above.  The behavioral data was consistent
 with high confidence in prior beliefs with the prior confidence about category
@@ -874,7 +874,7 @@ variances ($E(\nu_0) = `r prior_expected['nu_0']`$) higher than confidence
 in the category means ($E(\kappa_0) = `r prior_expected['kappa_0']`$).  Both
 of these (measured in pseudo-observations) are larger than the number of trials
 that listeners heard in the experiment (222), which means that as far as the
-belief-updating model is concerned, listeners updated beliefs reflected their
+belief-updating model is concerned, listeners' updated beliefs reflected their
 prior beliefs as much as (in the case of the means) or more than (for the
 variances) the distributions they actually observed.  This is consistent with
 the qualitative finding that listeners' category boundaries are intermediate
@@ -958,26 +958,28 @@ distributions that stretches from nearly complete adaptation to partial
 adaptation at best.
 
 These prior beliefs are reasonably consistent with other attempts to determine
-what listeners think the underlying cue distributions are @Kronrod2012, as well
-as the distributions produced by actual talkers @Lisker1964. In fact, the prior
-expected VOT distribution for /p/ that our model inferred is almost identical to
-that observed by both @Kronrod2012 and @Lisker1964. The distribution for /b/
-deviates from prior work, however. One possible reason for this is that a
-substantial minority of English speakers produce pre-voiced /b/ @Lisker1964,
-which is characterized by a lower (negative) VOT and a higher variance (often
-higher even than /p/). That is, across talkers, the /b/ VOT distribution
-parameters (mean and variance) have a *bimodal* distribution. We assumed a
-single, unimodal prior distribution, and the prior beliefs we inferred to be
-most likely are consistent with a compromise between the two types of /b/
-distributions that talkers actually produce. This possibility suggests two
-directions for future work. First, large-scale corpus studies of VOT
-distributions are needed to determine to what extent the distribution of /b/
-mean VOTs is really bimodal across talkers. However, the only study of this type
-we are aware of considers only non-negative VOTs @Chodroff2015 and thus excludes
-talkers who pre-voice their /b/.  Second, more modeling work is needed to test
-whether a multimodal prior is justified given the adaptation data, and if so,
-whether it would change the inference about listeners' prior expectations for
-/b/.
+what listeners think the underlying cue distributions are [@Kronrod2012], as
+well as the distributions produced by actual talkers
+[@Lisker1964; @Baese-Berk2009; @Goldrick2013]. In fact, the prior expected VOT
+distribution for /p/ that our model inferred is almost identical to that
+observed by both @Kronrod2012 and @Lisker1964. The distribution for /b/ deviates
+from prior work, however: the inferred mean is lower, and the variance higher,
+than is usually described. One possible reason for this is that a substantial
+minority of English speakers produce pre-voiced /b/
+[@Lisker1964; @Goldrick2013], which is characterized by a lower (negative) VOT
+and a higher variance (often higher even than /p/). That is, across talkers, the
+/b/ VOT distribution parameters (mean and variance) have a *bimodal*
+distribution. We assumed a single, unimodal prior distribution, and the prior
+beliefs we inferred to be most likely are consistent with a compromise between
+the two types of /b/ distributions that talkers actually produce. This
+possibility suggests two directions for future work. First, large-scale corpus
+studies of VOT distributions are needed to determine to what extent the
+distribution of /b/ mean VOTs is really bimodal across talkers. However, the
+only study of this type that we are aware of considers only non-negative VOTs
+@Chodroff2015 and thus excludes talkers who pre-voice their /b/.  Second, more
+modeling work is needed to test whether a multimodal prior is justified given
+the adaptation data, and if so, whether it would change the inference about
+listeners' prior expectations for /b/.
 
 The other major result of this modeling is that listeners have high confidence
 in their prior expectations about the VOT distributions of /b/ and /p/, acting
@@ -1005,7 +1007,6 @@ found that after the same amount of exposure, listeners recalibrate a /d/-/t/
 contrast (analogous to the /b/-/p/ contrast used here) much less than an /s/-S
 contrast (where the latter exhibits larger variability across talkers; e.g.,
 @Newman2001).
-
 
 ## Experiment 2 ##
 
@@ -1168,16 +1169,13 @@ post_test_len <-
 ```
 
 We recruited `r n_total2` subjects via Amazon's Mechanical Turk, who were paid
-\$2.50 for participation. The task took subjects about 20 minutes to complete
-(`r active_time %$% observed` minutes active time on average, and 
-`r accept_to_submit_time %$% observed` 
-minutes between accepting and submitting the
-HIT). As in Experiment 1, we excluded subjects 
-($n=`r n_excl2 %$% sum(n)`$) 
+\$2.50 for participation. The task took subjects about 25 minutes to
+complete. As in Experiment 1, we excluded subjects ($n=`r n_excl2 %$% sum(n)`$)
 who failed to classify words with unambiguous VOTs reliably during exposure (not
-post-test, see below), after which
-`r n_clean2 %$% sum(n)` subjects remained for analysis (no subjects had previously
-participated in a VOT study). Subjects were evently distributed across conditions (range of `r n_clean2 %$% min(n)` to `r n_clean2 %$% max(n)` per condition).
+post-test, see below), after which `r n_clean2 %$% sum(n)` subjects remained for
+analysis (no subjects had previously participated in a VOT study). Subjects were
+evently distributed across conditions (range of `r n_clean2 %$% min(n)` to 
+`r n_clean2 %$% max(n)` per condition).
 
 #### Procedure: assessing category boundaries
 
@@ -1411,16 +1409,16 @@ these conditions. For instance, even if listeners treat /b/ as a single unimodal
 cluster, the negative VOT distributions we used are still extreme relative to
 the range of /b/ mean VOTs across talkers.  In the next section, we take one
 approach to addressing this possibility, by evaluating how well the prior
-beliefs inferred from Experiment 1---assuming a single /b/ cluster---predict the
-pattern of adaptation here.
+beliefs inferred from Experiment 1---which assume a single /b/ cluster---predict
+the pattern of adaptation here.
 
 #### Predicted adaptation from inferred priors
 
 Next, we ask how well do the prior beliefs inferred on the basis of Experiment 1
 can predict the pattern of adaptation across exposure distributions we observed
-in Experiment 2. Figure @fig:predict-exp2-from-inferred shows the predicted
-classification functions (95% posterior predcitive intervals) for the exposure
-conditions in Experiment 2, using the same parameters that were fit to
+in Experiment 2. Figure @fig:plot-exp2-predictions-first-third shows the
+predicted classification functions (95% posterior predcitive intervals) for the
+exposure conditions in Experiment 2, using the same parameters that were fit to
 Experiment 1 (and visualized in Figure @fig:model-fit-classification).
 
 ```{r predict-expt2-from-inferred, cache=TRUE}
@@ -1513,7 +1511,11 @@ predicted_prob_p %>%
                     summarise(resp_p = mean(respP)),
                   aes(y=resp_p),
                   stat='summary', fun.data=mean_cl_boot) +
-  facet_grid(.~vot_cond)
+  facet_grid(.~vot_cond) +
+  labs(x = 'VOT (ms)',
+       y = 'Probability /p/ response',
+       color = '/b/, /p/\nmean VOT',
+       fill = '/b/, /p/\nmean VOT')
 
 ```
 
@@ -1563,7 +1565,11 @@ listeners' actual category boundaries at test (Figure
 @fig:plot-exp2-predictions-first-third; 
 Spearman's $\rho=`r mod_pred_gof_exp2_by_third %>% filter(third==1) %$% rho`$,
 log-likelihood ratio with intercept-only null model of 
-`r mod_pred_gof_exp2_by_third %>% filter(third==1) %$% LL_ratio`).
+`r mod_pred_gof_exp2_by_third %>% filter(third==1) %$% LL_ratio`). In particular,
+the predicted classification function fits very well for the 10ms /b/, 50ms /p/
+mean condition. This condition is the same as one condition from Experiment 1,
+so this shows that the within-condition, out-of-sample prediction accuracy is
+good, despite the different post-test procedure.
 
 The biggest discrepancy in predicted category boundary is in the /b/ 10ms, /p/
 80ms condition, where the model predicts a bigger category boundary shift than
@@ -1592,17 +1598,21 @@ conditions that are different from those used to train it.
 
 ### Discussion ###
 
-<!-- TODO: this is rough, revise it -->
-Relative to Experiment 1, the effect of the distribution manipulation in
-Experient 2 is pretty small. In fact, it appears that moving the /b/ mean VOT
-from -20 to -50 and even -80 has little additional effect on the category
-boundary, even though each of these changes would move the boundary by -15ms VOT
-each (if the prior was completely ignored).
+The results of this experiment provide further evidence that VOT distributional
+learning is constrained by listeners' expectations. Using more extreme
+distribution, we found even larger discrepancies between the category boundaries
+implied by the input distributions and listeners' actual classifications than in
+Experiment 1. In fact, it appears that moving the /b/ mean VOT from -20 to -50
+and even -80 has little additional effect on the category boundary, even though
+each of these changes would move the boundary by -15ms VOT each (if the prior
+was completely ignored).
 
-<!-- todo: a little casual in tone -->
-At first glance, this is surprising. But when you consider the _structure_ of how mean VOT varies across categories, it begins to make some sense. @Chodroff2015, for instance, found that across talkers, the VOTs of different places of articulation and voicing categories were strongly positively correlated. If listeners are sensitive to this correlation structure, the resulting prior on their adaptation would effectively filter out portions of the variability that are not positively correlated across categories.
+While listeners' failure to adapt might seem to indicate a failure of
+distributional learning. However, computational modeling reveals that these
+apparent differences between Experiments 1 and 2 are not only _consistent_ with
+belief updating starting from a singel set of prior beliefs, but are actually
+_predicted_ based on the adaptation in Experiment 1.
 
-However, computational modeling reveals that these apparent differences between Experiments 1 and 2 are not only _consistent_ with belief updating starting from a singel set of prior beliefs, but are actually _predicted_ based on the adaptation in Experiment 1.
 
 ## General discussion
 
