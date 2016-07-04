@@ -308,13 +308,13 @@ n_total <- n_subj + n_excluded
 
 We recruited `r n_total` subjects via Amazon's Mechanical Turk, who were paid
 \$2.00 for participation, which took about 20 minutes. We excluded subjects who
-participated more than once ($n=`r n_subj_repeat`$) or whose accuracy at and
-VOT---as extrapolated via a logistic GLM---was less than 80% correct 
-($n=`r n_subj_bad`$; $n=`r n_both`$ for both reasons). 
-Excluded subjects were roughly
-equally distributed across conditions (maximum of 5 in 0ms /b/ VOT condition,
-and minimum of 1 in 20ms /b/ VOT condition). After these exclusions, data from
-`r n_subj` subjects remained for analysis for analysis.
+participated more than once ($n=`r n_subj_repeat`$) or whose accuracy at 0 and
+70ms VOT---as extrapolated via a logistic GLM---was less than 80% correct 
+($n=`r n_subj_bad`$; $n=`r n_both`$ for both reasons).
+Excluded subjects were roughly equally distributed across conditions (maximum of
+5 in 0ms /b/ VOT condition, and minimum of 1 in 20ms /b/ VOT condition). After
+these exclusions, data from `r n_subj` subjects remained for analysis for
+analysis.
 
 #### Procedure ####
 
@@ -322,24 +322,25 @@ and minimum of 1 in 20ms /b/ VOT condition). After these exclusions, data from
     green button to play the word, then click on one picture to indicate what
     they heard.](figure_manual/beach_peach.png){#fig:beach-peach}
 
-Our distributional learning procedure is described in @Kleinschmidt2015a, and is
-based on @Clayards2008. On each trial, two response option images appeared,
-which corresponded to one of three /b/-/p/ minimal pairs (beach/peach,
-bees/peas, or beak/peak). Subjects then clicked on a central button which played
-the corresponding minimal pair word, and then clicked on the picture to indicate
-whether they heard the /b/ or /p/ member of the minimal pair (Figure
-@fig:beach-peach). Subjects performed 222 of these trials.
+Our distributional learning procedure is based on @Clayards2008. On each trial,
+two response option images appeared, which corresponded to one of three /b/-/p/
+minimal pairs (beach/peach, bees/peas, or beak/peak). Subjects then clicked on a
+central button which played the corresponding minimal pair word, and then
+clicked on the picture to indicate whether they heard the /b/ or /p/ member of
+the minimal pair (Figure @fig:beach-peach). Subjects performed 222 of these
+trials, evenly divided between the three minimal pairs.
 
 Each trial's word was synthesized with a voice onset time (VOT) that was
 randomly drawn from a bimodal distribution, with low and high VOT clusters
 implicitly corresponding to /b/ and /p/, respectively. This distribution defined
 the *accent* that the subject heard, and each subject was pseudorandomly
-assigned to one of five accent conditions (Figure @fig:vot-dists-exp1). Each of these
-accents implies a different /b/-/p/ category boundary, and listeners' adaptation
-was evaluated by comparing their /b/-/p/ classification function (fitted by a
-logistic GLM) to the classification function derived from the typical talker's
-cue distributions (corresponding to no adaptation) and the exposure distribution
-(corresponding to maximal---but not necessarily optimal---adaptation).
+assigned to one of five accent conditions (Figure @fig:vot-dists-exp1). The cue
+distributions for each of these accents implies a different /b/-/p/ category
+boundary, and listeners' adaptation was evaluated by comparing their /b/-/p/
+classification function (fitted by a logistic GLM) to the classification
+function derived from the typical talker's cue distributions (corresponding to
+no adaptation) and the exposure distribution (corresponding to maximal---but not
+necessarily optimal---adaptation).
 
 ### Results and Discussion
 
