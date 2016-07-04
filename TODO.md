@@ -24,47 +24,57 @@
 * Bibliography/References
 * Appendices
 
+## Chapters
 
-# Experiments to run
+1. Introduction
+    * [done] outline
+    * bullets
+    * write
+2. Ideal adapter
+    * [done] write
+    * format for diss
+        * add chapter heading(s) and adjust other headings 
+        * copy over figures etc.
+        * (base this on ~/work/writing/adapt-psych-rev/inpress)
+3. Selective adaptation
+    * [done] write
+    * format for diss
+        * add chapter heading
+        * adjust other headings
+        * copy over figures etc.
+4. Inferring priors
+    * [done] draft
+    * edit
+    * format
+        * standalone tex template
+        * use --bibtex for references
+5. Talker variation
+    * [done] draft
+    * edit
+    * format
+        * standalone tex template
+        * use --bibtex for references
+6. Conclusion
+    * outline/bullets
+    * write
+    * format
 
-## Informativity of labels
+## putting it together
 
-Standard recalibration paradigm with the pragmatic labels.
+* compile individual .Rmds to tex files
+    * subfiles
+* deal with relative image paths. e.g. http://tex.stackexchange.com/questions/172320/is-it-possible-to-use-includegraphics-with-relative-path-inside-subfiles
+* merge into single .tex based on judith's template
+    * factor out preamble from existing tex
+    * use subfiles to inclue individual chapters etc.
+* maybe best to create a mini package for rmarkdown output format to make compilation easier. actually this looks like a pain in the ass. or best can do is a thin wrapper on pdf_document. well problem is that that the output is not going to be compileable, and won't keep tex unless compilatoin succeeds.
+    * subfile documentclass pandoc template
 
-[possible] manipulate informativity of labels systematically: more or less ambig labeled trials.
+            \documentclass[kleinschmidt-diss.tex]{subfile}
+            \begin{document}
+            $body$
+            \end{document}
 
-## Prior constraints on adaptation
-
-Run lots of different distributions.
-
-# Models
-
-## Sensitivity to variance
-
-Predicted effect sizes with different degrees of variance
-
-...with additional sensory uncertainty.
-
-## Hierarchical belief udpating
-
-Generalization across talkers.
-
-Learning new cluster of talkers.
-
-## Informativity of labels
-
-Quantify how informative labels are with belief updating model (or just using prior beliefs + suprisal).
-
-# Reading/lit review
-
-## Supervised + unsupervised category learning
-
-What do people think is the difference behaviorally?  What kind of labels are typically used?  Has been studied with pre-existing categories?
-
-## Sensory adaptation
-
-"Smart" adaptation literature (follow up leads from Stocker and Sharpee among others).
-
-## Learning across contexts
-
-Ting's papers, references therein.
+    * pandoc options
+        * `--bibtex` or `--biblatex` (later would require redoing citations for
+          existing papers
