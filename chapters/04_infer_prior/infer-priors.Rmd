@@ -209,6 +209,7 @@ prior_stats_by_talker <-
 
 prior_stats <-
   prior_stats_by_talker %>%
+  filter(source == 'goldricketal', category == 'b') %>%
   group_by(source, prevoiced, category) %>%
   summarise_each(funs(mean, var, sum), mu, sigma2, sigma, n) %>%
   transmute(category,
@@ -798,7 +799,7 @@ listeners assigned to the different accent conditions all start from a common
 set of prior beliefs.
 
 
-```{r inferred-prior, fig.width=6, fig.height=2.5, fig.cap="Expected cue distributions based on the prior beliefs inferred here from behavioral adaptation data. Plotted with VOT distributions measured by @Kronrod2012 based on a combination of classification and discrimination behavior, and from production data by @Baese-Berk2009 (for /p/) and @Goldrick2013 (/b/)."}
+```{r inferred-prior, fig.width=6, fig.height=2.5, fig.cap="Expected cue distributions based on the prior beliefs inferred here from behavioral adaptation data. Plotted with VOT distributions measured by @Kronrod2012 based on a combination of classification and discrimination behavior, and from production data by @Goldrick2013 for /b/, including pre-voicing."}
 
 prior_summary <- 
   prior_samples_df %>% 
