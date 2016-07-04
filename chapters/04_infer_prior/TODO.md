@@ -5,7 +5,7 @@
     * [done] nice boundary figures (violing from svalp)
     * [done] goodness of fit a la expt1
 * intro:
-    * expand background (more detail on studies showing constraints)
+    * [done] expand background (more detail on studies showing constraints)
     * [could] tie in with distributional learning
     * [done] two experiments now
     * [could] "what is a typical talker". more variable estimates for /b/ across sources, including prevoicing.. variabiltiy _across talkers_ too.
@@ -13,7 +13,7 @@
     * [done; didn't need anything really] this is now expt 1, revise accordingly
 * modeling
     * [done] goldrick prevoiced VOT data (incorporate into beliefs plot)
-    * compare inferred beliefs with actual cross talker variability from corpora
+    * [done] compare inferred beliefs with actual cross talker variability from corpora
         * analysis
         * [done] bullets
         * write
@@ -26,7 +26,4 @@
     * [done] write results
 * discussion
     * [done] write up
-* conclusion
-    * integrate cog sci conclusion (or scrap; maybe redundant with new discussion)
-    * [wip] bullets
-    * write
+* [done] conclusion
