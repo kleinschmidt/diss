@@ -48,6 +48,7 @@
     * format
         * standalone tex template
         * use --bibtex for references
+        * chapter-level heading (or add in top level doc)
 5. Talker variation
     * [done] draft
     * edit
