@@ -904,47 +904,34 @@ prior_stats_variability <-
   group_by(source, prevoiced, subject, phoneme) %>%
   summarise_each(funs(mu=mean,sigma2=var,sigma=sd), vot) %>%
   group_by(source, prevoiced, phoneme) %>%
-  summarise_each(funs(mean, var), mu, sigma2, sigma)
+  summarise_each(funs(mean, var, sd), mu, sigma2, sigma)
 
-## plot inferred prior vs. typical talker from different sources
-prior_stats_variability %>%
-  transmute(category = phoneme,
-            mean = mu_mean,
-            sd = sqrt(sigma2_mean)) %>%
-  bind_rows(supunsup::prior_stats %>%
-              filter(source=='kronrod2012'),
-            prior_samples_df %>%
-              group_by(category) %>%
-              summarise(mean = mean(mu_0), sd = mean(sigma_0)) %>%
-              mutate(source='inferred prior') ) %>%
-  by_slice(stats_to_lhood, xlim=c(-100,100), noise_sd=0, .collate='rows') %>%
-  group_by(source, category, vot) %>%
-  summarise(lhood = mean(lhood)) %>%
-  ggplot(aes(x=vot, y=lhood, color=source, group=paste(source, category))) +
-  geom_line()
+prior_samples_df %>%
+  mutate(mu_var = sigma_0^2/kappa_0,
+         mu_sd = sqrt(mu_var)) %>%
+  select(iterations, category, starts_with('mu')) %>%
+  gather(parameter, value, starts_with('mu')) %>%
+  group_by(category, parameter) %>%
+  summarise_each(funs(mean, low=quantile(., 0.025), high=quantile(., 0.975)),
+                 value)
 
 ```
 
-* how does model fit cross-talker variability?
-    * not very well. much lower than actually predicted
-    * problem is with the prior: mathematically convenient but at the price of
-      linking cross-talker variability with within talker variability and
-      confidence.
-    * there's a more general problem though: ideal adapter predicts that
-      _confience_ is still linked to the expected variability across talkers. so
-      the high level of confidence required to explain the relatively strong
-      constraints on adaptation we observed may be incompatible with the actual
-      level of talker variability.
-    * is that a problem? it may be the case that there's just not enough of the
-      right kind of talker variability for listeners to track it across
-      situations. that the cost of doing so might outweigh any benefits (see
-      next chapter)
-    * if that's true, then it suggests that there are interesting limits on
-      adaptation that go beyond the in-principle, computational limitations that
-      the ideal adapter proposes.
-        * like: some kind of particle filter/digging in thing where previous
-          judgements can't be revised after a certain point. how much
-          uncertainty is maintained?
+Lastly, we can evaluate the inferred prior beliefs based on how well they match
+_variability_ across talkers. Here the results are less impressive. The inferred
+prior beliefs correspond to cross-talker variability in category means on the
+order of a standard deviation of 1-2ms VOT, versus actual variability on the
+order of a standard deviation of 3ms VOT for /b/ [short-lag; @Goldrick2013] and
+15ms VOT for /p/ [@Baese-Berk2009]. That is, the model underestimates the level of variability across talkers.
+
+This is likely due to the particular mathematical form we assumed listeners'
+prior beliefs to have. The conjugate Normal-$\Chi^{-2}$ prior is mathematically
+convenient (in that it allows Bayesian belief updating to be expressed
+analytically in closed form), but it makes the assumption that cross-talker
+variance is proportional to within-talker variance [@Gelman2003]. This
+assumption may not be warranted in reality, and it's a question for future
+modeling work to explore the feasibility and consequenes of relaxing this
+assumption.
 
 
 ### Discussion ###
