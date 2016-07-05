@@ -1,25 +1,83 @@
-Perception is one of the basic components of intelligent behavior. In order to behave intelligently, an agent (person, animal, robot) needs to adjust their behavior based on the state of the world. But agents do not have direct access to behaviorally relevant facts about the state about the world. Rather, they receive _sensory signals_, transmitted by sense organs, and the problem of perception is to extract meaningful information from these signals. The mapping from sensory signals to meaningful facts about the world is not straightforward. There are, for instance, infinitely many three dimensional shapes that generate the same retinal image. In this sense perception is a process of _inference under uncertainty_, of determining which possible state of the world best explains the received signals [@Helmholtz1924].
+Perception is one of the basic components of intelligent behavior. In order to
+behave intelligently, an agent (person, animal, robot) needs to adjust their
+behavior based on the state of the world. But agents do not have direct access
+to behaviorally relevant facts about the state about the world. Rather, they
+receive _sensory signals_, transmitted by sense organs, and the problem of
+perception is to extract meaningful information from these signals. The mapping
+from sensory signals to meaningful facts about the world is not
+straightforward. There are, for instance, infinitely many three dimensional
+shapes that generate the same retinal image. In this sense perception is a
+process of _inference under uncertainty_, of determining which possible state of
+the world best explains the received signals [@Helmholtz1924].
+
+One fruitful tradition for understanding how perception works has been to
+characterize this inference problem itself, since the constraints imposed by
+this problem will shape the design and implementation of any system that solves
+it successfully [@Marr1982; @Knill1996]. A central motivation behind this
+tradition is that the mind is shaped by---and hence adapted to---the world it
+has to function in.  In this view, perceptual inference depends in large part on
+knowledge about the statistical properties of sensory signals. The statistics of
+the sensory world determine, for instance, which aspects of sensory signals are
+informative and which are noise.  Indeed, perceptual sensitivities---measured
+both neurally and behaviorally---can in many cases be directly derived from the
+relevant sensory statistics
+[@Attneave1954; @Atick1990; @Olshausen1996; @Smith2006; @Lewicki2002; @Simoncelli2001; @Field1987].
+
+The statistics of the sensory world also determine how any particular sensory
+signal should be _interpreted_. At the most basic level, the overall light level
+determines which signals correspond to "dark" and which to "light". This leads
+to a corrolary to the link between sensory statistics and the perceptual system:
+in a world where sensory statistics change from one situation to the next, the
+perceptual system must _adapt_ to these changes. Perceptual systems are, in
+fact, extremely adaptable, and this adaptation has been linked to changes in
+sensory statistics
+[@Barlow1989a; @Brenner2000; @Fairhall2001; @Gutfreund2012; @Sharpee2006; @Webster2005; @Wei2012; @Kohn2007]. This
+work suggets that, at the very least, perceptual systems are _tracking_ changes
+in sensory statistics.
+
+Like perception itself, adaptation can be thought of as a kind of inference,
+inference about the _statistical properties_ of the sensory world
+[@Fairhall2001; @Seydell2010]. Each sensory signal provides some information
+about the underlying statistics of the current environment, and together are
+more or less well-explained by different possible distributions of sensory
+signals, much like each signal itself is more or less well-explained by
+different states of the world. And, just like perceptual inference depends on
+statistical properties of the world, this higher-level inference depends on
+higher-order statistical properties of the world.
+
+This rasises the central question addressed by the work reported here: is
+_tracking_ the best way to think about how perceptual systems cope with a
+dynamic world? Existing theories tend to focus on either continuously tracking
+sensory statistics [@Fairhall2001] or detecting changes and re-learning
+statistics in response [e.g., @Courville2006; @Gallistel2001; @Dayan2008].  The
+particular way that the statistics of the sensory world vary determines how the
+perceptual system can best cope with these changes. Continuous tracking is the
+best you can do when statistics change continuously and unpredictably. When
+changes in statistics are caused by differences between contexts, but the
+contexts themselves vary in unpredictable ways, the best you can do is to detect
+context changes and re-learn the context-specific statistics when one
+occurs. Both of these strategies can be thought of as _flat_ learning models,
+which do not learn any cross-context structure.
+
+However, in a _multi-context_ world, this kind of flat learning is
+sub-optimal. If there's a chance you will encounter a particular context again,
+you should not forget it as soon as you enter a new context
+[cf. @Qian2012]. Rather, by learning how statistical contingencies vary across
+contexts, you can take advantage of prior experience with a context when you
+next encounter it. Agents do, in fact, often encounter the same context
+repeatedly, and there is abundant evidence that when the context changes,
+learners do not forget old statistics
+[@Thanellou2011; @Bouton1983; @Sissons2009; @Kording2007a; @Knudsen1998; @Linkenhoker2005].
+A multi-context world thus requires inference at three levels. First, agents
+must make inferences about behaviorally relevant properties of the world. These
+inferences depend on knowledge of the _generative model_ that links those
+properties with observable sensory signals. Second, in a non-stationary world,
+agents must also make inferences about the current context's generative
+model. Third, in a multi-context world where cross-context variation is
+_structured_, agents must also infer which context they are currently in, and
+how it relates to previous contexts.
 
 
-
-* Perception is inference
-    * Problem of perception:
-        * want to infer "latent variables" (facts about the world). 
-            * [@Helmholtz1924; @Knill1996]
-        * **uncertain** world: facts about the world only probabilistically related
-          to observables
-            * noise in perceptual system [@Knill2004]
-            * inherent ambiguity from generative process (inverse optics) [e.g., @Marr1982]
-        * **nonstationary** world: probabilistic relationships themselves change
-    * Tradition of "ideal observer". Mind is adapted to the world that it has to function in. We can understand a lot about the mind just by looking at the task it has to do and the structure of the world it exists in.
-    * Perceptual sensitivities can be linked to statistical properties of the world [@Olshausen1996; @Smith2006; @Lewicki2002; @Simoncelli2001; @Field1987; @Brenner2000; @Fairhall2001; @Gutfreund2012; @Sharpee2006].
-    * A corrolary: when statistical properties change, perceptual sensitivities should also change. [@Barlow1989a; @Webster2005; @Wei2012; @Kohn2007]
-    * Can be viewed as inference at another level, inference about the _statistics_ of the current environment, or the _generative model_. [@Seydell2010]
-    * Existing theories tend to focus on detecting changes and re-learning statistics in response. [e.g., @Courville2006; @Gallistel2001; @Dayan2008].
-    * However: in a multi-context, this kind of flat learning is sub-optimal. If there's a chance you'll encounter a context again, you shouldn't forget it as soon as you enter a new context [cf. @Qian2012]
-    * And there's abundant evidence that when the context changes, learners do not simply unlearn old statistics [@Thanellou2011; @Bouton1983; @Sissons2009; @Kording2007a; @Knudsen1998; @Linkenhoker2005].
-    * A multi-context world thus requires inference at three levels. First, agents must make inferences about behaviorally relevant properties of the world. These inferences depend on knowledge of the _generative model_ that links those properties with observable sensory signals. Second, in a non-stationary world, agents must also make inferences about the current context's generative model. Third, in a multi-context world where cross-context variation is _structured_, agents must also infer which context they are currently in, and how it relates to previous contexts.
-      <!-- not to imply that there's a strict segregation between _latent_ variables that are behaviorally relevant and _nuisance_ variables like the statistical properties of the world -->
 * Speech perception as a model organism
     * Speech perception makes a good model organism for understanding how the perceptual system functions in a non-stationary but structured world.
         * It's a problem of _inference under uncertainty_ (latent variables are
