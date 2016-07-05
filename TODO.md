@@ -28,8 +28,8 @@
 
 1. Introduction
     * [done] outline
-    * bullets
-    * write
+    * [done] bullets
+    * [done] write
 2. Ideal adapter
     * [done] write
     * format for diss
