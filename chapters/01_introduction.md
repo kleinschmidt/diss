@@ -122,24 +122,26 @@ first steps in a number of these directions.
 
 Chapter NNN introduces the _ideal adapter_, a novel computational framework for
 understanding speech perception in the face of non-stationarity. This framework
-provides an explanation for a range of strategies that listeners use to cope
-with variability in the statistics of speech sounds, from rapidly adapting to
-unfamiliar talkers to recognizing familiar talkers and generalizing to talkers
-who are similar to previously encountered talkers. The central idea of this
-framework is that because of the nature of the speech signal, robust speech
-perception requires that listeners simultaneously infer _what_ is being said,
-_how_ linguistic units are realized probabilistically in the current context,
-and _who_ the current talker is, in relation to other talkers. Formalizing this
-as hierarchical probabilistic inference, this chapter shows that a simple belief
-updating model captures a range of rapid adaptation phenomena, and effectively
-predicts adaptation in novel, previously untested conditions. The rest of this
-chapter lays out, at a conceptual level, how treating speech perception as a
-hierarchical inference process unifies the large and often superficially
-contradictory literature on how listeners cope with talker variability. At the
-same time, it develops novel predictions that open up directions for future
-work. The chapter closes by considering the broader relevance of this framework
-speech perception and language comprehension more broadly. This chapter was
-published as @Kleinschmidt2015.
+offers a solution to the longstanding problem of talker variability in speech
+perception, providing an explanation for the range of strategies that listeners
+use to cope with variability in the statistics of speech sounds. These
+strategies range from rapidly adapting to unfamiliar talkers to recognizing
+familiar talkers and generalizing to talkers who are similar to previously
+encountered talkers. The central idea of this framework is that because of the
+nature of the speech signal, robust speech perception requires that listeners
+simultaneously infer _what_ is being said, _how_ linguistic units are realized
+probabilistically in the current context, and _who_ the current talker is, in
+relation to other talkers. Formalizing this as hierarchical probabilistic
+inference, this chapter shows that a simple belief updating model captures a
+range of rapid adaptation phenomena, and effectively predicts adaptation in
+novel, previously untested conditions. The rest of this chapter lays out, at a
+conceptual level, how treating speech perception as a hierarchical inference
+process unifies the large and often superficially contradictory literature on
+how listeners cope with talker variability. At the same time, it develops novel
+predictions that open up directions for future work. The chapter closes by
+considering the broader relevance of this framework speech perception and
+language comprehension more broadly. This chapter was published as
+@Kleinschmidt2015.
 
 Chapter NNN explores the connection between distributional learning, sensory
 adaptation, and speech perception. One of the surprising findings from Chapter
@@ -168,18 +170,20 @@ talker. The second experiment validates the findings of the first, using more
 extreme distributions, and also validates the predictive accuracy of the prior
 beliefs inferred on the basis of the first experiment.
 
+Chapter NNN goes the opposite direction from Chapter NNN, examining the
+structure in how talkers actually vary in order to enable better predictions
+about what groupings listeners might pick up on. The ideal adapter predicts that
+listeners pick up on structure of how talkers vary in the world, and use this to
+guide adaptation. The particular structure that listeners are predicted to
+extract depends on how informative different groupings of talkers are about
+their underlying cue distributions.  This chapter uses the computational tools
+of ideal listener/adapter approaches to quantify the informativity of
+socio-indexical grouping variables for different phonetic categories and
+cues. Having such data enables more specific predictions about what kinds of
+grouping listeners should track, and hence how they can best generalize from
+their experience with one talker to another.
 
-
-* Overall point to make:
-    * Need to take variability _seriously_ in any model of speech perception. It's not a _bug_ but a _basic feature_ of language, and as such is a fundamental constraint that the speech perception system must be adapted to in order to function. Part of what it means to take variability seriously is to understand what the nature and structure of that variability is, and how that structure not only challenges but also _supports_ robust speech perception.
-    * The computational framework developed here treats _structured variability_ as a central part of the problem/task of speech perception. Surprisingly, this alone unifies and makes sense out of a lot of confusing and apparently contradictory work.
-    * Moreover, this framework opens doors for new directions of research on speech perception, some of which I start to explore in later chpaters. These point to underexplored connections between, e.g., perception and production, cognitive and sociolinguistic approaches to language, and neural and computational levels of analysis of perception.
-* Outline for chapters
-    1. Introduce a computational framework for understanding speech perception in the face of non-stationarity. Develop a computational model for rapid adaptation, test it against existing and novel data. The idea of inference at multiple levels captures the whole range of strategies that listeners have been shown to use for dealing with talker variabiltiy. Review the consequences of this approach for speech perception and language comprehension more broadly.
-    2. Distributional learning connects adaptation in speech peception with sensory adaptation more generally. Critically review evidence against distributional learning as a model for selective adaptation in speech, in light of a modern understanding of sensory adaptation.
-    3. What do listeners expect from an unfamiliar talker? According to the ideal adapter, these expectations are vitally important to efficiently adapting to multiple, different talkers. But this efficiency is predicted to come at a cost when listeners encounter a talker whose accent falls outside the range they expect. Thus, an ideal adapter will _fail_ to fully adapt in some circumstances, and the particular constraints can be informative about the underlying expectations. Probe listeners __prior beliefs__ using distributional learning, and evaluate the extent to which they match what we know about the variability across talkers.
-    4. Predict that listeners pick up on structure of how talkers vary in the world, and use this to guide adaptation. The particular structure that listeners are predicted to extract depends on how informative different groupings of talkers are about their underlying cue distributions.  Here we use the computational tools of ideal listener/adapter approaches to quantify the informativity of socio-indexical grouping variables for different phonetic categories and cues. Having such data enables more specific predictions about what kinds of grouping listeners should track, and hence how they can best generalize from their experience with one talker to another.
-
+Finally, chapter NNN provides brief concluding remarks.
 
 
 # NOTES
