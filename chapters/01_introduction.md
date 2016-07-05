@@ -11,22 +11,11 @@
     * Perceptual sensitivities can be linked to statistical properties of the world [@Olshausen1996; @Smith2006; @Lewicki2002; @Simoncelli2001; @Field1987; @Brenner2000; @Fairhall2001; @Gutfreund2012; @Sharpee2006].
     * A corrolary: when statistical properties change, perceptual sensitivities should also change. [@Barlow1989a; @Webster2005; @Wei2012; @Kohn2007]
     * Can be viewed as inference at another level, inference about the _statistics_ of the current environment, or the _generative model_. [@Seydell2010]
-    * Existing theories tend to focus on detecting changes and learning quickly. [e.g., @Courville2006; @Gallistel2001; @Dayan2008].
+    * Existing theories tend to focus on detecting changes and re-learning statistics in response. [e.g., @Courville2006; @Gallistel2001; @Dayan2008].
     * However: in a multi-context, this kind of flat learning is sub-optimal. If there's a chance you'll encounter a context again, you shouldn't forget it as soon as you enter a new context [cf. @Qian2012]
     * And there's abundant evidence that when the context changes, learners do not simply unlearn old statistics [@Thanellou2011; @Bouton1983; @Sissons2009; @Kording2007a; @Knudsen1998; @Linkenhoker2005].
     * A multi-context world thus requires inference at three levels. First, agents must make inferences about behaviorally relevant properties of the world. These inferences depend on knowledge of the _generative model_ that links those properties with observable sensory signals. Second, in a non-stationary world, agents must also make inferences about the current context's generative model. Third, in a multi-context world where cross-context variation is _structured_, agents must also infer which context they are currently in, and how it relates to previous contexts.
-    
-    
-    * Big questions:
-        * How to cope with nonstationarity?  Existing theories tend to focus on
-          detecting changes and learning quickly. [e.g., @Courville2006; @Gallistel2001; cf. @Qian2012]. But this
-        * Widespread adaptability of perceptual system: adjust perceptual sensitivity to current environment's statistical properties [@Barlow1989a; @Webster2005; @Wei2012; @Kohn2007; Brenner2000; @Fairhall2001; @Gutfreund2012; @Sharpee2006]
-    * The central motivation of the work described here is two-fold.:
-        * Perception requires inference not just about latent variables, but about
-          _generative model_ that links observations and latent variables [@Seydell2010].
-        * Moreover, requries inference about the _underlying structure in the
-          variability of the generative models themselves_ (learn a "generative
-          model for generative models"). Failure to do this leaves information on the table, impairing inferences about the generative model and hence the latent variables that are behaviorally relevant. <!-- not to imply that there's a strict segregation between _latent_ variables that are behaviorally relevant and _nuisance_ variables like the statistical properties of the world -->
+      <!-- not to imply that there's a strict segregation between _latent_ variables that are behaviorally relevant and _nuisance_ variables like the statistical properties of the world -->
 * Speech perception as a model organism
     * Speech perception makes a good model organism for understanding how the perceptual system functions in a non-stationary but structured world.
         * It's a problem of _inference under uncertainty_ (latent variables are
