@@ -185,13 +185,3 @@ their experience with one talker to another.
 
 Finally, chapter NNN provides brief concluding remarks.
 
-
-# NOTES
-
-* Background
-    * previous approaches to lack of invariance (maybe this goes in the chapter
-      outline bit? ideal adapter addresses shortcomings of other approaches)
-        * abstraction: strip away variability. a fantasy
-        * normalization: auditory normalization strips out most of talker variability. can't handle _stylistic_ variability which is widespread.
-        * exemplar/episodic: problems with generalization
-        * learning models: lack principled ways for determining free parameters like learning rates. deeper problem: need to adjust learning rate to achieve balance of stability and plasticity.
