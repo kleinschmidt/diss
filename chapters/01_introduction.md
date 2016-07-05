@@ -110,22 +110,65 @@ variation at a _behaviorally relevant, ecologically valid_ level.
 
 What is currently lacking in the understanding of speech perception is a
 theoretical framework for linking these together. As I discuss in Chapters NNN
-and NNN, existing theoretical approaches to variation in speech perception miss
-important aspects to the variation that actually exists, and cannot account for
-the full range of strategies that listeners employ to cope with this variation.
-Thus, the main goal of this dissertation is to develop a theoretical framework
-for speech perception that takes both _variation_ and _structure_ seriously.
+and NNN, existing theoretical approaches to speech perception miss important
+aspects of variability in speech perception, and cannot account for the full
+range of strategies that listeners employ to cope with this variability.  Thus,
+the main goal of this dissertation is to develop a theoretical framework for
+speech perception that takes both _variation_ and _structure_ seriously.  This
+framework motivates further empirical and modeling work. Later chapters take
+first steps in a number of these directions.
 
-* Importantly, unlike other perceptual domains <!-- I dunno aboout
-  this... -->, we know quite a bit about both the _linguistic_ and
-  _indexical_ structure of speech variability. (e.g., to a first order of
-  approximation, what the categories and relevant cues are, on the one hand,
-  and how the realizations vary across talkers and within groups). Enables us to probe how speech perception copes with different kinds of variation at a _behaviorally relevant, ecologically valid_ level.
-    * What we _don't_ have is a good theoretical framework for linking these all
-      together. <!-- maybe here is a good place for points in notes below on prev. work? or at least a pointer to where it's reviewed in later chapters -->
-    * And, relatedly, the kind of quanitative data on the structure of
-      variability that's required to link that variability with listeners'
-      strategies for dealing with it.
+## Summary of chapters
+
+Chapter NNN introduces the _ideal adapter_, a novel computational framework for
+understanding speech perception in the face of non-stationarity. This framework
+provides an explanation for a range of strategies that listeners use to cope
+with variability in the statistics of speech sounds, from rapidly adapting to
+unfamiliar talkers to recognizing familiar talkers and generalizing to talkers
+who are similar to previously encountered talkers. The central idea of this
+framework is that because of the nature of the speech signal, robust speech
+perception requires that listeners simultaneously infer _what_ is being said,
+_how_ linguistic units are realized probabilistically in the current context,
+and _who_ the current talker is, in relation to other talkers. Formalizing this
+as hierarchical probabilistic inference, this chapter shows that a simple belief
+updating model captures a range of rapid adaptation phenomena, and effectively
+predicts adaptation in novel, previously untested conditions. The rest of this
+chapter lays out, at a conceptual level, how treating speech perception as a
+hierarchical inference process unifies the large and often superficially
+contradictory literature on how listeners cope with talker variability. At the
+same time, it develops novel predictions that open up directions for future
+work. The chapter closes by considering the broader relevance of this framework
+speech perception and language comprehension more broadly. This chapter was
+published as @Kleinschmidt2015.
+
+Chapter NNN explores the connection between distributional learning, sensory
+adaptation, and speech perception. One of the surprising findings from Chapter
+NNN is that _selective adaptation_, a phonetic adaptation phenomenon typically
+attributed to fatigue of acoustic-phonetic feature detectors, might better be
+explained as a process of _distributional learning_, where listeners update
+their beliefs about the underlying distributions of acoustic cues. General
+sensory adaptation, like phonetic selective adaptation, was also historically
+treated as the fatigue of feature detectors, but recent work, paralleling that
+of Chapter NNN, suggests that sensory adaptation, too, might better be thought
+of as a process of distributional learning. This chapter develops this parallel
+further, reviews the developments in our understanding of sensory adaptation,
+and critically re-examines evidence that phonetic selective adaptation is _not_
+distributional learning. This chapter was published as @Kleinschmidt2015b.
+
+Chapter NNN investigates the role that listeners' prior expectations play when
+adapting to an unfamiliar talker. The ideal adapter predicts that adpatation
+should be _constrained_ by listeners' prior experience with how much and in what
+ways talkers vary in the cue distributions that they produce. This chapter
+presents two experiments. The first experiment shows that, as predicted,
+listeners do not adapt as well to a talker whose "accent" is outside the range
+of normal variation across talkers. Next, this chapter shows how we can use the
+computational framework of the ideal adapter to work backwards from these
+contraints to infer what listeners' prior expectations are for an unfamiliar
+talker. The second experiment validates the findings of the first, using more
+extreme distributions, and also validates the predictive accuracy of the prior
+beliefs inferred on the basis of the first experiment.
+
+
 
 * Overall point to make:
     * Need to take variability _seriously_ in any model of speech perception. It's not a _bug_ but a _basic feature_ of language, and as such is a fundamental constraint that the speech perception system must be adapted to in order to function. Part of what it means to take variability seriously is to understand what the nature and structure of that variability is, and how that structure not only challenges but also _supports_ robust speech perception.
