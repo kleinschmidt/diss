@@ -1,3 +1,7 @@
+Perception is one of the basic components of intelligent behavior. In order to behave intelligently, an agent (person, animal, robot) needs to adjust their behavior based on the state of the world. But agents do not have direct access to behaviorally relevant facts about the state about the world. Rather, they receive _sensory signals_, transmitted by sense organs, and the problem of perception is to extract meaningful information from these signals. The mapping from sensory signals to meaningful facts about the world is not straightforward. There are, for instance, infinitely many three dimensional shapes that generate the same retinal image. In this sense perception is a process of _inference under uncertainty_, of determining which possible state of the world best explains the received signals [@Helmholtz1924].
+
+
+
 * Perception is inference
     * Problem of perception:
         * want to infer "latent variables" (facts about the world). 
