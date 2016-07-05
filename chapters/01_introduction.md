@@ -1,3 +1,5 @@
+# Introduction
+
 Perception is one of the basic components of intelligent behavior. In order to
 behave intelligently, an agent (person, animal, robot) needs to adjust their
 behavior based on the state of the world. But agents do not have direct access
@@ -77,31 +79,54 @@ model. Third, in a multi-context world where cross-context variation is
 _structured_, agents must also infer which context they are currently in, and
 how it relates to previous contexts.
 
+## Speech perception as a model organism
 
-* Speech perception as a model organism
-    * Speech perception makes a good model organism for understanding how the perceptual system functions in a non-stationary but structured world.
-        * It's a problem of _inference under uncertainty_ (latent variables are
-          probabilistically realized by sensory signals)
-            * [e.g., @Lisker1964; @Peterson1952; @Allen2003; @Newman2001; @Clayards2008; @Norris2008]
-        * The statistical properties vary across situations (_non-stationarity_):
-          talker variability/"lack of invariance" has long been recognized as a central challenge for the speech perception system.
-            * [@Peterson1952; @Liberman1967; @Allen2003; @Jongman2000; @McMurray2011a; @Newman2001; @Hillenbran1995]
-        * Cross-situation variability is _structured_: individual talkers function as contexts, within which statistical properties are relatively stable [@Heald2015]. Moreover, talkers cluster into groups based on factors like gender, regional origin, class, etc.
-            * [@Clopper2005; @Heald2015; @Labov1972; @Labov2005; @Eckert2013; among others]
-        * Most importantly, we know that listeners are exquisitely _sensitive_
-          to this structure, and _use_ it to guide their inferences about the
-          underlying linguistic categories
-            * [@Johnson1999; @Strand1996; @Hay2006a; @Hay2010; @Creel2011; @Creel2011a; @Creel2008; @Niedzielski1999]
-    * Importantly, unlike other perceptual domains <!-- I dunno aboout
-      this... -->, we know quite a bit about both the _linguistic_ and
-      _indexical_ structure of speech variability. (e.g., to a first order of
-      approximation, what the categories and relevant cues are, on the one hand,
-      and how the realizations vary across talkers and within groups). Enables us to probe how speech perception copes with different kinds of variation at a _behaviorally relevant, ecologically valid_ level.
-        * What we _don't_ have is a good theoretical framework for linking these all
-          together. <!-- maybe here is a good place for points in notes below on prev. work? or at least a pointer to where it's reviewed in later chapters -->
-        * And, relatedly, the kind of quanitative data on the structure of
-          variability that's required to link that variability with listeners'
-          strategies for dealing with it.
+While the questions addressed in this work apply to perception generally, it focuses on speech perception as a test case or "model organism" for understanding perception in a variable world. Speech perception makes for a good model organism in large part because as a perceptual problem it exemplifies the three levels of inference required for perception in a variable but structured world.
+
+First, Each phonetic category is realized as a _distribution_ of acoustic cues 
+[e.g., @Lisker1964; @Peterson1952; @Allen2003; @Newman2001]. This means that 
+speech perception can be understood and modeled as problem of inference under
+uncertainty [@Clayards2008; @Norris2008]. Second, the statistical properties of
+speech are _non-stationary_, and the distributions of acoustic cues change from
+situation to situation [@Peterson1952; @Allen2003; @Jongman2000; @McMurray2011a;
+@Newman2001; @Hillenbran1995]. This has long been recognized as a central
+challenge to successful speech perception [cf. the "lack of invariance",
+@Liberman1967]. Third, this cross-situational variability is _highly
+structured_. Individual talkers serve as contexts which correspond to relatively
+stable cue distributions [@Heald2015].  Moreover, talkers cluster into groups
+based on factors like gender, regional origin, class, etc. [@Clopper2005; 
+@Heald2015; @Labov1972; @Labov2005; @Eckert2013; among others].
+
+This structure is not just present in the world. Listeners are exquisitely
+_sensitive_ to this structure, and _use_ it to guide their inferences about the
+underlying linguistic categories [@Johnson1999; @Strand1996; @Hay2006a; 
+@Hay2010; @Creel2011; @Creel2011a; @Creel2008; @Niedzielski1999; @Nygaard1998; 
+@Sumner2009]. On a practical level, we know a great deal about both the
+_linguistic_ and _indexical_ structure of the speech signal (e.g., to a first
+order of approximation, what the categories and relevant cues are, on the one
+hand, and how the realizations vary across talkers and within groups). This
+enables us to probe how speech perception copes with different kinds of
+variation at a _behaviorally relevant, ecologically valid_ level.
+
+What is currently lacking in the understanding of speech perception is a
+theoretical framework for linking these together. As I discuss in Chapters NNN
+and NNN, existing theoretical approaches to variation in speech perception miss
+important aspects to the variation that actually exists, and cannot account for
+the full range of strategies that listeners employ to cope with this variation.
+Thus, the main goal of this dissertation is to develop a theoretical framework
+for speech perception that takes both _variation_ and _structure_ seriously.
+
+* Importantly, unlike other perceptual domains <!-- I dunno aboout
+  this... -->, we know quite a bit about both the _linguistic_ and
+  _indexical_ structure of speech variability. (e.g., to a first order of
+  approximation, what the categories and relevant cues are, on the one hand,
+  and how the realizations vary across talkers and within groups). Enables us to probe how speech perception copes with different kinds of variation at a _behaviorally relevant, ecologically valid_ level.
+    * What we _don't_ have is a good theoretical framework for linking these all
+      together. <!-- maybe here is a good place for points in notes below on prev. work? or at least a pointer to where it's reviewed in later chapters -->
+    * And, relatedly, the kind of quanitative data on the structure of
+      variability that's required to link that variability with listeners'
+      strategies for dealing with it.
+
 * Overall point to make:
     * Need to take variability _seriously_ in any model of speech perception. It's not a _bug_ but a _basic feature_ of language, and as such is a fundamental constraint that the speech perception system must be adapted to in order to function. Part of what it means to take variability seriously is to understand what the nature and structure of that variability is, and how that structure not only challenges but also _supports_ robust speech perception.
     * The computational framework developed here treats _structured variability_ as a central part of the problem/task of speech perception. Surprisingly, this alone unifies and makes sense out of a lot of confusing and apparently contradictory work.
