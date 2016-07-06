@@ -5,5 +5,5 @@ all: 01_introduction.chap.tex
 clean:
 	rm 01_introduction.chap.tex
 
-%.chap.tex: %.md
+%.chap.tex: %.md template.chap.tex
 	pandoc --biblatex --template=template.chap.tex -V master=../kleinschmidt-thesis.tex --chapters -F pandoc-crossref -f markdown -t latex -o $@ < $< 
