@@ -1,0 +1,42 @@
+%\documentclass[12pt,draft]{report}
+\documentclass[12pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage{urcsthesis}
+%\usepackage{urcsbiblio}
+%\usepackage{times}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{rotating}
+\usepackage{setspace}
+\usepackage{subfig}
+
+\usepackage{subfiles}
+
+\usepackage[american]{babel}
+\usepackage[style=apa]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+\addbibresource{/Users/dkleinschmidt/Documents/papers/library-clean.bib}
+
+\begin{document}
+
+\title{}
+\author{Dave F. Kleinschmidt}
+\thesissupervisor{Professor T. Florian Jaeger}
+\maketitle
+
+\tableofcontents
+\listoftables
+\listoffigures
+
+
+%% Chapters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subfile{chapters/01_introduction.chap.tex}
+
+
+\printbibliography
+
+\end{document}

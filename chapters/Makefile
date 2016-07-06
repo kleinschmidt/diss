@@ -1,7 +1,7 @@
 .PHONY: all clean
-all: 01_introduction.tex
+all: 01_introduction.chap.tex
 clean:
-	rm 01_introduction.tex
+	rm 01_introduction.chap.tex
 
-%.tex: %.md
-	pandoc --biblatex --chapters -F pandoc-crossref -f markdown -t latex -o $@ < $< 
+%.chap.tex: %.md
+	pandoc --biblatex --template=template.chap.tex -V master=../kleinschmidt-thesis.tex --chapters -F pandoc-crossref -f markdown -t latex -o $@ < $< 
