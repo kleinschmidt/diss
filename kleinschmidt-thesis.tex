@@ -13,7 +13,6 @@
 \usepackage{setspace}
 \usepackage{longtable}
 
-\usepackage{subfiles}
 
 \usepackage[american]{babel}
 \usepackage[style=apa]{biblatex}
@@ -58,16 +57,16 @@
 
 %% Chapters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subfile{chapters/01_introduction.chap.tex}
+\input{chapters/01_introduction.chap.tex}
 
 
 
 
 \graphicspath{{chapters/04_infer_prior/}}
-\subfile{chapters/04_infer_prior/infer-priors.chap.tex}
+\input{chapters/04_infer_prior/infer-priors.chap.tex}
 
 \graphicspath{{chapters/05_talker_variation/}}
-\subfile{chapters/05_talker_variation/talker_variation.chap.tex}
+\input{chapters/05_talker_variation/talker_variation.chap.tex}
 
 
 \printbibliography
