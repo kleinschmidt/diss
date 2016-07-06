@@ -76,8 +76,6 @@ knit_hooks$set(tbl.cap = function(before, options, envir) {
 
 # What do you expect from an unfamiliar talker? Infering listeners' priors beliefs
 
-## Introduction ##
-
 A longstanding problem in speech perception is how listeners manage to
 cope with substantial differences in how individual talkers produce
 speech. Recent evidence suggests that one strategy listeners employ is
