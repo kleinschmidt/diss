@@ -225,14 +225,14 @@ socio-linguistic variables?[^English]
 
 First, we know that the _amount_ and _structure_ of talker variability differs
 between cues and phonetic categories.  Vowels and fricatives have a lot of
-talker variability, much of it conditioned on sex
+talker variability, which is at least in part conditioned on sex
 [@Peterson1952; @Hillenbrand1995; @Jongman2000; @McMurray2011a; @Newman2001]. For
 vowels this can be largely attributed to differences in vocal tract length, but
 not entirely [@Bladon1984; @Johnson2005; @Johnson2006].  There appears to be
 less talker variabiltiy for stop voicing (e.g., /b/ vs. /p/), and little
 systematic effect of sex [@Allen2003; @Lisker1964; @Chodroff2015].  Despite
 differences in the overall degree of talker variabiltiy, there is stylistic
-variation in both. For instance, regional dialects of American English differ in
+variation in both which cannot be reduced to physiological differences. For instance, regional dialects of American English differ in
 their pronunciation of vowel categories [@Clopper2005; @Labov2005].  Use of
 voice onset time (VOT) as a cue to stop voicing varies based on language
 background
@@ -254,12 +254,12 @@ patterns of generalization from male to female talkers (and vice-versa) for
 different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007; 
 @Reinisch2014]
 
-Finally, listeners can _infer_ socio-indexical variables based on speech, but
-it's not clear what linguistic variables they use [cf. @Thomas2002]. Of
-particular interest, listeners can infer a talker's regional dialect based on
-short excerpts [@Clopper2006; @Clopper2007]. Listeners can also infer talker
-_identity_ from sine-wave speech [@Remez1997], which removes non-phonetic voice
-quality cues to identity but preserves most phonetic information.
+Finally, there is evidence that listeners can _infer_ socio-indexical variables based on speech, but
+it's not clear what linguistic variables they use [for a review, see @Thomas2002]. Of
+particular interest, listeners can classify talker's regional dialect at above-chance accuracy based on
+a short except of their speech [a single sentence read from a standard set @Clopper2006; @Clopper2007]. There is also evidence that listeners can infer talker
+_identity_ from sine-wave speech [@Remez1997], speech which has been processed to remove  most non-phonetic voice
+quality cues to identity but preserve most phonetic information [@Remez1981].
 
 
 ## Methods
