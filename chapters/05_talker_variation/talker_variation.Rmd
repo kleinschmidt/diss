@@ -110,7 +110,7 @@ approach variability. In particular, psycholinguistic theories of speech
 perception have started to investigate the consequences of variability for comprehension.
 <!-- something about exemplar theories would be appropriate here --> In part
 this realization comes from computational-level analyses of speech perception
-[@Clayards2008; @Feldman2009; @Feldman2013a; @Norris2008; @Kleinschmidt2015]. These
+[@Clayards2008; @Feldman2009a; @Feldman2013a; @Norris2008; @Kleinschmidt2015]. These
 approaches start from the hypothesis that the speech perception system is
 organized in order to be good at speech perception in the world that it has to
 operate in. In the spirit of ideal observer approaches to other domains

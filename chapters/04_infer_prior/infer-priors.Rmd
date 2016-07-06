@@ -144,7 +144,7 @@ To anticipate the results, we find that typicality of the novel talker's
 cue distribution predicts the degree to which listeners adapt to the
 talker. This suggests that listeners not only have beliefs about the cue
 distributions for a *particular* single talker [as suggested by previous
-work, @Clayards2008; @Feldman2009; @Kleinschmidt2015; @Kronrod2012]),
+work, @Clayards2008; @Feldman2009a; @Kleinschmidt2015; @Kronrod2012],
 but also have implicit beliefs about the ways in which talkers tend to
 *differ* from each other, and hence what to expect from an unfamiliar
 talker. This leads to the second question we address here: what is the
