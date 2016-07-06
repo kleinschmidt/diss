@@ -119,7 +119,7 @@ first steps in a number of these directions.
 
 ## Summary of chapters
 
-Chapter NNN introduces the _ideal adapter_, a novel computational framework for
+Chapter \ref{chap:ideal-adapter} introduces the _ideal adapter_, a novel computational framework for
 understanding speech perception in the face of non-stationarity. This framework
 offers a solution to the longstanding problem of talker variability in speech
 perception, providing an explanation for the range of strategies that listeners
@@ -142,21 +142,21 @@ considering the broader relevance of this framework speech perception and
 language comprehension more broadly. This chapter was published as
 @Kleinschmidt2015.
 
-Chapter NNN explores the connection between distributional learning, sensory
+Chapter \ref{chap:selective-adaptation} explores the connection between distributional learning, sensory
 adaptation, and speech perception. One of the surprising findings from Chapter
-NNN is that _selective adaptation_, a phonetic adaptation phenomenon typically
+\ref{chap:ideal-adapter} is that _selective adaptation_, a phonetic adaptation phenomenon typically
 attributed to fatigue of acoustic-phonetic feature detectors, might better be
 explained as a process of _distributional learning_, where listeners update
 their beliefs about the underlying distributions of acoustic cues. General
 sensory adaptation, like phonetic selective adaptation, was also historically
 treated as the fatigue of feature detectors, but recent work, paralleling that
-of Chapter NNN, suggests that sensory adaptation, too, might better be thought
+of Chapter \ref{chap:ideal-adapter}, suggests that sensory adaptation, too, might better be thought
 of as a process of distributional learning. This chapter develops this parallel
 further, reviews the developments in our understanding of sensory adaptation,
 and critically re-examines evidence that phonetic selective adaptation is _not_
 distributional learning. This chapter was published as @Kleinschmidt2015b.
 
-Chapter NNN investigates the role that listeners' prior expectations play when
+Chapter \ref{chap:infer-priors} investigates the role that listeners' prior expectations play when
 adapting to an unfamiliar talker. The ideal adapter predicts that adpatation
 should be _constrained_ by listeners' prior experience with how much and in what
 ways talkers vary in the cue distributions that they produce. This chapter
@@ -169,7 +169,7 @@ talker. The second experiment validates the findings of the first, using more
 extreme distributions, and also validates the predictive accuracy of the prior
 beliefs inferred on the basis of the first experiment.
 
-Chapter NNN goes the opposite direction from Chapter NNN, examining the
+Chapter \ref{chap:talker-variation} goes the opposite direction from Chapter \ref{chap:infer-priors}, examining the
 structure in how talkers actually vary in order to enable better predictions
 about what groupings listeners might pick up on. The ideal adapter predicts that
 listeners pick up on structure of how talkers vary in the world, and use this to
@@ -182,5 +182,5 @@ cues. Having such data enables more specific predictions about what kinds of
 grouping listeners should track, and hence how they can best generalize from
 their experience with one talker to another.
 
-Finally, chapter NNN provides brief concluding remarks.
+Finally, chapter \ref{chap:conclusion} provides brief concluding remarks.
 

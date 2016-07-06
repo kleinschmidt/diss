@@ -45,6 +45,7 @@ library(knitr)
 opts_chunk$set(warning = FALSE,
                message = FALSE,
                error = FALSE,
+               cache=TRUE,
                echo=opts_knit$get("rmarkdown.pandoc.to") != 'latex')
 
 options(digits=2)
@@ -74,7 +75,7 @@ knit_hooks$set(tbl.cap = function(before, options, envir) {
 
 ```
 
-# What do you expect from an unfamiliar talker? Infering listeners' priors beliefs
+# What do you expect from an unfamiliar talker? Infering listeners' priors beliefs {#chap:infer-priors}
 
 A longstanding problem in speech perception is how listeners manage to
 cope with substantial differences in how individual talkers produce

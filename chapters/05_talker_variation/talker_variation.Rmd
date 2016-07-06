@@ -26,7 +26,8 @@ library(knitr)
 opts_chunk$set(message=FALSE,
                warning=FALSE,
                error=FALSE,
-               echo=opts_knit$get("rmarkdown.pandoc.to") != 'latex')
+               echo=opts_knit$get("rmarkdown.pandoc.to") != 'latex',
+               cache=TRUE)
 
 ## Produce markdown-formatted figures so that pandoc knows what to do with
 ## the captions. requires pandoc-fignos to parse the IDs. refer to figures
@@ -91,7 +92,7 @@ grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker
 
 ```
 
-# How much does grouping talkers help with speech perception?
+# How much does grouping talkers help with speech perception? {#chap:talker-variation}
 
 ## Introduction
 
