@@ -159,11 +159,55 @@ a lot about who a talker is based on the distributions of cues that they
 produce. This bi-directional relation between phonetic cues and social identity has long been recognized in sociolinguistics.
 This relationship _also_ follows 
 straightforwardly from the ideal adapter framework. However, the extent to which
-either of these is plausible _in practice_ depends on exactly how much a
+these two types of inferences---socio-indexically-conditioned linguistic inference and linguistically conditioned inference about social identity---are feasible _in practice_ depends on exactly how much a
 particular socio-indexical variable---a particular sense of _who_ a talker
 is---actually influences the cue distributions that talkers produce.
 
+
+### Our goals
+
+In the current study, we aim to use the theoretical and computational tools of
+the ideal adapter framework to quantify the relationship between a number of
+socio-indexical and linguistic variables.  Most
+[but not all, e.g., @Clopper2005; @McMurray2011a] of the work on this
+relationship between has been descriptive, aimed at establishing that
+differences between particular groups of talkers _exist_ in the first place, and
+that listeners are sensitive to these differences at all. But the mere existence
+of differences does not establish exactly how _informative_ or _useful_ such
+grouping variables are for speech perception. In the ideal adapter framework,
+whether or not a listener is predicted to track cue distributions conditional on
+a particular grouping variable (like sex or dialect) critically depends on the
+informativity and utility of that grouping for speech perception.
+
+We thus have two main goals in the current paper.  First, quantifying this
+relationship between socio-indexical and linguistic variables would go a long
+way towards refining the predictions of the ideal adapter framework, and in turn
+understanding how listeners efficiently adapt to many different talkers. Second,
+we aim to show that the conceptual and computational tools of the ideal adapter
+framework offer a unifying perspective on linguistic and socio-linguistic
+perception. In this view, both can be seen as processes of _inference_, which
+relies on the same basic knowledge about the cue distributions that correspond
+to different underlying lingiustic and social variables.
+
+Specifically, we aim to answer these three questions:
+
+1. How _informative_ are socio-indexical variables about the distribution of
+   different acoustic-phonetic cues?
+2. How _useful_ is socio-indexical grouping for correct speech recognition?
+3. How well can you _infer_ socio-indexical variables based on acoustic-phonetic
+   cue distributions alone?
+
+We address these goals at different levels of socio-indexical grouping, and for
+two different sets of phonetic cues/contrasts (vowels, cued by first and second formant frqeuencies, and word-initial stop voicing, cued by voice onset time, VOT). To anticipate our results, we find that the informativity and utility of socio-indexical variables differs substantially depending on the contrast, categories, and particular way of representing input.
+
+Next, we briefly review the relevant literature on the relationship between the socio-indexical and linguistic variables we consider. Then we 
+describe the datasets we will
+analyze, the techniques we use, our findings, and finally the conclusions we can
+draw.
+
+
 ### Background ##
+<!-- TODO: move this down, after goals -->
 
 What do we already know about the relationship between speech perception and
 socio-linguistic variables?[^English]
@@ -209,43 +253,6 @@ short excerpts [@Clopper2006; @Clopper2007]. Listeners can also infer talker
 _identity_ from sine-wave speech [@Remez1997], which removes non-phonetic voice
 quality cues to identity but preserves most phonetic information.
 
-### Our goals
-
-In the current study, we aim to use the theoretical and computational tools of
-the ideal adapter framework to quantify the relationship between a number of
-socio-indexical and linguistic variables.  Most
-[but not all, e.g., @Clopper2005; @McMurray2011a] of the work on this
-relationship between has been descriptive, aimed at establishing that
-differences between particular groups of talkers _exist_ in the first place, and
-that listeners are sensitive to these differences at all. But the mere existence
-of differences does not establish exactly how _informative_ or _useful_ such
-grouping variables are for speech perception. In the ideal adapter framework,
-whether or not a listener is predicted to track cue distributions conditional on
-a particular grouping variable (like sex or dialect) critically depends on the
-informativity and utility of that grouping for speech perception.
-
-We thus have two main goals in the current paper.  First, quantifying this
-relationship between socio-indexical and linguistic variables would go a long
-way towards refining the predictions of the ideal adapter framework, and in turn
-understanding how listeners efficiently adapt to many different talkers. Second,
-we aim to show that the conceptual and computational tools of the ideal adapter
-framework offer a unifying perspective on linguistic and socio-linguistic
-perception. In this view, both can be seen as processes of _inference_, which
-relies on the same basic knowledge about the cue distributions that correspond
-to different underlying lingiustic and social variables.
-
-Specifically, we aim to answer these three questions:
-
-1. How _informative_ are socio-indexical variables about the distribution of
-   different acoustic-phonetic cues?
-2. How _useful_ is socio-indexical grouping for correct speech recognition?
-3. How well can you _infer_ socio-indexical variables based on acoustic-phonetic
-   cue distributions alone?
-
-We address these goals at different levels of socio-indexical grouping, and for
-two different sets of phonetic cues/contrasts. Next, we describe the datasets we
-analyze, the techniques we use, our findings, and finally the conclusions we can
-draw.
 
 ## Methods
 
