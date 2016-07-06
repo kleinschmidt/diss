@@ -1,4 +1,6 @@
+.PHONY: all chapter
 all: talker_variation.html talker_variation.pdf
+chapter: talker_variation.pdf talker_variation.chap.tex
 
 %.html: %.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format='html_document', output_file='$@', clean=FALSE)"

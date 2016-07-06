@@ -1,4 +1,6 @@
+.PHONY: all chapter
 all: infer-priors.html infer-priors.pdf
+chapter: infer-priors.pdf infer-priors.chap.tex
 
 %.html: %.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format='html_document', output_file='$@', clean=FALSE)"
