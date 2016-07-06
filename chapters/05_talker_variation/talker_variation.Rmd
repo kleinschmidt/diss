@@ -186,15 +186,30 @@ whether or not a listener is predicted to track cue distributions conditional on
 a particular grouping variable (like sex or dialect) critically depends on the
 informativity and utility of that grouping for speech perception.
 
-We thus have two main goals in the current paper.  First, quantifying this
-relationship between socio-indexical and linguistic variables would go a long
-way towards refining the predictions of the ideal adapter framework, and in turn
-understanding how listeners efficiently adapt to many different talkers. Second,
+We thus have two main goals in the current paper.  
+
+<!-- this is goal. topic of special issue is connecting socio and cog -->
+
+__high level conceptual goal__: ideal adapter provides bridge between socio and cog perspectives. inference. potential of this bridge: common currency for socio and speech recog. provides a way for quantifying stuff; set parameters for models of socio+speech recog; make quantitative predictions about listeners knoweldge of socially-conditioned variation, based on experience, and the consequences of that knowledge for speech perception and social judgements.
+
+Second,
 we aim to show that the conceptual and computational tools of the ideal adapter
 framework offer potential bridge between linguistic and socio-linguistic
 perception. In this view, both can be seen as processes of _inference_, which
 relies on the same basic knowledge about the cue distributions that correspond
 to different underlying lingiustic and social variables.
+
+inference provides a bridge, a common currency. grounds modeling of socio-indexical and linguistic judgements to data via _cue distributions_.
+
+
+__more immediate goal__: quantify relationship between some prominent socio-indexical variables, linguistic variables, and acoustic-phonetic cue distributions.
+
+(old first,) goes a long way towards refining
+the predictions of the ideal adapter framework, and in turn understanding how
+listeners efficiently adapt to many different talkers.
+
+<!--  -->
+
 
 <!-- more specific point: let us set parameters for future modeling based on actual data -->
 
