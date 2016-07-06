@@ -94,8 +94,7 @@ challenge to successful speech perception [cf. the "lack of invariance",
 @Liberman1967]. Third, this cross-situational variability is _highly
 structured_. Individual talkers serve as contexts which correspond to relatively
 stable cue distributions [@Heald2015].  Moreover, talkers cluster into groups
-based on factors like gender, regional origin, class, etc. [@Clopper2005; 
-@Heald2015; @Labov1972; @Labov2005; @Eckert2013; among others].
+based on factors like gender, regional origin, class, etc. [@Clopper2005; @Heald2015; @Labov1972; @Labov2005; @Eckert2013, among others].
 
 This structure is not just present in the world. Listeners are exquisitely
 _sensitive_ to this structure, and _use_ it to guide their inferences about the
