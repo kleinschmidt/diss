@@ -95,14 +95,15 @@ grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker
 
 ## Introduction
 
-There are two broad traditions in the study of speech perception, and these two
-traditions have very different approaches to _variability_ in speech. On the one
-hand, for the cognitive/psycholinguistic tradition, variabiltiy is a _problem_
+Variability is one of the defining features of speech.
+There are two broad traditions in the study of speech, with
+ very different approaches to the role of _variability_ in speech. On the one
+hand, for the cognitive/psycholinguistic tradition, variabiltiy is one of the central _problems_ of speech perception, a challenge
 that listeners must cope with. In this view, variability is such a severe
 problem that it is traditionally referred to only indirectly, as the "lack of
 invariance" [@Liberman1967]. The sociolinguistic tradition, on the other hand,
-views variation as a rich source of social information. The particular variety
-of language that you speak says a lot about who you are as a person.
+views variability as a rich source of social information. The particular variety
+of language that you speak says a lot about who you are as a person, and sociolinguistics takes this sort of variation as one of its primary objects of study [@Labov1972; @Eckert1989].
 
 However, these two approaches have recently begun to converge in how they
 approach variability. In particular, psycholinguistic theories of speech
