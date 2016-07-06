@@ -11,7 +11,7 @@
 \usepackage{booktabs}
 \usepackage{rotating}
 \usepackage{setspace}
-\usepackage{subfig}
+\usepackage{longtable}
 
 \usepackage{subfiles}
 
@@ -19,6 +19,30 @@
 \usepackage[style=apa]{biblatex}
 \DeclareLanguageMapping{american}{american-apa}
 \addbibresource{/Users/dkleinschmidt/Documents/papers/library-clean.bib}
+
+%% From RMarkdown template
+
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+
+%% end RMarkdown template content
+
+
 
 \begin{document}
 
@@ -35,6 +59,15 @@
 %% Chapters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subfile{chapters/01_introduction.chap.tex}
+
+
+
+
+\graphicspath{{chapters/04_infer_prior/}}
+\subfile{chapters/04_infer_prior/infer-priors.chap.tex}
+
+\graphicspath{{chapters/05_talker_variation/}}
+\subfile{chapters/05_talker_variation/talker_variation.chap.tex}
 
 
 \printbibliography
