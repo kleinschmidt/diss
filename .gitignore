@@ -14,3 +14,37 @@ examples
 /chapters/04_infer_prior/infer-priors.tex
 /chapters/04_infer_prior/infer-priors.pdf
 *.chap.tex
+
+
+# LaTeX temporary files
+*.aux
+*.log
+*.toc
+*.fls
+*.lof
+*.lot
+*.out
+*.toc
+
+# PDF output - usually a bad idea to keep this in Git
+*.pdf
+
+# Latexmk
+*.fdb_latexmk
+
+# SyncTeX
+*.synctex.gz
+
+# LaTeX Beamer
+*.snm
+*.vrb
+*.nav
+*.out
+
+# BibTeX
+*.bbl
+*.blg
+
+# Biber
+*.bcf
+*.run.xml
