@@ -163,14 +163,21 @@ these two types of inferences---socio-indexically-conditioned linguistic inferen
 particular socio-indexical variable---a particular sense of _who_ a talker
 is---actually influences the cue distributions that talkers produce.
 
+One advantage of the ideal adapter framework over previous approaches to these
+issues is that it provides a set of computational and theoretical tools to
+quantify this relationship. The central question we address in this paper is
+twofold: 1) how much can listeners actually gain by considering socio-indexical
+variables for speech perception (both in absolute terms and relative to other
+grouping variables), and 2) how accurately could listeners infer socio-indexical
+grouping variables for a talker on the basis of their cue distributions.
 
 ### Our goals
 
 In the current study, we aim to use the theoretical and computational tools of
 the ideal adapter framework to quantify the relationship between a number of
-socio-indexical and linguistic variables.  Most
+socio-indexical variables, linguistic variables, and cue distributions.  Most
 [but not all, e.g., @Clopper2005; @McMurray2011a] of the work on this
-relationship between has been descriptive, aimed at establishing that
+relationship has been descriptive, aimed at establishing that
 differences between particular groups of talkers _exist_ in the first place, and
 that listeners are sensitive to these differences at all. But the mere existence
 of differences does not establish exactly how _informative_ or _useful_ such
@@ -184,10 +191,12 @@ relationship between socio-indexical and linguistic variables would go a long
 way towards refining the predictions of the ideal adapter framework, and in turn
 understanding how listeners efficiently adapt to many different talkers. Second,
 we aim to show that the conceptual and computational tools of the ideal adapter
-framework offer a unifying perspective on linguistic and socio-linguistic
+framework offer potential bridge between linguistic and socio-linguistic
 perception. In this view, both can be seen as processes of _inference_, which
 relies on the same basic knowledge about the cue distributions that correspond
 to different underlying lingiustic and social variables.
+
+<!-- more specific point: let us set parameters for future modeling based on actual data -->
 
 Specifically, we aim to answer these three questions:
 
@@ -207,7 +216,6 @@ draw.
 
 
 ### Background ##
-<!-- TODO: move this down, after goals -->
 
 What do we already know about the relationship between speech perception and
 socio-linguistic variables?[^English]
