@@ -1,43 +1,9 @@
-\documentclass[man,11pt,floatsintext]{apa6}
-\usepackage{apacite}
-\usepackage{graphicx}
-\usepackage{siunitx}
-\usepackage[table]{xcolor}
-
-\usepackage{tipx}
-\newcommand{\ph}[1]{\protect\textipa{/#1/}}
-\newcommand{\aph}[1]{\protect\textipa{[#1]}}
-
-%% FLORIAN's ADDITIONAL COMMAND %%
-\definecolor{Red}{RGB}{255,0,0}
-\definecolor{Green}{RGB}{0,255,0}
-\definecolor{Brown}{RGB}{255,255,0}
-\definecolor{Blue}{RGB}{0,0,255}
-\definecolor{LightBlue}{RGB}{150,150,255}
-
-\newcommand{\red}[1]{\textcolor{Red}{#1}}
-\newcommand{\blue}[1]{\textcolor{Blue}{#1}}
-\newcommand{\green}[1]{\textcolor{Green}{#1}}
-\newcommand{\brown}[1]{\textcolor{Brown}{#1}}
-\newcommand{\lightblue}[1]{\textcolor{LightBlue}{#1}}
-
-\newcommand{\fj}[1]{\blue{$^*$}\marginpar{\footnotesize{TFJ: \blue{#1}}}}
-\newcommand{\dk}[1]{\green{$^*$}\marginpar{\footnotesize{DFK: \green{#1}}}}
-
-\renewcommand{\fj}[1]{}
-\renewcommand{\dk}[1]{}
-
-\title{Re-examining selective adaptation: Fatiguing feature detectors, or distributional learning?}
-\shorttitle{Re-examining selective adaptation}
-\twoauthors{Dave F. Kleinschmidt}{T. Florian Jaeger}
-\twoaffiliations{University of Rochester\\Department of Brain and Cognitive Sciences\\Corresponding author: \texttt{dkleinschmidt@mail.bcs.rochester.edu}}{University of Rochester\\Departments of Brain and Cognitive Sciences, Computer Science, and Linguistics}
-\date{\today}
-
 \abstract{When a listener hears many good examples of a /b/ in a row, they are less likely to classify other sounds on, e.g., a /b/-to-/d/ continuum as /b/.  This phenomenon is known as \emph{selective adaptation} and is a well-studied property of speech perception.  Traditionally, selective adaptation is seen as a \emph{mechanistic} property of the speech perception system, and attributed to fatigue in acoustic-phonetic feature detectors.  However, recent developments in our understanding of non-linguistic sensory adaptation and higher-level adaptive plasticity in speech perception and language comprehension suggest that it is time to re-visit the phenomenon of selective adaptation.  We argue that selective adaptation is better thought of as a \emph{computational} property of the speech perception system.  Drawing on a common thread in recent work on both non-linguistic sensory adaptation and plasticity in language comprehension, we furthermore propose that selective adaptation can be seen as a consequence of \emph{distributional learning} across multiple levels of representation.  This proposal opens up new questions for research on selective adaptation itself, and also suggests that selective adaptation can be an important bridge between work on adaptation in low-level sensory systems and the complicated plasticity of the adult language comprehension system.}
 
-\begin{document}
 
-\maketitle
+
+\chapter{Re-examining selective adaptation: Fatiguing feature detectors, or distributional learning?}\label{chap:selective-adaptation}
+
 
 Repeated exposure to a prototypical example of a phonological category seems to `shrink' that category. For example,  exposure to a reasonably good example of a \ph b many times in a row makes listeners less likely to classify other sounds on a \ph b-\ph d continuum as \ph b \cite{Eimas1973}.  The discovery of this effect, known as \emph{selective adaptation}, led to a great deal of excitement among speech perception researchers.
 By analogy with similar adaptation effects in visual psychophysics, it promised a ``psychophysicist's microelectrode'' \cite{Frisby1979,Mollon1974}, a powerful and general method of probing the neural code by which continuous acoustic input is transformed into discrete linguistic units, and hence potentially resolving fundamental debates about the psychological reality and properties of phonemes and phonetic features hypothesized by formal linguistic analysis.  Selective adaptation effects in visual perception, for instance, were critical in establishing---based on behavior alone---the features used by the visual system to analyze visual input \cite<e.g.,>{Blakemore1969}, and it was hoped that the same sort of effects in speech perception would be able to establish the existence of feature detectors for abstract linguistic categories like phonemes and phonetic features like \emph{voicing}.
@@ -209,9 +175,3 @@ What role does phonetic selective adaptation play in all of this?  It sits at th
 
 The literature on phonetic selective adaptation is long, complex, and often apparently contradictory (as summarized by \citeNP{Samuel1986} and \citeNP{Remez1987}).  Over time, interest in the theoretical basis for this fundamental phenomenon has dwindled.  We believe, though, that adaptation is an important property of perception in general, and of speech perception in particular, and that this literature deserves more attention. Recent developments in the understanding of sensory adaptation more broadly and flexibility in speech perception in particular challenge some of the basic assumptions of early work on phonetic selective adaptation.  However, as we have argued, they also provide a set of conceptual tools for understanding phonetic selective adaptation in the broader context of language comprehension and sensory adaptation.  We have proposed, to start, that selective adaptation can be seen as a form of distributional learning.  Distributional learning provides a coherent perspective on the existing literature on phonetic selective adaptation, highlights parallels with non-speech adaptation, and suggests a unifying perspective on flexibility in adult language comprehension.  It also, most importantly, raises a number of interesting questions for future work.
 
-
-\bibliographystyle{apacite}
-\bibliography{library-clean}
-
-
-\end{document}
