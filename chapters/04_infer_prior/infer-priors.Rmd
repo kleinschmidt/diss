@@ -22,7 +22,7 @@ output:
         - pandoc-tablenos
 ---
 
-```{r preamble, warning=FALSE, message=FALSE, error=FALSE}
+```{r preamble, warning=FALSE, message=FALSE, error=FALSE, echo=FALSE, results='hide'}
 
 library(assertthat)
 library(magrittr)
