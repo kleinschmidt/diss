@@ -202,7 +202,7 @@ different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007;
 Finally, listeners can _infer_ socio-indexical variables based on speech, but
 it's not clear what linguistic variables they use [cf. @Thomas2002]. Of
 particular interest, listeners can infer a talker's regional dialect based on
-short excerpts [@Clopper2006,@Clopper2007]. Listeners can also infer talker
+short excerpts [@Clopper2006; @Clopper2007]. Listeners can also infer talker
 _identity_ from sine-wave speech [@Remez1997], which removes non-phonetic voice
 quality cues to identity but preserves most phonetic information.
 

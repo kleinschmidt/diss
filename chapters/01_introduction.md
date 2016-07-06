@@ -89,7 +89,7 @@ speech perception can be understood and modeled as problem of inference under
 uncertainty [@Clayards2008; @Norris2008]. Second, the statistical properties of
 speech are _non-stationary_, and the distributions of acoustic cues change from
 situation to situation [@Peterson1952; @Allen2003; @Jongman2000; @McMurray2011a;
-@Newman2001; @Hillenbran1995]. This has long been recognized as a central
+@Newman2001; @Hillenbrand1995]. This has long been recognized as a central
 challenge to successful speech perception [cf. the "lack of invariance",
 @Liberman1967]. Third, this cross-situational variability is _highly
 structured_. Individual talkers serve as contexts which correspond to relatively
