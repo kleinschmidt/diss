@@ -105,10 +105,9 @@ invariance" [@Liberman1967]. The sociolinguistic tradition, on the other hand,
 views variability as a rich source of social information. The particular variety
 of language that you speak says a lot about who you are as a person, and sociolinguistics takes this sort of variation as one of its primary objects of study [@Labov1972; @Eckert1989].
 
-However, these two approaches have recently begun to converge in how they
+These two approaches have recently begun to converge in how they
 approach variability. In particular, psycholinguistic theories of speech
-perception have started to take variation seriously, instead of wishing it would
-go away.
+perception have started to investigate the consequences of variability for comprehension.
 <!-- something about exemplar theories would be appropriate here --> In part
 this realization comes from computational-level analyses of speech perception
 [@Clayards2008; @Feldman2009; @Feldman2013a; @Norris2008; @Kleinschmidt2015]. These
@@ -120,7 +119,7 @@ these approaches focus on spelling out how the nature of the task, the available
 information, and the structure of the world constrain, in principle, how well a
 listener can do.
 
-Applied to speech perception, this approach reveals two important things.
+Applied to speech perception, this approach offers two important insights.
 First, it suggests that speech perception can be thought of as a process of
 _inference under uncertainty_ [@Clayards2008; @Norris2008]: because of noise in
 production processes, each linguistic unit is realized---even by a single
@@ -130,21 +129,23 @@ such, the best a listener can do is to _infer_ how likely each possible
 linguistic unit is as an explanation of the cues they observe, based on their
 knowledge of these cue distributions.
 
-Second, this approach provides a new perspective on talker variability, which is
-formalized in the "ideal adapter" framework [@Kleinschmidt2015]. One consequence
+Second, this approach provides a new perspective on talker variability. One consequence
 of talker variability is that the distribution of cues for each linguistic unit
 _changes_ from one situation to the next, depending on who's talking
-[@Clopper2005; @Newman2001; @Allen2003]. Given that effective speech
-perception---in this perspective---depends on good knowledge of the underlying
-cue distributions, this means that listeners must _also_ constantly be inferring
-the current talker's linguistic generative model (the probabilistic
-distributions of cues they produce for each underlying linguistic structure).
+[@Clopper2005; @Newman2001; @Allen2003; @Johnson2005; @Foulkes2015a].
+Moreover, these differences cannot be reduced to constant effects of physiological differences [like vocal tract size, @Johnson2005; for review see @WeatherholtzInPress].
+In this perspective, effective speech perception depends on good knowledge of the
+underlying cue distributions. Because these didstributions change across
+situations, listeners must _also_ constantly be inferring the current talker's
+linguistic generative model (the probabilistic distributions of cues they
+produce for each underlying linguistic structure). This is captured by the
+ideal adapter framework [@Kleinschmidt2015].
 
-This second insight leads to the following prediction. An "ideal adapter" will
+This second insight leads to the following prediction. An ideal adapter will
 take advantage of any additional structure in the world that is informative
 about how cue distributions vary from one situation to the next. This structure
 may be as simple as the fact that individual talkers tend to be consistent in
-the cue distributions they produce [@Heald2015], meaning that prior experience
+the cue distributions they produce [@Heald2015; see also @WeatherholtzSubmitted2016], meaning that prior experience
 with a familiar talker is informative about the cue distributions they will
 produce in the future. But structure can occur at other levels, too, and here is
 one place that psycholinguistic theories begin to parallel sociolinguistics.  To
@@ -155,7 +156,8 @@ variables are realized, and hence helpful for speech perception.
 This means that a listener can potentially learn a lot about a talker's cue
 distributions just by knowing _who_ a talker is. Conversely, listeners can learn
 a lot about who a talker is based on the distributions of cues that they
-produce. These two long-standing insights from sociolinguistics follow
+produce. This bi-directional relation between phonetic cues and social identity has long been recognized in sociolinguistics.
+This relationship _also_ follows 
 straightforwardly from the ideal adapter framework. However, the extent to which
 either of these is plausible _in practice_ depends on exactly how much a
 particular socio-indexical variable---a particular sense of _who_ a talker
