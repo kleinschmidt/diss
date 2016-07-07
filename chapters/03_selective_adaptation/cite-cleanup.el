@@ -18,7 +18,8 @@ multi-citenp-regex
 
 
 ;; deal with \cite<> nonsense from apacite
-(defvar angleregex "\\\\cite<\\([^>]*\\)>")
+(setq angleregex "\\\\cite<\\([^>]*\\) *>")
+
 
 (defun find-anglecite ()
   (interactive)
