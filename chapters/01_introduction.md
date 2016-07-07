@@ -83,7 +83,7 @@ how it relates to previous contexts.
 
 While the questions addressed in this work apply to perception generally, it focuses on speech perception as a test case or "model organism" for understanding perception in a variable world. Speech perception makes for a good model organism in large part because as a perceptual problem it exemplifies the three levels of inference required for perception in a variable but structured world.
 
-First, Each phonetic category is realized as a _distribution_ of acoustic cues 
+First, each phonetic category is realized as a _distribution_ of acoustic cues
 [e.g., @Lisker1964; @Peterson1952; @Allen2003; @Newman2001]. This means that 
 speech perception can be understood and modeled as problem of inference under
 uncertainty [@Clayards2008; @Norris2008]. Second, the statistical properties of
