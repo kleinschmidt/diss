@@ -9,10 +9,11 @@ multi-citenp-regex
 
 
 (defvar citenp-regex "(\\([^)]*\\)\\\\citeNP{\\(.*?\\)}\\([^(]*\\))")
+(setq citenp-regex "(\\([^)]*?\\) *\\(\\\\protect\\)?\\\\citeNP{\\(.*?\\)}[,; ]*\\([^(]*\\))")
 
 (defun replace-citenp ()
   (interactive)
-  (replace-regexp citenp-regex "\\\\autocite[\\1][\\3]{\\2}")
+  (replace-regexp citenp-regex "\\2\\\\autocite[\\1][\\4]{\\3}")
   )
 
 
