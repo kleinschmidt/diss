@@ -12,6 +12,7 @@
 \usepackage{rotating}
 \usepackage{setspace}
 \usepackage{longtable}
+\usepackage{subfigure}
 
 \usepackage{mathpazo}
 
@@ -19,6 +20,19 @@
 \newcommand{\ph}[1]{\protect\textipa{/#1/}}
 \newcommand{\aph}[1]{\protect\textipa{[#1]}}
 \usepackage{siunitx}
+
+\newcommand{\given}{\,|\,} % | (blocks font-locking)
+\newcommand{\ud}{\mathrm{d}}
+
+\newcommand{\lmercoef}[3]{\ensuremath{\beta=#1,\,\mathrm{SE}(\beta)=#2,\,p<#3}}
+\newcommand{\lmercoefpeq}[3]{\ensuremath{\beta=#1,\,\mathrm{SE}(\beta)=#2,\,p=#3}}
+
+\usepackage{rotating}
+% \usepackage{url}
+
+\newcommand{\mrb}{\ensuremath{\mathrm{b}}}
+\newcommand{\mrd}{\ensuremath{\mathrm{d}}}
+\newcommand{\ftwolocus}{\ensuremath{\mathrm{F2\ locus }} }
 
 \usepackage[american]{babel}
 \usepackage[style=apa]{biblatex}
@@ -65,6 +79,8 @@
 
 \input{chapters/01_introduction.chap.tex}
 
+\graphicspath{{chapters/02_ideal_adapter/}}
+\input{chapters/02_ideal_adapter/kleinschmidt_jaeger.tex}
 
 \graphicspath{{chapters/03_selective_adaptation/}}
 \input{chapters/03_selective_adaptation/kleinschmidt-jaeger-selective-adaptation.tex}
@@ -77,5 +93,10 @@
 
 
 \printbibliography
+
+\appendix
+
+\graphicspath{{chapters/02_ideal_adapter/}}
+\input{chapters/02_ideal_adapter/ideal-adapter-appendix.tex}
 
 \end{document}
