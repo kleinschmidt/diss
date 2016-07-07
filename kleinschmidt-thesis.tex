@@ -12,6 +12,7 @@
 \usepackage{rotating}
 \usepackage{setspace}
 \usepackage{longtable}
+\usepackage{subfigure}
 
 \usepackage{mathpazo}
 
@@ -28,10 +29,6 @@
 
 \usepackage{rotating}
 % \usepackage{url}
-
-\usepackage{tipx}
-\newcommand{\ph}[1]{\protect\textipa{/#1/}}
-\newcommand{\aph}[1]{\protect\textipa{[#1]}}
 
 \newcommand{\mrb}{\ensuremath{\mathrm{b}}}
 \newcommand{\mrd}{\ensuremath{\mathrm{d}}}
@@ -82,6 +79,8 @@
 
 \input{chapters/01_introduction.chap.tex}
 
+\graphicspath{{chapters/02_ideal_adapter/}}
+\input{chapters/02_ideal_adapter/kleinschmidt_jaeger.tex}
 
 \graphicspath{{chapters/03_selective_adaptation/}}
 \input{chapters/03_selective_adaptation/kleinschmidt-jaeger-selective-adaptation.tex}
@@ -94,5 +93,10 @@
 
 
 \printbibliography
+
+\appendix
+
+\graphicspath{{chapters/02_ideal_adapter/}}
+\input{chapters/02_ideal_adapter/ideal-adapter-appendix.tex}
 
 \end{document}

@@ -1,4 +1,6 @@
 
+\chapter{Ideal adapter detailed methods}\label{chap:ideal-adapter-appendix}
+
 \section{Modeling methods and assumptions}
 \label{sec:appendix}
 
@@ -77,7 +79,7 @@ The assumption that the audio-visual stimulus is  not really ambiguous is also c
 \subsubsection{Is there evidence against audio-visual integration in adaptation?}
 \label{sec:evid-against-audio}
 
-Our decision to include audio-visual cue integration in the model is supported by a wealth of evidence that audio and visual cues are processed together in speech perception \cite<e.g.>{Bejjanki2011,Massaro2004,VanWassenhove2005,Vatakis2007}. There are, however, two studies that have looked specifically at selective adaptation to audio-visual adaptors, and contrary to what we propose here, have concluded that selective adaptation is driven entirely by the adaptor's audio component \autocite{Roberts1981,Saldana1994}. Since these studies might be taken to argue that we introduce unnecessary complexity into the model, we briefly discuss them.
+Our decision to include audio-visual cue integration in the model is supported by a wealth of evidence that audio and visual cues are processed together in speech perception \autocite[e.g.,][]{Bejjanki2011,Massaro2004,VanWassenhove2005,Vatakis2007}. There are, however, two studies that have looked specifically at selective adaptation to audio-visual adaptors, and contrary to what we propose here, have concluded that selective adaptation is driven entirely by the adaptor's audio component \autocite{Roberts1981,Saldana1994}. Since these studies might be taken to argue that we introduce unnecessary complexity into the model, we briefly discuss them.
 
 The audio-visual adaptors used by \textcite{Roberts1981} and \textcite{Saldana1994} differ from the adaptors used by \textcite{Vroomen2007} and our replication, in that the audio and visual components had large, categorical mismatches.  \textcite{Roberts1981} used auditory-\ph b, visual-\ph g adaptors, intended to evoke a \ph d percept \autocite[as in][]{McGurk1976}, but found selective adaptation effects on a \ph b-\ph d continuum that were indistinguishable from an audio-visual \ph b adaptor.  However, their participants did not generally perceive the adaptor in this way, with only half reporting an alveolar \ph d or \ph D, and the others reporting \ph{kl}, \ph m, of \ph{fl}. This contrasts with with the perception of the stimuli in \textcite{Vroomen2007} and our own studies, where participants reliably classified the audio-visual adaptor stimuli as `labeled' by the visual component.
 
@@ -212,13 +214,22 @@ All of these assumptions are assumptions of the model, and \emph{not} the ideal 
 
 \nocite{Vitevitch2004,Zhu2007}
 
-\begin{sidewaystable}[ht]
+\clearpage
+
+\begin{footnotesize}
   \linespread{1.1}
-  \footnotesize
-  \centering
-  \begin{tabular}{p{0.15\textwidth} | p{0.4\textwidth} | p{0.4\textwidth}}
-  Assumption & Simplification justified by data? & Problem?
-\\ \hline
+
+\begin{center}
+\begin{longtable}{p{0.2\textwidth} | p{0.39\textwidth} | p{0.39\textwidth}}
+  \caption{Assumptions of the belief updating model used to evaluate the ideal adapter framework predictions.} \label{tab:model-assumptions} \\
+
+  Assumption & Simplification justified by data? & Problem? \\ \hline
+  \endfirsthead
+
+  \multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+  Assumption & Simplification justified by data? & Problem? \\ \hline
+  \endhead
+
 Independently and identically distributed cues.
   &  No: non-stationarity/lack of invariance means cue distributions are different.
   &  Not for modeling first block adaptation in the lab (listeners seem to assume that they're in a totally new situation).
@@ -259,7 +270,7 @@ Independence of prior beliefs about different categories
   &  No.  For instance: vowel F1 means are all higher for female vs. male talkers, which introduces positive correlations between the means across talkers \autocite{Hillenbrand1995}.
   &  Probably not, especially when prior beliefs are weak, as we have argued is expected in laboratory studies with unusual speech (and is supported by the estimates of weak prior confidence).
 \\ \hline
-  \end{tabular}
-  \caption{Assumptions of the belief updating model used to evaluate the ideal adapter framework predictions.}
-  \label{tab:model-assumptions}
-\end{sidewaystable}
+
+\end{longtable}
+\end{center}
+\end{footnotesize}
