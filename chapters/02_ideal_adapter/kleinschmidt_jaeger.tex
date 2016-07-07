@@ -24,7 +24,7 @@ Figure~\ref{fig:newman-et-al-fricative-centroids} shows the distributions of one
 This problem is known as the \emph{lack of invariance} and is one of the oldest problems in speech perception \autocite{Liberman1967}.
 The focus of this article is how listeners manage to accommodate such systematic variability and achieve robust speech recognition.
 
-\subsection{Overcoming the lack of invariance: The proposal}
+\subsubsection{Overcoming the lack of invariance: The proposal}
 \label{sec:overc-lack-invar}
 
 In the face of the sort of variability between situations---talkers, in this case---seen in Figure~\ref{fig:newman-et-al-fricative-centroids}, it is natural to wonder how we can understand each other at all.  We propose that the answer to this question is three-fold:
@@ -61,10 +61,10 @@ In Part II, we turn to situations where previous knowledge is crucial for robust
 Finally, we close in Part III by putting the framework we have developed into broader perspective.  In particular, we will address how our approach relates to other approaches to the problem of the lack of invariance.  Following that, we will discuss how our framework might inform broader issues in speech perception, language comprehension, and more domain-general learning and adaptation. Our approach is a computational-level one and as such compares only indirectly to mechanistic- or algorithmic-level approaches \autocite{Marr1982}, but it nevertheless provides a set of tools for reasoning about speech perception (and language comprehension more generally) which can help sharpen questions for research at other levels.  For example, the questions raised by the ideal adapter framework also speak to the debate between episodic, exemplar-based or more abstract phonetic representations \autocite{Johnson1997,Goldinger1998,McClelland1986,Norris2008,Pierrehumbert2003}. They also relate to the acquisition of phonetic categories, which can be seen as another type of distributional learning problem \autocite{Maye2002,McMurray2009,Vallabha2007}, and to language processing at higher levels \autocite[e.g.,][]{Fine2013,Grodner2011,Kamide2012,Kurumada2012,Kurumada2014}.  We also discuss recent research that has found adaptive behavior in language processing above the level of speech perception. At its most basic, the ideal adapter framework also contributes to the burgeoning literature on learning in a variable world \autocites[e.g., change detection][]{Gallistel2001}[hierarchical reinforcement learning][]{Botvinick2012}[motor learning][]{Kording2007a}.  Along with other recent approaches, the ideal adapter stresses that the cross-situational statistics of the world---though being variable---are \emph{structured}, and that our cognitive systems have evolved to take advantage of this structure.
 \label{r2-outline-parts-end} 
 
-\section*{Part I}
+\section{Part I}
 \label{sec:part-i}
 
-\section{The ideal adapter framework}
+\subsection{The ideal adapter framework}
 \label{sec:framework}
 
 Adaptation in speech perception has received a great deal of attention recently. For example, when listeners initially encounter accented speech, they process it more slowly and less accurately, but this disadvantage dissipates within a matter of minutes \autocite[][and references therein]{Bradlow2008,Clarke2004}. Similarly, listeners rapidly adapt to synthesized and otherwise distorted speech \autocite[e.g.,][]{Davis2005}. Adaptation is not limited to cases of highly unusual pronunciation, such as foreign accents. Even relatively subtle divergences from standard cue distributions can lead to adaptation.  For example, listeners adapt to a talker who produces cue distributions with a typical mean value but less variability than normal \autocite{Clayards2008}.  This suggests that continuous and implicit adaptation to subtle deviations from auditory expectations is a pivotal component of the human speech perception systems.
@@ -76,7 +76,7 @@ To that end it is helpful to understand speech perception as a problem of infere
 The acoustic cues that provide information about the talker's intended message are variable and ambiguous, and thus each individual cue is only partially informative.
 In order to effectively infer the underlying message, information must be integrated from many sources, and as we will discuss below, this must be guided by knowledge of the distribution of cues associated with each linguistic unit.  However, because of the lack of invariance, these distributions differ across situations (e.g., talkers).
 
-\subsection{Adaptation through belief updating}
+\subsubsection{Adaptation through belief updating}
 \label{sec:robust-speech-perc}
 
 
@@ -94,7 +94,7 @@ of the speech production, transmission, and perception process, and hence not an
 or because deviations from prototypical cue values happen for a variety of other reasons (muscle fatigue, coarticulation, background noise, etc.).  The question is thus how the listener should incorporate each new piece of evidence into their beliefs.  We address this question by developing an \emph{ideal adapter} framework, which, in the tradition of computational-level/rational analysis \autocite{Anderson1990,Marr1982}, sets out the statistically optimal way to do this integration. By this, we mean that adaptation reflects an inference process which combines prior beliefs and recent experience proportional to the degree of confidence in each.\footnote{This is not intended as a claim that such inference is resource-free or that there is unlimited memory. Importantly, there are many cognitively plausible algorithms which provably approximate---in principled ways---the type of rational inference assumed here for simplicity's sake, and do so with limited resources \autocite[e.g.,][]{Sanborn2010}. Many of these algorithms are closely related to mechanistic models like exemplar models \protect\autocite[see][]{Gibson2013,Shi2010}. We return to this point in the final part of this article.}
 
 
-\subsection{The ideal listener or phonetic categorizer}
+\subsubsection{The ideal listener or phonetic categorizer}
 \label{sec:ideal-phon-categ}
 
 Our ideal adapter framework builds on a foundation of {\em ideal listener} models, which describe the problem of speech perception as statistical inference of the talker's intentions \autocite{Clayards2008,Feldman2009a,Norris2008,Sonderegger2010}. Such inference includes inferring intermediate linguistic units, like phonetic categories, either as a means to another end or as an end in itself, as in the case of explicit experimental phonetic categorization tasks.  Because we focus specifically on the problem of inferring phonetic categories, for our purposes an ideal listener model is better characterized as an {\em ideal phonetic categorizer} model. For the broader goal of understanding speech perception, it should, however, be kept in mind that the human listener is not just a phonetic categorization machine, and phonetic categorization typically serves other ends \autocites[such as lexical access,][]{Norris2008}[or even the successful inference of communicative intentions][]{Jaeger2013b}.
@@ -148,7 +148,7 @@ This result demonstrates two points.  First, by showing that listeners' categori
 
 The natural question to ask is: \emph{how} do listeners get to the point where distributional information is reflected in their behavior?  Intuitively, we might say that coming into a new situation---like an experiment---listeners have some beliefs about the distributions of cues for each phonetic category, and that these beliefs change as the listener gains more experience in that situation.  These changes in beliefs about how cues are distributed leads to changes in how any given cue is interpreted, resulting in possibly better comprehension or changes in classification behavior.  In the next section we show how---like phonetic categorization---this intuitive idea formally corresponds to statistical inference, but at a different level.
 
-\subsection{The ideal adapter}
+\subsubsection{The ideal adapter}
 \label{sec:ideal-adapter}
 
 Our ideal adapter framework builds on the ideal listener framework described in the last section.  The ideal listener depends on distributional information about each category, in the form of the likelihood function $p(x \given C)$.
@@ -243,7 +243,7 @@ Fifth, motivated by the potential link between selective adaptation and recalibr
 
 
 
-\section{Basic evaluation of the ideal adapter framework: phonetic recalibration}
+\subsection{Basic evaluation of the ideal adapter framework: phonetic recalibration}
 \label{sec:model-recal}
 
 We begin with an illustration of the basic mechanics of the ideal adapter framework. For this we focus on experiments in which listeners are exposed to a novel talker with an unusual realization of a phonetic contrast. There is a great deal of evidence about the \emph{results} of incremental adaptation. Much of it comes from studies of ``phonetic recalibration'', or ``perceptual learning'' \autocite{Bertelson2003,Kraljic2005,Norris2003}.  These studies use a continuum between two sounds, generally constructed by interpolating between prototypical endpoint tokens \autocite[e.g.][]{Kraljic2005,Norris2003} or by parametrically manipulating a critical acoustic cue which distinguishes between the two categories.  For instance, a \ph b-\ph d continuum might be constructed by manipulating F2 locus, as described above \autocite{Bertelson2003,Vroomen2004}.  During an exposure phase, listeners hear the item from this continuum which is most ambiguous between \ph b and \ph d.  This auditorily ambiguous segment is paired with information which consistently ``labels'' or disambiguates it as a \ph b.  This labeling is achieved via, for example, lexical disambiguation \autocite[e.g. replacing the \ph b in \emph{club} with the ambiguous segment,][etc.]{Kraljic2005,Norris2003} or visual disambiguation (pairing the auditorily ambiguous sound with a video of a person articulating a \ph b, which results in a visible labial closure unlike articulation of \ph d).  After exposure, changes to the listener's classification function are assessed, for example, by means of a classification test over unlabeled sounds drawn from the continuum (e.g. classifying a continuum of sounds from a prototypical \ph{aba} to a prototypical \ph{ada} without either lexical or visual disambiguation).
@@ -266,7 +266,7 @@ Second, perceptual recalibration seems to last: when listeners classify tokens f
 
 More specifically, the qualitative changes in classification boundaries observed during perceptual recalibration is naturally predicted by the ideal adapter framework (Figure~\ref{fig:belief-updating-schematic}, B).  Take, for example, the case where the listener is exposed to $x_\mathrm{bd}^\mathrm{b}$ (Figure~\ref{fig:belief-updating-schematic}, left).  As the listener updates their beliefs about the shifted distribution of cues for \ph b, shifting the mean towards the observed cue values, stimuli in the middle of the \ph b-\ph d continuum which previously had roughly equal likelihood under either category (and thus are sometimes perceived as \ph b and sometimes as \ph d) are now more likely to have resulted from \ph b, resulting in more \ph b responses to unlabeled test stimuli, especially in the previously-ambiguous region of the continuum.
 
-\subsection{Incremental recalibration}
+\subsubsection{Incremental recalibration}
 \label{sec:incr-recal}
 
 It is encouraging that the ideal adapter framework provides a qualitative account of the results of recalibration.  But can this framework account for \emph{incremental} changes in behavior?  Belief updating is an incremental process, where the listener accumulates information about the talker's cue distributions one observation at a time.  The ideal adapter framework thus not only predicts asymptotic classification behavior---after the listener has fully adapted to the talker's cue distributions---but also how their classification behavior changes with each additional piece of evidence.
@@ -279,7 +279,7 @@ Instead of the typical recalibration procedure, where exposure and test are sepa
 Each participant completed sixteen exposure blocks of 256 exposures.  Half of the exposure blocks used a \ph b audio-visual stimulus for exposure, and the other half used a \ph d.  Of the \ph b-exposure blocks, half of these used the auditorily ambiguous stimulus as described above, while the other half used the prototypical \ph b endpoint of the acoustic continuum ($x=1$), and likewise for the \ph d-exposure blocks.\footnote{The prototypical exposure blocks are discussed later.} %in Section~\ref{sec:selective-adapt}.}
 Because our goal is to illustrate the workings of the ideal adapter framework when the listener has little prior experience that might be relevant for the current situation, we focus on the first 64 exposures of the first block from each participant (we return to the issue of extended exposure below).
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=0.5\textwidth]{vroomen-bd-recal-first-64.pdf}
   \includegraphics[width=0.5\textwidth]{vroomen-ae-recal-first-64.pdf}
@@ -293,12 +293,12 @@ Recalibration builds up rapidly but incrementally over the first 64 exposures.  
 Next, we quantify and test this prediction.
 
 
-\subsection{Modeling build-up of recalibration}
+\subsubsection{Modeling build-up of recalibration}
 \label{sec:modeling-build-up}
 
 In order to evaluate the ability of the ideal adapter framework to account for the results of \textcite{Vroomen2007} on the incremental build-up of recalibration, we implemented a basic Bayesian belief updating model based on the principles of the ideal adapter framework.
 
-\subsubsection{Bayesian belief updating model}
+\paragraph{Bayesian belief updating model}
 \label{sec:bayes-beli-updat}
 
 We used a mixture of Gaussians as the underlying model of phonetic categories, where each phonetic category $c \in \{\mathrm b, \mathrm d\}$ corresponds to a normal distribution over cue values $x$ with mean $\mu_c$ and variance $\sigma^2_c$ (e.g. Figure~\ref{fig:dist-id-schematic}, top).  Thus, the likelihood of observation $x$ under category $c$ is
@@ -320,7 +320,7 @@ An intuitive interpretation of these hyperparameters is as the effective sample 
 
 Finally, it is not a priori obvious whether adaptation occurs at the level of auditory cues individually or at some higher level where information is integrated from multiple auditory and/or visual cues.  Thus the model includes a third hyperparameter, $w$ which determines the weight given to the visual cue value in determining the percept.  This hyperparameter ranges from $w=0$ (perceived cue value is not influenced by the visual cue) and $w=1$ (perceived cue value entirely determined by the visual cue).  Adaptation over integrated cues might arise because the listener attempts to infer the talker's \emph{intended} production based on multiple partially informative cues \autocite[including top-down category distribution information,][]{Feldman2009a}.  For more discussion, refer to the Appendix. %Appendix~\ref{sec:audio-visual-cue}.
 
-\subsubsection{Model fitting}
+\paragraph{Model fitting}
 \label{sec:free-parameters}
 
 The hyperparameters were fit in a two-step process, which is described in detail in the Appendix.  %~\ref{sec:model-fitting-methods}.
@@ -329,7 +329,7 @@ The first step is to fix the expected prior means and variances based on the cla
 The second step is to estimate the three free hyperparameters (i.e., the effective prior sample sizes $\nu_0$ and $\kappa_0$ and the visual cue weight $w$) based on the actual adaptation data. The posterior distribution of the free hyperparameters was obtained using MCMC sampling with a weakly informative prior \autocite[to ensure a proper posterior,][]{Gelman2003}. For further details, we refer to Appendix~\ref{sec:model-fitting-methods}.
 Because of the limited amount of data from each participant (only six trials per test block), we chose to fit the model to the aggregate data from all participants (see Appendix~\ref{sec:model-fitt-param} for motivation).
 
-\subsection{Results and discussion}
+\subsubsection{Results and discussion}
 \label{sec:results}
 
 \begin{figure}[htb]
@@ -355,12 +355,12 @@ Third, the joint distribution---rather then just the point estimates---of the pr
 
 
 
-\section{Recalibration by category shift or expansion?}
+\subsection{Recalibration by category shift or expansion?}
 \label{sec:recal-categ-shift}
 
 One of the advantages of model-fitting using Bayesian methods is that it allows us to evaluate the {\em range} of model hyperparameters which provide a good fit to the data. For the build-up of recalibration modeled in the previous section, the full posterior distribution over model hyperparameters (effective prior sample sizes and visual cue weight) provides interesting insight into how a human learner might adapt. To illustrate this, we examine the posterior distribution of the prior effective sample sizes for the category means and variances given the behavioral data.
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=0.8\textwidth]{figure/vroomen-recal-64-kappa-nu-joint-posterior-contour.pdf}
   \caption{The belief-updating model finds two different ways of fitting the build-up of recalibration (Figure~\ref{fig:recal-buildup-preds}), as illustrated by this density plot of the distribution of the mean and variance prior confidence parameters ($\kappa_0$ and $\nu_0$, respectively) that are consistent with the data (estimated by samples via MCMC).  The diagonal shows solutions with equal confidence in prior beliefs about the mean and variance.  Points below the line have higher confidence in the variance, and adapt by shifting the category mean.  Points above the line have higher confidence in the \emph{mean} and adapt by expanding the category variance.  Note that even though the best-fitting parameters (red asterisk, and curve in Figure \ref{fig:recal-buildup-preds}) are below the line (and shift the mean), there are areas of high posterior probability on both sides of the line (hills on the contour plot).} 
@@ -396,7 +396,7 @@ We have discussed how phonetic recalibration is qualitatively predicted by the i
 
 
 
-\section{Beyond recalibration: selective adaptation}
+\subsection{Beyond recalibration: selective adaptation}
 \label{sec:selective-adapt}
 
 
@@ -406,7 +406,7 @@ Selective adaptation occurs after repeated exposure to a single phonetic categor
 
 Selective adaptation is broadly considered to be the result of either habituation of ``feature detectors'' which are sensitive to linguistically-relevant features of the acoustic speech signal, or contrast effects at a categorical level \autocite{Samuel1986}.  It is also generally acknowledged that selective adaptation operates at a range of different levels.  On the one hand, non-speech phonetic analogues (like isolated F2 and F3 formant transitions) can selectively adapt a place of articulation contrast, which suggests that selective adaptation operates on relatively low-level auditory processing \autocite{Samuel1996}. On the other hand, selective adaptation has also been shown to generalize between acoustically different but phonetically similar continua, suggesting that it does not depend solely on acoustic overlap \autocite{Samuel1996,Sawusch1977}.
 
-\subsection{Incremental selective adaptation}
+\subsubsection{Incremental selective adaptation}
 \label{sec:incr-select-adapt}
 
 \begin{figure}[htb]
@@ -433,12 +433,12 @@ Qualitatively, the answer is yes, as shown schematically in Figure~\ref{fig:beli
 
 While few studies have investigated the effect of unusual category variance on subsequent perception, one notable exception is \textcite{Clayards2008}.  They showed that listeners who are exposed to \ph b and \ph p sounds whose VOTs have low variance show a sharper category boundary than listeners exposed to high variance distributions.  Moreover, the difference in category boundary slopes is exactly as predicted by the category variances, via an ideal listener model.  This suggests that listeners adjust their categorization behavior based on recently experienced within-category \emph{variance} of acoustic cues, exactly as the ideal adapter framework predicts.
 
-\subsection{Modeling the build-up of selective adaptation}
+\subsubsection{Modeling the build-up of selective adaptation}
 \label{sec:methods-results}
 
 The ideal adapter framework---and the model introduced above---makes further predictions about how classification behavior depends on the \emph{amount} of exposure, as well as its statistical properties.  In order to evaluate the ability of belief updating to quantitatively account for the build up of selective adaptation, we fit the same model that was fit to the recalibration data above to the first 64 exposures of the selective adaptation data from the first block of each participant in \textcite{Vroomen2007}.
 
-\subsection{Results}
+\subsubsection{Results}
 \label{sec:results-discussion}
 
 \begin{figure}[htb]
@@ -454,7 +454,7 @@ The best-fitting (MAP estimate) hyperparameters for the selective adaptation dat
 
 Second, even though these parameter values correspond to higher prior confidence in the variance than the mean, the model nevertheless accounts for selective adaptation via shrinking category variance.  This is because, unlike the ambiguous adaptor, for the prototypical adaptor there is no difference between the observed and expected category means.  In this case, the updated estimate of the variance is simply an average of the prior expected and the observed variance, weighted by the effective prior sample size and actual sample size, respectively (see Appendix~\ref{sec:belief-updating-with}, Equation~\eqref{eq:post-sum-of-squares}).  For the best-fitting estimate of the effective prior sample size $\nu_0=64$ and an observed variance of zero, this means that the model believes the category variance to have halved after 64 exposures.
 
-\subsection{Discussion}
+\subsubsection{Discussion}
 \label{sec:discussion-sel-ad}
 
 These results suggest that, at least for the classification results of \textcite{Vroomen2007}, it is not necessary to invoke a qualitatively distinct process to explain selective adaptation. The ideal adapter also makes the correct qualitative predictions for a variety of other selective adaptation experiments \autocite[e.g.,][]{Eimas1973,Miller1983}.  It might thus be tempting to assume that {\em all} selective adaptation effects can be reduced to distributional learning of the type proposed here. Such an account will face several serious challenges. This includes the need to account for complex reaction time effects induced by different types of selective adaptation \autocite{Samuel1986,Samuel1996}, about which our ideal adapter framework does not yet have anything principled to say. Rather than discuss this and other challenges to an ideal adapter account of selective adaptation here, we merely note that much work remains to be done in fleshing out the predictions of the ideal adapter framework for selective adaptation more generally.
@@ -474,7 +474,7 @@ In the next section, we explore the consequences of this shrinking category vari
 
 
 
-\section{Effects of prolonged repeated exposure to the same stimulus}
+\subsection{Effects of prolonged repeated exposure to the same stimulus}
 \label{sec:effects-long-term}
 
 
@@ -499,7 +499,7 @@ This results in an eventual \emph{decrease} in the likelihood that the adapted c
   \label{fig:vroomen-results-256}
 \end{figure}
 
-\subsection{Data}
+\subsubsection{Data}
 As discussed above, \textcite{Vroomen2007} exposed listeners to a total of 256 repetitions of the audiovisual adaptor.  Figure~\ref{fig:vroomen-results-256} shows the results from both conditions, including the test trials at 128 and 256 cumulative exposures.  As qualitatively predicted, the negative aftereffect associated with selective adaptation grows stronger with further exposure, while the positive aftereffect associated with recalibration plateaus and even begin to decline after 256 exposures.\footnote{While the decline in recalibration appears to be relatively modest in the figure here, Vroomen et al. (2007) actually found much stronger declines in recalibration in their full data set, where recalibration essentially disappears by 256 exposures.  Our replication presented in the next section establishes that such a decline can occur in the first block (Figure~\ref{fig:intr-results-fits}), suggesting that the failure to observe it strongly in the first block of Vroomen et al. (2007) is due to individual differences, which are substantial.}
 
 \begin{figure}[htb]
@@ -509,7 +509,7 @@ As discussed above, \textcite{Vroomen2007} exposed listeners to a total of 256 r
   \label{fig:model-fits-vroomen-256-simult}
 \end{figure}
 
-\subsection{Results and discussion}
+\subsubsection{Results and discussion}
 To quantify these predictions and test whether the belief updating model can account for the decrease in recalibration, we fit it to the data from all 256 exposures to the ambiguous and prototypical adaptors.
 The model fits well when fit to either the ambiguous or prototypical conditions individually ($r^2=0.86$ in both cases). To further test the model's ability to provide a unified explanation of recalibration and selective adaptation, we fit the model to both conditions simultaneously.
 
@@ -518,7 +518,7 @@ Figure~\ref{fig:model-fits-vroomen-256-simult} shows that the model simultaneous
 In particular, the best fitting models for the initial build-up (first 64 exposures) and prolonged exposure (256 exposures) place roughly the same weight on the visual cue ($w=0.53$ vs. $w=0.47$, respectively, where $w$ could range from 0 to 1), even though the decay in recalibration is virtually absent during the first 64 exposures. That is, just based on the rate at which recalibration initially accumulates, the model predicts the later decay without further assumptions.
 
 
-\section{Exploring the predictive power of the ideal adapter}
+\subsection{Exploring the predictive power of the ideal adapter}
 \label{sec:expl-pred-power}
 
 One of the benefits of a model like we present here is that it makes quantitative predictions which go beyond existing data.  In this section, we explore the ideal adapter framework's predictive power.  The fact that the ambiguous and prototypical conditions from \textcite{Vroomen2007} can be accounted for by a single set of belief updating model hyperparameters suggests that the recalibration and selective adaptation effects in this experiment are not qualitatively distinct but rather endpoints on a continuum of adaptation effects.  The ideal adapter framework predicts that for observed cues which are less ambiguous, the low variance of the adaptor distribution will be detectable with fewer observations, causing an earlier (and lower) peak in the positive aftereffect detected in the recalibration condition.
@@ -526,12 +526,12 @@ One of the benefits of a model like we present here is that it makes quantitativ
 
 In order to test this prediction, we replicate and extend the design of \textcite{Vroomen2007}, adding intermediate conditions where the acoustic component of the audio-visual adaptor is neither fully ambiguous nor fully prototypical, but somewhere in between.  As a strong test of the predictive power of the model, we ask whether hyperparameters fit to the ambiguous/recalibration and prototypical/selective adaptation conditions in our replication can be used to predict adaptation behavior in new situations which have not been studied before.
 
-\subsection{Methods}
+\subsubsection{Methods}
 \label{sec:methods-4}
 
 We developed a novel web-based paradigm to efficiently collect phonetic categorization data from a large number of participants, adhering as closely as possible to the methods of \textcite{Vroomen2007}.  In addition to the ambiguous and prototypical conditions of \textcite{Vroomen2007}, we added two intermediate conditions: intermediate-ambiguous, and intermediate-prototypical.
 
-\subsubsection{Stimuli}
+\paragraph{Stimuli}
 \label{sec:stimuli}
 
 Stimuli were identical to those used by \textcite{Vroomen2007}, who generously shared their materials.  The audio stimuli were items from a nine-item synthetic \ph{aba}-\ph{ada} continuum, created by shifting F2 locus in equal mel steps from a prototypical \ph{aba} value to a prototypical \ph{ada} value, holding other parameters constant \autocite{Vroomen2004}.  The visual stimuli were natural videos of a male talker articulating \ph {aba} and \ph{ada}.
@@ -545,7 +545,7 @@ Audio-visual adaptors for the ambiguous and prototypical conditions were constru
   \label{fig:conditions-schematic}
 \end{figure}
 
-\subsubsection{Procedure}
+\paragraph{Procedure}
 \label{sec:procedure}
 
 Participants first performed the same pre-test \ph b-\ph d classification task as in \textcite{Vroomen2007} (described above).
@@ -555,7 +555,7 @@ Each block consisted of a total of 128 audio-visual exposure trials.  Audio-only
 
 The experiment was conducted over the web, via Amazon's Mechanical Turk crowd-sourcing service using a custom Javascript application.\footnote{This source code and a working demo are available from \url{http://hlplab.wordpress.com/2013/09/22/phonetics-online/}}  Response keys and block order were counter-balanced across participants.  The experiment took no longer than 45 minutes to complete.
 
-\subsubsection{Participants}
+\paragraph{Participants}
 \label{sec:participants}
 
 A total of 280 participants were recruited.  Since participants were being run remotely, using a variety of audio equipment to complete the experiment, a number of quality checks were required.  First, our task was only made available to workers whose location was listed as the US and had more than 95\% of their previous work accepted for payment (an automatic quality control measure offered by Amazon).  Second, based on the calibration task, participants with unusual category boundaries \autocite[most ambiguous stimulus not one of the middle three positions 4, 5, or 6 found by][]{Vroomen2007} were automatically excluded from the remainder of the experiment.  60 participants were excluded for this reason.  Third, participants who classified the two endpoint stimuli and their nearest neighbors ($x=1,2,8,\textrm{ or } 9$) with less than 70\% accuracy were also excluded.  25 additional participants were excluded for this reason.
@@ -565,12 +565,12 @@ Fourth, in order to ensure that participants were actually watching the videos d
 Following good statistical procedure \autocite{Simmons2011}, these exclusion criteria were fixed before beginning data collection and automatically executed by our experiment software.
 Data from a total of 182 participants remained for analysis.
 
-\subsubsection{Modeling}
+\paragraph{Modeling}
 \label{sec:modeling-intr-analysis}
 
 We fit the belief updating model introduced above against only the ambiguous and prototypical conditions.  We chose to fit these conditions for two reasons.  First, we want to replicate the model fits to the data from \textcite{Vroomen2007} on a novel language (and in our novel paradigm).  Second, we want to test the ability of the model predict the effect of cumulative exposure in the two novel, intermediate conditions, based on conditions which have already been investigated.  The posterior distribution of model hyperparameters ($\nu_0$, $\kappa_0$, and $w$) given the ambiguous and prototypical conditions can be used to generate predictions for the intermediate conditions (by plugging in the adaptor values, offsets of one and two from the most ambiguous stimulus, $x_\mathrm{bd} \pm 1$ and $x_\mathrm{bd} \pm 2$, for the intermediate-ambiguous and intermediate-prototypical conditions, respectively, with the sign determined by the visual component).
 
-\subsection{Results}
+\subsubsection{Results}
 \label{sec:results-4}
 
 \begin{figure}[!h]
@@ -600,14 +600,14 @@ We can further compare the model predictions and the data by looking at the poin
 The best-fitting (MAP estimate) effective prior sample sizes for the category variances and means were small: $\nu_0 = 88$ and $\kappa_0=2.9$, respectively.  This again closely resembles what we found for the \textcite{Vroomen2007} data.  It also corroborates the conclusion that participants in these studies consider their previous experiences with \ph b and \ph d to be not particularly relevant in these situations, 
 and moreover replicates the finding that, for these stimuli and this experimental paradigm, listeners seem to place more confidence in their prior beliefs about the category variances than the means ($\nu_0 > \kappa_0$ both here and in all previous model fits).  Finally, as with the data from \textcite{Vroomen2007}, the best-fitting cue combination weight had audio and visual cues weighted roughly equally, placing in this case slightly more weight on the visual component ($w=0.63$).\footnote{The slightly higher weight for visual cues in our data might be a consequence of using stimuli derived from a Dutch /b/-/d/ continuum, which are similar but presumably not identical to those typically experienced in American English.}
 
-\subsection{Discussion}
+\subsubsection{Discussion}
 \label{sec:discussion-3}
 
 These results demonstrate two points.  First, by replicating the results of \textcite{Vroomen2007}, they show that web-based platforms are a viable way to investigate phonetic effects such as recalibration and selective adaptation which depend on the particular acoustic parameters of the stimuli.  Most participants were enthusiastic and engaged in the study, and using sensible exclusion (based on pre-test performance or catch trials during exposure) those who are not fully attentive or who cannot hear the stimuli properly can be excluded.
 
 Second, the ideal adapter framework for understanding phonetic adaptation presented above can explain both the phonetic recalibration \emph{and} selective adaptation data from \textcite{Vroomen2007} based on the mean (ambiguous vs. prototypical) and variance (none) of the adaptor distributions.  This framework predicts that intermediate adaptors should produce intermediate adaptation effects, and moreover, the formal, quantitative model based on these principles makes specific, quantitative predictions about the effect of cumulative exposure to these intermediate adaptors.  Both these qualitative and quantitative predictions were borne out in the data presented here.
 
-\section{Concluding Part I: Adaptation as inference under uncertainty about the statistics of the generative model} 
+\subsection{Concluding Part I: Adaptation as inference under uncertainty about the statistics of the generative model} 
 \label{sec:conclusion-part1}
 
 In this first part of this article, we have formulated the ideal adaptor framework, building on previous work on speech perception within the ideal listener framework \autocite{Clayards2008,Feldman2009a,Norris2008,Sonderegger2010}. We have applied the ideal adaptor framework to two phonetic adaptation phenomena commonly considered to be due to distinct mechanisms, perceptual recalibration and selective adaptation. To do so, we derived a Bayesian belief updating model from the ideal adaptor. This framework allowed us to formalize the intuition that perceptual recalibration is a form of distributional (statistical) learning that changes the underlying representations of phonetic categories \autocite[e.g.,][]{Norris2003,Kraljic2005,Maye2008a,Bertelson2003}. The Bayesian belief updating model provides a good quantitative fit to perceptual recalibration data ($r^2\mathrm{s}> .8$). The model also qualitatively captures the cumulative effect of exposure in perceptual recalibration experiments, including the previously observed reversal of initial effects after prolonged exposure to the same stimulus \autocite{Vroomen2007}.
@@ -616,7 +616,7 @@ Going beyond perceptual recalibration, the model suggests selective adaptation, 
 
 It is worth mentioning that the \emph{model} which is used to generate those predictions in this case makes many assumptions that are not intrinsic to the framework but rather are made for convenience, tractability, or to better illustrate the basic mechanics of belief updating (for discussion, see the Appendix). These assumptions are largely justified for this particular experimental paradigm (see Table~\ref{tab:model-assumptions} in the appendix). They must, however, be considered carefully when thinking about how this particular \emph{model} might generalize to other paradigms. Support for the ideal adaptor framework as a general framework of adaptation beyond the type of experimental paradigms considered here comes from research finding qualitatively similar patterns of speech adaptation in situations that more closely resemble the complexity of every day speech perception \autocite{Eisner2006,Reinisch2014}.
 
-\subsection{Novelty of the ideal adapter: Putting learning front and center}
+\subsubsection{Novelty of the ideal adapter: Putting learning front and center}
 \label{sec:novelty-ideal-adapt}
 \label{r2-part1-novelty}
 
@@ -631,7 +631,7 @@ A deeper problem with existing models---even those that learn---is that they don
 
 
 
-\section*{Part II}
+\section{Part II}
 \label{sec:part-ii}
 
 Human speech perception is characterized by both extreme flexibility and stability.  Listeners can rapidly adapt to a novel pronunciation while not losing the ability to efficiently comprehend standard pronunciations.  Part II of this paper focuses on the balance between stability and flexibility, and in particular how---in the ideal adapter framework---it is related to the structure of the world that the speech perception system has to operate in.  There are two main aspects to this structure.  
@@ -641,7 +641,7 @@ In Part I we illustrated how phonetic adaptation can be understood as incrementa
 
 However, there is a second relevant aspect to the speech perception system: generative models do not vary \emph{arbitrarily} across situations, but are rather tied to, for example, \emph{who} is talking.  This means that listeners can expect to encounter the same---or similar---generative models again and again (and some more than others).  In Part II of this paper, we focus on these \emph{similarities} across situations that a listener encounters in the world, and discuss how the ideal adapter framework links this structure---with both predictable and unpredictable variation in generative models---with the stability and flexibility of the speech perception system.  While a lot of future work is required to flesh out a computational cognitive model, we will present a tentative outline of how the ideal adapter framework formalizes the link between the distribution of generative models in the world, listeners' prior expectations, and their behavior.  The ideal adapter framework's basic predictions are qualitatively supported by the available behavioral evidence.  At the same time, the ideal adapter framework identifies a number of questions that we consider particularly critical for future research.
 
-\subsection{Recognize the familiar}
+\subsubsection{Recognize the familiar}
 \label{sec:recognize-familiar}
 
 While we have assumed that adaptation to a novel talker does not start from scratch, but rather from some form of prior beliefs about phonetic distributions (literally, the prior in the Bayesian belief-updating model introduced in Part I), we have so far paid little attention to the properties of this prior knowledge.  For the examples entertained in Part I, such as the speech a listener is exposed to in a perceptual learning experiment, the specific prior beliefs that the listener brings to the situation are of little consequence because they will quickly be overwhelmed by the input listeners receive from the novel talker. In everyday life, however, listeners will not only encounter talkers that differ starkly from previously experienced talkers. Instead, some talkers will have been encountered before and others will resemble previously experienced talkers to varying degrees. This means that {\em different aspects} of previous experience bear more or less strongly on the current situation. How listeners determine which previous experiences are the most relevant in a given situation is one of the goals of the second part of this article. 
@@ -650,7 +650,7 @@ Consider, for example, what happens when you walk into a room where your best fr
 
 Talker-specificity in speech perception reveals an important insight: knowledge about the statistics of speech cues needs to be \emph{structured} to provide the full benefit to the listener.  This has long been recognized by, for example, exemplar-based theories of speech perception, where storage of rich acoustic details of each episode leads naturally to persistent, talker-specific representations of the variability of speech sounds, either implicitly or explicitly \autocite{Goldinger1996,Goldinger1998,Johnson1997,Johnson2006,Pierrehumbert2003}.  In the language of the ideal adapter framework, the presence of talker-specificity means that, far from simply being engaged in continuous statistical learning, listeners are in fact using their previous experience to at the very least determine where to \emph{start} such statistical learning in each situation. It is this second type of inference---inferences about what aspect of previous experience are most relevant to the current situation---that prevents listeners from having to re-adapt from scratch every time they encounter a talker (whether it is a novel talker or a previously encountered one). Although the existence of talker-specific knowledge is now broadly accepted, the consequences that the existence of such knowledge has for understanding speech perception is perhaps still under-appreciated. Specifically, most previously proposed models of speech perception, with the exception of certain exemplar-based approaches \autocite{Goldinger1998,Johnson1997,Pierrehumbert2003}, either do not learn \autocite{Clayards2008,Feldman2009a,Norris2008} or are what we will call `flat' learners, without the ability to induce structure over talkers \autocite{Feldman2013a,Lancia2013,McMurray2009,Mirman2006,Vallabha2007}. These models are insufficient to account for talker-specificity and related phenomena discussed below.  Even looking beyond speech perception into the burgeoning literature on learning in the face of (latently) non-stationary statistics \autocite[e.g.,][]{Cho2002,Gallistel2001}, most existing models cannot account for some of the basic properties of speech perception discussed here.\footnote{This also makes speech perception a potentially productive test domain for further development of general models of learning in a non-stationary world.} We return to this point below, as it motivates the proposal we lay out in this second part of the article.
 
-\subsection{Generalize to the similar}
+\subsubsection{Generalize to the similar}
 \label{sec:generalize-similar}
 
 There is also evidence that the structure of listeners' previous knowledge extends beyond the level of particular individual talkers.  To take a somewhat extreme example, one of our colleagues moved from New York to Northern England, where a very different dialect of English is spoken.  Initially, he had a great deal of difficulty understanding what anyone was saying, but after some number of months he found that it became easier to comprehend this accented speech, even when it was spoken by particular individuals he had never met before (Farmer, \emph{personal communication}).  In the language of the ideal adapter, we might say that our colleague learned something about how the cue statistics---or generative models---vary across individual talkers who share this accent, and that this gave him a head start in adapting to a new, but similarly-accented talker.  Although somewhat less well-studied than talker-specificity, there is some evidence that people are broadly capable of such generalization, using their experience with groups of talkers to guide speech perception \autocite{Bradlow2008,Baese-berk2013,Creel2011,Johnson1999,Johnson2006,Niedzielski1999,Sidaras2009}.  There are, in the world, a range of structures that group talkers, from common language community (leading to dialect and accent groups) to factors like gender or sexual orientation \autocite{Munson2007}.
@@ -658,7 +658,7 @@ The ideal adapter predicts that listeners should pick up on, and take advantage 
 
 In order to take advantage of the structure of how generative models vary in the world, listeners need to \emph{learn} this structure through experience.  Listeners do not directly know how generative models are distributed in the world, just like they do not have direct access to the generative model behind each utterance they observe.  This makes the problem of how to take advantage of any structure that might be there in the world another problem of inference under uncertainty.   It is clear that listeners need to learn in order to group talkers together, since meeting two talkers with similar generative models could just be a coincidence, but meeting twenty such talkers likely indicates some underlying dialect group.  However, this kind of higher-level learning is also required for talker-specificity.  That is, in order to benefit from experience with a new talker in future occasions, listeners cannot just adapt to that talker's generative model for the current situation, but rather must, after sufficient exposure, remember what they have inferred about that particular talker's speech statistics so that they can deploy that knowledge on future encounters.  The need for listeners to induce structure over their previous experiences with different generative models suggests that despite being rapid, adaptation---like that discussed in Part I---should persist because it reflects the listener's attempt to build a model of the current situation which can be useful in the future.  This is another way of saying that phonetic adaptation is not just priming but a form of learning about the situation and/or talker \autocite[among others]{Eisner2006,Kraljic2005,Kraljic2008a}.
 
-\subsection{Outline for Part II}
+\subsubsection{Outline for Part II}
 \label{sec:outline-part-ii}
 
 \label{r-formalization-benefits}
@@ -667,13 +667,13 @@ We will expand on these intuitions about how listeners can benefit from picking 
 Part II is organized into four main sections, each of which addresses a different aspect of how the listener's need to infer the appropriate generative model in each situation results in different strategies based on the information available to them from structure in the world (via prior experience) and the speech they observe in that situation.  First, we focus on how listeners can benefit from familiarity with a particular talker.  Maintaining and using talker-specific beliefs about generative models allows listeners to forgo adaptation altogether when they encounter a familiar talker again.  Second, we ask how listeners get to the point of having such talker-specific beliefs.  Every familiar talker was once novel, and became familiar through experience.  Combining the belief-updating logic that was the focus of Part I with talker-specific beliefs leads to the ideal adapter's prediction of talker-specific adaptation.  Third, we turn to the question of where a listener \emph{starts} when adapting to an unfamiliar talker.  Even if a particular individual is unfamiliar, the listener often has experience with other similar talkers that can be informative.  We will discuss evidence that listeners are indeed sensitive to this information, and how it can be formalized in the ideal adapter framework.  Fourth, and finally, we tie all three strategies together, and discuss how connections between adaptation, recognition, and generalization are demonstrated by how listeners behave when they are not entirely sure what prior experience is more relevant.  
 
 
-\section{Recognizing the familiar: Talker-specificity}
+\subsection{Recognizing the familiar: Talker-specificity}
 \label{sec:recogn-famil-talk}
 
 
 We begin with situations in which stable beliefs about the generative model are maximally beneficial: particular familiar talkers.  Listeners can benefit from experience with a familiar talker to the extent that they consistently use a particular generative model---producing certain cue distributions---that is different from other talkers.  By maintaining stable representations of that talker's particular generative model, the listener would be able to deploy those representations when the talker is encountered again in the future, removing the need to adapt to them again.  If, as the ideal adapter predicts, listeners are taking advantage of this structure---that talkers tend to use the same generative model consistently---then listeners should generally process speech in a talker-specific way, and specifically should process speech from familiar talkers faster, more accurately, and more robustly.
 
-\subsection{What do we know about talker-specificity?}
+\subsubsection{What do we know about talker-specificity?}
 \label{sec:what-do-we-know-talker-spec}
 
 Talker-specificity is one of the best-studied and uncontroversial features of human speech perception.  Talker-specificity is observed both in the form of the ability of listeners to explicitly identify particular individual talkers based on their speech, even when it is highly degraded \autocite{Bricker1966,Palmeri1993,Remez1997,Sheffert2002}.  Offline measures of speech processing also show talker-specificity.  For instance, words are better remembered when they're spoken by the same talker at study and test \autocite{Goldinger1996,Palmeri1993}.  However listeners also use talker-specific information to benefit processing.  Listeners are faster and more accurate at comprehending speech in noise when it was produced by familiar talkers, both for unaccented \autocite{Nygaard1998} and accented \autocite{Clarke2004} talkers.  These effects seem to operate at a low level in speech perception, with online measures like eye-tracking suggesting that listeners use experience with talker-specific productions as early as it is possible to detect \autocite{Creel2008,Mitterer2013}.
@@ -685,7 +685,7 @@ Talker-specificity is one of the best-studied and uncontroversial features of hu
   \label{fig:gen-model-points}
 \end{figure}
 
-\subsection{How does the ideal adapter formalize talker-specificity?}
+\subsubsection{How does the ideal adapter formalize talker-specificity?}
 \label{sec:how-does-ideal-adapter-talker-spec}
 
 We can formalize the intuition that listeners use talker-specific information to guide speech perception within a Bayesian inference framework in the following way (visualized in Figure~\ref{fig:gen-model-points}).  Speech perception is treated as an inference process, where the listener is trying to infer the talker's intended category $c$ (or message, more generally), given some acoustic observation $x$.  As discussed in Part I, this relationship is probabilistic, due to unavoidable variability in production and sensory uncertainty, and we can express the cue-to-category inference using Bayes' rule, as in Equation~\eqref{eq:1}, as a combination of how likely a category is \emph{a priori} (the prior), and how well it predicts the observation (the likelihood).  Talker-specific information can come into play in both the prior and the likelihood.  If a talker is more likely to produce \ph s (overall or because of lexical preferences), this should be taken into account in the prior probability assigned to \ph s.  More importantly, given that each talker might produce a different distribution of cues for \ph s, the \emph{likelihood} of any given observation also depends on the talker.\footnote{The belief-updating model implemented in Part I only models changes in the likelihood.} Treating both the likelihood and prior as conditional on the talker (denoted $t$) results, after applying Bayes rule, in a talker-specific posterior over possible intended categories: 
@@ -711,7 +711,7 @@ Making beliefs about the generative model parameters explicitly conditioned on t
 
 However, if listeners have prior beliefs that are specific to---conditioned on---a particular familiar talker, then they do not need to bring exactly the same beliefs to every situation.  Rather, by \emph{recognizing} a familiar talker they can deploy the corresponding talker-specific prior beliefs to ``adapt'' to the current situation without needing to actually go through the process of distributional learning.  In the next section, we will explore the question of how listeners get to the point of having beliefs about a particular talker's generative model, but first we discuss what we see as some of the most pressing issues for future work that this raises.
 
-\subsection{Open questions: talker-specificity}
+\subsubsection{Open questions: talker-specificity}
 \label{sec:open-quest-talk}
 
 One of the consequences of thinking about talker-specific beliefs as distributions over generative models is that the inevitable uncertainty of these beliefs might lead to further uncertainty in how speech is classified, above and beyond the inherent uncertainty from the probabilistic nature of speech perception itself.  As a result of having only uncertain beliefs about a talker's generative model, a truly ideal adapter would have more uncertainty about how to categorize a particular cue value when they are less certain about the talker's generative model.  This could result in, for instance, shallower category boundaries than predicted by a true ideal listener with perfect knowledge of the generative model.  We should stress here that maintaining uncertainty is not per se a bad thing.  To the contrary, properly accounting for uncertainty about the talker's intended message is a strength of this approach, and it would be far worse to be overly-confident about a classification that turns out to be wrong.  Under this view, because listeners should have less uncertainty about highly familiar talkers, classification behavior should be closer to what is predicted by the actual cue distributions.  Alternatively, listeners might not take into account their full uncertainty in the generative model, and go with their best guess rather than averaging over the full distribution.  Other intermediate approximations are possible, with the listener considering only a finite number of different possibilities.  
@@ -722,17 +722,17 @@ Working out the implications of these various ways of dealing with uncertainty i
 Another question is whether talker-specific beliefs about the generative model are something that is unique to speech perception, or instead reflects more general perceptual strategies.  That is, here we have focused on \emph{talker}-specificity. However, the ideal adapter framework in principle predicts that listeners might form beliefs about any type of re-encountered situation/context, if these context/situations are reliably associated with systematically different speech statistics (generative models) and encountered sufficiently frequently. This could include beliefs about being in certain types of spaces (an echoey cathedral, a wide open field, a room with a light that buzzes at particular frequency, etc.).  Of course, many of these properties are relevant to many other sorts of auditory processing, like sound source localization, and the use and deployment of context-specific beliefs about cue statistics might not be something that is unique to speech processing.  Rather, they may reflect a general property of both higher- and lower-level sensory processing, so that the relevant inference might occur below the levels we have so far considered.  
 
 
-\section{Learning talker-specificity through adaptation}
+\subsection{Learning talker-specificity through adaptation}
 \label{sec:learn-talk-spec}
 
 So far, we've discussed the benefits of talker-specific knowledge (and how it can be formalized in the ideal adapter framework) assuming that the listener \emph{is} familiar with some talkers and their particular cue statistics (generative models).  But of course listeners start off knowing very little about a particular talker's generative model, and so in order to be able to make use of talker-specific cue statistics, listeners need to learn about those statistics from experience.  In Part I, we discussed evidence that listeners rapidly adapt to cue statistics in a novel situation, as predicted by the ideal adapter faced with the lack of invariance.  However, if a listener \emph{only} adapted, then they would never be able to develop the sort of talker-specific representations that are now generally accepted to be a basic feature of the speech perception system.  The ideal adapter framework thus also predicts that, when faced with the need to learn such talker-specific representations, listeners do not \emph{just} adapt in the short term, but hold onto their updated beliefs about the generative model for whatever talker (or kind of situation, more generally) that they have adapted to.  
 
-\subsection{What do we know about talker-specific adaptation?}
+\subsubsection{What do we know about talker-specific adaptation?}
 \label{sec:what-do-we-know-talker-adapt}
 
 Despite being very rapid, phonetic adaptation has been found to lead to stable, persistent representations.  This suggests that rapid phonetic adaptation is, in many cases, better thought of as the result of listeners learning something about the talker they encounter in the experiment.  A prime piece of evidence for this is that the effects of phonetic adaptation can remain strong even after intervening exposure to speech from another talker \autocite{Kraljic2005,Kraljic2007}, even after leaving the laboratory and returning 12 hours later \autocite{Eisner2006}.\footnote{While there are some situations in which intervening speech from another talker \emph{does} disrupt adaptation \autocite[e.g. the \ph d-\ph t condition in][]{Kraljic2007}, this is broadly consistent with the more general prediction of the ideal adapter that listeners are tracking the overall distribution of generative models across situations, which we discuss below.}  Moreover, there's also some evidence that listeners can learn separate generative models for two different talkers in the same situation, even when utterances from the two talkers are mixed together \autocite{Munson2011}.  This would not be possible if listeners were simply tracking the short-run statistics of particular acoustic cues like VOT.
 
-\subsection{How does the ideal adapter formalize talker-specific adaptation?}
+\subsubsection{How does the ideal adapter formalize talker-specific adaptation?}
 \label{sec:how-does-ideal-form-talker-adapt}
 
 In the ideal adapter framework, this sort of talker-specific adaptation follows naturally from the idea, introduced in the last section, that listeners are using talker-specific beliefs about the generative model.  Talker-specific beliefs about the generative model are updated in a similar way as in the ``flat'' belief-updating model introduced in Part I: by bringing the cue statistics predicted by the generative model into better alignment with the observed cue statistics.  The only difference is that instead of considering the statistics of \emph{all} observations (as the belief-updating model of Part I implicitly does), the listener should consider only the statistics of observations produced by a particular talker in updating their beliefs about that talker's generative model.
@@ -757,7 +757,7 @@ These updated beliefs can then be further updated with other observations, with 
 \end{equation}
 In this way, the ideal adapter can combine information from multiple encounters with talker $t$, even if they are separated by intervening speech from other talkers (Figure~\ref{fig:talker-specific-belief-updating}).  Combining information from different encounters with a single talker is important for inferring accurate beliefs about that talker's generative model because these generative models are extremely complex, with many different phonetic categories, each of which is cued by multiple acoustic features whose statistics have to be tracked.  Each observation thus only provides a little bit of information about the talker's whole generative model, and arriving at accurate beliefs with low uncertainty requires, in principle, quite a bit of evidence.  While this point might explain why listeners continue to update talker-specific beliefs over multiple encounters \autocite[preliminary evidence for which is provided by][]{Munson2011}, it raises the question of how listeners achieve reasonably robust speech perception even for relatively unfamiliar talkers.  Besides the speech they directly observe, listeners have another powerful source of information: the range of different generative models they have encountered in their past experience with other talkers.  As we will discuss in the next section, this information---which we can formalize as the \emph{prior} or \emph{base distribution} over generative models---can narrow down the range of generative models that the listener needs to consider, and serve as a head start to belief updating.
 
-\subsection{Open questions: talker-specific adaptation}
+\subsubsection{Open questions: talker-specific adaptation}
 \label{sec:open-quest-talk-1}
 
 One question that talker-specific belief-updating raises is what the limits on talker-specificity in adaptation are, both in the short term and over the long term.  In the short term, how many sets of beliefs can a listener simultaneously maintain and update?  There is fairly good evidence that listeners can maintain at least two distinct sets of beliefs for novel talkers in the same context \autocite{Munson2011,Kraljic2007}.   Talker-specificity has been observed in recognition memory for words for up to 10 talkers at a delay of one day \autocite{Goldinger1996}.  But for more subtle effects like sublexical recalibration---changes in category boundaries that generalize to words not already heard---it's not known how many talkers can be tracked.  We hope that future work will address how the number of talkers, and the overall similarity of their cue distributions, affects talker-specific adaptation.
@@ -765,7 +765,7 @@ One question that talker-specific belief-updating raises is what the limits on t
 It's also not known what the limits on talker-specific adaptation are in the long term. Do listeners \emph{always} create a distinct, persistent set of beliefs for each new talker?  If the listener has good reason to think that they will not meet the talker again, then it may make sense to adapt and then forget.  But this would be difficult to measure in a laboratory experiment, because re-testing listeners after any appreciable delay requires a degree of logistical coordination that provides pretty good evidence that persistent representations will be useful.  Moreover, it may in some cases be more efficient to group multiple, highly similar talker together, which is addressed in the following section.
 
 
-\section{Generalizing across talkers}
+\subsection{Generalizing across talkers}
 \label{sec:gener-across-talk}
 
 
@@ -782,10 +782,10 @@ Moreover, there are regularities across talkers in the relationships \emph{betwe
 
 Constraints like these make the problem of adapting to a new talker, in principle, vastly easier than learning the language in the first place.  The overall space of generative models that are likely to occur for a particular language or group of talkers is much more restricted than the space of generative models that occur across \emph{all} talkers of all languages.  Some of these constraints might be innate (and common, at least probabilistically, to the world's languages), but other obviously have to be learned for each particular language \autocite[like the range of mean VOTs allowed for each category][]{Lisker1964}.
 
-\subsection{What do we know about how listeners generalize across talkers?}
+\subsubsection{What do we know about how listeners generalize across talkers?}
 \label{sec:what-do-we-know-gen}
 
-\subsubsection{Generalizing across all talkers}
+\paragraph{Generalizing across all talkers}
 \label{sec:gener-across-all}
 
 First, there is some tentative evidence that listeners are sensitive to the overall range of generative model they have encountered.  If listeners are sensitive to this range, then listeners who have experience with a broader range of generative models should, on average, be better prepared to adapt to unusual speech. \textcite{Baese-berk2013} found that, as predicted, listeners who had to transcribe sentences from four talkers with four \emph{different} foreign accents were more accurate on a fifth talker, with a fifth accent, relative to listeners who only heard a single accent (distinct from the test talker's).  
@@ -793,7 +793,7 @@ First, there is some tentative evidence that listeners are sensitive to the over
 Conversely, listeners also use the range of generative models they have previously encountered to narrow down the hypotheses they consider for a new talker.  It follows that it should be \emph{harder} to adapt to talkers whose generative models fall outside the typical range.  This prediction is borne out in recent work.  For instance, \textcite{Idemaru2011} exposed listeners to various combinations of two cues to a voicing contrast (e.g. \ph b vs. \ph p), VOT and fundamental frequency (f0).  Canonically, these two cues are positively correlated within a talker: higher VOTs occur with higher f0s, and correspond to voiceless stops like \ph p. While uncorrelated VOT and f0 are rarer, they are also observed. Crucially, anti-correlated VOT and f0 are generally \emph{not} observed. If listeners have implicit beliefs that reflect these correlations, this should make it harder to adapt to unnatural talkers for which the two cues are anti-correlated. This is indeed what \textcite{Idemaru2011} found: listeners were able to adapt to a two-dimensional distribution of VOT and f0 where f0 was uncorrelated with VOT.  However, listeners were not able to fully adapt to a distribution where VOT and f0 were anti-correlated. Similarly, \textcite{Sumner2011} found that American English listeners were not able to adapt to a talker who always produced voiced stops (i.e. \ph b, \ph d, \ph g) with substantial prevoicing (negative VOTs).  Given that American English talkers typically produce these sounds with VOTs of \SI{0}{\milli\second}, this inability to adapt, too, might be a consequence of cross-talker generalizations based on prior beliefs. 
 
 
-\subsubsection{Generalizing based on social group membership}
+\paragraph{Generalizing based on social group membership}
 \label{sec:soci-group-memb}
 
 Listeners often know (or can infer) more about a talker than that they are a speaker of English (or whichever language).  To the extent that different a particular group of talkers systematically differs in their generative models from talkers in general, the listener can benefit by identifying whether a talker is a member of this group, and using their previous experience with this group to provide an even bigger head start to adaptation.  For instance, there are dramatic differences in how men and women produce many phonetic categories \autocite[e.g.,][]{Hillenbrand1995,Jongman2000,McMurray2011a,Newman2001}, and thus the listener might (probabilistically) rule out a range possible generative models, further facilitating fast adaptation.\footnote{Of course, as above, if the talker's generative model is actually outside the normal range for women, this would \emph{hurt} adaptation.  But, by definition, the distribution of the generative models for talkers in a particular group captures most of the talkers in that group, and so \emph{on average} will be beneficial.}  
@@ -804,7 +804,7 @@ This prediction is born out in a study by \textcite{Strand1996} \autocite[see al
 
 Beyond gender, there is evidence that listeners also use their experience with the speech of different social groups as a source of information about where to start adaptation.  In a vowel matching task where they were told that the talker was from Canada, listeners from Detroit, MI chose tokens with more Canadian raising as matching than when they were told the talker was from Detroit \autocite{Niedzielski1999}.  This suggests that listeners' perception of these vowels was biased towards what they expected to hear from a Canadian talker.  There is, more generally, a growing literature on the extent to which perceived social group membership affects language comprehension \autocite{Drager2010,Hay2006,Hay2010,StaumCasasanto2008,Sidaras2014}.
 
-\subsection{How does the ideal adapter formalize generalization across talkers?}
+\subsubsection{How does the ideal adapter formalize generalization across talkers?}
 \label{sec:how-ideal-adapter-gen}
 
 \begin{figure}[htb]
@@ -822,18 +822,18 @@ The reason that more specific (or constraining) prior beliefs provide more of a 
 
 The price that is paid for this head start is that more specific prior beliefs are less \emph{flexible}.  That is, if the prior beliefs are \emph{wrong} and the actual generative model lies outside the range that has non-trivial  prior probability, then much more evidence will be required to reach the same level of belief in the actual generative model.\footnote{This is really a consequence of Bayes rule assigning posterior probability as the \emph{product} of prior probability and likelihood.  That means that what ``adds up'' is actually \emph{log}-probability, which goes to negative-infinity as probability goes to zero.}  This is why, in principle, the listener should only use specific beliefs when they are fairly certain that they are applicable.  While this might seem like a problem for the ideal adapter framework, in the next section we will show that the ideal adapter framework also points towards a solution, which is to treat the problem of identifying which beliefs are applicable as another inference problem, which can be solved by combining top-down information (like visual recognition of a particular talker) with bottom-up information from the speech itself.
 
-\subsection{Open questions: Generalization across talkers }
+\subsubsection{Open questions: Generalization across talkers }
 \label{sec:open-questions-gen}
 \label{r1-gen-questions}
 
-\subsubsection{How do listeners know who to group together?}
+\paragraph{How do listeners know who to group together?}
 \label{sec:how-do-listeners}
 
 In order to make use of structure in the distribution of generative models at different levels---from talker-specific to groups of talkers to the overall base distribution---listeners have to somehow pick up on and \emph{learn} this structure.  There is some evidence that people can not only induce this sort of structure, but in some cases can do so surprisingly quickly.  \textcite{Bradlow2008} had listeners transcribe sentences from accented talkers.  In the \emph{same talker} condition, the sentences were all produced by a single accented talker, and listeners transcribed sentences from this same talker more accurately in a later test phase.  In the \emph{multiple talker} condition, listeners transcribed the same total amount of speech, but from four different talkers (distinct from the test talker).  Despite the test talker being novel to them, listeners in the multiple talker condition showed the same benefit of experience as the same talker group.  Listeners in a \emph{single other talker} condition did not receive any benefit to exposure to a single accented talker when tested on the novel test talker, which suggests that listeners in the multiple talker condition have extracted some accent-level beliefs after a relatively small amount of exposure (on the order of an hour or two).
 
 In the language of the ideal adapter framework, we might say that listeners need to impute structure to the variability in the generative models they have experienced.  Much like Bayesian models of category learning during language acquisition \autocite[e.g.][]{Feldman2013a,Perfors2011}, this structure induction can be thought of as another problem of inference under uncertainty.  Each way of grouping previously encountered generative models is an imputation of some kind of structure, and each possible grouping may be more or less compatible with previous experience and a priori expectations about how likely particular sorts of groupings are.  However, the ideal adapter framework, as articulated here, has very little specific to say about how this inference might work---even at a computational level---outside of very general predictions \autocites[e.g. simpler groupings are naturally preferred because of the Occam's razor property of Bayesian inference;][]{Perfors2011}[pp. 343-356]{Mackay2003}.
 
-\subsubsection{How are multiple, overlapping groups represented?}
+\paragraph{How are multiple, overlapping groups represented?}
 \label{sec:what-repr-are}
 
 \label{r1-features-classes}
@@ -843,7 +843,7 @@ These possibilities lead to at least two open questions. First, do listeners, in
 
 \label{r1-gen-questions-end}
 
-\section{Balancing stability and flexibility: When to adapt, generalize, or recognize}
+\subsection{Balancing stability and flexibility: When to adapt, generalize, or recognize}
 \label{sec:when-adapt-gener}
 
 Thus far, we've addressed three strategies that listeners have for dealing with the lack of invariance: rapid adaptation to totally novel talkers, recognition of familiar talkers (and the resulting talker-specificity), and generalization across groups of similar talkers.  In the ideal adapter framework, all three of these strategies are the result of the listener trying to infer the appropriate generative model with differing degrees of relevant prior experience.  In this way of thinking, whether speech perception is flexible---as in adaptation to novel situations---or stable---as in recognition of familiar situations---depends on how confident the listener is in their prior beliefs, which in turn depends on how much relevant prior experience they have. 
@@ -853,19 +853,19 @@ While such cues are often available, they are not \emph{always} available, and s
 
 The ideal adapter treats the problem of whether to be flexible or stable as inference under uncertainty at yet a third level, where the listener tries to infer what \emph{type} of situation they are in, and hence what prior experience will be relevant in figuring out the generative model.\footnote{The other two levels being inferring the intended category, and inferring the situation's particular generative model.}  There are, as always, two sources of information that can guide this inference: the listener's top-down expectations about what type of situation they are in (like visually identifying a talker's face), and bottom-up information from the speech signal (which may be more or less compatible with the speech predicted by their beliefs about each possible type of situation).  The ideal adapter framework predicts that listeners use these two sources of evidence in order to balance stability and flexibility on the fly.
 
-\subsection{What do we know about how listeners balance stability and flexibility?}
+\subsubsection{What do we know about how listeners balance stability and flexibility?}
 \label{sec:what-do-we}
 
 Balancing stability and plasticity requires that listeners deploy the most informative prior experience that is relevant in each situation.  This is true whether or not they know \emph{a priori} what prior experience is relevant.  Thus, we argue, balancing stability and plasticity in speech perception requires that the listener dynamically combine top-down information about what kind of situation they are in with bottom-up information from the speech signal.  However, little is known about how listeners trade off these two sources of information.  What little we know suggests that listener do, in fact, use both bottom-up and top-down information to infer the type of situation they are in and what prior experience is currently relevant. Based on these inferences, listeners can then determine how flexible to be in the current situation. Evidence for this view is of two types, which we discuss in turn.  First, listeners can recognize talkers that they are familiar with based on just bottom-up speech input.  Second, listeners generalize experience with one talker to adaptation to another talker based both on the bottom-up similarity in their generative models and top-down expectations that generalization is appropriate.  
 
-\subsubsection{Recognizing familiar talkers based on their speech}
+\paragraph{Recognizing familiar talkers based on their speech}
 \label{sec:recogn-famil-talk-1}
 
 Listeners use information from the speech signal itself to help infer the talker's identity (and social group membership) in a way that shapes how they interpret that talker's speech.  The speech signal includes non-phonetic features like (in English) f0 range, jitter, and shimmer that distinguishes talkers \autocite{Creel2011,Pardo2006}.  Listeners use this information not only to recognize familiar individuals but also to infer social group membership.  For instance, we discussed above evidence that listeners change their classification of vowels and fricatives based on the gender of a visually presented face.  These same studies found that synthesized vowels and fricatives---with exactly the same phonetic cue values---were also classified differently depending on the vocal source wave that was used, with stereotypically female and male vocal sources having a similar effect as a visually-presented female face (higher frequency category boundaries).  Interestingly, this effect is gradient, with the effects of voices rated as non-stereotypically male or female falling in between stereotypically male or female voices \autocite{Johnson1999,Munson2011a,Strand1996,Strand1999}.
 
 Beyond non-phonetic aspects of the speech signal, the fact that different talkers use different phonetic generative models means that \emph{phonetic} aspects of the speech signal can also, in principle, provide information about talker identity or group.  That is, the same talker- or group-specific beliefs about the phonetic generative model which benefit speech perception once a particular talker is identified can \emph{also} conversely aid in identifying a talker.  To the extent that they vary across talkers---and hence benefit from talker- or group-specific representations---phonetic features like formant frequencies and VOT are by definition diagnostic of talker identity.  Thus, the listener's knowledge about a familiar talker's cue statistics provides a rich source of information for identifying that particular talker based on their speech, which can in turn can affect how that same speech signal is mapped onto phonetic categories.  Listeners do, in fact, take advantage of such phonetic information for talker recognition \autocite{Creel2011,Pardo2006}, and can explicitly recognize talkers with very high accuracy based on sine-wave \autocite{Remez1997} or noise vocoded speech \autocite{Sheffert2002}.  Such processing of speech removes all of the fine spectral detail (and much if not all of the voice quality information) but preserves enough phonetic information to allow for reasonably good comprehension.
 
-\subsubsection{Generalizing experience with one talker to another, or not}
+\paragraph{Generalizing experience with one talker to another, or not}
 \label{sec:recogn-novel-talk}
 
 When there is uncertainty about what prior experience is relevant, information from the speech signal helps processing of novel talkers in two ways.  First, in this paper we have generally simplified our discussion by focusing on a few phonetic features.  However, in everyday speech perception the generative model is highly complex, covering many categories, each cued by many acoustic features.  Somewhat paradoxically, when we consider that the listener must also infer the kind of prior experience that is relevant, this makes their job easier: even from a small amount of speech from a novel talker, listeners can in all likelihood recognize that none of their talker-specific representations provide a good match to the current situation.  Second, even a small amount of information about the generative model can help identify whether, and which, more informative \emph{group}-specific beliefs might be relevant, meaning that listeners have to fall back on the least informative beliefs only as a last resort.  This is important because on the one hand, even a little bit of experience with one or more similar talkers provides a big boost to adaptation, but on the other hand, mistakenly assigning a talker to a particular group actually makes it harder to adapt to their actual generative model, as discussed in the last section.  If listeners are in fact continuously trying to identify what, if any, familiar group a novel talker belongs to based on the speech they produce, then they should flexibly generalize from experience with one talker to another when it's warranted (by top-down expectations and bottom-up similarity) but adapt in a talker-specific way when it is not.
@@ -879,10 +879,10 @@ This might be taken as evidence that listeners are simply unable or categoricall
 However, if listeners are actually trying to \emph{infer} whether or not two talkers should be grouped together---rather than simply relying on fixed heuristics---then enough of the right kind of experience which contradicts these biases should be able to overcome them in specific cases.  For instance, even though listeners tend to generalize experience with VOT distributions from a male to female talker, with sufficient experience with a male and a female talker who have \emph{different} VOT distributions, listeners do in fact learn talker-specific representations \autocite{Munson2011}.  Conversely, even though listeners tend to learn talker-specific representations of fricatives, by using a modified test continuum \textcite{Reinisch2014} found that listeners can generalize experience with a female talker's fricatives to a novel male talker.
 \label{r1-reinisch1}
 
-\subsection{How does the ideal adapter formalize the stability/plasticity trade-off?}
+\subsubsection{How does the ideal adapter formalize the stability/plasticity trade-off?}
 \label{sec:how-does-ideal}
 
-\subsubsection{A mixture of prior beliefs}
+\paragraph{A mixture of prior beliefs}
 \label{sec:mixt-prior-beli}
 
 The available evidence suggests that listeners can, on the fly, infer which type of prior experience is relevant for the current situation based on a combination of bottom-up speech information and top-down expectations.  In the language of the ideal adapter framework, this in turn suggests that in situations where the listener is unsure about what type of prior experience is relevant, their prior expectations about what generative models they will encounter are a \emph{mixture} of expectations given different types of prior experience.  Each particular sort of prior experience can be thought of as a cluster of possible generative models, with more specific prior experience---like experience with a particular familiar talker---corresponding to highly concentrated, peaked clusters and more general experience---like with the range of generative models across all talkers in the language---being more spread out.  
@@ -896,7 +896,7 @@ One way to formalize this notion is based on representing the beliefs about gene
   p(\theta) = \sum_t p(\theta \given t) p(t)
 \end{equation}
 
-\subsubsection{Top-down information}
+\paragraph{Top-down information}
 \label{sec:top-down-information}
 
 Let's consider the case where the listener can recognize a familiar talker---call him Frank---with high certainty based on visual information.  Then, the distribution over types of prior experience $p(t \given \textrm{vis. info})$ is highly peaked:
@@ -920,7 +920,7 @@ As a result, the listeners' beliefs about the generative model parameters, given
 
 That is, when the type of prior experience is known with reasonably high certainty from top-down cues, this mixture model reduces to the talker- or group-specific beliefs described in earlier sections in Part II.  This formalization thus generalizes the notion of talker- or group-specific beliefs as conditional distributions.  In this sort of mixture model, when top-down information about the type of situation is available, listeners can take advantage of it, which can in turn lead to effects of top-down information (like visually presented faces or other cues) changing the way that physically identical bottom-up acoustic signals are interpreted \autocite{Johnson1999,Hay2010,StaumCasasanto2008,Strand1996}.  However, having a weighted mixture of different prior beliefs means that the listener does not have to rely \emph{solely} on such top-down information to tell them which prior experience is relevant, but rather can also use bottom-up information.
 
-\subsubsection{Bottom-up information}
+\paragraph{Bottom-up information}
 \label{sec:bott-up-inform}
 
 Formalizing the listener's prior beliefs about generative models in this way provides a natural way of formalizing how bottom-up, phonetic information can help infer the type of prior experience that is relevant.  Inferring the type of experience that is relevant comes down to inferring the type $t$, given some observations $x$ and prior expectations $p(t)$, which we can think of as Bayesian inference at yet another level: 
@@ -955,7 +955,7 @@ the ideal adapter framework reveals that we can look at recognition (and the res
 For types of experience that correspond to very specific beliefs---like a highly familiar talker---the situation-specific beliefs will change little with the addition of one more observation.  If such a component for a familiar talker provides the best match to the observed speech, then the result of this process of belief updating with a clustered mixture prior is that the listener has recognized and deployed their talker-specific generative model.  If, on the other hand, the best-fitting type is a very broad, general type like all speakers of English, then the updated beliefs are dominated much more by the actual observed data then the prior, just like when the listener knows ahead of time that they need to adapt rapidly.  Similarly, if prior beliefs of intermediate specificity dominate, then the updated beliefs will reflect the observed data more than they would for a highly familiar talker, but the prior beliefs will contribute more than in the most flexible case.   This is how the ideal adapter is able to flexibly deal with the lack of invariance, making the best use of different types of prior experience with different generative models.  By learning about and representing the \emph{distribution} of generative models in the world, the ideal adapter is better prepared to infer the appropriate generative model across many different types of situations.  
 
 
-\subsection{Open questions}
+\subsubsection{Open questions}
 \label{sec:open-questions-infer-cluster}
 \label{r1-cluster-questions}
 
@@ -963,13 +963,13 @@ We have argued here that the ideal adapter predicts that listeners dynamically b
 
 The biggest open question that this raises is how---and even whether---listeners combine top-down and bottom-up information about what kind of prior experience is relevant.  There are, in our view, at least two sides to this question.  The first side is what a truly ideal adapter would do.  The ideal adapter framework as currently posed addresses this only in the most general sense, saying that listeners \emph{should} combine top-down and bottom-up information to determine what prior beliefs to use.  But much more work is required in order to make further testable predictions.  The second side is empirical, and in the rest of this section we review two empirical questions we see as particularly pressing.
 
-\subsubsection{What role do expectations of generalizability play?}
+\paragraph{What role do expectations of generalizability play?}
 \label{sec:what-role-expect}
 
 The studies by \textcite{Kraljic2005,Kraljic2006,Kraljic2007} suggest that listeners group together talkers when the distributions of cues they produce are similar.  But in all these studies, the similarity of the cue distributions is confounded with the overall similarity between male and female talkers in general on the relevant phonetic dimensions: male and female talkers don't systematically differ in their VOT distributions in American English \autocite{Allen2003}, whereas they do differ in their frication frequency distributions \autocite{Newman2001}.  Thus listeners may have already made up their minds about whether to group the two talkers together before hearing anything.  There's some evidence that top-down expectations and bottom-up similarity can be dissociated \autocite{Munson2011,Reinisch2014}, but it remains to be seen exactly how listeners balance these two sources of information, both in the short term (e.g. over the course of a single experimental session) and over the long term (over days, weeks, or longer).
 \label{r1-reinisch2}
 
-\subsubsection{When are two generative models similar enough to group?}
+\paragraph{When are two generative models similar enough to group?}
 \label{sec:open-questions}
 
 Our discussion of how listeners might generalize experience from one talker to another on the basis of similarity of their generative models glosses over a very basic point: even if their VOT ranges are overall very similar, the whole generative model for a male talker is \emph{very} different from that of a female talker.  Thus, while it might make sense to lump together experience with a male and female talker for the purposes of inferring their VOT distributions, it definitely does not make sense to lump together beliefs about their vowels.  One way that this dilemma could be resolved is if listeners have extracted some information about the variance of different parameters in groups that contain males and females (like the ad hoc grouping that might be inferred during an experiment).  Properties that vary a lot across talkers within a group are not very informative about particular talkers, whereas properties that are consistent across talkers in a group can be used to constrain beliefs about individuals much more strongly.  Because males and females---within most groups---vary a lot in their vowels, but not so much in their VOT, listeners can use information about the VOT distributions of individual talkers to (on average) reliably infer properties of the group, which in turn are (on average) highly informative about properties of other talkers in the same group.
@@ -978,7 +978,7 @@ An alternate possibility is that listeners have more or less separate beliefs ab
 
 \label{r1-cluster-questions-end}
 
-\section{Part II conclusion}
+\subsection{Part II conclusion}
 \label{sec:part-ii-conclusion}
 
 We have argued that a range of strategies that human listeners use to deal with the lack of invariance all correspond to the best that they can do in a world where generative models vary from one situation to the next, but do so in a structured way that is tied to indexical variables like talker identity and group membership.  The ideal adapter framework formalizes this notion by representing situation-specific beliefs about the range (distribution) of generative models that are expected in different types of situations, from very specific (an individual talker) to very general (an entire language).%
@@ -988,7 +988,7 @@ This range allows the listener to balance stability and flexibility, relying on 
 Explicit structured beliefs are one way of achieving sensitivity to structured variability of cue-category mappings. However, the primary take-home message from Part II is that sensitivity to this structured variability is a critical feature of any model that seeks to explain the robustness of human speech perception.  Formulating such a model and evaluating its predictions remains a task for future work.
 
 
-\section*{Part III}
+\section{Part III}
 \label{sec:part-iii}
 
 We close our paper with a discussion of how the present work relates to other approaches and issues.  We chose to take a \emph{computational-level} approach to understanding how the speech perception system deals with the lack of invariance. Such an analysis focuses on the \emph{problem} of robust speech perception. That is, our approach is guided by questions about the `why', or the purpose of the system, the goals it typically serves, and the world it has to function in.  Focusing on the `why' of speech perception does not  directly address the actual cognitive processes (and neural mechanisms) that must carry it out \autocite{Marr1982}, but it has allowed the development of models that provide a good fit to human behavior, both in speech perception \autocite{Clayards2008,Feldman2009a,Norris2008,Sonderegger2010} and in a range of phonetic adaptation phenomena (Part I of this paper).  It also has allowed us to make novel predictions, some of which we have tested here and the rest of which we hope will guide future research and the development of cognitive and neural models.  The ideal adapter framework is \emph{normative}, in that it looks only at the in-principle constraints on performance that come from the inherent difficulty of the task and the limited information that is available in the world, without considering resource limitations.  The brain is obviously not unbounded in its resources, and considerations that come from processes, representations, and mechanisms are thus relevant to future development of the framework presented here. 
@@ -1002,14 +1002,14 @@ First, a number of other approaches to the lack of invariance have been proposed
 Next, we turn to how the proposed framework, and the body of empirical literature it unites, might inform the debate about the underlying representations used by speech recognition, and the role of subphonetic detail in phonetic representations.
 Finally, we will discuss the possible implications for this work beyond speech perception by adult listeners to both higher-level language processing and the acquisition of phonetic categories during development.
 
-\section{How does the ideal adapter relate to other approaches to the lack of invariance?}
+\subsection{How does the ideal adapter relate to other approaches to the lack of invariance?}
 \label{sec:how-does-ideal-1}
 \label{r2-part3-sec}
 
 Our approach is novel when compared to most models of speech perception---Bayesian and otherwise---that do not learn at all \autocite{Clayards2008,Feldman2009a,McClelland1986,Norris1994,Norris2000}.  
 But we are hardly the first to consider the problem of the lack of invariance in speech perception, and a variety of other approaches exist that either directly address flexibility in phonetic categorization or address related problems.  We review these in this section.
 
-\subsection{Existing models of speech perception and adaptation}
+\subsubsection{Existing models of speech perception and adaptation}
 \label{sec:exist-models-adapt}
 
 The existing models that are most directly related to our approach deal with plasticity in phonetic categorization by adding slower learning (and habituation) dynamics to existing connectionist or dynamical systems models of phonetic categorization \autocite{Lancia2013,Mirman2006}.  In both of these models, learning is modeled with a Hebbian learning mechanism that increases the feedforward connection weight between acoustic/phonetic input units to categorical output units based on repeated co-activation.  Such a learning mechanism is sufficient to qualitatively capture phonetic recalibration, but it is not clear whether the generally slow temporal dynamics of Hebbian learning can account for the very rapid recalibration effects that are typically observed \autocite{Guediche2014}.  Furthermore, without an additional habituation mechanism \autocite[which \emph{is} present in][]{Lancia2013} Hebbian learning may not be sufficient to capture selective adaptation.  
@@ -1024,7 +1024,7 @@ To illustrate this point further, we have argued (in Part II) that the speech pe
 
 Memory-based or episodic theories provide an alternative approach which is superficially conflicting.  In these approaches, prior experience is \emph{represented} in an unstructured way, but sensitivity to the structure of that experience might still arise through \emph{processes} by which similarity to stored episodes is computed \autocite[e.g., analogical reasoning][]{VandenBosch2013}.  This is an area of ongoing research, and it is an interesting question whether these two approaches---structure by representations or by processes---make substantively different predictions in principle. It is possible, for example, that analogical reasoning applied to unstructured memory traces can implement the sort of structure-sensitive computations we have argued for.
 
-\subsection{What counts as a situation for adaptation?}
+\subsubsection{What counts as a situation for adaptation?}
 \label{sec:index-situ-vers}
 
 In our discussion of how generative models vary from one situation to the next, we have focused on talkers (or other indexical variables) as the main driver of this variability.  The reason for this emphasis on talkers is that differences between talkers are responsible for a large amount of variability in how phonetic categories are realized acoustically \autocite[among others]{Allen2003,Hillenbrand1995,McMurray2011a,Newman2001}.  This lead us to hypothesize that listeners' beliefs about the generative model of speech need to be thought of as conditioned on their beliefs about the talker (or type of talker) they think they are listening to.  
@@ -1036,7 +1036,7 @@ Even if the effects of linguistic context and indexical situation can be, comput
 
 \label{r2-part3-sec-end}
 
-\section{What is the nature of representations underlying speech recognition?}
+\subsection{What is the nature of representations underlying speech recognition?}
 \label{sec:ling-theor-speech}
 \label{r3-epi-abs}
 \label{r1-epi-abs}
@@ -1044,7 +1044,7 @@ Even if the effects of linguistic context and indexical situation can be, comput
 Even though our work here is pitched at a computational level, it does have implications for existing linguistic theories of speech recognition.  By relating the lack of invariance to the strategies that people use to achieve robust speech perception---adaptation, talker-specificity, and generalization---the ideal adapter framework highlights shortcomings in the starting points for existing theories of how the speech recognition system maps cues onto linguistic categories.  We will argue that the ideal adapter framework also helps to understand how recent moves away from these more extreme starting points are a step in the right direction, and---we hope---points to further productive directions for future research.
 
 
-\subsection{Abstractionist and episodic approaches to speech recognition}
+\subsubsection{Abstractionist and episodic approaches to speech recognition}
 \label{sec:abstr-epis-theor}
 
 One of the persistently debated issues in speech recognition is the degree of abstraction in the representations which mediate cue-category mappings.  At one extreme, \emph{abstractionist} models posit that speech perception is mediated by prelexical representations that strip away subphonetic variation, discarding acoustic information which is not relevant for making (possibly probabilistic) categorical distinctions \autocite{McClelland1986,Norris1994,Norris2000,Norris2008}.  At the other extreme, \emph{episodic} models posit that speech perception is a direct mapping of detailed acoustic traces to linguistic units (often lexical items), preserving all of the fine-grained acoustic information \autocite{Goldinger1998,Johnson1997a,Johnson2006,Pierrehumbert2002}.  These two perspectives constitute dramatically different approaches to the lack of invariance, each of which is insightful but also falls short in different ways.
@@ -1053,7 +1053,7 @@ On the one hand, in the face of the lack of invariance abstractionist theories h
 
 On the other hand, episodic theories avoid the problem of talker normalization altogether, because the detailed acoustic traces of, for instance, individual word or vowel tokens are stored separately, and recognition proceeds on the basis of overall acoustic similarity.  By storing large enough (e.g. word-sized) acoustic traces, each remembered episode encodes enough information to be useful in distinguishing individual talkers, supporting talker-specific cue-category mapping \autocite{Goldinger1998,Johnson1997a,Pierrehumbert2002}.  For unfamiliar talkers, new episodes are recognized based on some measure of overall similarity to stored episodes from other talkers, allowing generalization across talkers.  
 
-\subsection{Insights and problems of each approach}
+\subsubsection{Insights and problems of each approach}
 \label{sec:problems-with-each-approach}
 \label{r3-granularity-of-mapping}
 
@@ -1062,7 +1062,7 @@ Each approach is founded on useful insights. Abstractionist models are informati
 
 But each approach also comes at a cost. For abstractionist accounts, normalization is hard, if not impossible, given that much of the variability across talkers is not due to fixed (e.g. physiological) factors but rather stylistic and thus needs to be learned \autocite{Johnson2006,Pardo2006}.  The Hebbian learning mechanisms that have been proposed typically operate at much longer time scales than the very rapid recalibration that is commonly observed \autocite{Guediche2014,Mirman2006}.  Even if the learning rate can be dynamically adjusted, existing proposals for ``flat'' learners cannot account for the speech perception system's sensitivity to structure (e.g. persistent talker-specific representations).  Episodic accounts which track raw acoustic episodes of a large enough size to simultaneously encode the phonetic features and the other acoustic information that tells you how to interpret those features (e.g. frication energy and adjacent vowel formants/f0 to get gender) cannot easily generalize recalibration to unheard words \autocite{Cutler2010}. More importantly, episodic models cannot generalize across groups of different levels of specificity by simply recording acoustic episodes.  Rather, they require some additional mechanism for ``tagging'' and filtering or weighting exemplars based on indexical variables.\footnote{Or, alternatively, a ``smarter'' similarity function that is somehow sensitive to the structure of the episodes, both linguistically and indexically \autocite[e.g., as discussed above,][]{VandenBosch2013}.}
 
-\subsection{Charting a middle course}
+\subsubsection{Charting a middle course}
 \label{sec:chart-middle-course}
 \label{r3-abs-epi-converge}
 
@@ -1075,7 +1075,7 @@ The ideal adapter framework thus incorporates insights from both abstractionist 
 In this sense, our approach is inspired by normalization accounts.  However, instead of adjusting the \emph{acoustic cue space} to make all talkers align with a fixed set of cue-to-category mappings, the ideal adapter adjusts the \emph{category-to-cue mappings} for each situation.
 We have also tentatively proposed that there is a parallel trade-off at a higher level, in estimating the distribution of generative models themselves across situations.  This suggests that listeners might be able to use exemplars in generative model parameter space (rather than acoustic space) to estimate, in an approximate, boundedly-rational way, the overall distribution of generative models across situations \autocite{Ashby1995,Gibson2013,Griffiths2008} and to adapt to the current situation \autocite{Shi2010}.  However, there is also a benefit from abstracting away from individual situations by explicitly representing summaries of different group-level distributions in order to generalize across groups.  While there is some evidence that phonetic adaptation reflects updating of top-down category-to-cue representations rather than bottom up cue warping \autocite{Dahan2008}, further work is required to determine whether this is  what human listeners always do and to computationally flesh out these different approaches.
 
-\subsection{The role of subphonetic detail}
+\subsubsection{The role of subphonetic detail}
 \label{sec:impl-role-subph}
 
 \label{r3-subphonetic-classification}
@@ -1091,13 +1091,13 @@ Moreover, because different talkers can produce different distributions (which a
 \label{r3-epi-abs-end}
 \label{r1-epi-abs-end}
 
-\section{Implications of the ideal adapter framework beyond speech perception}
+\subsection{Implications of the ideal adapter framework beyond speech perception}
 \label{sec:general-discussion}
 
 We now turn to the broader implications of this framework for speech perception, acquisition, and language comprehension. We begin by discussing the relation between adaptation in adults and language acquisition in infants. We then discuss how the proposed framework highlights an important parallel between learning (in the form of adaptation) and processing. Following that, we summarize parallels that the proposed account highlights between speech perception and language processing beyond speech perception.
 Finally, we suggest how our computational analysis of speech perception and the resulting models might be realized as process and mechanistic models, and some of the challenges in doing so.
 
-\subsection{Parallels between acquisition and adaptation: Both can be understood as a form of distributional learning}
+\subsubsection{Parallels between acquisition and adaptation: Both can be understood as a form of distributional learning}
 \label{sec:parall-betw-proc}
 
 We have proposed that adaptation is a form of distributional learning and hence that distributional learning is a central part of \emph{processing} spoken language by adult listeners in the face of variability across situations. Distributional learning has also been proposed as a mechanism by which linguistic categories are learned during language acquisition in infants \autocite[e.g.,][]{Aslin1998,Gomez2000,Saffran1996,Wonnacott2008} and adults \autocite[e.g.,][]{Pajak2011,Saffran1996a}. This includes the acquisition of phonetic categories \autocite[e.g.,][]{McMurray2009,Toscano2010,Vallabha2007}.
@@ -1119,7 +1119,7 @@ separate the observations they make based on who is talking. This is an underexp
 \label{r1-acquisition}
 However, tracking talker-specific distributions of cues also means that learners need to track a set of speech sound statistics for each individual talker, instead of just a single set of language-level distributions (as is typically modeled).  This introduces two types of costs.  First, it requires more statistics to be represented (remembered).  Second, there are fewer observations available for each (talker-specific) generative model that needs to be learned, decreasing the reliability of these models.  One way to ameliorate both costs is to recognize generalizations across talkers. In any case, however, the costs introduced by talker-specific or group-specific expectations can be justified when the variation \emph{between} talkers is so large that the differences in the cue distributions of phonetic categories \emph{within} each talker are obscured.  Future work could employ computational simulations to probe the statistical conditions under which this trade-off is predicted to work out in favor for talker- and group-specific learning. Similarly, more experimental research is required on the changes in the way we learn and generalize throughout language acquisition.
 
-\subsection{Parallels between processing and learning: Both involve inference}
+\subsubsection{Parallels between processing and learning: Both involve inference}
 \label{sec:pull-togeth-proc}
 
 Our ideal adapter framework is inspired by previous work which treats speech perception as a problem of inference under uncertainty \autocite{Clayards2008,Feldman2009a,Norris2008,Sonderegger2010}.
@@ -1130,13 +1130,13 @@ In the proposed framework, the lack of invariance means that learning is closely
 
 There's a deeper parallel between processing and learning in speech perception, as well.  Phonetic categories don't occur arbitrarily, in isolation, but have a regular structure determined by, for instance, the words of the language.  An ideal listener uses knowledge about this structure to narrow down the possible explanations for a given acoustic cue through the prior $p(c)$ \autocite{Feldman2013b}.  In the same way, we have proposed that an ideal adapter should exploit the fact that changes in phonetic category distributions are systematically related to changes in talker, dialect, etc. This allows an ideal adapter to quickly and efficiently infer (re-learn) the distributions of a familiar talker when encountering them again, or to generalize from experience with talkers from a particular foreign accent group to a novel talker from the same group.
 
-\subsection{Language understanding beyond speech perception}
+\subsubsection{Language understanding beyond speech perception}
 \label{sec:impl-lang-proc}
 
 The idea that language understanding involves prediction and inference under uncertainty has also guided work on language processing beyond speech perception. For example, expectation-based theories of sentence processing hold that comprehenders use knowledge of the statistics of syntactic structures in order to generate expectations about upcoming material \autocite{Hale2001,Levy2008,MacDonald1994,MacDonald2013,Tanenhaus1995}.
 As for speech perception, reliance on such statistics is efficient \autocite{Levy2008,Smith2013}. As predicted by these theories, processing of structures which are highly likely given, say, a particular verb is faster than an alternative structure which is less likely \autocite{Garnsey1997,MacDonald1994,Staub2006,Trueswell1994}. Similarly, word-by-word processing times in reading have been found to increase with decreasing contextual predictability of the word \autocite[specifically, its contextual surprisal,][]{Demberg2008,Hale2001,Frank2011}
 
-As is the case for phonetic categories, these statistics vary across situations \autocite[see][][for references]{Fine2013}.  Thus, the same argument that we have made here for phonetic categorization---that effective comprehension relies on good estimates of the talker's generative model and deviations from expected statistics will lead to changes in comprehension---applies to syntactic processing, as well.  Indeed, recent studies show that comprehenders \emph{do} adapt to changes in the statistics of syntactic structures, with repeated exposure to a previously rare structure facilitating processing of that structure \autocite{Fine2010,Fine2013,Jaeger2013a,Kaschak2004}.
+As is the case for phonetic categories, these statistics vary across situations \autocite[see][for references]{Fine2013}.  Thus, the same argument that we have made here for phonetic categorization---that effective comprehension relies on good estimates of the talker's generative model and deviations from expected statistics will lead to changes in comprehension---applies to syntactic processing, as well.  Indeed, recent studies show that comprehenders \emph{do} adapt to changes in the statistics of syntactic structures, with repeated exposure to a previously rare structure facilitating processing of that structure \autocite{Fine2010,Fine2013,Jaeger2013a,Kaschak2004}.
 
 These syntactic adaptation effects have much in common with phonetic adaptation.  They are both rapid, occurring after only tens of exposures to the critical structure \autocite{Fine2013,Kaschak2004}, and there is some evidence that they are persistent, lasting over multiple days \autocite{Wells2009}, and that unusual syntactic preferences can be explained away \autocite{Hanulikova2012}.  Consistent with the hypothesis that such adaptation generally serves to make language comprehension robust to systematic situational variability, \textcite{Kamide2012} found that comprehenders tracked talker-specific syntactic preferences (high- vs. low-attachment), and that this adaptation was reflected in online processing.
 
@@ -1144,7 +1144,7 @@ Further reinforcing the tentative parallels between syntactic and phonetic adapt
 
 Similar findings are emerging for prosodic processing \autocite{Kurumada2013}, phonotactic constraints \autocite{Chambers2010,Dell2000,Goldrick2004,Warker2006}, pragmatic processing \autocite{Grodner2011}, and semantic interpretation, such as quantifier processing \autocite{Yildirim2013}. This suggests that not only do people use their previous experience with the statistics of their language to predict upcoming material in order to facilitate comprehension, but that they are tracking situation-specific statistics and tuning their expectations to reflect changes in such statistics. The current work thus contributes to a growing literature that considers language comprehension to be intimately tied to adaptation and implicit learning \autocite[see also][]{Dell2014,Chang2006,Fine2013,Jaeger2013,Jaeger2013a,MacDonald2013}.
 
-\subsection{Perception and learning beyond language}
+\subsubsection{Perception and learning beyond language}
 \label{sec:doma-gener-perc}
 \label{r4-domain-gen-learn}
 
@@ -1169,7 +1169,7 @@ This is not to say that the basic logic of the ideal adapter framework does not 
 
 This is also an argument for speech perception as a good test case for theories of multi-context learning.  Variability in speech \emph{is} highly structured---both linguistically and indexically---so that listeners pick up on and use both kinds of structure.  
 
-\section{Conclusion}
+\subsection{Conclusion}
 \label{sec:conclusion}
 
 
