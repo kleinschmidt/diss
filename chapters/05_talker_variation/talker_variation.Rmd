@@ -291,8 +291,10 @@ consonant voicing. One goal of this paper is to compare the informativity and
 utility of socio-indexical grouping variables _between_ different phonetic
 contrasts and cues. Our selection of datasets is guided by this goal. Stop
 voicing (cued by voice onset time; VOT) and vowel identity (cued by formant
-frequencies) have markedly different patterns of talker variability, and thus
-provide a good comparison
+frequencies) have markedly different patterns of talker variability. Thus, we
+expect that comparing them will provide a good estimate of the range of
+informativity and utility of socio-indexical grouping variables across phonetic
+contrasts.
 
 Our methods for assessing informativity and utility of grouping variables also
 constrain our choice of datasets, in two main ways. First, in order to assess
@@ -416,7 +418,9 @@ n_vot_per_talker <- vot %>% group_by(phoneme, voicing, place, Talker) %>% tally(
 
 We analyzed data on word-initial stop consonant voicing in conversational speech from the Buckeye corpus [@Pitt2007, extracted by Wedel, _in prep_]. Voice onset time (VOT) was automatically extracted for `r nrow(vot)` word initial stops, `r vot %>% filter(voicing=='voiced') %>% nrow()` voiced and `r vot %>% filter(voicing=='voiceless') %>% nrow()` voiceless, for labial, coronal, and dorsal places of articulation. Data came from `r n_vot_talkers` talkers, who were balanced male and female and younger/older than 40 years. On average, each talker produced `r round(mean(n_vot_per_talker$n))` tokens for each phoneme (range of `r min(n_vot_per_talker$n)` -- `r max(n_vot_per_talker$n)`).
 
-The major strength of this dataset is that it contains observations of both voiced and voiceless stops, which allows us to assess the utility of socio-indexical grouping factors for recognizing voiced vs. voiceless stops.  However, it does not not contain data from talkers who vary on socio-indexical variables that are known to correlate with differences in VOT distributions, like native language background. Preliminary analyses of a collection of VOTs for only voiceless stops from French-English bilinguals [@Lev-Ari2013] suggests that, even though these groups are known to produce different VOT distributions, the size of this effect is much smaller than even talker-level variability _within_ the monolingual talkers in the Buckeye corpus (which, to foreshadow our results, is substantially smaller than for vowels).
+Our primary reason for considering VOT/voicing at all is to get a sense of the range of informativity and utility of socio-indexical variables across different phonetic categories. VOT is thought to be relatively stable across talkers, and formant frequencies relatively variable. The strength of this particular VOT corpus is that it contains observations of both voiced and voiceless stops from the same talkers. This allows us to directly assess how much talker variability in VOT distributions [@Allen2003] actually impacts recognition of voiced vs. voiceless stops, and hence estimate an upper bound on the usefulness of _any_ socio-indexical grouping variable for this contrast. 
+
+However, the downside is that this corpus does not not contain data from talkers who vary on socio-indexical variables that are known to correlate with differences in VOT distributions, like native language background. Preliminary analyses of a collection of VOTs for only voiceless stops from French-English bilinguals [@Lev-Ari2013] suggests that, even though these groups are known to produce different VOT distributions, the size of this effect is much smaller than even talker-level variability _within_ the monolingual talkers in the Buckeye corpus (which, to foreshadow our results, is substantially smaller than for vowels). Moreover, the addtion of these talkers provides only a slight increase in the overall informativity of talker identity, compared to the monolingual talkers alone.
 
 ### Modeling
 
