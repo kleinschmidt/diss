@@ -437,10 +437,12 @@ For each socio-indexical grouping level, we trained separate models for each pho
 * Diaelct+Sex (12 levels, vowels only)
 * Talker
 
-#### Comparing cue distributions
+#### Informativity with respect to cue distributions
 
-In order to evalute the _informativity_ of socio-indexical variables with respect to cue distributions themselves, we use Kullback-Leibler (KL) divergence to measure how much the group-specific cue distributions differ from the overall (marginal) cue distributions. This measures the expected cost (in bits of extra message length) of encoding data from each group using a code that's optimized for the marginal distribution.
+In order to evalute the _informativity_ of socio-indexical variables with respect to cue distributions themselves, we use Kullback-Leibler (KL) divergence to measure how much group-specific cue distributions differ from the overall (marginal) cue distributions of each category.[^what-is-kl] If a socio-indexical variable is _not_ informative about cue distributions, then the the distribution for each level of that variable will be essentially identical, and hence indistinguishable from the _overall_ distribution. If, on the other hand, a socio-indexical variable _is_ informative about cue distributions, then the distribution for each group will deviate substantially from each other group, and by extension from the overall distribution as well.
 We do this separately for each linguistic category and group, and then average the results, calculating bootstrapped confidence intervals over groups.
+
+[^what-is-kl]: Technically, KL divergence is an information-theoretic comparison of two distributions. In our usage, it measures the expected cost (in bits of extra message length) of encoding data from each group using a code that's optimized for the marginal distribution.
 
 The KL divergence of $Q$ from $P$ is $DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$ (with density functions $q$ and $p$ respectively). In our case, $P=\mathcal{N}_G$ is a multivariate[^multivariate] normal cue distribution for the group, with mean $\mu_G$ and covariance $\Sigma_G$, while $Q=\mathcal{N}_M$ is the marginal multivariate normal cue distribution with mean $\mu_M$ and covariance $\Sigma_M$. With some simplification[^gaus-kl], the KL divergence of the marginal from the group distribution works out to be
 $$
