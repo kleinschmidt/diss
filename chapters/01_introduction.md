@@ -108,8 +108,8 @@ enables us to probe how speech perception copes with different kinds of
 variation at a _behaviorally relevant, ecologically valid_ level.
 
 What is currently lacking in the understanding of speech perception is a
-theoretical framework for linking these together. As I discuss in Chapters NNN
-and NNN, existing theoretical approaches to speech perception miss important
+theoretical framework for linking these together. As I discuss in Chapters \ref{chap:ideal-adapter}
+and \ref{chap:selective-adaptation}, existing theoretical approaches to speech perception miss important
 aspects of variability in speech perception, and cannot account for the full
 range of strategies that listeners employ to cope with this variability.  Thus,
 the main goal of this dissertation is to develop a theoretical framework for
