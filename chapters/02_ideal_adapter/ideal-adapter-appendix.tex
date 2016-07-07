@@ -1,8 +1,5 @@
 
-\chapter{Ideal adapter detailed methods}\label{chap:ideal-adapter-appendix}
-
-\section{Modeling methods and assumptions}
-\label{sec:appendix}
+\chapter{Ideal adapter modeling methods and assumptions}\label{chap:ideal-adapter-appendix}
 
 This appendix lays out the basic Bayesian belief updating model proposed as part of the ideal adapter framework. %Section~\ref{sec:ideal-adapter}
 % Appendix~\ref{sec:model-fitting-methods} summarizes
@@ -12,7 +9,7 @@ next. We then %Appendix~\ref{sec:model-fitt-param}
 describe how the model's parameters were fit to the behavioral data from \textcite{Vroomen2007} and our own study. Throughout these sections we state the assumptions made by our model and model fitting procedure. Crucially, none of these assumptions creates a bias in favor of our hypothesis. Finally, we provide a table that summarizes our assumptions.
 % is provided in a Appendix~\ref{sec:model-assumptions}.
 
-\subsection{Model specification}
+\section{Model specification}
 \label{sec:model-fitting-methods}
 
 To quantify and test the qualitative predictions of the ideal adapter framework, we implemented a basic Bayesian belief updating model.  This model makes a number of simplifying assumptions. The most notable is that we consider only two categories in this model, \ph b and \ph d, and assume that the prior beliefs about their means and variances are independent
@@ -31,7 +28,7 @@ The form of the individual category parameter priors was also chosen for reasons
 The prior on the variance is a $\chi^{-2}$ distribution, with two parameters, $\nu_0$ and $\sigma^2_{c,0}$.  $\sigma^2_{c,0}$  is the expected value of the category variance $\sigma^2_c$, while $\nu_0$ represents the effective prior sample size for the mean (reflecting the uncertainty about $\sigma^2_{c,0}$, see main text)%, Section \ref{sec:bayes-beli-updat}).
 The prior on the mean is conditioned on the value of the category variance, and is a Normal distribution. The expected value of that normal distribution is the prior mean parameter $\mu_{0,c}$. Its variance is $\sigma^2_c / \kappa_0$, i.e., the \emph{category} variance divided by the effective prior sample size for the mean $\kappa_0$.
 
-\subsubsection{Belief updating with a conjugate prior}
+\subsection{Belief updating with a conjugate prior}
 \label{sec:belief-updating-with}
 
 Using a conjugate prior is convenient because after updating with observations $X = x_1, \ldots, x_n$ (whose mean value is $\bar x$ and sample variance is $s^2 = \frac{1}{n} \sum_i (x_i - \bar x)^2$), the posterior is \emph{also} a Normal-$\chi^{-2}$ distribution, with updated parameters \autocite{Gelman2003}:
@@ -46,7 +43,7 @@ These parameter updates have intuitive interpretations: the $\kappa_0$ and $\nu_
 
 What happens to the expected mean and variance when more and more observations are made?  Specifically, what happens when $n$ becomes much larger than the prior effective sample sizes for the variance $\nu_0$ and mean $\kappa_0$?  First, the posterior mean $\mu_n$ converges to the observed mean $\bar x$ (since $n/\kappa_n = n/(\kappa_0+n) \approx 1$ when $n \gg \kappa_0$).  Second, and similarly, the expected variance converges on the observed variance. That is, with a lot of data about the current situation the model's beliefs will converge against the actual statistics of that situation. In both cases, the stronger the prior beliefs (larger prior sample sizes $\kappa_0$ and $\nu_0$), the more observations it takes to overcome the listener's prior beliefs.  These prior effective sample size parameters can thus be understood as controlling the strength and speed of adaptation effects.
 
-\subsubsection{Incremental belief updating}
+\subsection{Incremental belief updating}
 \label{sec:incr-beli-updat}
 
 If all the individual, observed cue values for each category are assumed to be statistically independent (conditioned on the mean and variance), then the joint likelihood of all observed cues is equal to the product of the individual likelihoods, and thus
@@ -61,12 +58,12 @@ That is, the listener's beliefs after the $N$th observation are a combination of
 
 One insight this provides is that it is not always necessary to maintain a full record of all observations made so far, or even their statistics.  Rather, it is sufficient to just track the posterior distribution over means and variances after each token.  This leads naturally to approximate inference methods like particle filters, which approximate beliefs after $N-1$ observations via a set of ``particles'', each a particular set of means and variances, with the particles collectively approximating the full distribution $p(\mu_c, \sigma^2_c)$.  After observation $N$, each particle's estimate is updated, with particles failing to predict observation $N$ effectively being thrown out and particles which do effectively predict observation $N$ persisting or even being ``cloned'' to replace the rejected particles.  Particle filters have been shown to be a reasonable approximation of Bayes-optimal inference in distributional learning categorization problems, and match human performance well even with a small number of particles \autocite{Sanborn2010}.
 
-\subsection{Audio-visual cue integration}
+\section{Audio-visual cue integration}
 \label{sec:audio-visual-cue}
 
 Next, we discuss the model's assumptions about the nature of the dimension over which adaptation takes place. This part of the model is not a consequences of the ideal adapter framework. Instead, it is motivated by evidence for cross-modal interactions in audio-visual speech processing \autocite{Bejjanki2011,McGurk1976}. Given evidence for such cross-modal interactions, we remain agnostic about the level at which listeners are adapting to the audio-visual stimuli. Specifically, we treat as a free parameter whether listeners adapt to a purely auditory representation of the perceived cues, or to some representation which integrates information from both auditory and visual cues. After describing how this was implemented in the model, we summarize possible objections to this aspect of the model and our reply to these objections.
 
-\subsubsection{Linear cue combination}
+\subsection{Linear cue combination}
 \label{sec:line-cue-comb}
 
 Under reasonably general assumptions, information from auditory and visual cues to the same phonetic dimension can be optimally combined into a multimodal cue value by a weighted sum $x=w_a x^{(a)} + w_v x^{(v)}$, where the weights $w_a$ and $w_v$ sum to 1 and are proportional to the reliability of the auditory and visual cues \autocite{Bejjanki2011,Ernst2002,Jacobs2002,Knill2003,Toscano2010}.
@@ -76,7 +73,7 @@ We incorporate this into our model via treating the perceived cue values $x$ as 
 The linear combination of these two cues results in an integrated cue estimate somewhere in between, not quite prototypical but not fully ambiguous.  Note that for our model fits, the best-fitting cue weights are in general roughly equal ($w\approx 0.5$), which suggests that the perceived cue value for the audiovisual adaptor is substantially less ambiguous than the auditory cue. This is hardly surprising given well-known cross-modal effects on speech perception with similar consequences, such as the McGurk effect \autocite{McGurk1976}.
 The assumption that the audio-visual stimulus is  not really ambiguous is also consistent with our finding from pilot studies that participants can reliably classify the ambiguous audiovisual adaptor stimuli (which also justifies somewhat our assumption---made solely for the sake of convenience---that the category label of each adaptor stimulus is known with certainty).
 
-\subsubsection{Is there evidence against audio-visual integration in adaptation?}
+\subsection{Is there evidence against audio-visual integration in adaptation?}
 \label{sec:evid-against-audio}
 
 Our decision to include audio-visual cue integration in the model is supported by a wealth of evidence that audio and visual cues are processed together in speech perception \autocite[e.g.,][]{Bejjanki2011,Massaro2004,VanWassenhove2005,Vatakis2007}. There are, however, two studies that have looked specifically at selective adaptation to audio-visual adaptors, and contrary to what we propose here, have concluded that selective adaptation is driven entirely by the adaptor's audio component \autocite{Roberts1981,Saldana1994}. Since these studies might be taken to argue that we introduce unnecessary complexity into the model, we briefly discuss them.
@@ -88,7 +85,7 @@ The audio-visual adaptors used by \textcite{Roberts1981} and \textcite{Saldana19
 In sum, it is broadly accepted that speech perception involves cross-modal cue integration. Whether adaptation can take place over those integrated cues is an open question that previous literature does not speak to. Our own results suggest a positive answer (since the best-fitting visual cue weight $w \approx .5$ in all our studies). 
 
 
-\subsubsection{The (ir)relevance of audio-visual integration for the interpretation of our results}
+\subsection{The (ir)relevance of audio-visual integration for the interpretation of our results}
 \label{sec:import-audio-visu}
 
 Treating the adaptor cue value as a linear combination of the audio and visual cues has two main effects in our model.  First, it causes recalibration to saturate somewhere below the maximum possible aftereffect of $+1$ (all adaptor-category responses).  Second, it causes recalibration to peak and then decrease with further exposure.  Neither of these consequences comes from the combination of audio and visual cues in the model \emph{per se}, but rather from the fact that such combination causes the adaptor percept to be perceived as not fully ambiguous.
@@ -107,7 +104,7 @@ Using such an integrated cue value for belief updating would not be strictly opt
 Next, we describe how the model was fit to the behavioral data from \textcite{Vroomen2007} and our own study.
 
 
-\subsection{Model fitting and parameter estimation}
+\section{Model fitting and parameter estimation}
 \label{sec:model-fitt-param}
 
 The updating rules of the conjugate prior \eqref{eq:8} suggest natural ways of fitting the model to the data from \textcite{Vroomen2007}.  First, there is a natural separation between the expected value parameters, $\mu_{c,0}$ and $\sigma^2_{c,0}$, which determine the category means and variances the listener believes are \emph{most} probable before the adaptation phase begins, and the effective prior sample size parameters, $\kappa_0$ and $\nu_0$, which determine how willing they are to update those beliefs.  The expected means and variances can be set a priori, based on pre-test data.  These are thus fixed by the data, rather than being free parameters.  Only the effective prior sample size parameters must be fit to the actual adaptation data.
@@ -115,7 +112,7 @@ The updating rules of the conjugate prior \eqref{eq:8} suggest natural ways of f
 While it is in principle possible to fit each participant's data individually, the amount of data available from each participant is very small (only six trials per test block) and leads to unstable parameter estimates. We thus chose to use the aggregate data.  Another possibility would be to fit a model with a linked prior on the hyperparameters $\nu_0,\ \kappa_0$, and $w$ that allows for systematically limited variability between listeners. While the insights into possible individual differences would be enlightening, the primary purpose of the current study is to demonstrate the mechanics of the proposed framework. We therefore leave additional modeling improvements to future work.
 
 
-\subsubsection{Estimating prior expected means and variances from pre-test data}
+\subsection{Estimating prior expected means and variances from pre-test data}
 \label{sec:prior-expected-means}
 
 We used the pre-test classification data collected by \textcite{Vroomen2007} to estimate the underlying means and variances of the corresponding Gaussian mixture \autocite{Feldman2009a}.
@@ -142,7 +139,7 @@ First, based on pilot simulations, asymmetric prior variance results in asymmetr
 
 Individual listeners' classification functions show a fair amount of variability, but all have comparable slopes and boundaries roughly in the middle of the continuum.  For this reason, we fit a mixed effects logistic regression model \autocite{Jaeger2008} to the pre-test data, which allows for some variability in the slope and intercept of each subject, and so better estimates the slope and intercept most representative of the population.  The prior parameters were set based on this slope and intercept as above, with $\mu_{\mrb,0}=\num{1.10}$, $\mu_{\mrd,0}=\num{9.10}$ and $\sigma^2_{\mrb,0}=\sigma^2_{\mrd,0} = \num{3.74}$.
 
-\subsubsection{Generating predictions from prior confidence and visual cue weight hyperparameters}
+\subsection{Generating predictions from prior confidence and visual cue weight hyperparameters}
 \label{sec:prior-conf-pseud}
 
 The free parameters---$\nu_0$, $\kappa_0$, and $w$---were fit to the listeners' responses during test trials, which occurred after exposure to 1,2,4, \ldots, 256 adaptor stimuli.
@@ -159,7 +156,7 @@ Because of the conjugate prior we used, the posterior $p(\mu_\mrb, \sigma^2_\mrb
 
 The particular choice of prior is also convenient in that the integral in \eqref{eq:11} can be evaluated analytically, with the result that the marginal likelihood $p(x_\mathrm{test} \given c_\mathrm{test} = \mrb, X, C)$ has a scaled $t$ distribution, with mean $\mu_{\mrb, n}$, variance (squared scale) $\frac{(1+\kappa_n) \sigma^2_{\mrb, n}}{\kappa_n}$, and degrees of freedom $\nu_n$ \autocite{Gelman2003}.  The marginal likelihood of the $x_\mathrm{test}$ under the other, un-adapted category, is analogously found from the prior hyperparameters, $\kappa_0, \nu_0, \mu_{\mrd, 0}, \sigma^2_{\mrd, 0}$, and the marginal posterior probability $p(c_\mathrm{test}=\mrb \given x_\mathrm{test}, X, C)$ can then be found for each test stimulus based on Equation \ref{eq:11b}.  The marginal posterior probabilities for the three types of test stimuli are averaged to produce the model-predicted probability of a \ph b or \ph d response on test block $n$ (depending on whether the visual cue indicated \ph b or \ph d, respectively).
 
-\subsubsection{Likelihood of test stimuli}
+\subsection{Likelihood of test stimuli}
 \label{sec:likel-test-stim}
 
 To fit to the overall data, the likelihood of the data was calculated based on the number of responses that were the same category as the adaptor.  These adaptor-category response counts were summed in each block.  That is, for a \ph b-exposure block, \ph b responses were considered `positive' responses, while \ph d responses were considered `positive' responses for test blocks during \ph d exposure.  This adaptor-category response rate is essentially equivalent to the aftereffect difference score: if $y_b$ and $y_d$ denote the proportion of \ph b responses after \ph b and \ph d exposure respectively, $z_b=y_b$ and $z_d = 1-y_d$ denote the proportion of adaptor category responses after \ph b and \ph d exposure, and $z = \frac{z_b+z_d}{2}$ is the average adaptor category response overall, then the aftereffect can be found via $2z - 1 = z_b+z_d - 1= z_b - (1-z_d)  = y_b - y_d = y_\mathrm{AE}$.
@@ -175,7 +172,7 @@ and the joint likelihood of the data is
 
 Because a binomial likelihood was used for fitting the model to the data, the error bars on the data show the confidence intervals for the rate parameter of a binomial distribution with the observed counts of adaptor-category responses and non-adaptor-category responses.  These were calculated as the $2.5\%$ and $97.5\%$ quantiles of the posterior distribution for the adaptor-category response rate, which is $\mathrm{Beta} (z_j+\frac{1}{2}, n_j-z_j+\frac{1}{2})$ assuming a non-informative (Jeffrey's) $\mathrm{Beta}(\frac{1}{2}, \frac{1}{2})$ prior \autocite{Gelman2003}.  These quantiles were transformed to the aftereffect scale for visualization in the same way as the data, and for the proportion-\ph b response plots were calculated based on the number of \ph b and \ph d responses instead of the number of adaptor-category responses.
 
-\subsubsection{Sampling and hyperpriors}
+\subsection{Sampling and hyperpriors}
 \label{sec:sampl-hyperp-priors}
 
 This joint data likelihood was combined with a weak, regularizing prior, $p(\log \kappa_0) = p(\log \nu_0) = \mathrm{Normal}(0, 100)$, which has a 95\% interval that stretches from about $\nu_0=10^{-9}$ to $10^{9}$, with a mode of 1.  Any prior sample size that is a few times larger than the maximum sample size (256) results in essentially no adaptation; in this range the prior is essentially constant (the prior probability of $\nu_0 = 1$, the value which maximizes the prior probability, is only $1.2$ times greater than the prior probability of $\nu_0=1000$, and likewise for $\kappa_0$), and thus this prior has essentially no influence on the fit of the model.  For the visual cue weight $w$ the prior was uniform between 0 and 1 and thus uninformative.
@@ -205,7 +202,7 @@ The posterior distribution of the hyperparameters is not easy to find analytical
 \end{figure}
 
 
-\subsection{Model assumptions}
+\section{Model assumptions}
 \label{sec:model-assumptions}
 
 In order to relate the qualitative predictions of the ideal adapter framework to the behavior of human listeners, it is necessary or convenient to make some simplifying assumptions.  Table~\ref{tab:model-assumptions} review these assumptions, whether they are justified, and if not, whether violating them leads to problems for the conclusions we reach from our modeling results. Many of them have already been introduced and discussed above.  None of these assumptions bias the results of the modeling towards better fits.  If anything many of them make it harder for the model to fit data which violates them.
