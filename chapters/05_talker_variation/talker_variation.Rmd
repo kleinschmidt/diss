@@ -756,9 +756,10 @@ $$
 
 For vowels, we classified vowel categories directly. For voicing, the only cue available is VOT, which does not (reliably) distinguish place of articulation. Thus, we classified voicing separately for each place of articulation, and then average the resulting accuracy.
 
-To assess statistical significance, we bootstrap over subjects. This provides
-confidence intervals and $p$ values for effects at the population level, given
-the limited sample of talkers in our datasets.
+To assess statistical significance, we bootstrap over talkers. This is a
+non-parametric approach that provides confidence intervals and $p$ values for
+effects at the population level, given the limited sample of talkers in our
+datasets, without assuming a particular noise distribution.
 
 #### Avoiding anti-conservative estimates through cross-validation
 
@@ -1247,14 +1248,14 @@ Figure {@fig:overall-accuracy-group-known} shows the probability of correct reco
 
 Normalized input results in higher vowel recognition accuracy across the board, again paralleling the findings about the cue distributions themselves. The one exception is at the level of talker-specific distributions, where recognition accuracy is unchanged (since Lobanov normalization is a linear transformation of the input, which leaves the structure of the categories within each talker unchanged).
 
-Also paralleling the cue distributions themselves, classifying according to
-sex-specific distributions provides the biggest boost in recognition for
+Conditioning cue distribution on sex---either alone, relative to marginal, or in
+addition to dialect---provides the biggest boost in recognition for
 un-normalized formant accuracy. For normalized input, none of the
 socio-indexical grouping factors provide much of an advantage over the marginal
 distributions. In both cases, dialect provides a small but consistent advantage
 for recognition, both alone and in combination with sex (increasing accuracy by
-`r dialect_avg_advantage %$% round(observed*100)`% on average, all 
-$`r dialect_avg_advantage %$% p_val_to_less_than(boot_p)`$).
+`r dialect_avg_advantage %$% round(observed*100)`% on average, all $`r
+dialect_avg_advantage %$% p_val_to_less_than(boot_p)`$).
 
 ```{r by-vowel-acc-group-known, fig.width=10, fig.height=5, fig.cap='Probability of correct recognition varies across vowels, overall and according to the socio-indexical grouping variable. Bars and stars show significant improvement from conditioning on dialect, above marginal or in addition to sex alone.'}
 
@@ -1284,8 +1285,14 @@ acc_by_vowel_summary %>%
 
 ```
 
-The utility of socio-indexical grouping for recognizing individual vowels largely
-mirrors the overall pattern (Figure {@fig:by-vowel-acc-group-known}). The exception is that the utility of conditioning on dialect varies substantially from one vowel to the next. For most vowels, conditioning on dialect makes little difference to correct recognition. But for a few---particularly `ae` and `eh`---conditioning on dialect increases accuracy by nearly 10%. In the case of normalized formant input, accuracy using dialect-conditioned distributions actually equals or surpasses the accuracy with talker-specific distributions.
+The utility of socio-indexical grouping for recognizing individual vowels
+largely mirrors the overall pattern (Figure {@fig:by-vowel-acc-group-known}). As
+with informativity, the utility of dialect varies substantially from one vowel
+to the next. For most vowels, conditioning on dialect makes little difference to
+correct recognition. But for a few---particularly `ae` and `eh`---conditioning
+on dialect increases accuracy by nearly 10%. In the case of normalized formant
+input, accuracy using dialect-conditioned distributions actually equals or
+surpasses the accuracy with talker-specific distributions.
 
 The overall utility of dialect also varies substantially based on the talker's
 actual dialect (Figure @fig:overall-acc-by-dialect). This is consistent with the
