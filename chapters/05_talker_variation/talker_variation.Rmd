@@ -470,7 +470,7 @@ KL divergence (or relative entropy) is an information-theoretic comparison of tw
 
 In general, the KL divergence of $Q$ from $P$ is
 $$DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$$ {#eq:kl}
-(with density functions $q$ and $p$ respectively). Intuitively, we can think of the KL divergence of $Q$ from a "true" distribution $P$ as how much better data drawn from the distribution $P$ is explained by $P$ itself than by $Q$. This measure is always greater than zero, and equal zero only when $P=Q$ [@Mackay2003, p. 34].
+(with density functions $q$ and $p$ respectively). Intuitively, we can think of the KL divergence as how much better data---drawn from the distribution $P$---is explained by a "true" distribution $P$ itself, compared to another distribution $Q$. This measure is always greater than zero, and equal zero only when $P=Q$ [@Mackay2003, p. 34].
 
 In our case, $P=\mathcal{N}_G$ is a multivariate[^multivariate] normal cue distribution conditioned on a socio-indexical group, with mean $\mu_G$ and covariance $\Sigma_G$, while $Q=\mathcal{N}_M$ is the marginal (not conditioned on group) cue distribution with mean $\mu_M$ and covariance $\Sigma_M$. With some simplification,[^gaus-kl] the KL divergence of the marginal from the group distribution works out to be
 $$
