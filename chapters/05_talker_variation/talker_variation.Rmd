@@ -142,6 +142,7 @@ linguistic generative model (the probabilistic distributions of cues they
 produce for each underlying linguistic structure). This is captured by the
 ideal adapter framework [@Kleinschmidt2015].
 
+<!-- TODO: more of a "bang"; "exploring prediction which has the potential to..." -->
 This second insight leads to the following prediction: an ideal adapter will
 take advantage of any additional structure in the world that is informative
 about how cue distributions vary from one situation to the next. This structure
@@ -171,10 +172,9 @@ twofold: 1) how much can listeners actually gain by considering socio-indexical
 variables for speech perception (both in absolute terms and relative to other
 grouping variables), and 2) how accurately could listeners infer socio-indexical
 grouping variables for a talker on the basis of their cue distributions.
+<!-- TODO: state high level goal here, too: formal, quantitative framework that has the potential to unify explanations of these two phenomena (linguistic and socio-indexical judgements) -->
 
 ### Our goals
-
-<!-- this is goal. topic of special issue is connecting socio and cog -->
 
 At a conceptual level, the goal of this paper is to show that the idea of _inference_ provides a bridge between sociolinguistic and psycholinguistic perspectives on variation in speech. The ideal adapter framework treats both linguistic and socio-indexical judgements as inference, jointly informed by a listener's knowledge of cue distributions. In addition to this conceptual unification, the theoretical tools of this framework offer a common computational currency for developing models of linguistic and socio-indexical inference, and, critically, for grounding the parameters of those models in actual data. This common currency is the _distribution_ of cues _conditioned_ on linguistic and socio-indexical variables. These distributions can be measured, given the appropriate production data.
 
@@ -229,6 +229,8 @@ is predicted to track cue distributions conditioned on a particular grouping
 variable (like sex or dialect) critically depends on the informativity and
 utility of that grouping for speech perception.
 
+<!-- TODO: refining qualitative predictions is too weak. generating novel, testable predictions. say what they are (e.g., how quickly and well you adapt to an unfamiliar talker for different cues/contrasts; how you  generalize from experience with one talker to another -->
+
 Next, we briefly review the relevant literature on the relationship between the socio-indexical and linguistic variables we consider. Then we 
 describe the datasets we will
 analyze, the techniques we use, our findings, and finally the conclusions we can
@@ -272,7 +274,7 @@ listeners are sensitive to socio-indexical grouping variables comes from
 recalibration (also known as perceptual learning) studies that show different
 patterns of generalization from male to female talkers (and vice-versa) for
 different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007; 
-@Reinisch2014]
+@Reinisch2014].
 
 Finally, there is evidence that listeners can _infer_ socio-indexical variables based on speech, but
 it's not clear what linguistic variables they use [for a review, see @Thomas2002]. Of
@@ -296,7 +298,7 @@ voicing (cued by voice onset time; VOT) and vowel identity (cued by formant
 frequencies) have markedly different patterns of talker variability. Thus, we
 expect that comparing them will provide a good estimate of the range of
 informativity and utility of socio-indexical grouping variables across phonetic
-contrasts.
+contrasts. 
 
 Our methods for assessing informativity and utility of grouping variables also
 constrain our choice of datasets, in two main ways. First, in order to assess
