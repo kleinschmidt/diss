@@ -191,7 +191,7 @@ that listeners are sensitive to these differences at all. But the mere existence
 of differences does not establish exactly how _informative_ or _useful_ such
 grouping variables are for speech perception.
 <!-- something about comparing across contrasts/categories. how can you compare level of variability _across_ different cues/categories?? -->
-As we discuss in more detail below, we focus on three interrelated ways of quantifying this relationship: 
+In this paper we present three studies, which focus on three interrelated ways of quantifying this relationship:
 
 1. How _informative_ are socio-indexical variables about the distribution of
    different acoustic-phonetic cues? This can be quantified by the KL divergence
@@ -206,6 +206,83 @@ As we discuss in more detail below, we focus on three interrelated ways of quant
    can be quantified as probability of correct recognition, but recognition of
    the _group_, by the same kind of ideal listener model that knows the
    distribution of cues that each group produces.
+
+<!--  -->
+
+#### Goal 1: quantify _informativity_ of socio-indexical variables about cue distributions
+
+On the one hand, we know that talker variability is ubiquitous. On the other
+hand, qualitatively, different phonetic contrasts exhibit different degrees and
+patterns of talker variability in American English. For instance, there is
+substantial variability in vowel formant frequencies across talkers, at least
+part of which is due to systematic differences due to gender
+[@Peterson1952; @Hillenbrand1995] and regional dialect [@Clopper2005]. Voicing
+contrasts (e.g., /b/ vs. /p/) are thought to exhibit some talker variability,
+but relatively little, and not systematically linked to dialect, sex, or other socio-indexical variables
+[@Allen2003; @Lisker1964; @Chodroff2015].[^bilingual-vot]
+
+[^bilingual-vot]: One notable exception is native language background. For
+    instance, French-English bilinguals produce significantly shorter VOTs than
+    English monolinguals
+    [@Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011]. The difficulty of
+    finding suitable datasets on these talkers prevents us from considering this
+    variable fully here, but preliminary analysis of VOT distributions
+    [from @Lev-Ari2013] suggest that they would not substantially change our
+    conclusions.
+
+The different role that socio-indexical variables play across cues/contrasts,
+however, have not been quantitatively assessed, in part due to the difficulty in
+comparing variability _across_ very different cues and category structures.
+Thus, one goal of this paper is to introduce a way of assessing these
+differences that allows for comparison across contrasts. We use this measure
+to establish an approximation of upper and lower bounds on the level of talker
+variability, by focusing on contrasts and cues that are commonly considered to
+exhibit high and low degrees of variability (vowel formants and stop consonant
+voice onset time, respectively).
+
+#### Goal 2: quantify _utility_ of socio-indexical variables for speech recognition
+
+We also know that listeners are sensitive to the fact that talker from different
+socio-indexical groups produce phonetic categories in systematically different
+ways, and that they use this to guide their speech recognition. Perception of
+vowels (and fricatives) is affected by the perceived gender of the talker, which
+can be cued by voice quality, visual presentation of a male or female face, or
+even explicit instruction [@Strand1999;@Johnson1999;@Strand1996].  Listeners'
+perception of vowels also depends on social variables: @Niedzielski1999 found
+that if listeners believe that a talker is Canadian, they hear more Canadian
+raising than if they believe the talker is American. @Hay2010 found a similar
+sensitivity to dialect group using an even subtler manipulation, manipulating
+listeners perceptions based on a stuffed animal that cued New Zealand or
+Australia.
+
+These findings establish _that_ listeners use socio-indexical grouping variables
+to inform speech perception, but they don't tell us exactly _how useful_ these
+variables are. That is, what would be the consequences of _ignoring_ these
+variables? How much do these consequences depend on the particular cues,
+category, or socio-indexical variable?  Our second study addresses this
+question.
+
+#### Goal 3: quanitfy _inferrability_ of socio-indexical variables given cue distributions
+
+Finally, we know that listeners can determine, on the basis of speech alone,
+socio-indexical variables for a talker. Of particular interest,
+listeners can classify talker's regional dialect at above-chance accuracy based
+on a short except of their speech
+[a single sentence read from a standard set @Clopper2006; @Clopper2007].
+
+We include a talker's _identity_ as a socio-indexical variable (in the sense of
+what individual person they are).  There is evidence that listeners can infer a
+talker's identity from sine-wave speech [@Remez1997], speech which has been
+processed to remove most non-phonetic voice quality cues to identity but
+preserve most phonetic information [@Remez1981].
+
+Again, what we don't know is what information listeners are using to make these
+inferences, and even how much information is available to them
+[for a review, see @Thomas2002]. Thus our final study present a method of
+quantifying how informative different phonetic contrasts and cues are about a
+range of socio-indexical variables.
+
+<!--  -->
 
 We apply these measures at different levels of socio-indexical grouping, and for
 two different sets of phonetic cues/contrasts (vowels, cued by first and second
@@ -271,10 +348,8 @@ speech recognition. @Niedzielski1999 found that if listeners believe that a
 talker is Canadian, they hear more Canadian raising than if they believe the
 talker is American. @Hay2010 found a similar sensitivity to dialect group using
 an even subtler manipulation, manipulating listeners perceptions based on a
-stuffed animal that cued New Zealand or Australia.  Perception of vowels and
-fricatives is affected by the perceived gender of a talker, which can be cued by
-voice quality, visual presentation of a male or female face, or even explicit
-instruction [@Strand1999;@Johnson1999;@Strand1996] Indirect evidence that
+stuffed animal that cued New Zealand or Australia.  
+Indirect evidence that
 listeners are sensitive to socio-indexical grouping variables comes from
 recalibration (also known as perceptual learning) studies that show different
 patterns of generalization from male to female talkers (and vice-versa) for
@@ -291,19 +366,37 @@ quality cues to identity but preserve most phonetic information [@Remez1981].
 
 ## General methods
 
-We next describe the datasets we use and the motivations for selecting these datasets. Then, we introduce our general modeling approach. The specific methods by wich we quantify informativity, utility, and inferrability of socio-indexical grouping variables are discussed in their respective studies.
+We next describe the datasets we use and the motivations for selecting these datasets. Then, we introduce our general modeling approach. The specific methods by which we quantify informativity, utility, and inferrability of socio-indexical grouping variables are discussed in their respective studies.
 
 ### Data
 
-We analyze speech from two corpora, one focusing on vowels and the other on stop
-consonant voicing. One goal of this paper is to compare the informativity and
-utility of socio-indexical grouping variables _between_ different phonetic
-contrasts and cues. Our selection of datasets is guided by this goal. Stop
-voicing (cued by voice onset time; VOT) and vowel identity (cued by formant
-frequencies) have markedly different patterns of talker variability. Thus, we
-expect that comparing them will provide a good estimate of the range of
+<!-- TODO/WIP: I feel like this can be merged with the background bits. what we know and don't know motivates our choice of data, and our choice of methods. and BOTH of these can be integrated with the goals. -->
+
+We selected data to include in this study on the basis of three criteria. First, we want to compare the role of socio-indexical grouping _across_ phonetic categories/cues, and thus we sought corpora for cues/categories that are thought to have qualitatively different degrees of talker variability. Second, <!-- enough tokens per talker/category --> 
+Third, <!-- enough talkers, with socio-indexical variables annotated -->
+
+
+
+With these criteria in mind, we selected two corpora, one focusing on vowels and
+the other on stop consonant voicing. One goal of this paper is to compare the
+informativity and utility of socio-indexical grouping variables _between_
+different phonetic contrasts and cues. Our selection of datasets is guided by
+this goal. Stop voicing (cued by voice onset time; VOT) and vowel identity (cued
+by formant frequencies) exhibit different patterns of talker variability in
+American English. Vowels differ substantially across talkers, and have
+systematic differences due to gender [@Peterson1952; @Hillenbrand1995] and
+dialect [@Clopper2005]. Stop consonant voicing exhibits _some_ talker
+variability, but little systematic variation by dialect or sex
+[@Allen2003; @Lisker1964; @Chodroff2015]. Thus, we expect that VOT will provide
+an approximate lower bound, and vowel formants an approximate upper bound, on
+the informativity and utility of socio-indexical variables.
+
+<!--  -->
+
+
+Thus, we expect that comparing them will provide a good estimate of the range of
 informativity and utility of socio-indexical grouping variables across phonetic
-contrasts. 
+contrasts.
 
 Our methods for assessing informativity and utility of grouping variables also
 constrain our choice of datasets, in two main ways. First, in order to assess
