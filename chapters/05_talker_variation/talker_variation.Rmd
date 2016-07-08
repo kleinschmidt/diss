@@ -754,6 +754,8 @@ p(v_i | x_i) = \sum_j p(v_i | x_i, g=j) p(g=j | x)
 $$
 (where $x$ refers to all the tokens produced by this talker). For the sake of brevity, we do not present results when group is unknown.
 
+[^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
+
 For vowels, we classified vowel categories directly. For voicing, the only cue available is VOT, which does not (reliably) distinguish place of articulation. Thus, we classified voicing separately for each place of articulation, and then average the resulting accuracy.
 
 To assess statistical significance, we bootstrap over talkers. This is a
@@ -1364,15 +1366,25 @@ ggplot(vowel_acc_by_talker, aes(x=grouping, y=accuracy, color=grouping)) +
 
 ## Study 3: Inferring socio-indexical variables from cue distributions
 
-Finally, we assess how well listeners could infer socio-indexical variables from unlabeled acoustic-phonetic cues, based on the group-conditional cue distributions. We measure this by the accuracy with which an "ideal listener" can categorize a talker's group membership for each socio-indexical grouping variable.
-<!-- FIXME: merge below -->
+Finally, we assess how well listeners would be able to determine values of
+socio-indexical variables based on cue distributions alone. Qualitatively, a
+listener should be able to determine a talker's socio-indexical group based on
+phonetic cues to the extent that the distributions of those cues differ across
+groups. Here we quantify this using the same computational tools that we used to
+quantify the utility of socio-indexical grouping for speech perception.
+Specifically, we ask how well a listener could _infer_ a talker's group, based
+on the distributions of cues produced by other talkers in the same and different
+groups.
 
 ### Methods {#sec:soc-infer-methods}
 
-<!-- FIXME: merge -->
-Finally, to address how much cue distributions tell listeners about socio-indexical variables themselves, we classify each talker's socio-indexical group (at each level). This provides a measure of how well a listener would be able to determine, for instance, whether a talker was male or female based only on the distributions of cues they produce (even without knowing the intended category of each production).
+The process of inferring socio-indexical group parallels the process of
+inferring phonetic categories: the posterior probability that a talker belongs
+to a particular group is proportional to the likelihood of the cues they produce
+under that group's cue distributions, relative to the total likelihood under all
+groups' distributions.
 
-As for speech recognition, we use an ideal observer model. That is, we compute the posterior probability of each socio-indexical group $g=j$, given all of the talker's observed cue values $x$:
+We formalize this with the same kind of ideal observer model used for phonetic recognition. That is, we compute the posterior probability of each socio-indexical group $g=j$, given all of the talker's observed cue values $x$:
 $$
 p(g | x) \propto p(x | g) p(g) = \left(\prod_i p(x_i | g) \right) p(g)
 $$
@@ -1382,9 +1394,10 @@ $$
 p(x_i | g) = \sum_k p(x_i | v_i=k, g) p(v_i=k | g)
 $$
 
-For all of these classifications, we assume a flat prior on categories/groups. We perform this analysis separately for each level of socio-indexical grouping. For instance, we compute both $p(\mathrm{sex} | x)$ and $p(\mathrm{dialect} | x)$ for each talker.
+We perform this analysis separately for each level of socio-indexical
+grouping. For instance, for each talker we compute both $p(\mathrm{sex} | x)$
+and $p(\mathrm{dialect} | x)$.
 
-[^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
 
 ```{r indexical-classification, cache=TRUE}
 
@@ -1445,15 +1458,20 @@ index_acc_summary <-
   do({ boot_ci(.$accuracy, function(d,i) mean(d[i]), h0=.$chance[1]) })
 
 ## exact binomial CIs (kosher because talker accs are single binary observations)
-binomial_ci = function(p, x) qbeta(p, sum(x)+0.5, length(x)-sum(x)+0.5)
+binomial_ci <- function(p, x) qbeta(p, sum(x)+0.5, length(x)-sum(x)+0.5)
+binomial_p  <- function(prob_0, x) pbinom(sum(x), length(x), prob=prob_0,
+                                          lower.tail=FALSE)
 index_acc_summary_exact <-
   index_acc %>%
-  left_join(index_chance_acc) %>%
   group_by(contrast, cues, grouping) %>%
   summarise_each(funs(mean,
                       ci_low=binomial_ci(0.025, .),
-                      ci_high=binomial_ci(0.975, .)),
-                 accuracy)
+                      ci_high=binomial_ci(0.975, .),
+                      sum_acc=sum,
+                      n_acc  =length),
+                 accuracy) %>%
+  left_join(index_chance_acc) %>%
+  mutate(p_binom = pbinom(sum_acc, n_acc, chance, lower.tail=FALSE))
 
 ```
 
@@ -1474,7 +1492,9 @@ index_acc_summary_exact %>%
 
 ```
 
-For most groupings, it is possible to infer each talker's group with above chance accuracy, given only that talker's unlabeled observed cues (Figure {@fig:indexical-acc-plot}; all $p<0.01$, except for inferring a talker's sex based on their VOT distributions, and dialect from un-normalized F1xF2 distributions, both $p>0.15$).
+### Results {#sec:soc-infer-results}
+
+For most groupings, it is possible to infer each talker's group with above chance accuracy, given only that talker's unlabeled observed cues (Figure {@fig:indexical-acc-plot}; all $p<0.01$, except for inferring a talker's sex based on their VOT distributions, and dialect from un-normalized F1xF2 distributions, both $p>0.15$). Surprisingly, despite the fact that VOT distributions do not differ markedly by age, it is still possible to infer a talker's age based on VOT with above chance accuracy (`r index_acc_summary %>% filter(cues=='VOT', grouping=='Age') %>% format_advantage(paren=FALSE)`).
 
 In some respects, these results mirror the patterns of informativity about the cue distributions themselves (Figure {@fig:vowel-vot-kl-plot}). Vowel formant distributions vary more according to group than do stop VOT distributions, and likewise socio-indexical group can, on the whole, be inferred with higher accuracy based on vowel formants than on VOT. For vowels specifically, much of the variability across talkers is driven by sex differences, and this is the grouping variable that's easiest to infer of the three we tested.
 
