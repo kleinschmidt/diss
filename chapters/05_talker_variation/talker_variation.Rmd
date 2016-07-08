@@ -467,26 +467,6 @@ difference as the bootstrapped $p$ value.
     resulting resampled group-level distributions goes down, increasing the KL
     divergence from the (already higher variance) marginal distributions.
 
-#### Avoiding anti-conservative estimates through cross-validation
-
-For classification, if test data is included in the training set, this artificially inflates accuracy at test [@James2013, Section 5.1].  Cross-validation controls for this by splitting data into training and test sets.  For group-level models (sex, age, dialect, and dialect+sex), we use leave-one-talker-out cross-validation: train each group's models with test talker's observations held out. For the talker-specific models, we use 6-fold cross-validation (or leave-one-out when there were fewer than 6 tokens in a category for a talker), where each phonetic category is randomly split into 6 approximately equal subsets. Then, one subset of each category is selected for test, the models are trained on the remaining five, and the test data is classified as above.
-
-Cross-validation is not only important because it provides an unbiased measure of classifier accuracy. It is also essential for testing the hypothesis that _group-level_ cue distributions are useful to listeners.  If the test talker is included in the training dataset, then the utility of that talker's own productions is confounded with any utility of the group itself.
-
-#### Avoiding biases from differing group sizes
-
-For the vowel data, the different levels of grouping have very different group sizes, and this requires some caution. The broadest (sex) has 24 talkers per group (23 after holdout), while the most specific (dialect+sex) has only 4 (3 after holdout).  This introduces a systematic bias in favor of broader groupings, because small sample sizes lead to noisier estimates of the underlying model, and hence lower accuracy (on average) at test [@James2013, Section 2.2.2]. To correct for this, after holding out the test talker, we randomly subsampled talkers (without replacement) within each group in the training set to be the same as the smallest group (3 talkers, based on Dialect+Sex[^seven-talkers]). 
-
-We use 20 different random subsamples for each test talker, averaging accuracy over
-each resampled training set. A different subsampling is used for every talker,
-and thus any additional variance introduced by this procedure is accounted for
-by bootstrapping talkers.  The estimates obtained in this way allow us to
-compare accuracy across groupings with different group sizes, but at the cost of
-underestimating the true group-level accuracy across the board. As such, they
-must be considered a useful lower bound on the utility of socio-indexical
-groupings.
-
-[^seven-talkers]: We also ran the analyses resampling each group to 7 talkers, which corresponds to the Dialect-level group size after holdout (excluding the Dialect+Sex grouping, since there are only 4 talkers per group before holdout). Besides a small increase in overall accuracy (because of the reduced variance of the distribution estimates), this did not substantially change the results.
 
 
 ## Study 1: Informativity of socio-indexical groupings about cue distributions
@@ -704,6 +684,30 @@ $$
 
 For vowels, we classified vowel categories directly. For voicing, the only cue available is VOT, which does not (reliably) distinguish place of articulation. Thus, we classified voicing separately for each place of articulation, and then average the resulting accuracy.
 
+#### Avoiding anti-conservative estimates through cross-validation
+
+For classification, if test data is included in the training set, this artificially inflates accuracy at test [@James2013, Section 5.1].  Cross-validation controls for this by splitting data into training and test sets.  For group-level models (sex, age, dialect, and dialect+sex), we use leave-one-talker-out cross-validation, training each group's models with test talker's observations held out. For the talker-specific models, we use 6-fold cross-validation (or leave-one-out when there were fewer than 6 tokens in a category for a talker), where each phonetic category is randomly split into 6 approximately equal subsets. Then, one subset of each category is selected for test, the models are trained on the remaining five, and the test data is classified as above.
+
+Cross-validation is not only important because it provides an unbiased measure of classifier accuracy. It is also essential for testing the hypothesis that _group-level_ cue distributions are useful to listeners.  If the test talker is included in the training dataset, then the utility of that talker's own productions is confounded with any utility of the group itself.
+
+#### Avoiding biases from diffent group sizes
+
+For the vowel data, the different levels of grouping have very different group sizes, and this requires some caution. The broadest (sex) has 24 talkers per group (23 after holdout), while the most specific (dialect+sex) has only 4 (3 after holdout).  This introduces a systematic bias in favor of broader groupings, because small sample sizes lead to noisier estimates of the underlying model, and hence lower accuracy (on average) at test [@James2013, Section 2.2.2]. This bias would make it impossible to meaningfully compare probability of correct recognition _across_ grouping levels, defeating the purpose of this analysis.
+
+To correct for this, we randomly subsampled three talkers (without replacement) within each group in the training set (that is, after holding out the test talker). This ensures that every group has is the same size as the smallest group across grouping levels. For the studies reported here, that corresponds to the test talker's Dialect+Sex group.[^seven-talkers]
+
+We use 20 different random subsamples for each test talker, averaging accuracy over
+each resampled training set. A different subsampling is used for every talker,
+and thus any additional variance introduced by this procedure is accounted for
+by bootstrapping talkers.  The estimates obtained in this way allow us to
+compare accuracy across groupings with different group sizes, but at the cost of
+underestimating the true group-level accuracy across the board. As such, they
+must be considered a useful lower bound on the utility of socio-indexical
+groupings.
+
+[^seven-talkers]: We also ran the analyses resampling each group to 7 talkers, which corresponds to the Dialect-level group size after holdout (excluding the Dialect+Sex grouping, since there are only 4 talkers per group before holdout). Besides a small increase in overall accuracy (because of the reduced variance of the distribution estimates), this did not substantially change the results.
+
+This is not necessary for the VOT data: the Buckeye Corpus is balanced by age and sex, the two socio-indexical variables we consider.
 
 ```{r classification-helpers, cache=TRUE}
 
