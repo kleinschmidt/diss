@@ -1243,19 +1243,36 @@ accuracy_summary %>%
 
 ```
 
-Figure {@fig:overall-accuracy-group-known} shows the probability of correct recognition for stop voicing/vowel, based on the cue distrbutions at each level of grouping.  As with informativity about the distributions themselves, there's an asymmetry between vowels and stop voicing in the overall utility of socio-indexical variables for speech recognition. Probability of correct recognition is overall higher for stop voicing than vowels.  Voicing recognition is also less sensitive to the particular grouping variable, which is consistent with the finding above that VOT distributions do not differ substantially at different levels of socio-indexical grouping. There is, however, a slight advantage for using talker-specific VOT distributions for recognition, over marginal, age-, and sex-conditional distributions (on the order of 2% increase in accuracy, all three 
+Figure {@fig:overall-accuracy-group-known} shows the probability of correct
+recognition for stop voicing/vowel, based on the cue distrbutions at each level
+of grouping.  As with informativity about the distributions themselves, there's
+an asymmetry between vowels and stop voicing in the overall utility of
+socio-indexical variables for speech recognition. Probability of correct
+recognition is overall higher for stop voicing than vowels.  Voicing recognition
+is also less sensitive to the particular grouping variable: knowing whether a
+talker is male vs. female (or young vs. old) provides no advantage when
+classifying their VOTs as voiced or voiceless. This is consistent with the
+finding above that VOT distributions themselves do not differ across
+groups. Even using a talker's own distributions provides only a minimal
+advantage (on the order of 2% increase in accuracy over marginal, age-, and
+sex-conditioned distributions, all three 
 `r talker_advantage_acc %>% filter(cues=='VOT') %$% boot_p %>% max() %>% daver::p_val_to_less_than()`).[^logodds]
 
-Normalized input results in higher vowel recognition accuracy across the board, again paralleling the findings about the cue distributions themselves. The one exception is at the level of talker-specific distributions, where recognition accuracy is unchanged (since Lobanov normalization is a linear transformation of the input, which leaves the structure of the categories within each talker unchanged).
+For vowels, normalized input results in higher recognition accuracy across the
+board, again paralleling the findings about the cue distributions
+themselves. The one exception is at the level of talker-specific distributions,
+where recognition accuracy is unchanged (since Lobanov normalization is a linear
+transformation of the input, which leaves the structure of the categories within
+each talker unchanged).
 
-Conditioning cue distribution on sex---either alone, relative to marginal, or in
-addition to dialect---provides the biggest boost in recognition for
+Conditioning vowel cue distribution on sex---either alone, relative to marginal,
+or in addition to dialect---provides the biggest boost in recognition for
 un-normalized formant accuracy. For normalized input, none of the
 socio-indexical grouping factors provide much of an advantage over the marginal
 distributions. In both cases, dialect provides a small but consistent advantage
 for recognition, both alone and in combination with sex (increasing accuracy by
-`r dialect_avg_advantage %$% round(observed*100)`% on average, all $`r
-dialect_avg_advantage %$% p_val_to_less_than(boot_p)`$).
+`r dialect_avg_advantage %$% round(observed*100)`% on average, all 
+$`r dialect_avg_advantage %$% p_val_to_less_than(boot_p)`$).
 
 ```{r by-vowel-acc-group-known, fig.width=10, fig.height=5, fig.cap='Probability of correct recognition varies across vowels, overall and according to the socio-indexical grouping variable. Bars and stars show significant improvement from conditioning on dialect, above marginal or in addition to sex alone.'}
 
