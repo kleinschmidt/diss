@@ -475,13 +475,11 @@ difference as the bootstrapped $p$ value.
 
 ## Study 1: Informativity of socio-indexical groupings about cue distributions
 
-We first analyze how informative each socio-indexical grouping variable is about the cue distributions of each phonetic category. 
-<!-- FIXME -->
-As described in the methods, we measure informativity by the average KL divergence between the group-conditional cue distributions and the unconditioned (marginal) cue distributions.
+Our first goal is to assess how _informative_ socio-indexical grouping are about the cue distributions for each phonetic category, across levels of socio-indexical grouping and phonetic categories/cues.
 
 ### Methods {#sec:kl-methods}
 
-One way to quantify how informative a socio-indexical grouping variable is about cue distributions is by comparing the group-level cue distributions with the _marginal_ distribution of cues from all groups. If a socio-indexical variable is _not_ informative about cue distributions, then the the distribution for each level of that variable will be essentially identical, and hence indistinguishable from the _overall_ distribution. If, on the other hand, a socio-indexical variable _is_ informative about cue distributions, then the distribution for each group will deviate substantially from other groups, and by extension from the overall distribution as well.
+One way to quantify how informative a socio-indexical grouping variable is about cue distributions is by comparing the group-level cue distributions with the _marginal_ distribution of cues from all groups. The reason for this is that if a socio-indexical grouping variable (e.g., sex) is _not_ informative about cue distributions, then the the cue distributions for each group (e.g., male and female talkers) will be essentially identical, and hence indistinguishable from the _overall_ cue distribution. If, on the other hand, a socio-indexical variable _is_ informative about cue distributions, then the distribution for each group will deviate substantially from other groups, and by extension from the overall distribution as well.
 The particular measure we use to compare distributions is the Kullback-Leibler (KL) divergence, which we now explain in detail.
 
 #### Technical details
