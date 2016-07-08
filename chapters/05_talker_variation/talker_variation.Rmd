@@ -284,9 +284,9 @@ _identity_ from sine-wave speech [@Remez1997], speech which has been processed t
 quality cues to identity but preserve most phonetic information [@Remez1981].
 
 
-## Methods
+## General methods
 
-We next describe the datasets we use and the motivations for selecting these datasets. Then, we introduce our methods for quantifying informativity, utility, and inferrability of socio-indexical grouping variables. Finally, we discuss technical considerations.
+We next describe the datasets we use and the motivations for selecting these datasets. Then, we introduce our general modeling approach. The specific methods by wich we quantify informativity, utility, and inferrability of socio-indexical grouping variables are discussed in their respective studies.
 
 ### Data
 
@@ -306,6 +306,12 @@ informativity about cue distributions, we need enough tokens of each category
 from each talker in order to estimate these distributions. Second, to assess
 group-level utility for speech recognition, we need tokens from each phonetic
 category _within_ talker (or at least within group).
+
+Finally, in order to assess the effect of socio-indexical variables, we need to
+_know_ the values socio-indexical variables for talkers whose cue distributions
+we analyze. Requiring both large sample sizes and socio-indexical annotation
+places serious constraints on which datasets will suit our purposes here. <!--
+awkward -->
 
 #### Vowels
 
@@ -426,12 +432,14 @@ Our primary reason for considering VOT/voicing at all is to get a sense of the r
 
 However, the downside is that this corpus does not not contain data from talkers who vary on socio-indexical variables that are known to correlate with differences in VOT distributions, like native language background. Preliminary analyses of a collection of VOTs for only voiceless stops from French-English bilinguals [@Lev-Ari2013] suggests that, even though these groups are known to produce different VOT distributions, the size of this effect is much smaller than even talker-level variability _within_ the monolingual talkers in the Buckeye corpus (which, to foreshadow our results, is substantially smaller than for vowels). Moreover, the addtion of these talkers provides only a slight increase in the overall informativity of talker identity, compared to the monolingual talkers alone.
 
-### Quantifying informativity, utility, and inferrability
+### Modeling approach
 
-Each phonetic category was modeled as a normal distribution: stop voicing as univariate distributions of VOT, and vowels as bivariate distributions of F1 and F2. We used the maximum likelihood estimators for the model parameters, which are the sample mean and covariance matrix.
+All of our anlayses depend on knowing the _distribution_ of cues for each phonetic category, at different levels of socio-indexical grouping. We obtain estimates of these distributions in the following way. First, we assume that each phonetic category can be modeled as a normal distribution over cue values (stop voicing as univariate distributions over VOT, and vowels as bivariate distributions of F1 and F2). These distributions are parametrized by their mean and their covariance matrix (or, equivalently, variance in the case of VOT). Second, we fit these parameters to data from our corpora via maximum likelihood, using the sample mean and covariance of tokens from each category. We do this separately for each group. For example, for gender, we obtain one estimate of the `ae` distribution based on all the tokens from male talkers, and one from all tokens from female talkers. Likewise, for dialect, we estimate one distribution based on all talkers from the North dialect region, another one from tokens from Mid-Atlantic talkers, and so on.
 
-For each socio-indexical grouping level, we trained separate models for each phonetic category based on all tokens from that category and grouping level (holding out test data when necessary, see below). The grouping levels we considered were
+Assuming that each category is a normal distribution is not a critical part of our approach, but rather a standard and convenient assumptiong. In particular, the normal distribution has a small number of parameters and this allows us to efficiently estimate the distribution for each category with a limited amount of data (e.g., five tokens per talker-level vowel distribution).
 
+Based on the variable annotated in the available data, we consider the following socio-indexical grouping variables:
+<!-- TODO clarify these. why dichotomized? what is Dialect+Sex, and why? -->
 * Marginal (all tokens)
 * Sex (male/female)
 * Age (younger/older than 40, VOT only)
@@ -439,67 +447,15 @@ For each socio-indexical grouping level, we trained separate models for each pho
 * Diaelct+Sex (12 levels, vowels only)
 * Talker
 
-#### Informativity with respect to cue distributions
-
-In order to evalute the _informativity_ of socio-indexical variables with respect to cue distributions themselves, we use Kullback-Leibler (KL) divergence to measure how much group-specific cue distributions differ from the overall (marginal) cue distributions of each category.[^what-is-kl] If a socio-indexical variable is _not_ informative about cue distributions, then the the distribution for each level of that variable will be essentially identical, and hence indistinguishable from the _overall_ distribution. If, on the other hand, a socio-indexical variable _is_ informative about cue distributions, then the distribution for each group will deviate substantially from each other group, and by extension from the overall distribution as well.
-We do this separately for each linguistic category and group, and then average the results, calculating bootstrapped confidence intervals over groups.
-
-[^what-is-kl]: Technically, KL divergence is an information-theoretic comparison of two distributions. In our usage, it measures the expected cost (in bits of extra message length) of encoding data from each group using a code that's optimized for the marginal distribution.
-
-The KL divergence of $Q$ from $P$ is $DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$ (with density functions $q$ and $p$ respectively). In our case, $P=\mathcal{N}_G$ is a multivariate[^multivariate] normal cue distribution for the group, with mean $\mu_G$ and covariance $\Sigma_G$, while $Q=\mathcal{N}_M$ is the marginal multivariate normal cue distribution with mean $\mu_M$ and covariance $\Sigma_M$. With some simplification[^gaus-kl], the KL divergence of the marginal from the group distribution works out to be
-$$
-DL(\mathcal{N}_M || \mathcal{N}_G) = \frac{1}{2} \left( \mathrm{tr}(\Sigma_M^{-1} \Sigma_G) + (\mu_M - \mu_G) \Sigma_M^{-1} (\mu_M - \mu_G) - d + \log\frac{|\Sigma_M|}{|\Sigma_G|} \right)
-$$
-where $d$ is the dimensionality of the distribution, and logs are natural logarithms (we report KL divergence in bits, which is the above quantity divided by $log(2)$).
-
-[^multivariate]: The math is the same for the univariate special case, as with VOT.
-[^gaus-kl]: See, for instance, [http://stanford.edu/~jduchi/projects/general_notes.pdf](), p. 13.
-
-#### Utility for speech recognition
-
-Next, to address the _utility_ of socio-indexical grouping for speech recognition, we calculate, for each level of socio-indexical grouping, the probability of correct recognition of phonetic categories. We do this using an "ideal listener" model [@Clayards2008; @Kleinschmidt2015] that computes the posterior probability of a category given an observed cue value, given the distributions for each category. For instance, the probability that a particular F1xF2 value came from the /ae/ category is proportional to the probability (or _likelihood_) of that particular value being generated by the `ae` distribution, divided by its overall likelihood under all categories' distributions. 
-
-If two categories' distributions overlap a lot, then they will frequently assign similar likelihood to cue values generated by the other, leading to confusion and recognition errors. This is why correct recognition is a measure of the utility of grouping. If lumping together tokens from, for instance, both male and female talkers causes vowel distributions to overlap more, that will decrease the probability of correct recognition, relative to the male- and female-only distributions (or distributions _conditioned on_ gender).
-
-More broadly, by calculating the probability of correct recognition using, for instance, the cue distributions of each category produced by female talkers, we can  estimate how well a listener would be able to recognize speech from an unfamiliar female talker if all they knew was the talker's sex.
-
-Technically, we want to determine the phonetic category $v_i$[^notation] of each of the cues $x_i$ produced by a talker. If we assume that the listener knows that this talker belongs to group $g=j$, this inference is a straightforward application of Bayes Rule:
-$$
-p(v_i | x_i, g=j) \propto p(x_i | v_i, g=j) p(v_i)
-$$
-If, on the other hand, the listener does not know which group the talker belongs to, they have to marginalize out group. This ammounts to taking a weighted average of the posterior probabilities under each group, weighted by the probability that the talker belongs to that group, $p(g | x)$ (which we compute below):
-$$
-p(v_i | x_i) = \sum_j p(v_i | x_i, g=j) p(g=j | x)
-$$
-(where $x$ refers to all the tokens produced by this talker).
-
-For vowels, we classified vowel categories directly. For voicing, the only cue available is VOT, which does not (reliably) distinguish place of articulation. Thus, we classified voicing separately for each place of articulation, and then average the resulting accuracy.
-
-#### Inferrability of socio-indexical groups
-
-Finally, to address how much cue distributions tell listeners about socio-indexical variables themselves, we classify each talker's socio-indexical group (at each level). This provides a measure of how well a listener would be able to determine, for instance, whether a talker was male or female based only on the distributions of cues they produce (even without knowing the intended category of each production).
-
-As for speech recognition, we use an ideal observer model. That is, we compute the posterior probability of each socio-indexical group $g=j$, given all of the talker's observed cue values $x$:
-$$
-p(g | x) \propto p(x | g) p(g) = \left(\prod_i p(x_i | g) \right) p(g)
-$$
-
-The only complication is that, without knowing the the phonetic category of each observation a priori, each observation may have been generated by any of the phonetic categories. Thus, to determine the _overall_ likelihood of observing a cue value $x_i$ under group $g$, we first have to marginalize over categories $v_i$:
-$$
-p(x_i | g) = \sum_k p(x_i | v_i=k, g) p(v_i=k | g)
-$$
-
-For all of these classifications, we assume a flat prior on categories/groups. We perform this analysis separately for each level of socio-indexical grouping. For instance, we compute both $p(\mathrm{sex} | x)$ and $p(\mathrm{dialect} | x)$ for each talker.
-
-[^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
-
-### Technical modeling considerations
+#### Assessing statistical significance
 
 We use a bootstrapping procedure to assess group differences and calculate
 confidence intervals for our estimates of utility, informativity, and
-inferability. In general, we resample talkers, in order to estimate the
+inferability. Unless otherwise stated, we resample talkers, in order to estimate the
 population-level variability from the limited sample of talkers in our
-datasets. However, for informativity, we have a single observations from each
+datasets.
+<!-- TODO: this is unclear. move to  -->
+However, for informativity, we have a single observations from each
 _group_ (not talker), and so we resample groups instead.[^kl-boot] For testing
 group differences, we use the proportion of resampled datasets with same-sign
 difference as the bootstrapped $p$ value.
@@ -521,7 +477,7 @@ Cross-validation is not only important because it provides an unbiased measure o
 
 For the vowel data, the different levels of grouping have very different group sizes, and this requires some caution. The broadest (sex) has 24 talkers per group (23 after holdout), while the most specific (dialect+sex) has only 4 (3 after holdout).  This introduces a systematic bias in favor of broader groupings, because small sample sizes lead to noisier estimates of the underlying model, and hence lower accuracy (on average) at test [@James2013, Section 2.2.2]. To correct for this, after holding out the test talker, we randomly subsampled talkers (without replacement) within each group in the training set to be the same as the smallest group (3 talkers, based on Dialect+Sex[^seven-talkers]). 
 
-We use 20 different random subsamples for each talker, averaging accuracy over
+We use 20 different random subsamples for each test talker, averaging accuracy over
 each resampled training set. A different subsampling is used for every talker,
 and thus any additional variance introduced by this procedure is accounted for
 by bootstrapping talkers.  The estimates obtained in this way allow us to
@@ -533,11 +489,27 @@ groupings.
 [^seven-talkers]: We also ran the analyses resampling each group to 7 talkers, which corresponds to the Dialect-level group size after holdout (excluding the Dialect+Sex grouping, since there are only 4 talkers per group before holdout). Besides a small increase in overall accuracy (because of the reduced variance of the distribution estimates), this did not substantially change the results.
 
 
-## Results
+## Study 1: Informativity of socio-indexical groupings about cue distributions
 
-### Informativity of socio-indexical groupings about cue distributions
+We first analyze how informative each socio-indexical grouping variable is about the cue distributions of each phonetic category. 
+<!-- FIXME -->
+As described in the methods, we measure informativity by the average KL divergence between the group-conditional cue distributions and the unconditioned (marginal) cue distributions.
 
-We first analyze how informative each socio-indexical grouping variable is about the cue distributions of each phonetic category. As described in the methods, we measure informativity by the average KL divergence between the group-conditional cue distributions and the unconditioned (marginal) cue distributions.
+### Methods {#sec:kl-methods}
+
+In order to evalute the _informativity_ of socio-indexical variables with respect to cue distributions themselves, we use Kullback-Leibler (KL) divergence to measure how much group-specific cue distributions differ from the overall (marginal) cue distributions of each category.[^what-is-kl] If a socio-indexical variable is _not_ informative about cue distributions, then the the distribution for each level of that variable will be essentially identical, and hence indistinguishable from the _overall_ distribution. If, on the other hand, a socio-indexical variable _is_ informative about cue distributions, then the distribution for each group will deviate substantially from each other group, and by extension from the overall distribution as well.
+We do this separately for each linguistic category and group, and then average the results, calculating bootstrapped confidence intervals over groups.
+
+[^what-is-kl]: Technically, KL divergence is an information-theoretic comparison of two distributions. In our usage, it measures the expected cost (in bits of extra message length) of encoding data from each group using a code that's optimized for the marginal distribution.
+
+The KL divergence of $Q$ from $P$ is $DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$ (with density functions $q$ and $p$ respectively). In our case, $P=\mathcal{N}_G$ is a multivariate[^multivariate] normal cue distribution for the group, with mean $\mu_G$ and covariance $\Sigma_G$, while $Q=\mathcal{N}_M$ is the marginal multivariate normal cue distribution with mean $\mu_M$ and covariance $\Sigma_M$. With some simplification[^gaus-kl], the KL divergence of the marginal from the group distribution works out to be
+$$
+DL(\mathcal{N}_M || \mathcal{N}_G) = \frac{1}{2} \left( \mathrm{tr}(\Sigma_M^{-1} \Sigma_G) + (\mu_M - \mu_G) \Sigma_M^{-1} (\mu_M - \mu_G) - d + \log\frac{|\Sigma_M|}{|\Sigma_G|} \right)
+$$
+where $d$ is the dimensionality of the distribution, and logs are natural logarithms (we report KL divergence in bits, which is the above quantity divided by $log(2)$).
+
+[^multivariate]: The math is the same for the univariate special case, as with VOT.
+[^gaus-kl]: See, for instance, [http://stanford.edu/~jduchi/projects/general_notes.pdf](), p. 13.
 
 ```{r kl-helpers, cache=TRUE}
 
@@ -593,6 +565,8 @@ vot_kl <-
          cue_cols = 'vot')
 
 ```
+
+### Results {#sec:kl-results}
 
 ```{r vowel-vot-kl-plot, fig.width=8.3, fig.height=4.2, fig.cap='Socio-indexical variables are more informative about cue distributions for vowel (formants) than for stop voicing (vot). On top of this, more specific groupings (like Talker and Dialect+Sex) are more informative than broader groupings (Sex). This is indicated by higher KL divergence of each grouping level from marginal (showing mean and 95% bootstrapped CIs over groups).'}
 
@@ -706,10 +680,30 @@ vowel_kl %>%
 
 ```
 
-
-### Utility of socio-indexical groupings for speech recognition
+## Study 2: utility of socio-indexical groupings for speech recognition
 
 Next, we evaluate the _utility_ of each grouping variable for speech recognition. The utility of a grouping variable---like dialect---can be quantified as the probability of correct recognition given the cue distributions conditioned on each group---e.g., each dialect---using an ideal listener model [@Clayards2008; @Kleinschmidt2015].
+
+### Methods {#sec:recog-methods}
+
+Next, to address the _utility_ of socio-indexical grouping for speech recognition, we calculate, for each level of socio-indexical grouping, the probability of correct recognition of phonetic categories. We do this using an "ideal listener" model [@Clayards2008; @Kleinschmidt2015] that computes the posterior probability of a category given an observed cue value, given the distributions for each category. For instance, the probability that a particular F1xF2 value came from the /ae/ category is proportional to the probability (or _likelihood_) of that particular value being generated by the `ae` distribution, divided by its overall likelihood under all categories' distributions. 
+
+If two categories' distributions overlap a lot, then they will frequently assign similar likelihood to cue values generated by the other, leading to confusion and recognition errors. This is why correct recognition is a measure of the utility of grouping. If lumping together tokens from, for instance, both male and female talkers causes vowel distributions to overlap more, that will decrease the probability of correct recognition, relative to the male- and female-only distributions (or distributions _conditioned on_ gender).
+
+More broadly, by calculating the probability of correct recognition using, for instance, the cue distributions of each category produced by female talkers, we can  estimate how well a listener would be able to recognize speech from an unfamiliar female talker if all they knew was the talker's sex.
+
+Technically, we want to determine the phonetic category $v_i$[^notation] of each of the cues $x_i$ produced by a talker. If we assume that the listener knows that this talker belongs to group $g=j$, this inference is a straightforward application of Bayes Rule:
+$$
+p(v_i | x_i, g=j) \propto p(x_i | v_i, g=j) p(v_i)
+$$
+If, on the other hand, the listener does not know which group the talker belongs to, they have to marginalize out group. This ammounts to taking a weighted average of the posterior probabilities under each group, weighted by the probability that the talker belongs to that group, $p(g | x)$ (which we compute below):
+$$
+p(v_i | x_i) = \sum_j p(v_i | x_i, g=j) p(g=j | x)
+$$
+(where $x$ refers to all the tokens produced by this talker).
+
+For vowels, we classified vowel categories directly. For voicing, the only cue available is VOT, which does not (reliably) distinguish place of articulation. Thus, we classified voicing separately for each place of articulation, and then average the resulting accuracy.
+
 
 ```{r classification-helpers, cache=TRUE}
 
@@ -1146,6 +1140,7 @@ geom_bars <- function(...) {
 
 ```
 
+### Results {#sec:recog-results}
 
 ```{r overall-accuracy-group-known, fig.width=8.3, fig.height=4.2, fig.cap='Speech recognition accuracy using for marginal, group-level, and talker-specific cue distributions. Small points show individual talkers, and large points and lines show mean and bootstrapped 95% CIs over talkers. Marginal and group-level accuracy is based on leave-one-talker out cross-validation, and talker-specific on 6-fold cross-validation (or leave-one-token-per-category out if there are fewer than 6 tokens per category). Bars and stars show signficant increases in accuracy when conditioning on dialect, alone or in addition to sex. Here and elsewhere: `*` $p<0.05$, `**` $p<0.01$, and `***` $p<0.001$.'}
 
@@ -1263,9 +1258,29 @@ ggplot(vowel_acc_by_talker, aes(x=grouping, y=accuracy, color=grouping)) +
 ```
 
 
-### Inferring socio-indexical variables from cue distributions
+## Study 3: Inferring socio-indexical variables from cue distributions
 
 Finally, we assess how well listeners could infer socio-indexical variables from unlabeled acoustic-phonetic cues, based on the group-conditional cue distributions. We measure this by the accuracy with which an "ideal listener" can categorize a talker's group membership for each socio-indexical grouping variable.
+<!-- FIXME: merge below -->
+
+### Methods {#sec:soc-infer-methods}
+
+<!-- FIXME: merge -->
+Finally, to address how much cue distributions tell listeners about socio-indexical variables themselves, we classify each talker's socio-indexical group (at each level). This provides a measure of how well a listener would be able to determine, for instance, whether a talker was male or female based only on the distributions of cues they produce (even without knowing the intended category of each production).
+
+As for speech recognition, we use an ideal observer model. That is, we compute the posterior probability of each socio-indexical group $g=j$, given all of the talker's observed cue values $x$:
+$$
+p(g | x) \propto p(x | g) p(g) = \left(\prod_i p(x_i | g) \right) p(g)
+$$
+
+The only complication is that, without knowing the the phonetic category of each observation a priori, each observation may have been generated by any of the phonetic categories. Thus, to determine the _overall_ likelihood of observing a cue value $x_i$ under group $g$, we first have to marginalize over categories $v_i$:
+$$
+p(x_i | g) = \sum_k p(x_i | v_i=k, g) p(v_i=k | g)
+$$
+
+For all of these classifications, we assume a flat prior on categories/groups. We perform this analysis separately for each level of socio-indexical grouping. For instance, we compute both $p(\mathrm{sex} | x)$ and $p(\mathrm{dialect} | x)$ for each talker.
+
+[^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
 
 ```{r indexical-classification, cache=TRUE}
 
