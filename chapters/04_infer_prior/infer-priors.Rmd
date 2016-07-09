@@ -92,7 +92,7 @@ productions.
 
 Critically, this statistical inference process draws on implicit beliefs
 about *how* talkers tend to differ from each other. As a consequence,
-adaptation to an unfamiliar talker should depend on a listener's prior
+in this view adaptation to an unfamiliar talker depends on a listener's prior
 experience with other talkers, rather than only on the speech produced
 by the unfamiliar talker themselves. Specifically, a listener's
 experience with other talkers provides the starting point for the
@@ -111,18 +111,19 @@ previous experience, the ideal adapter framework predicts that a
 listener will require more evidence to adapt, leading to slowed or
 incomplete adaptation. 
 
+There is already some evidence for this prediction.
 For instance, @Idemaru2011 tested how well listeners adapt to distributions of
 two cues that distinguish voicing (e.g., /b/ vs. /p/), voice onset time (VOT)
 and the pitch of the following vowel (f0).  These two cues are typically
 positively correlated in English, with /p/ corresponding to high VOT and high
-f0, and /b/ to low values of both cues. When exposed to a talker who produced an
-accent with a positively correlated distribution of these cues, listeners used
-f0 to categorize stops with ambiguous VOTs. Listeners also learned from a talker
-who produced an _un_correlated distribution, ignoring f0 even for ambiguous
-VOTs. But when exposed to a talker who produced an _anti_correlated
-distribution, listeners did not adapt, instead ignoring f0, despite the fact
+f0, and /b/ to low values of both cues. In one condition, listeners were exposed to a talker who produced
+a positively correlated distribution of these cues. These listeners adapted to this distribution, and used
+f0 to categorize stops with ambiguous VOTs. In another condition, heard a talker
+who produced an _un_correlated distribution, where f0 is uninformative. Listeners in this condition also adapted, learning to ignore f0 even for ambiguous
+VOTs. But when exposed in a third condition to a talker who produced an _anti_correlated
+distribution, listeners did _not_ adapt.  Despite the fact
 that f0 was just as informative for this accent as for the positively correlated
-accent. This suggests that listeners have ruled out the possibility of a
+accent, listeners _ignored_ f0 as a cue to voicing. This suggests that these listeners have ruled out the possibility of a
 reversed mapping between f0 and voicing (/b/ vs. /p/), possibly perhaps American
 English talkers typically do not typically produce it [e.g., @House1953].
 Likewise, @Sumner2011 found that listeners had trouble adapting to a talker who
@@ -232,6 +233,8 @@ data_exp1 <- supunsup::supunsup_clean %>%
 ```
 
 
+### Methods {#sec:methods}
+
 ```{r vot-dists-exp1, fig.width=8, fig.height=2, fig.cap="Each subject heard one of these five synthetic accents, which differ only in the distribution of VOTs of the word-initial stops. Black dashed lines show VOT distributions from a hypothetical typical talker [as estimated by @Kronrod2012]. Note that the 0 and 10ms shifted accents are reasonably close to this typical talker, while the -10, 20, and 30ms shifted accents deviate substantially."}
 
 exposure_stats <- data_exp1 %>%
@@ -274,8 +277,6 @@ voice onset time (VOT), the primary cue to word-initial stop consonant voicing
 in English (e.g., "beach" vs. "peach"). Adaptation was assessed based on
 listeners' classification function, or how they labeled each VOT as /b/ or /p/.
 
-### Methods {#sec:methods}
-
 #### Subjects {#sec:subjects}
 
 ```{r participants-exp1}
@@ -300,13 +301,13 @@ n_total <- n_subj + n_excluded
 
 We recruited `r n_total` subjects via Amazon's Mechanical Turk, who were paid
 \$2.00 for participation, which took about 20 minutes. We excluded subjects who
-participated more than once ($n=`r n_subj_repeat`$) or whose accuracy at 0 and
-70ms VOT---as extrapolated via a logistic GLM---was less than 80% correct 
+participated more than once ($n=`r n_subj_repeat`$) or who failed to classify VOTs reliably.
 ($n=`r n_subj_bad`$; $n=`r n_both`$ for both reasons).
+Reliable classification was defined by accuracy at 0 and
+70ms VOT, as extrapolated via a logistic GLM, of at least 80% correct.
 Excluded subjects were roughly equally distributed across conditions (maximum of
 5 in 0ms /b/ VOT condition, and minimum of 1 in 20ms /b/ VOT condition). After
-these exclusions, data from `r n_subj` subjects remained for analysis for
-analysis.
+these exclusions, data from `r n_subj` subjects remained for analysis.
 
 #### Procedure ####
 
@@ -314,12 +315,12 @@ analysis.
     green button to play the word, then click on one picture to indicate what
     they heard.](figure_manual/beach_peach.png){#fig:beach-peach}
 
-Our distributional learning procedure is based on @Clayards2008. On each trial,
+Our distributional learning procedure is based on @Clayards2008. Figure @fig:beach-peach shows an example trial display. On each trial,
 two response option images appeared, which corresponded to one of three /b/-/p/
 minimal pairs (beach/peach, bees/peas, or beak/peak). Subjects then clicked on a
 central button which played the corresponding minimal pair word, and then
 clicked on the picture to indicate whether they heard the /b/ or /p/ member of
-the minimal pair (Figure @fig:beach-peach). Subjects performed 222 of these
+the minimal pair. Subjects performed 222 of these
 trials, evenly divided between the three minimal pairs.
 
 Each trial's word was synthesized with a voice onset time (VOT) that was
@@ -329,7 +330,7 @@ the *accent* that the subject heard, and each subject was pseudorandomly
 assigned to one of five accent conditions (Figure @fig:vot-dists-exp1). The cue
 distributions for each of these accents implies a different /b/-/p/ category
 boundary, and listeners' adaptation was evaluated by comparing their /b/-/p/
-classification function (fitted by a logistic GLM) to the classification
+classification function (fit by a logistic GLM) to the classification
 function derived from the typical talker's cue distributions (corresponding to
 no adaptation) and the exposure distribution (corresponding to maximal---but not
 necessarily optimal---adaptation).
@@ -506,7 +507,7 @@ listeners' prior beliefs about talker variability, based on their
 patterns of adaptation to different accents. To that end, we use a
 variant of a Bayesian belief-updating model that has previously provided
 a good account of how listeners incrementally update their beliefs in
-order to rapidly adapt to an unfamiliar talker @Kleinschmidt2015. This
+order to rapidly adapt to an unfamiliar talker [@Kleinschmidt2015]. This
 previous modeling work has treated the content of listeners prior
 beliefs---the category means and variances they think are most likely---as
 known and fixed, setting them based on pre-adaptation classification
@@ -568,10 +569,9 @@ these judgements into the belief updating part of the model itself is
 surprisingly subtle and challenging. For instance, one seemingly obvious fix is
 to treat listeners' responses themselves as the cateogry labels to be used for
 belief updating (rather than the experimenter-defined categories). But doing
-this eliminate the possibility that listeners could go back and re-evaluate
-their previous judgements, which is anethema to a Bayesian belief updating
-model, because from the models' point of view these labels are fixed.
-
+this eliminates the possibility that listeners could go back and re-evaluate
+their previous judgements, which is anathema to a Bayesian belief updating
+model.
 It is, of course, possible to back off on this assumption in better ways, but
 they are substantially more computationally demanding, and we leave it for
 future work to determine how they might affect our results. 
