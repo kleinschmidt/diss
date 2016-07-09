@@ -244,6 +244,13 @@ socio-indexically-conditioned variability in American English.[^bilingual-vot]
     [from @Lev-Ari2013] suggest that they would not substantially change our
     conclusions.
 
+In order to address this question, we need data on contrasts/cues that might
+reasonably be expected to differ in the informativity of socio-indexical
+variables (including talker identity). As we summarized above, vowels and stop
+voicing are likely provide such a contrast, and thus we selected one corpus
+where the relevant cues were annotated for each.
+<!-- describe in more detail?? -->
+
 #### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
 From the perspective of speech perception, talker variability is a problem,
@@ -269,9 +276,15 @@ These findings establish _that_ listeners use socio-indexical grouping variables
 (including talker identity) to inform speech perception, but they don't tell us
 exactly _how useful_ these variables are. That is, what would be the
 consequences of _ignoring_ these variables? How much do these consequences
-depend on the particular cues, category, or socio-indexical variable?  Our
-second study addresses this question, using the ideal adapter's link between cue
-distributions and phonetic categorization.
+depend on the particular cues, category, or socio-indexical variable?  
+
+Our second study addresses this question, using the ideal adapter's link between
+cue distributions and phonetic categorization.  This requires data where the
+same talkers produce enough tokens for each relevant category in order to
+estimate the underlying distributions. This places substantial constraints on
+which datasets we can use, since most either do not contain enough tokens per
+talker, or (especially for stop voicing) only contain tokens from a subset of
+categories (e.g., only voiceless stops).
 
 #### Question 3: How well could listeners _infer_ socio-indexical variables given cue distributions?
 
@@ -293,19 +306,22 @@ Again, what we don't know is the particular information listeners are using to
 make these inferences, and at an even more basic level, how much information is
 available to them from _phonetic_ cues [for a review, see @Thomas2002]. Thus our
 final study aims to shed light on how much listeners can infer about a talker's
-socio-indexical properties based on phonetic cue distributions alone.
+socio-indexical properties based on phonetic cue distributions alone.  This
+places further constraints on the data that we can use, because it requires that
+we have enough tokens, from enough talkers, who are annotated for
+socio-indexical variables
 
 
 <!-- ------------------------------------------- -->
 
-Finally, this work has implications beyond simply connecting sociolinguistic and
-psycholinguistic perspectives on variability in speech perception.  The ideal
+Finally, by connecting sociolinguistic and psycholinguistic perspectives on
+variability in speech perception, this work has broader implications.  The ideal
 adapter framework has the potential to generate novel, testable predictions
 about how listeners learn and take advantage of structure in how talkers
 vary. In order to generate and test these predictions, we need to know,
 quantitatively, the relationship between socio-indexical variables, linguistic
-variables, and cue distributions.  Thus the results of the current work open the
-door to new lines of empirical work on speech perception.
+variables, and cue distributions.  Thus the current work opens the door to new
+lines of empirical work on speech perception.
 
 
 ## General methods
@@ -314,46 +330,34 @@ We next describe the datasets we use and the motivations for selecting these dat
 
 ### Data
 
-<!-- TODO/WIP: I feel like this can be merged with the background bits. what we know and don't know motivates our choice of data, and our choice of methods. and BOTH of these can be integrated with the goals. -->
+Guided by our goals and their associated constraints, we selected two
+datasets. The first is a collection of vowel formants from the Nationwide Speech
+Project [NSP; @Clopper2005], and the second a collection of voice onset times (VOT)
+for word-initial voiced and voiceless stops from the Buckeye corpus
+[@Pitt2007, extracted by Wedel, _in prep_].  Based on the variable annotated in
+the available data, we consider cue distributions conditioned on the following
+socio-indexical grouping variables:
 
-We selected data to include in this study on the basis of three criteria. First, we want to compare the role of socio-indexical grouping _across_ phonetic categories/cues, and thus we sought corpora for cues/categories that are thought to have qualitatively different degrees of talker variability. Second, <!-- enough tokens per talker/category --> 
-Third, <!-- enough talkers, with socio-indexical variables annotated -->
+* __Marginal__: is a control grouping, which includes all tokens from all talkers.
+* __Sex__: male/female
+* __Age__: this is only relevant for VOT, because the talkers in the NSP are
+  uniformly young. In the Buckeye corpus, age is coded as a binary variable
+  (younger/older than 40, VOT only).
+* __Dialect__: the NSP contains data from talkers from six dialect regions.
+* __Diaelct+Sex__: @Clopper2005 found that sex modulates dialect differences, so we also examing cue distributions conditioned on dialect and sex together (12 levels, vowels only)
+* __Talker__: we also consider cue distributions conditioned on talker identity,
+  as an upper bound on informativity and utility.
 
-
-
-With these criteria in mind, we selected two corpora, one focusing on vowels and
-the other on stop consonant voicing. One goal of this paper is to compare the
-informativity and utility of socio-indexical grouping variables _between_
-different phonetic contrasts and cues. Our selection of datasets is guided by
-this goal. Stop voicing (cued by voice onset time; VOT) and vowel identity (cued
-by formant frequencies) exhibit different patterns of talker variability in
-American English. Vowels differ substantially across talkers, and have
-systematic differences due to gender [@Peterson1952; @Hillenbrand1995] and
-dialect [@Clopper2005]. Stop consonant voicing exhibits _some_ talker
-variability, but little systematic variation by dialect or sex
-[@Allen2003; @Lisker1964; @Chodroff2015]. Thus, we expect that VOT will provide
-an approximate lower bound, and vowel formants an approximate upper bound, on
-the informativity and utility of socio-indexical variables.
-
-<!--  -->
-
-
-Thus, we expect that comparing them will provide a good estimate of the range of
-informativity and utility of socio-indexical grouping variables across phonetic
-contrasts.
-
-Our methods for assessing informativity and utility of grouping variables also
-constrain our choice of datasets, in two main ways. First, in order to assess
-informativity about cue distributions, we need enough tokens of each category
-from each talker in order to estimate these distributions. Second, to assess
-group-level utility for speech recognition, we need tokens from each phonetic
-category _within_ talker (or at least within group).
-
-Finally, in order to assess the effect of socio-indexical variables, we need to
-_know_ the values socio-indexical variables for talkers whose cue distributions
-we analyze. Requiring both large sample sizes and socio-indexical annotation
-places serious constraints on which datasets will suit our purposes here. <!--
-awkward -->
+These socio-indexical variables that we focus on are generally _stable_ over
+time for a single talker. This is a choice of convenience: our analysis depends
+on having sufficient data to estimate cue distributions for multiple talkers,
+within groups defined by socio-indexical variables. Sociolinguistics
+increasingly recognizes that the meanings of socio-indexical variables are
+dynamically constructed and not necessarily static within a single individual
+[either producer or perceiver; @Foulkes2015a; @Levon2014].  The same
+computational techniques can---in principle---be applied to dynamic variables,
+but they present unique and interesting challenges that are beyond the scope of
+the current paper.
 
 #### Vowels
 
@@ -479,17 +483,6 @@ However, the downside is that this corpus does not not contain data from talkers
 All of our anlayses depend on knowing the _distribution_ of cues for each phonetic category, at different levels of socio-indexical grouping. We obtain estimates of these distributions in the following way. First, we assume that each phonetic category can be modeled as a normal distribution over cue values (stop voicing as univariate distributions over VOT, and vowels as bivariate distributions of F1 and F2). These distributions are parametrized by their mean and their covariance matrix (or, equivalently, variance in the case of VOT). Second, we fit these parameters to data from our corpora via maximum likelihood, using the sample mean and covariance of tokens from each category. We do this separately for each group. For example, for gender, we obtain one estimate of the `ae` distribution based on all the tokens from male talkers, and one from all tokens from female talkers. Likewise, for dialect, we estimate one distribution based on all talkers from the North dialect region, another one from tokens from Mid-Atlantic talkers, and so on.
 
 Assuming that each category is a normal distribution is not a critical part of our approach, but rather a standard and convenient assumptiong. In particular, the normal distribution has a small number of parameters and this allows us to efficiently estimate the distribution for each category with a limited amount of data (e.g., five tokens per talker-level vowel distribution).
-
-Based on the variable annotated in the available data, we consider the following socio-indexical grouping variables:
-<!-- TODO clarify these. why dichotomized? what is Dialect+Sex, and why? -->
-
-* Marginal (all tokens)
-* Sex (male/female)
-* Age (younger/older than 40, VOT only)
-* Dialect (six regions, vowels only)
-* Diaelct+Sex (12 levels, vowels only)
-* Talker
-
 
 
 ## Study 1: Informativity of socio-indexical groupings about cue distributions
