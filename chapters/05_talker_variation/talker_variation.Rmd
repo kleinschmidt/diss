@@ -338,13 +338,20 @@ for word-initial voiced and voiceless stops from the Buckeye corpus
 the available data, we consider cue distributions conditioned on the following
 socio-indexical grouping variables:
 
-* __Marginal__: is a control grouping, which includes all tokens from all talkers.
-* __Sex__: male/female
+* __Marginal__: is a control grouping, which includes all tokens from all
+  talkers. This serves as a baseline against which more specific group
+  distributions can be compared, and as a lower bound for speech recognition
+  accuracy.
+* __Sex__: this is coded as male/female for both vowels and stop voicing,
+  allowing us to compare the role of sex for two different contrasts.
 * __Age__: this is only relevant for VOT, because the talkers in the NSP are
   uniformly young. In the Buckeye corpus, age is coded as a binary variable
   (younger/older than 40, VOT only).
-* __Dialect__: the NSP contains data from talkers from six dialect regions.
-* __Diaelct+Sex__: @Clopper2005 found that sex modulates dialect differences, so we also examing cue distributions conditioned on dialect and sex together (12 levels, vowels only)
+* __Dialect__: the NSP contains data from talkers from six dialect regions (see
+  below for details).
+* __Diaelct+Sex__: @Clopper2005 found that sex modulates dialect differences, so
+  we also examing cue distributions conditioned on dialect and sex together (12
+  levels, vowels only).
 * __Talker__: we also consider cue distributions conditioned on talker identity,
   as an upper bound on informativity and utility.
 
