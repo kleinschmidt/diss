@@ -1618,7 +1618,7 @@ distributions produced by American English speakers reasonably well (with the
 caveat that our model makes potentially problematic assumptions about the
 structure of categories within and across talkers, which we discuss below).
 
-<!-- stuff on prior confidence vs. other modeling work here? -->
+(( TODO: stuff on prior confidence vs. other modeling work here? ))
 
 There are, of course, other possible sources for these constraints. For
 instance, the basic nature of the mammalian auditory system may constrain the
@@ -1715,7 +1715,8 @@ beliefs, but this remains to be seen.
 
 ### How much confidence do listeners have in their prior beliefs?
 
-<!-- TODO: does this belong here?? -->
+(( TODO: does this belong here?? ))
+
 The other major result of this modeling is that listeners have high confidence
 in their prior expectations about the VOT distributions of /b/ and /p/, acting
 as if they had already observed around 200--800 samples from each category (for
