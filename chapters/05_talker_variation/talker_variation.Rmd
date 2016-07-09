@@ -182,7 +182,7 @@ grouping variables for a talker on the basis of their cue distributions.
 
 At a conceptual level, the goal of this paper is to show that the idea of _inference_ provides a bridge between sociolinguistic and psycholinguistic perspectives on variation in speech. The ideal adapter framework treats both linguistic and socio-indexical judgements as inference, jointly informed by a listener's knowledge of cue distributions. In addition to this conceptual unification, the theoretical tools of this framework offer a common computational currency for developing models of linguistic and socio-indexical inference, and, critically, for grounding the parameters of those models in actual data. This common currency is the _distribution_ of cues _conditioned_ on linguistic and socio-indexical variables. These distributions can be measured, given the appropriate production data.
 
-This brings us to the more concrete, immediate goal of this paper, which is to quantify the relationship between some prominent socio-indexical variables, linguistic variables, and acoustic-phonetic cue distributions.
+This brings us to the more concrete, immediate goals of this paper, which are to quantify the relationship between some prominent socio-indexical variables, linguistic variables, and acoustic-phonetic cue distributions.
 Most
 [but not all, e.g., @Clopper2005; @McMurray2011a] of the work on this
 relationship has been descriptive, aimed at establishing that
@@ -190,36 +190,50 @@ differences between particular groups of talkers _exist_ in the first place, and
 that listeners are sensitive to these differences at all. But the mere existence
 of differences does not establish exactly how _informative_ or _useful_ such
 grouping variables are for speech perception.
-<!-- something about comparing across contrasts/categories. how can you compare level of variability _across_ different cues/categories?? -->
-In this paper we present three studies, which focus on three interrelated ways of quantifying this relationship:
 
-1. How _informative_ are socio-indexical variables about the distribution of
-   different acoustic-phonetic cues? This can be quantified by the KL divergence
-   of the distribution of cues produced by a particular group and the
-   distribution of cues produced by all talkers.
-2. How _useful_ is socio-indexical grouping for correct speech recognition? We
-   quanitfy this by the _probability of correct recognition_ of phonetic
-   categories, using an ideal listener model that knows that group-specific cue
-   distributions of each phonetic category.
-3. How well can you _infer_ socio-indexical variables based on acoustic-phonetic
-   cue distributions alone? Like the usefulness of a grouping variable, this too
-   can be quantified as probability of correct recognition, but recognition of
-   the _group_, by the same kind of ideal listener model that knows the
-   distribution of cues that each group produces.
+This paper is motivated by three interrelated questions about the relationship
+between socio-indexical variabiles and phonetic categories/cues. We next pose
+these questions, before presenting the studies that quanitatively address each
+one in turn. Together, these lay out a novel, principled, and quantitative
+approach to understanding the relationship between socio-indexical variables and
+speech perception.
 
-<!--  -->
+#### Question 1: how _informative_ are socio-indexical variables about cue distributions?
 
-#### Goal 1: quantify _informativity_ of socio-indexical variables about cue distributions
+Qualitatively, the structure of talker variation is different depending on the
+phonetic contrast and cues. On the one hand, vowels exhibit substantial
+variability conditioned on the gender and the regional background of the talker
+[@Peterson1952; @Hillenbrand1995; Clopper2005; among others]. On the other hand,
+talker variation in word-initial stop voicing is largely unstructured,
+exhibiting little systematic variation by gender, regional dialect, or age
+[@Allen2003; @Chodroff2015] But we don't know, quantitatively, the extent of
+these differences, beyond the existence of socio-indexically conditioned
+variation in some cues/contrasts but not others.
 
-On the one hand, we know that talker variability is ubiquitous. On the other
-hand, qualitatively, different phonetic contrasts exhibit different degrees and
-patterns of talker variability in American English. For instance, there is
-substantial variability in vowel formant frequencies across talkers, at least
-part of which is due to systematic differences due to gender
-[@Peterson1952; @Hillenbrand1995] and regional dialect [@Clopper2005]. Voicing
-contrasts (e.g., /b/ vs. /p/) are thought to exhibit some talker variability,
-but relatively little, and not systematically linked to dialect, sex, or other socio-indexical variables
-[@Allen2003; @Lisker1964; @Chodroff2015].[^bilingual-vot]
+At an even more basic level, we don't know whether the _amount_ of talker
+variation is different.  There's some _suggestion_ that this might be the case:
+visual inspection of the results of @Chodroff2015 (Figure 1) suggests that
+cross-talker variance in voiceless word-initial stop VOT is roughly half of
+within-category variation (standard deviations of approximatly 10ms and 20ms VOT
+respectively), whereas inspection of similar results for vowels from
+@Hillenbrand1995 (Figure 4) suggests that cross-talker variability is easily
+_double_ the within-category variability.  Understanding these differences
+_quantitatively_ is critical because the amount and type of talker variation
+places an upper bound on how informative socio-indexical variables can be for a
+particular phonetic category/cue.
+
+In part, the lack of this information in the existing literature reflects the
+fundamental difficulty of comparing very different phonetic contrasts and cues.
+We address this here by testing how _informative_ socio-indexical
+variables---including talker identity---are about the distribution of
+acoustic-phonetic cues for two sets of contrasts/cues: vowels (cued by first and
+second formant frequencies; F1xF2) and word-initial stop voicing (cued by voice
+onset time; VOT). Focusing on information theoretic properties of the cue
+distributions provides a principled common currency for comparing different
+socio-indexical variables, phonetic categories, and cues. We focus on these
+particular categories/cues because of the availability of suitable data, and
+because they both exhibit talker variability, but with different _patterns_ of
+socio-indexically-conditioned variability in American English.[^bilingual-vot]
 
 [^bilingual-vot]: One notable exception is native language background. For
     instance, French-English bilinguals produce significantly shorter VOTs than
@@ -230,39 +244,38 @@ but relatively little, and not systematically linked to dialect, sex, or other s
     [from @Lev-Ari2013] suggest that they would not substantially change our
     conclusions.
 
-The different role that socio-indexical variables play across cues/contrasts,
-however, have not been quantitatively assessed, in part due to the difficulty in
-comparing variability _across_ very different cues and category structures.
-Thus, one goal of this paper is to introduce a way of assessing these
-differences that allows for comparison across contrasts. We use this measure
-to establish an approximation of upper and lower bounds on the level of talker
-variability, by focusing on contrasts and cues that are commonly considered to
-exhibit high and low degrees of variability (vowel formants and stop consonant
-voice onset time, respectively).
+#### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
-#### Goal 2: quantify _utility_ of socio-indexical variables for speech recognition
+From the perspective of speech perception, talker variability is a problem,
+because it can interfere with linguistic judgements. One of the insights of the
+ideal adapter is that the extent to which talker variability is a problem---and
+how much grouping talkers based on socio-indexical variables can _help_---can be
+predicted by the particular structure of variability in cue distributions.
 
-We also know that listeners are sensitive to the fact that talker from different
-socio-indexical groups produce phonetic categories in systematically different
-ways, and that they use this to guide their speech recognition. Perception of
-vowels (and fricatives) is affected by the perceived gender of the talker, which
-can be cued by voice quality, visual presentation of a male or female face, or
-even explicit instruction [@Strand1999;@Johnson1999;@Strand1996].  Listeners'
-perception of vowels also depends on social variables: @Niedzielski1999 found
-that if listeners believe that a talker is Canadian, they hear more Canadian
-raising than if they believe the talker is American. @Hay2010 found a similar
+We know that listeners do, in fact, take advantage of structure in talker
+variability to guide speech perception. Perception of vowels (and fricatives) is
+affected by the perceived gender of the talker, which can be cued by voice
+quality, visual presentation of a male or female face, or even explicit
+instruction [@Strand1999;@Johnson1999;@Strand1996].  Listeners' perception of
+vowels also depends on other social variables: @Niedzielski1999 found that if
+listeners believe that a talker is Canadian, they hear more Canadian raising
+than if they believe the talker is American. @Hay2010 found a similar
 sensitivity to dialect group using an even subtler manipulation, manipulating
 listeners perceptions based on a stuffed animal that cued New Zealand or
-Australia.
+Australia.  More broadly, listeners are better at comprehending speech in noise
+from familiar talkers than from novel talkers [@Nygaard1998].
 
 These findings establish _that_ listeners use socio-indexical grouping variables
-to inform speech perception, but they don't tell us exactly _how useful_ these
-variables are. That is, what would be the consequences of _ignoring_ these
-variables? How much do these consequences depend on the particular cues,
-category, or socio-indexical variable?  Our second study addresses this
-question.
+(including talker identity) to inform speech perception, but they don't tell us
+exactly _how useful_ these variables are. That is, what would be the
+consequences of _ignoring_ these variables? How much do these consequences
+depend on the particular cues, category, or socio-indexical variable?  Our
+second study addresses this question, using the ideal adapter's link between cue
+distributions and phonetic categorization.
 
-#### Goal 3: quanitfy _inferrability_ of socio-indexical variables given cue distributions
+#### Question 3: How well could listeners _infer_ socio-indexical variables given cue distributions?
+
+<!-- still not quite sure about this. needs to be punched up especially since it's one of the main focuses of the special issue -->
 
 Finally, we know that listeners can determine, on the basis of speech alone,
 socio-indexical variables for a talker. Of particular interest,
@@ -276,42 +289,23 @@ talker's identity from sine-wave speech [@Remez1997], speech which has been
 processed to remove most non-phonetic voice quality cues to identity but
 preserve most phonetic information [@Remez1981].
 
-Again, what we don't know is what information listeners are using to make these
-inferences, and even how much information is available to them
-[for a review, see @Thomas2002]. Thus our final study present a method of
-quantifying how informative different phonetic contrasts and cues are about a
-range of socio-indexical variables.
+Again, what we don't know is the particular information listeners are using to
+make these inferences, and at an even more basic level, how much information is
+available to them from _phonetic_ cues [for a review, see @Thomas2002]. Thus our
+final study aims to shed light on how much listeners can infer about a talker's
+socio-indexical properties based on phonetic cue distributions alone.
 
-<!--  -->
 
-We apply these measures at different levels of socio-indexical grouping, and for
-two different sets of phonetic cues/contrasts (vowels, cued by first and second
-formant frqeuencies, and word-initial stop voicing, cued by voice onset time,
-VOT). 
-To anticipate our results, we find that the informativity and utility of socio-indexical variables differs substantially depending on the contrast, categories, and particular way of representing input.
+<!-- ------------------------------------------- -->
 
-The socio-indexical variables that we focus on are variables that are generally
-_stable_ over time for a single talker, like sex or regional origin. This is
-largely a matter of convenience: our analysis depends on having sufficient data
-to estimate cue distributions for multiple talkers, within groups defined by
-socio-indexical variables. Sociolinguistics increasingly recognizes that the
-meanings of socio-indexical variables are dynamically constructed and not
-necessarily static within a single individual
-[either producer or perceiver; @Foulkes2015a; @Levon2014].  The same
-computational techniques can---in principle---be applied to dynamic variables,
-but they present unique and interesting challenges that are beyond the scope of
-the current paper.
-
-Finally, beyond connecting sociolinguistic and psycholinguistic perspectives on
-variability in speech perception, quantifying the relationship between
-socio-indexical variables, linguistic variables, and cue distributions is
-critical for refining the qualitative predictions of the ideal adapter framework
-[@Kleinschmidt2015].  In the ideal adapter framework, whether or not a listener
-is predicted to track cue distributions conditioned on a particular grouping
-variable (like sex or dialect) critically depends on the informativity and
-utility of that grouping for speech perception.
-
-<!-- TODO: refining qualitative predictions is too weak. generating novel, testable predictions. say what they are (e.g., how quickly and well you adapt to an unfamiliar talker for different cues/contrasts; how you  generalize from experience with one talker to another -->
+Finally, this work has implications beyond simply connecting sociolinguistic and
+psycholinguistic perspectives on variability in speech perception.  The ideal
+adapter framework has the potential to generate novel, testable predictions
+about how listeners learn and take advantage of structure in how talkers
+vary. In order to generate and test these predictions, we need to know,
+quantitatively, the relationship between socio-indexical variables, linguistic
+variables, and cue distributions.  Thus the results of the current work open the
+door to new lines of empirical work on speech perception.
 
 
 ## General methods
