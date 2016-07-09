@@ -313,56 +313,6 @@ utility of that grouping for speech perception.
 
 <!-- TODO: refining qualitative predictions is too weak. generating novel, testable predictions. say what they are (e.g., how quickly and well you adapt to an unfamiliar talker for different cues/contrasts; how you  generalize from experience with one talker to another -->
 
-Next, we briefly review the relevant literature on the relationship between the socio-indexical and linguistic variables we consider. Then we 
-describe the datasets we will
-analyze, the techniques we use, our findings, and finally the conclusions we can
-draw.
-
-
-### Background ##
-
-What do we already know about the relationship between speech perception and
-socio-linguistic variables?[^English]
-
-[^English]: For the current study, we restrict ourselves to English, and focus
-    primarily (but not exclusively) on _American_ English.
-
-First, we know that the _amount_ and _structure_ of talker variability differs
-between cues and phonetic categories.  Vowels and fricatives have a lot of
-talker variability, which is at least in part conditioned on sex
-[@Peterson1952; @Hillenbrand1995; @Jongman2000; @McMurray2011a; @Newman2001]. For
-vowels this can be largely attributed to differences in vocal tract length, but
-not entirely [@Bladon1984; @Johnson2005; @Johnson2006].  There appears to be
-less talker variabiltiy for stop voicing (e.g., /b/ vs. /p/), and little
-systematic effect of sex [@Allen2003; @Lisker1964; @Chodroff2015].  Despite
-differences in the overall degree of talker variabiltiy, there is stylistic
-variation in both which cannot be reduced to physiological differences. For instance, regional dialects of American English differ in
-their pronunciation of vowel categories [@Clopper2005; @Labov2005].  Use of
-voice onset time (VOT) as a cue to stop voicing varies based on language
-background
-[e.g., monolingual English speakers vs. French bilinguals; @Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011],
-as well as regionally in the UK [@Docherty2011].
-
-We also know that listeners use socio-indexical group information to guide
-speech recognition. @Niedzielski1999 found that if listeners believe that a
-talker is Canadian, they hear more Canadian raising than if they believe the
-talker is American. @Hay2010 found a similar sensitivity to dialect group using
-an even subtler manipulation, manipulating listeners perceptions based on a
-stuffed animal that cued New Zealand or Australia.  
-Indirect evidence that
-listeners are sensitive to socio-indexical grouping variables comes from
-recalibration (also known as perceptual learning) studies that show different
-patterns of generalization from male to female talkers (and vice-versa) for
-different cues/contrasts [@Eisner2005; @Kraljic2005; @Kraljic2007; 
-@Reinisch2014].
-
-Finally, there is evidence that listeners can _infer_ socio-indexical variables based on speech, but
-it's not clear what linguistic variables they use [for a review, see @Thomas2002]. Of
-particular interest, listeners can classify talker's regional dialect at above-chance accuracy based on
-a short except of their speech [a single sentence read from a standard set @Clopper2006; @Clopper2007]. There is also evidence that listeners can infer talker
-_identity_ from sine-wave speech [@Remez1997], speech which has been processed to remove  most non-phonetic voice
-quality cues to identity but preserve most phonetic information [@Remez1981].
-
 
 ## General methods
 
