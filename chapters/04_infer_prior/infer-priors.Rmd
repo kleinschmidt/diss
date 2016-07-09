@@ -790,6 +790,9 @@ listeners assigned to the different accent conditions all start from a common
 set of prior beliefs.
 
 
+
+#### Do inferred beliefs align with a typical talker?
+
 ```{r inferred-prior, fig.width=6, fig.height=2.5, fig.cap="Expected cue distributions based on the prior beliefs inferred here from behavioral adaptation data. Plotted with VOT distributions measured by @Kronrod2012 based on a combination of classification and discrimination behavior, and from production data by @Goldrick2013 for /b/, including pre-voicing."}
 
 prior_summary <- 
@@ -838,26 +841,6 @@ prior_samples_df %>%
 
 ```
 
-```{r inferred-prior-params, results='asis', tbl.cap="Expected values and 95% highest posterior density intervals for the prior parameters, given the adaptation data."}
-
-format_params <- function(s) {
-  s %>%
-    str_replace('_0_([bp])$', '_{0,\\\\mathrm{\\1}}') %>%
-    str_c('$\\', ., '$')
-}
-
-prior_summary %>% 
-  transmute(Parameter = format_params(stat),
-            Expected = mean,
-            `95% HPD Int.` = sprintf('%.0f--%.0f', low, high),
-            Units = units) %>%
-  as.data.frame() %>%
-  knitr::kable(escape=FALSE, digits=0)
-
-```
-
-#### Do inferred beliefs align with a typical talker?
-
 The second way to evaluate this model is based on the prior beliefs it infers
 listeners to have.  Table {@tbl:inferred-prior-params} shows the posterior expectation
 and 95% highest posterior density intervals for each of the prior belief
@@ -902,6 +885,25 @@ only study of this type that we are aware of considers only non-negative VOTs
 modeling work is needed to test whether a multimodal prior is justified given
 the adaptation data, and if so, whether it would change the inference about
 listeners' prior expectations for /b/.
+
+```{r inferred-prior-params, results='asis', tbl.cap="Expected values and 95% highest posterior density intervals for the prior parameters, given the adaptation data."}
+
+format_params <- function(s) {
+  s %>%
+    str_replace('_0_([bp])$', '_{0,\\\\mathrm{\\1}}') %>%
+    str_c('$\\', ., '$')
+}
+
+prior_summary %>% 
+  transmute(Parameter = format_params(stat),
+            Expected = mean,
+            `95% HPD Int.` = sprintf('%.0f--%.0f', low, high),
+            Units = units) %>%
+  as.data.frame() %>%
+  knitr::kable(escape=FALSE, digits=0)
+
+```
+
 
 
 #### Do inferred beliefs accurately reflect _cross-talker_ variability?
@@ -951,7 +953,7 @@ In this model, these confidence parameters also in large part control how much
 VOT distributions are expected to vary _across_ talkers. Specifically, the
 variance in category means is, under the form of prior we used, equal to the
 expected _within-category_ variance divided by the mean confidence pseudocount,
-$\sigma_0 / \kappa_0$.
+$\sigma_0^2 / \kappa_0$ (and the cross-talker standard deviation is hence $\sigma_0 / \sqrt{\kappa_0}$).
 Numerically, this corresponds to cross-talker variability in category means on the
 order of a standard deviation of 1-2ms VOT. This underestimates the actual level of variability across talkers.
 By one estimate, actual cross-talker variability is on the
