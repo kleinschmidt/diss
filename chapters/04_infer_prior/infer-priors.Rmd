@@ -699,7 +699,7 @@ the first 500 as burn-in for a total of 2000 samples overall. This
 sampler converged well and achieved good mixing [maximum
 $\hat{R}= `r round(max_Rhat, 3)`$; @Gelman1992].
 
-### Results ###
+### Results and discussion ###
 
 ```{r model-goodness-of-fit}
 
@@ -826,7 +826,7 @@ prior_samples_df %>%
   group_by(category) %>% 
   summarise(mean = mean(mu_0), sd = mean(sigma_0)) %>%
   stats_to_lhood(xlim=c(-100,100), noise_sd = 0) %>%
-  ggplot(aes(x=vot, y=lhood, group=category)) +
+  ggplot(aes(x=vot, y=lhood, group=category, linetype=category)) +
   geom_line(data = typical_talker_lhoods %>%
               filter(source %in% c('goldricketal', 'kronrod2012')),
             aes(color=source, group=paste(source, category)),
@@ -856,32 +856,55 @@ prior_summary %>%
 
 ```
 
+#### Do inferred beliefs align with a typical talker?
+
 The second way to evaluate this model is based on the prior beliefs it infers
 listeners to have.  Table {@tbl:inferred-prior-params} shows the posterior expectation
 and 95% highest posterior density intervals for each of the prior belief
-parameters given the adaptation data above.  The behavioral data was consistent
-with high confidence in prior beliefs with the prior confidence about category
-variances ($E(\nu_0) = `r prior_expected['nu_0']`$) higher than confidence
-in the category means ($E(\kappa_0) = `r prior_expected['kappa_0']`$).  Both
-of these (measured in pseudo-observations) are larger than the number of trials
-that listeners heard in the experiment (222), which means that as far as the
-belief-updating model is concerned, listeners' updated beliefs reflected their
-prior beliefs as much as (in the case of the means) or more than (for the
-variances) the distributions they actually observed.  This is consistent with
-the qualitative finding that listeners' category boundaries are intermediate
-between the boundaries corresponding to a typical talker and the experimental
-exposure talker.
+parameters given the adaptation data above. 
 
 Figure {@fig:inferred-prior} shows the cue distributions corresponding to the
 posterior expected values of the prior expected mean and variance parameters
 given the behavioral data, compared with the distributions corresponding to one
 typical talker [as determined by a combination of classification and
-discrimination data, @Kronrod2012; see also @Lisker1964].  The
+discrimination data, @Kronrod2012; as well as from production by @Goldrick2013]. The
 inferred prior beliefs are in reasonably good agreement with this typical
-talker, with one exception: the mean for /b/ is slightly lower
+talker, with one exception: 
+
+These prior beliefs are reasonably consistent with other attempts to determine
+what listeners think the underlying cue distributions are [@Kronrod2012], as
+well as the distributions produced by actual talkers
+[@Lisker1964; @Baese-Berk2009; @Goldrick2013]. In fact, the prior expected VOT
+distribution for /p/ that our model inferred is almost identical to that
+observed by both @Kronrod2012 and @Lisker1964. The distribution for /b/ deviates
+from prior work, however: 
+the mean is slightly lower
 ($E(\mu_{0,\mathrm{b}}) = `r prior_expected['mu_0_b']`$ ms), and the
-standard deviation of /b/ is slightly higher
+standard deviation is slightly higher
 ($E(\sigma_{0,\mathrm{b}}) = `r prior_expected['sigma_0_b']`$ ms).
+
+One possible reason for this is that a substantial minority of English speakers
+produce pre-voiced /b/ [@Lisker1964; @Goldrick2013], which is characterized by a
+lower (negative) VOT and a higher variance (often higher even than /p/). That
+is, across talkers, the /b/ VOT distribution parameters (mean and variance) have
+a *bimodal* distribution. We assumed a single, unimodal prior distribution, and
+the prior beliefs we inferred to be most likely are consistent with a compromise
+between the two types of /b/ distributions that talkers actually produce.  As
+Figure @fig:inferred-prior shows, the inferred /b/ distribution is an
+approximate compromise between the low-variance, short-lag VOT and the
+high-variance, prevoiced VOT distributions observed by @Goldrick2013.
+
+This possibility suggests two directions for future work. First, large-scale corpus
+studies of VOT distributions are needed to determine to what extent the
+distribution of /b/ mean VOTs is really bimodal across talkers. However, the
+only study of this type that we are aware of considers only non-negative VOTs
+@Chodroff2015 and thus excludes talkers who pre-voice their /b/.  Second, more
+modeling work is needed to test whether a multimodal prior is justified given
+the adaptation data, and if so, whether it would change the inference about
+listeners' prior expectations for /b/.
+
+
+#### Do inferred beliefs accurately reflect _cross-talker_ variability?
 
 ```{r prior-variance, eval=FALSE}
 
@@ -908,12 +931,32 @@ prior_samples_df %>%
 
 ```
 
-Lastly, we can evaluate the inferred prior beliefs based on how well they match
-_variability_ across talkers. Here the results are less impressive. The inferred
-prior beliefs correspond to cross-talker variability in category means on the
-order of a standard deviation of 1-2ms VOT, versus actual variability on the
+Lastly, we can ask whether the model-inferred beliefs match the extent to which talkers actually vary in the VOT distributions the produce.
+
+Qualitatively, the prior parameters show that 
+listeners have 
+high confidence in their prior beliefs, with confidence about category
+variances ($E(\nu_0) = `r prior_expected['nu_0']`$) higher than confidence
+about  means ($E(\kappa_0) = `r prior_expected['kappa_0']`$).  Both
+of these (measured in pseudo-observations) are larger than the number of trials
+that listeners heard in the experiment (222), which means that as far as the
+belief-updating model is concerned, listeners' updated beliefs reflected their
+prior beliefs as much as (in the case of the means) or more than (for the
+variances) the distributions they actually observed.  This is consistent with
+the qualitative finding that listeners' category boundaries are intermediate
+between the boundaries corresponding to a typical talker and the experimental
+exposure talker.
+
+In this model, these confidence parameters also in large part control how much
+VOT distributions are expected to vary _across_ talkers. Specifically, the
+variance in category means is, under the form of prior we used, equal to the
+expected _within-category_ variance divided by the mean confidence pseudocount,
+$\sigma_0 / \kappa_0$.
+Numerically, this corresponds to cross-talker variability in category means on the
+order of a standard deviation of 1-2ms VOT. This underestimates the actual level of variability across talkers.
+By one estimate, actual cross-talker variability is on the
 order of a standard deviation of 3ms VOT for /b/ [short-lag; @Goldrick2013] and
-15ms VOT for /p/ [@Baese-Berk2009]. That is, the model underestimates the level of variability across talkers.
+15ms VOT for /p/ [@Baese-Berk2009].
 
 This is likely due to the particular mathematical form we assumed listeners'
 prior beliefs to have. The conjugate Normal-$\chi^{-2}$ prior is mathematically
@@ -924,67 +967,6 @@ assumption may not be warranted in reality, and it's a question for future
 modeling work to explore the feasibility and consequenes of relaxing this
 assumption.
 
-
-### Discussion ###
-
-These modeling results show that the pattern of adaptation behavior observed
-above is consistent with a belief-updating model of phonetic adaptation that
-combines prior expectations with input statistics in order to infer the current
-talker's cue distributions. Specifically, it shows that there exists a single
-set of prior beliefs that captures the range of adaptation to different input
-distributions that stretches from nearly complete adaptation to partial
-adaptation at best.
-
-These prior beliefs are reasonably consistent with other attempts to determine
-what listeners think the underlying cue distributions are [@Kronrod2012], as
-well as the distributions produced by actual talkers
-[@Lisker1964; @Baese-Berk2009; @Goldrick2013]. In fact, the prior expected VOT
-distribution for /p/ that our model inferred is almost identical to that
-observed by both @Kronrod2012 and @Lisker1964. The distribution for /b/ deviates
-from prior work, however: the inferred mean is lower, and the variance higher,
-than is usually described. One possible reason for this is that a substantial
-minority of English speakers produce pre-voiced /b/
-[@Lisker1964; @Goldrick2013], which is characterized by a lower (negative) VOT
-and a higher variance (often higher even than /p/). That is, across talkers, the
-/b/ VOT distribution parameters (mean and variance) have a *bimodal*
-distribution. We assumed a single, unimodal prior distribution, and the prior
-beliefs we inferred to be most likely are consistent with a compromise between
-the two types of /b/ distributions that talkers actually produce. This
-possibility suggests two directions for future work. First, large-scale corpus
-studies of VOT distributions are needed to determine to what extent the
-distribution of /b/ mean VOTs is really bimodal across talkers. However, the
-only study of this type that we are aware of considers only non-negative VOTs
-@Chodroff2015 and thus excludes talkers who pre-voice their /b/.  Second, more
-modeling work is needed to test whether a multimodal prior is justified given
-the adaptation data, and if so, whether it would change the inference about
-listeners' prior expectations for /b/.
-
-The other major result of this modeling is that listeners have high confidence
-in their prior expectations about the VOT distributions of /b/ and /p/, acting
-as if they had already observed around 200--800 samples from each category (for
-the category means and variances, respectively) from the unfamiliar talker they
-encountered in our experiment.
-
-At first blush, this conflicts with previous work on another phonetic contrast,
-/b/-/d/, which found confidence values that were one or two orders of magnitude
-smaller than those inferred here [@Kleinschmidt2015].  Interestingly, the /b/-/d/
-contrast is cued by spectral cues (formant frequency transitions) which
-generally vary substantially across talkers e.g., @Peterson1952. The acoustic
-cues to the /b/-/p/ contrast used in the current study do not show as much
-variability across talkers [e.g., @Allen2003; @Chodroff2015]. When there is
-little variability across talkers, past experience with other talkers' VOT
-distributions is highly informative about the distributions that an unfamiliar
-talker will produce, requiring less adaptation. Likewise, when there is more
-variability across talkers, listeners need to rely more on the current talker's
-cue distributions and less on their prior experience. Thus, the apparent
-discrepancy between the confidence that listeners place in their prior beliefs
-in the current study and in @Kleinschmidt2015 is actually in line with an *ideal
-adapter* which combines prior beliefs with current experience weighted according
-to confidence. This idea finds further empirical support in @Kraljic2007, who
-found that after the same amount of exposure, listeners recalibrate a /d/-/t/
-contrast (analogous to the /b/-/p/ contrast used here) much less than an /s/-S
-contrast (where the latter exhibits larger variability across talkers; e.g.,
-@Newman2001).
 
 ## Experiment 2 ##
 
@@ -1712,6 +1694,38 @@ distribution. Rather, this discrepancy highlights areas where more data is
 needed. That is, a model need not be _true_ for it to be _useful_, as long as
 it's understood as a means for interpreting and guiding empirical work and not a
 source of ground truth.
+
+
+### How much confidence do listeners have in their prior beliefs?
+
+<!-- TODO: does this belong here?? -->
+The other major result of this modeling is that listeners have high confidence
+in their prior expectations about the VOT distributions of /b/ and /p/, acting
+as if they had already observed around 200--800 samples from each category (for
+the category means and variances, respectively) from the unfamiliar talker they
+encountered in our experiment.
+
+At first blush, this conflicts with previous work on another phonetic contrast,
+/b/-/d/, which found confidence values that were one or two orders of magnitude
+smaller than those inferred here [@Kleinschmidt2015].  Interestingly, the /b/-/d/
+contrast is cued by spectral cues (formant frequency transitions) which
+generally vary substantially across talkers e.g., @Peterson1952. The acoustic
+cues to the /b/-/p/ contrast used in the current study do not show as much
+variability across talkers [e.g., @Allen2003; @Chodroff2015]. When there is
+little variability across talkers, past experience with other talkers' VOT
+distributions is highly informative about the distributions that an unfamiliar
+talker will produce, requiring less adaptation. Likewise, when there is more
+variability across talkers, listeners need to rely more on the current talker's
+cue distributions and less on their prior experience. Thus, the apparent
+discrepancy between the confidence that listeners place in their prior beliefs
+in the current study and in @Kleinschmidt2015 is actually in line with an *ideal
+adapter* which combines prior beliefs with current experience weighted according
+to confidence. This idea finds further empirical support in @Kraljic2007, who
+found that after the same amount of exposure, listeners recalibrate a /d/-/t/
+contrast (analogous to the /b/-/p/ contrast used here) much less than an /s/-S
+contrast (where the latter exhibits larger variability across talkers; e.g.,
+@Newman2001).
+
 
 
 ## Conclusion {#sec:conclusion}
