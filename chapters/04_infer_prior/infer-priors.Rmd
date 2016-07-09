@@ -985,7 +985,7 @@ In Experiment 2, we provide a further, more specific test of the ideal adapter
 explanation. There are many ways that cue distributions can vary, and in
 Experiment 1 we manipulated just one of them, shifting a single bimodal VOT
 distribution up or down but leaving the overall shape the same. In this
-experiment, we go one step beyond this, shifting the means of the /b/ and /p/
+experiment, we go one step further, shifting the means of the /b/ and /p/
 clusters semi-independently. This results in bimodal distributions that differ
 both in the _overall_ mean VOT, and in the _separation_ of the /b/ and /p/
 clusters (Figure @fig:exposure-dists-exp2).
@@ -996,7 +996,7 @@ these inferred prior beliefs---provides an excellent fit to listeners'
 adaptation behavior across conditions in Experiment 1, but the real utility of a
 model is its ability to predict behavior in new situations. The qualitatively
 different set of input distributions we use in this experiment provide a
-stringent test of the predictive utility of this framework.
+test of the predictive utility of this framework.
 
 <!-- MEH. we don't really address this by updating the modeling beliefs, right?
 so why bother. --> The particular set of distributions we chose was informed by
@@ -1006,14 +1006,15 @@ variances given the data revealed that our data was more informative about the
 category boundary location implied by the prior cue distributions (which is
 largely determined by the midpoint between the /b/ and /p/ prior means) than
 about the separation between the two clusters. By varying the separation between
-the clusters we expect to gain more information that can further constrain the
-inferred beliefs, as well as testing how much the uncertainty inherent in the
-structure of the first experiment affects the predictive power of the model.
+the clusters we <!-- expect to gain more information that can further constrain the -->
+<!-- inferred beliefs, as well as testing --> test how much the uncertainty
+inherent in the structure of the first experiment affects the predictive power
+of the model.
 
 Another, secondary goal is to test how listeners adapt to large, negative
 VOTs. The inferred prior beliefs about the /b/ VOT distribution of a typical
 talker have higher variance than the short-lag distribution generally considered
-to be typical of American English, but are consistent with a comprpomise between
+to be typical of American English, but are consistent with a compromise between
 short-lag and prevoiced distributions.  One way to determine whether listeners
 consider prevoiced and short-lag VOT distributions are a single cluster or two
 different clusters is to directly compare adaptation to short-lag and prevoiced
@@ -1023,8 +1024,8 @@ model's inferred prior beliefs generalize to adaptation to prevoiced
 distributions. In the long term, it provides data to directly compare the
 current model (that treats /b/ as a single VOT cluster) to a model that treats
 /b/ as a mixture of short-lag and prevoiced clusters. Such a model is a
-conceptually straightforward---but computationally substantially more
-complex---extension of the current model.
+conceptually straightforward---but technically difficult---extension of the
+current model.
 
 ```{r separatemeans-data}
 
@@ -1087,11 +1088,11 @@ sepmeans %>%
 
 As in Experiment 1, listeners performed a distributional learning task, hearing
 a talker who produced one of five different bimodal VOT distributions. Across
-these distributions, /b/ and /p/ mean VOT varied semi-independently (Figure
-{@fig:exposure-dists-exp2}). In particular, they covered a wider range of
+these distributions, we varied /b/ and /p/ mean VOT semi-independently (Figure
+{@fig:exposure-dists-exp2}). These distributions cover a wider range of
 implied category boundaries (from -15 to 45ms VOT) than Experiment 1 (10 to
 50ms), especially on the lower end. They also varied in the distance between
-clusters (from 40 to 130ms VOT), unlike Experiment 1 which maintained a constant
+cluster means (from 40 to 130ms VOT), unlike Experiment 1 which maintained a constant
 separation between /b/ and /p/ mean VOT of 40ms. Note that the condition with
 /b/ mean of 10ms and /p/ mean of 50ms VOT is the same as in Experiment 1.
 
@@ -1132,10 +1133,10 @@ post_test_len <-
 
 We recruited `r n_total2` subjects via Amazon's Mechanical Turk, who were paid
 \$2.50 for participation. The task took subjects about 25 minutes to
-complete. As in Experiment 1, we excluded subjects ($n=`r n_excl2 %$% sum(n)`$)
+complete (because of the additional post-test, discussed next). As in Experiment 1, we excluded subjects ($n=`r n_excl2 %$% sum(n)`$)
 who failed to classify words with unambiguous VOTs reliably during exposure (not
 post-test, see below), after which `r n_clean2 %$% sum(n)` subjects remained for
-analysis (no subjects had previously participated in a VOT study). Subjects were
+analysis (no subjects had previously participated in one of our VOT studies). Subjects were
 evently distributed across conditions (range of `r n_clean2 %$% min(n)` to 
 `r n_clean2 %$% max(n)` per condition).
 
@@ -1146,7 +1147,7 @@ completing the 222 trial exposure phase as in Experiment 1, listeners completed
 a test phase in order to assess their category boundaries. This phase consisted
 of `r post_test_len` additional trials with VOTs evenly distributed from -10 to
 50ms. This additional phase was necessary because of the large separtion between
-/b/ and /p/ clusters in the exposure distributions meant that in some conditions
+/b/ and /p/ clusters in the exposure distributions meant that in most conditions
 there were no trials with VOTs anywhere near the predicted (or typical)
 boundaries.
 
@@ -1166,15 +1167,15 @@ functions, which we estimated by fitting a logistic GLM. In addition to VOT, we
 included a predictor for trial in order to account for any un-learning effects
 that might happen during post-test. In order to visualize the fitted
 classification functions and to estimate listeners' category boundaries, we used
-the classification function estimates fro the trial halfway through the first
+the classification function estimates from the trial halfway through the first
 third of the post-test.[^why-not-beginning]
 
 [^why-not-beginning]: The predictions from a regression model are more uncertain
     and more driven by noise at the estreme ranges of continuous predictors,
-    like trial number. Thus we use the one-sixth of the post-test to estimate
+    like trial number. Thus we use the point one-sixth into the post-test to estimate
     classification functions, rather than the very beginning, because it is
     _close_ to the beginning of the post test, but not so close that the
-    predictions substantially affected by the extra instability of the
+    predictions are substantially affected by the extra instability of the
     predictions that come at the edge of a continuous predictors range.
 
 ```{r fit-cat-bounds}
@@ -1243,17 +1244,20 @@ the 10ms mean /b/ VOT exposure distribution conditions from Experiment 1 as a
 condition in Experiment 2 (where we refer to it as the 10ms /b/, 50ms /p/
 condition). This allowed us to compare the method of assessing listener's
 category boundaries from Experiment 1 (using exposure trials themselves) with
-the following post-test trials _within_ the same subjects, as well as
-replicating the results of Experiment 1 (and testing out-of-sample, same
-condition prediction accuracy for the model results). Figure
+the following post-test trials _within_ the same subjects. Figure
 @fig:boundary-exposure-vs-test-exp2 shows that the post-test estimates are more
 variable, but correlated with the exposure estimates. Critically, they are not
-biased, differing by
+biased, differing only by
 `r boundaries_exp2_exp_v_test_summary$observed` ms VOT 
 on average (95% CI of 
 `r boundaries_exp2_exp_v_test_summary %$% sprintf('%.1f--%.1f', ci_lo, ci_high)`
-ms VOT). See also Figure @fig:boundary-violin-plots-exp2, which shows the
-corresponding distribution of boundaries from Experiment 1.
+ms VOT). 
+
+The inclusion of this condition in both experiments also allows us to replicate
+the results of Experiment 1 using a different method (Figure
+@fig:boundary-violin-plots-exp2, un-shaded distribution). It finally allows
+testing out-of-sample, same condition prediction accuracy for the
+belief-updating model results (Figure @fig:plot-exp2-predictions-first-third).
 
 ### Results
 
@@ -1359,24 +1363,24 @@ if they produce mostly prevoiced. @Goldrick2013 found that, even the talker who 
 `r prop_pre_by_talker %$% round(100 - prop_pre*100) %>% min()`% of the time. 
 Thus, even for a talker who produces mostly prevoiced /b/s, a listener needs to
 be ready for some short-lag /b/s as well. Because the short-lag distribution is
-closer to the /p/ distribution, it is the one that largely determines where a
+closer to the /p/ distribution, it is the one---rather than the prevoiced cluster---that determines where an ideal 
 listener's category boundary will fall. In conditions where the exposure
-distributions don't provide very much (if any) inforamtion about a talker's
-short-lag distribution, we'd thus expect listeners' category boundaries to be
+distributions do not provide very much (if any) information about a talker's
+short-lag distribution, we would thus expect listeners' category boundaries to be
 unchanged from a typical talker. This is in fact exactly what we observe in the
 Experiment 2 conditions with large negative /b/ mean VOTs.
 
-Of course, there are other possible explanations for the lack of large shifts in
+There are other possible explanations for the lack of large shifts in
 these conditions. For instance, even if listeners treat /b/ as a single unimodal
 cluster, the negative VOT distributions we used are still extreme relative to
 the range of /b/ mean VOTs across talkers.  In the next section, we take one
-approach to addressing this possibility, by evaluating how well the prior
+address this possibility, by evaluating how well the prior
 beliefs inferred from Experiment 1---which assume a single /b/ cluster---predict
 the pattern of adaptation here.
 
 #### Predicted adaptation from inferred priors
 
-Next, we ask how well do the prior beliefs inferred on the basis of Experiment 1
+Next, we ask how well the prior beliefs inferred on the basis of Experiment 1
 can predict the pattern of adaptation across exposure distributions we observed
 in Experiment 2. Figure @fig:plot-exp2-predictions-first-third shows the
 predicted classification functions (95% posterior predcitive intervals) for the
@@ -1535,14 +1539,14 @@ good, despite the different post-test procedure.
 
 The biggest discrepancy in predicted category boundary is in the /b/ 10ms, /p/
 80ms condition, where the model predicts a bigger category boundary shift than
-is actually observed. There are also some inferred prior parameters that are consistent with the generally poor adaptation to large negative /b/ mean VOTs. This suggests one of two things. First, this means we cannot rule out the possibility that listeners really do treat /b/ as a single unimodal cluster on the basis of these results. Second, it could be the case that listeners do, in fact, treat /b/ as a mixture of short-lag and prevoiced VOT clusters, and that the model-inferred beliefs reflect the best approximation of these by a model that incorrectly assumes a single unimodal cluster.
+is actually observed. There are also some inferred prior parameters that are consistent with the generally poor adaptation to large negative /b/ mean VOTs. This suggests one of two things. First, we cannot rule out the possibility that listeners really do treat /b/ as a single unimodal cluster on the basis of these results. Second, it could be the case that listeners do, in fact, treat /b/ as a mixture of short-lag and prevoiced VOT clusters, and that the model-inferred beliefs reflect the best approximation of these by a model that incorrectly assumes a single unimodal cluster.
 
 The model predictions are also more slightly accurate earlier in the test phase
 (likelihood ratios vs. null model for the first, second, and final third of the
 post-test phase of
 `r mod_pred_gof_exp2_by_third %$% LL_ratio %>% round() %>% paste_and()`).
 This suggests that listeners may be unlearning the distributions encountered in
-the test phase. Such unlearning would be consistent with other work that shows
+the test phase. Such unlearning is consistent with other work that shows
 that phonetic adaptation (recalibration) can be undone by prolonged testing
 [@Kraljic2005; @Vroomen2004].
 
@@ -1551,8 +1555,8 @@ uncertainty is quite a bit higher for the two extreme negative /b/ VOT (-80ms
 and -50ms) conditions. This suggests that there is uncertainty in the posterior
 over prior beliefs inferred from Experiment 1, but that this uncertainty is not
 relfected in uncertainty about the classification functions for Experiment 1
-(Figure @fig:model-fit-classification), which the model was trained on. But this
-uncertainty is revealed by input distributions that are more diverse, like those
+(Figure @fig:model-fit-classification), which the model was trained on. This
+uncertainty, however, is revealed by input distributions that are more diverse, like those
 in Experiment 2 that vary in the distance between clusters as well as the
 overall mean. This goes to show the importance of checking model predictions for
 conditions that are different from those used to train it.
@@ -1586,7 +1590,7 @@ systematically evaluating adaptation performance on a range of different
 distributions. Our results show that listeners do not adapt as well to extreme
 distributions that deviate substantially from what it typical of American
 English. This goes to show that while distributional learning is, in principle,
-a very powerful general-purpose approach to dealing with the lack of invariance,
+a very powerful general-purpose approach to dealing with talker variability,
 it is _constrained_ in actual practice.
 
 ### Constraints on distributional learning
@@ -1594,8 +1598,8 @@ it is _constrained_ in actual practice.
 Where do these constraints come from? A central tenet of the ideal adapter
 framework [@Kleinschmidt2015] is that listeners can---and should---benefit from
 structure in how talkers vary in the cue distributions they produce. Even if all
-a listener knows is that a talker is speaking English, their prior experience
-with other speakers of English provides a lot of information about the cue
+a listener knows is that a talker is speaking American English, their prior experience
+with other speakers of American English provides a lot of information about the cue
 distributions that they should expect, which makes the process of inferring that
 particular talkers' distributions much more efficient. In this view, listeners
 will pay a price when they encounter a talker whos distributions fall outside
@@ -1608,11 +1612,13 @@ pattern of constraints that we observed behaviorally. The range of adaptation
 behavior across different distributions in Experiment 1 can be fit very well by
 a model that assumes that listeners update their beliefs based on the
 distributions they experience, starting from a prior expectation about what a
-typical talker sounds like and how much talkers vary. Moreover, the beliefs that
-we can infer listeners have for an unfamiliar talker match the actual cue
+typical talker sounds like and how much talkers vary. Moreover, the expectations that
+we infer listeners to have for an unfamiliar talker match the actual cue
 distributions produced by American English speakers reasonably well (with the
 caveat that our model makes potentially problematic assumptions about the
 structure of categories within and across talkers, which we discuss below).
+
+<!-- stuff on prior confidence vs. other modeling work here? -->
 
 There are, of course, other possible sources for these constraints. For
 instance, the basic nature of the mammalian auditory system may constrain the
@@ -1620,14 +1626,14 @@ distributions that are actually psychoacoustically distinguishable. Failure to
 adapt to particular distributions may then simply be a side effect of these
 distributions being difficult to perceive because of non-linearities in the
 underlying psychoacoustic dimensions (which we model as linear in VOT). This is
-a plausible explanation for VOT in particular, since non-human animals are also
-more inclined to categorize voiced and voiceless stops along human phonetic
-category boundaries [@Kuhl1975]. Moreover, the typical boundary between voiced
-and voiceless word initial stops more or less corresponds to the temopral
-asynchrony required for neural responses to separately time lock to two events,
-[@Steinschneider1994].
+a plausible explanation for VOT in particular. Cross-linguistically, category
+boundaries occur at a small number of VOT values. Moreover, non-human animals
+also categorize voiced and voiceless stops along these boundaries as well
+[@Kuhl1975]. Moreover, the typical boundary between (short-lag) voiced and voiceless word
+initial stops is approximately the same as the temopral asynchrony required for
+neural responses to separately time lock to two events [@Steinschneider1994].
 
-Another plausible possibility is that listeners' expectations are driven by
+Another possibility is that listeners' expectations are driven by
 their _own_ productions, and that any regularity between these comes from
 acquisition or innate anatomical constraints.
 <!-- TODO: citations and expand -->
@@ -1636,8 +1642,8 @@ expectations may be based on their own productions, but their _confidence_ based
 on the level of cross-talker variability they have experienced.
 
 These alternative explanations are plausible in the case of voicing, in large
-part because the cue distributions do not vary substantially across
-talkers. Contrasts that are distinguished by spectral cues _do_ vary
+part because the cue distributions are generally consistent across talkers
+[@Allen2003]. However, many contrasts---especially those that are distinguished by spectral cues---_do_ vary
 substantially across talkers, and moreover show substantial stylistic
 variability that cannot be normalized away
 [@McMurray2011a; @Jongman2000; @Hagiwara1997; @Hillenbrand1995; @Clopper2005; @Newman2001].
@@ -1649,10 +1655,9 @@ variation, it would suggest that the constraints come from something like their
 own productions, since levels of _within_ talker variability are similar across
 contrasts [@Newman2001; @Allen2003]. The presence of _structure_ in cross-talker
 variation also provides a means to test more specific predictions of the ideal
-adapter. In particular, the ideal adapter predicts that when talkers cluster in
-groups, that listeners' distributional learning is informed (and hence
-constrained) by their experience with variabiltiy across talkers in the relevant
-group, not just overall. For instance, if listeners pick up on the fact that
+adapter. In particular, the ideal adapter predicts that when talkers cluster into
+groups, listeners' distributional learning should be informed (and hence
+constrained) by their experience with _within-group_ variabiltiy, not only population-level variability. For instance, if listeners pick up on the fact that
 male and female talkers systematically differ in their vowel formant
 distributions, then knowing that a talker is male or female should lead to more
 constrained adaptation than if they do not know the gender of the talker (all
@@ -1674,9 +1679,9 @@ essential part of how listeners manage to adapt to efficiently to talker
 variability, but are difficult to measure, being implicit and subjective. The
 subjective nature of these expectations is particularly important, because they
 may deviate in substantial ways from the actual nature of cross-talker variation
-[for one example, see @Niedzielski1999].
+[see, e.g., @Niedzielski1999; @Levon2014].
 
-This tool nevertheless still has limitations. Most importantly, the prior
+This tool nevertheless has limitations. Most importantly, the prior
 beliefs a model can infer are fundamentally bound by the assumptions the model
 makes about that nature of those beliefs and how they are updated. If the
 structure of the world does not align with what is assumed by the model, the
@@ -1696,6 +1701,16 @@ distribution. Rather, this discrepancy highlights areas where more data is
 needed. That is, a model need not be _true_ for it to be _useful_, as long as
 it's understood as a means for interpreting and guiding empirical work and not a
 source of ground truth.
+
+We also assumed that listeners prior beliefs can be modeled using a particular
+form, the Normal-$\chi^{-2}$ distribution. This is mathemtically convenient, but
+makes the assumption that listeners' uncertainty about category means _across_
+talkers is proportional to their beliefs about variance _within_ a talker. This
+is unlikely to be an accurate reflection of actual patterns of talker
+variability, but it is not immediately obvious what the consequences of this
+assumption are. It may explain the discrepancy between the amount of talker
+variability that actually occurs and the level predicted by the model's inferred
+beliefs, but this remains to be seen. 
 
 
 ### How much confidence do listeners have in their prior beliefs?
