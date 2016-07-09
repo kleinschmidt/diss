@@ -288,7 +288,8 @@ categories (e.g., only voiceless stops).
 
 #### Question 3: How well could listeners _infer_ socio-indexical variables given cue distributions?
 
-<!-- still not quite sure about this. needs to be punched up especially since it's one of the main focuses of the special issue -->
+<!-- TODO --> (( still not quite sure about this. needs to be punched up
+especially since it's one of the main focuses of the special issue ))
 
 Finally, we know that listeners can determine, on the basis of speech alone,
 socio-indexical variables for a talker. Of particular interest,
