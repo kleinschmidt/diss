@@ -153,8 +153,8 @@ about how cue distributions vary from one situation to the next. This structure
 may be as simple as the fact that individual talkers tend to be consistent in
 the cue distributions they produce [@Heald2015; see also @WeatherholtzSubmitted2016], meaning that prior experience
 with a familiar talker is informative about the cue distributions they will
-produce in the future. But structure can occur at other levels, too, and here is
-one place that psycholinguistic theories begin to parallel sociolinguistics.  To
+produce in the future. But structure can occur at other levels, too [e.g., male talkers produce vowels with systematically lower formant frequencies than female talkers; @Peterson1952; @Hillenbrand1995]. This is where
+psycholinguistic theories begin to parallel sociolinguistics.  To
 the extent that variables like gender, class, regional origin, etc. are
 sociolinguistically relevant, they are reliably informative about how linguistic
 variables are realized, and hence helpful for speech perception.
@@ -184,17 +184,16 @@ At a conceptual level, the goal of this paper is to show that the idea of _infer
 
 This brings us to the more concrete, immediate goals of this paper, which are to quantify the relationship between some prominent socio-indexical variables, linguistic variables, and acoustic-phonetic cue distributions.
 Most
-[but not all, e.g., @Clopper2005; @McMurray2011a] of the work on this
-relationship has been descriptive, aimed at establishing that
+of the work on this
+relationship has been descriptive [but see, e.g., @Clopper2005; @McMurray2011a], aimed at establishing that
 differences between particular groups of talkers _exist_ in the first place, and
 that listeners are sensitive to these differences at all. But the mere existence
 of differences does not establish exactly how _informative_ or _useful_ such
 grouping variables are for speech perception.
 
 This paper is motivated by three interrelated questions about the relationship
-between socio-indexical variabiles and phonetic categories/cues. We next pose
-these questions, before presenting the studies that quanitatively address each
-one in turn. Together, these lay out a novel, principled, and quantitative
+between socio-indexical variables and phonetic categories/cues. We begin by outlining each of 
+these questions and their motivations, before presenting a series of computational studies that address them. In developing these studies, we lay out a novel, principled, and quantitative
 approach to understanding the relationship between socio-indexical variables and
 speech perception.
 
