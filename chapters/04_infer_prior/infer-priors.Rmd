@@ -15,6 +15,7 @@ output:
         - pandoc-tablenos
     pdf_document:
         md_extensions: +implicit_figures
+        keep_tex: true
         pandoc_args:
         - --filter
         - pandoc-fignos
