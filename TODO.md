@@ -4,14 +4,14 @@
 
 * Title Page
 * Dedication
-* Bio sketch
-    * Bio. Degrees, honors
-    * UR: dates, program, advisors, appointments (fellowship)
+* [done] Bio sketch
+    * [done] Bio. Degrees, honors
+    * [done] UR: dates, program, advisors, appointments (fellowship)
     * (no future employment)
     * Reference list of all works published or under review
 * Acknowledgements
 * Abstract (350 words or less)
-* Contributors and funding sources
+* [done] Contributors and funding sources
     * Committee.
     * Diss work collaborators and my independent contributions
     * Financial support
@@ -26,56 +26,17 @@
 
 ## Chapters
 
-1. Introduction
+1. [done] Introduction
     * [done] outline
     * [done] bullets
     * [done] write
-2. Ideal adapter
-    * [done] write
-    * format for diss
-        * add chapter heading(s) and adjust other headings 
-        * copy over figures etc.
-        * (base this on ~/work/writing/adapt-psych-rev/inpress)
-3. Selective adaptation
-    * [done] write
-    * format for diss
-        * add chapter heading
-        * adjust other headings
-        * copy over figures etc.
+2. [done] Ideal adapter
+3. [done] Selective adaptation
 4. Inferring priors
-    * [done] draft
-    * edit
-    * format
-        * standalone tex template
-        * use --bibtex for references
-        * chapter-level heading (or add in top level doc)
+    * revise based on feedback (waiting for feedback)
 5. Talker variation
-    * [done] draft
-    * edit
-    * format
-        * standalone tex template
-        * use --bibtex for references
+    * revise based on feedback
 6. Conclusion
     * outline/bullets
     * write
     * format
-
-## putting it together
-
-* compile individual .Rmds to tex files
-    * subfiles
-* deal with relative image paths. e.g. http://tex.stackexchange.com/questions/172320/is-it-possible-to-use-includegraphics-with-relative-path-inside-subfiles
-* merge into single .tex based on judith's template
-    * factor out preamble from existing tex
-    * use subfiles to inclue individual chapters etc.
-* maybe best to create a mini package for rmarkdown output format to make compilation easier. actually this looks like a pain in the ass. or best can do is a thin wrapper on pdf_document. well problem is that that the output is not going to be compileable, and won't keep tex unless compilatoin succeeds.
-    * subfile documentclass pandoc template
-
-            \documentclass[kleinschmidt-diss.tex]{subfile}
-            \begin{document}
-            $body$
-            \end{document}
-
-    * pandoc options
-        * `--bibtex` or `--biblatex` (later would require redoing citations for
-          existing papers
