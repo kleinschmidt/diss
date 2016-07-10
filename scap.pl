@@ -7,4 +7,4 @@ use warnings;
 
 BEGIN{undef $/;} 
 
-s/\\caption{([^.]+.)/\\caption[$1]{$1/smg
+s/\\caption{(.*?\.) /\\caption[$1]{$1/smg
