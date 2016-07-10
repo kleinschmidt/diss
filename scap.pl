@@ -1,4 +1,4 @@
-#! /usr/bin/env perl -pi
+#! /usr/bin/env perl -p
 
 # create short captions from first sentence of long captions.
 
