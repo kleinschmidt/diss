@@ -199,41 +199,74 @@ speech perception.
 
 #### Question 1: how _informative_ are socio-indexical variables about cue distributions?
 
-Qualitatively, the structure of talker variation is different depending on the
-phonetic contrast and cues. On the one hand, vowels exhibit substantial
+According to the ideal adapter, effective adaptation to different talkers---and
+hence robust speech perception---depends on knowing how and how much cue
+distributions vary across talkers for each phonetic category/contrast. If a
+category's cue distribution is strongly conditioned on a socio-indexical
+variable like talker identity (i.e., varies a lot between talkers), then
+listeners need to be prepared to rapidly adapt. If, on the other hand, a
+category's cue distributions are _not_ strongly conditioned on talker, then
+listeners are better off using their prior experience with _other_ talkers and
+_not_ rapidly adapting their beliefs about that particular category. The same
+logic applies for other socio-indexical variables.  If a category's cue
+distributions are strongly conditioned on, for instance, the sex of the talker,
+then a listener's previous experience with other male talkers will be highly
+informative about an unfamiliar male talker's realization of that category,
+while their experience with female talkers would be *mis*informative.
+
+In principle, it is possible that the amount and structure of between-talker
+variability is more or less the same across phonetic categories and cues.  In
+such a world, listeners should adapt uniformly to talker variability in
+different cues/contrasts, drawing---or not--- on previous experience with other
+talkers in the same way across phonetic categories.
+This would also mean that every
+phonetic category provides an equally good substrate for communicating
+socio-indexical meaning. 
+If, on the other hand, phonetic categories/contrasts _vary_ in how strongly
+their cue distributions vary across talkers, then listeners should adjust their
+adaptation to an unfamiliar talker's phonetic cue distributions differently
+across categories/contrasts.
+<!-- MORE -->
+
+There is qualitative evidence suggesting that 
+the structure of talker variation is, in fact, different depending on the
+phonetic contrast and cues. For example, vowels exhibit substantial
 variability conditioned on the gender and the regional background of the talker
-[@Peterson1952; @Hillenbrand1995; Clopper2005; among others]. On the other hand,
-talker variation in word-initial stop voicing is largely unstructured,
+[@Peterson1952; @Hillenbrand1995; @Clopper2005; @Labov2005, among others].
+Talker variation in word-initial stop voicing, on the other hand, is largely unstructured (at least in American English),
 exhibiting little systematic variation by gender, regional dialect, or age
-[@Allen2003; @Chodroff2015] But we don't know, quantitatively, the extent of
-these differences, beyond the existence of socio-indexically conditioned
-variation in some cues/contrasts but not others.
-
-At an even more basic level, we don't know whether the _amount_ of talker
-variation is different.  There's some _suggestion_ that this might be the case:
-visual inspection of the results of @Chodroff2015 (Figure 1) suggests that
-cross-talker variance in voiceless word-initial stop VOT is roughly half of
-within-category variation (standard deviations of approximatly 10ms and 20ms VOT
+[@Allen2003; @Chodroff2015].
+There is moreover qualitative evidence that the overall _level_ of cross-talker variation is also different between these two contrasts.
+For instance, visual inspection of the results of @Chodroff2015 (Figure 1) suggests that
+cross-talker variance in voiceless word-initial stop VOT is roughly _half_ of
+within-category variation (standard deviations of approximately 10ms and 20ms VOT
 respectively), whereas inspection of similar results for vowels from
-@Hillenbrand1995 (Figure 4) suggests that cross-talker variability is easily
-_double_ the within-category variability.  Understanding these differences
-_quantitatively_ is critical because the amount and type of talker variation
-places an upper bound on how informative socio-indexical variables can be for a
-particular phonetic category/cue.
+@Hillenbrand1995 (Figure 4) suggests that cross-talker variability in vowel production is approximately
+_double_ the within-category variability.
 
-In part, the lack of this information in the existing literature reflects the
-fundamental difficulty of comparing very different phonetic contrasts and cues.
-We address this here by testing how _informative_ socio-indexical
+<!--  -->
+However, no previous work has quantified the relative level of between-talker vs. within-talker variability across phonetic contrasts.
+In part, the lack of quantitative comparisons reflects the
+fundamental difficulty of comparing very different phonetic contrasts and cues in a principled way.
+We address this here by quantifying how _informative_ socio-indexical
 variables---including talker identity---are about the distribution of
-acoustic-phonetic cues for two sets of contrasts/cues: vowels (cued by first and
+acoustic-phonetic cues.
+We do this
+for two sets of contrasts/cues: vowels (cued by first and
 second formant frequencies; F1xF2) and word-initial stop voicing (cued by voice
 onset time; VOT). Focusing on information theoretic properties of the cue
 distributions provides a principled common currency for comparing different
-socio-indexical variables, phonetic categories, and cues. We focus on these
-particular categories/cues because of the availability of suitable data, and
-because they both exhibit talker variability, but with different _patterns_ of
-socio-indexically-conditioned variability in American English.[^bilingual-vot]
+socio-indexical variables, phonetic categories, and cues.
+<!-- [^bilingual-vot] -->
 
+In order to address this question, we need data on contrasts/cues that might
+reasonably be expected to differ in the informativity of socio-indexical
+variables (including talker identity). As we summarized above, vowels and stop
+voicing are likely provide such a contrast, and thus we selected one corpus
+where the relevant cues were annotated for each, along with a range of
+socio-indexical variables.
+
+<!-- TODO: move this (WHERE??) -->
 [^bilingual-vot]: One notable exception is native language background. For
     instance, French-English bilinguals produce significantly shorter VOTs than
     English monolinguals
@@ -243,12 +276,6 @@ socio-indexically-conditioned variability in American English.[^bilingual-vot]
     [from @Lev-Ari2013] suggest that they would not substantially change our
     conclusions.
 
-In order to address this question, we need data on contrasts/cues that might
-reasonably be expected to differ in the informativity of socio-indexical
-variables (including talker identity). As we summarized above, vowels and stop
-voicing are likely provide such a contrast, and thus we selected one corpus
-where the relevant cues were annotated for each.
-<!-- describe in more detail?? -->
 
 #### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
