@@ -325,6 +325,18 @@ using socio-indexical variables to guide speech perception directly and in
 learning and structuring knowledge about how cue distributions vary across
 talkers.
 
+One sense of utility that is of particular interest is how listeners
+_generalize_ from experience with one talker to another in speech recognition.
+A variety of experiments on phonetic recalibration (or perceptual learning) have
+shown that listeners sometimes generalize from experience with, for instance, a
+male talker to inform perception of an unfamiliar, female talker
+[@Kraljic2006; @Kraljic2007; @Reinisch2014; @Munson2011], but sometimes they do
+not [@Eisner2005; @Kraljic2007; @Reinisch2014].  The ideal adapter predicts that
+listeners will generalize when they think that the two talkers both belong to a
+group that is informative about the particular contrast being recalibrated.
+Assessing the utility of different levels of grouping (including gender) is a
+necessary first step towards making these predictions precise and testable
+
 <!-- TODO: Something about normalization migth be appropriate here: utility can depend on the input representation -->
 
 
