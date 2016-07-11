@@ -276,65 +276,61 @@ socio-indexical variables.
 
 #### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
-Knowledge of between-talker variability in cue distributions is, in general,
-helpful for robust speech perception. But some kinds of variability affect
-speech perception itself more than others. For instance, if one category varies
-across talkers in a way that never causes it to overlap with another category,
-listeners can safely ignore talker-level variation in that category without
-increasing the chance of errors in speech recognition. On the other hand, when a
-category varies across talkers or groups in a way that _does_ cause it overlap
-with other categories, ignoring talker-conditioned distributions would, in fact,
-lead to slowed or inaccurate speech recognition. The same is true of broader
-socio-indexical groupings, like sex or dialect.
+<!-- TODO: awkard, revise -->
+When thinking about speech perception as an inference process, knowledge of
+between-talker variability in cue distributions is helpful, because effective
+inference depends on knowing the underlying cue distributions for each
+category. But this way of thinking also predicts that some kinds of variability
+should affect speech perception itself more than others. For instance, if one
+category varies across talkers in a way that never causes it to overlap with
+another category, listeners can safely ignore talker-level variation in that
+category without increasing the chance of errors in speech recognition. On the
+other hand, when a category varies across talkers or groups in a way that _does_
+cause it overlap with other categories, ignoring talker-conditioned
+distributions would lead to slowed or inaccurate speech recognition. The same is
+true of broader socio-indexical groupings, like sex or dialect.
 
-That is, the _utility_ of a socio-indexical variable for improving speech
-recognition is not necessarily the same as the _informativity_ of that variable
-about the underlying cue distributions. Informativity provides an upper bound on
-utility, since conditional cue distributions can only improve recognition to the
-extent that they are actually different from marginal (un-conditioned)
+That is, the _utility_ of a socio-indexical variable for guiding speech
+recognition is not necessarily the same as its _informativity_ about the
+underlying cue distributions. Informativity provides an upper bound on utility,
+since conditional cue distributions can only improve recognition to the extent
+that they are actually different from marginal (un-conditioned)
 distributions. This raises the possibility that two equally informative
 socio-indexical variables may not be equally useful for the purposes of speech
-perception.  It is possible that listeners would not _track_ cue distributions
-conditioned on informative socio-indexical variables which are not useful for
-speech perception.
+perception, and, for instance, not equally tracked by listeners.
 
+We know that listeners do, at least in some cases, use socio-indexical variables
+to guide speech perception. For example, perception of vowels (and
+fricatives) is affected by the perceived gender of the talker, which can be cued
+by voice quality, visual presentation of a male or female face, or even explicit
+instruction [@Strand1999;@Johnson1999;@Strand1996].  Listeners use other
+socio-indexical variables to guide recognition of vowels as well:
+@Niedzielski1999 found that if listeners believe that a talker is Canadian, they
+hear more Canadian raising than if they believe the talker is American. @Hay2010
+found a similar sensitivity to dialect group using an even subtler manipulation,
+manipulating listeners perceptions based on a stuffed animal that cued New
+Zealand or Australia.  More broadly, listeners are better at comprehending
+speech in noise from familiar talkers than unfamiliar talkers [@Nygaard1998].
 
-<!-- I'm lost here... -->
+What we do not know is whether the extent to which listeners _are_ sensitive to
+socio-indexical variables for different contrasts is predictable based on the
+underlying structure of talker variability for these contrasts.  This depends on
+exactly how useful these socio-indexical variables would be for speech
+recognition, which is the second question we address in this paper.  The ideal
+adapter provides a principled way to link talker- and group-conditioned
+variability in cue distributions with the utility of those variables.  It also
+provides a framework for making specific, testable predictions about how
+listeners actually take advantage of structure in talker variability, both in
+using socio-indexical variables to guide speech perception directly and in
+learning and structuring knowledge about how cue distributions vary across
+talkers.
 
-
-From the perspective of speech perception, talker variability is a problem,
-because it can interfere with linguistic judgements. One of the insights of the
-ideal adapter is that the extent to which talker variability is a problem---and
-how much grouping talkers based on socio-indexical variables can _help_---can be
-predicted by the particular structure of variability in cue distributions.
-
-We know that listeners do, in fact, take advantage of structure in talker
-variability to guide speech perception. Perception of vowels (and fricatives) is
-affected by the perceived gender of the talker, which can be cued by voice
-quality, visual presentation of a male or female face, or even explicit
-instruction [@Strand1999;@Johnson1999;@Strand1996].  Listeners' perception of
-vowels also depends on other social variables: @Niedzielski1999 found that if
-listeners believe that a talker is Canadian, they hear more Canadian raising
-than if they believe the talker is American. @Hay2010 found a similar
-sensitivity to dialect group using an even subtler manipulation, manipulating
-listeners perceptions based on a stuffed animal that cued New Zealand or
-Australia.  More broadly, listeners are better at comprehending speech in noise
-from familiar talkers than unfamiliar talkers [@Nygaard1998].
-
-These findings establish _that_ listeners use socio-indexical grouping variables
-(including talker identity) to inform speech perception, but they don't tell us
-exactly _how useful_ these variables are. That is, what would be the
-consequences of _ignoring_ these variables? How much do these consequences
-depend on the particular cues, category, or socio-indexical variable?
-
-Our second study addresses this question, using the ideal adapter's link between
-cue distributions and phonetic categorization.  
+<!-- TODO: Something about normalization migth be appropriate here: utility can depend on the input representation -->
 
 
 #### Question 3: How well could listeners _infer_ socio-indexical variables given cue distributions?
 
-<!-- TODO --> (( still not quite sure about this. needs to be punched up
-especially since it's one of the main focuses of the special issue ))
+
 
 Finally, we know that listeners can determine, on the basis of speech alone,
 socio-indexical variables for a talker. Of particular interest,
@@ -353,17 +349,6 @@ make these inferences, and at an even more basic level, how much information is
 available to them from _phonetic_ cues [for a review, see @Thomas2002]. Thus our
 final study aims to shed light on how much listeners can infer about a talker's
 socio-indexical properties based on phonetic cue distributions alone.
-
-<!-- ------------------------------------------- -->
-
-Finally, by connecting sociolinguistic and psycholinguistic perspectives on
-variability in speech perception, this work has broader implications.  The ideal
-adapter framework has the potential to generate novel, testable predictions
-about how listeners learn and take advantage of structure in how talkers
-vary. In order to generate and test these predictions, we need to know,
-quantitatively, the relationship between socio-indexical variables, linguistic
-variables, and cue distributions.  Thus the current work opens the door to new
-lines of empirical work on speech perception.
 
 
 ## General methods
