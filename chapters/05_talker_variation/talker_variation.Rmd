@@ -557,13 +557,13 @@ We analyzed data on word-initial stop consonant voicing in conversational speech
 
 Our primary reason for considering VOT/voicing at all is to get a sense of the range of informativity and utility of socio-indexical variables across different phonetic categories. VOT is thought to be relatively stable across talkers, and formant frequencies relatively variable. The strength of this particular VOT corpus is that it contains observations of both voiced and voiceless stops from the same talkers. This allows us to directly assess how much talker variability in VOT distributions [@Allen2003] actually impacts recognition of voiced vs. voiceless stops, and hence estimate an upper bound on the usefulness of _any_ socio-indexical grouping variable for this contrast. 
 
-However, the downside is that this corpus does not not contain data from talkers who vary on socio-indexical variables that are known to correlate with differences in VOT distributions, like native language background. Preliminary analyses of a collection of VOTs for only voiceless stops from French-English bilinguals [@Lev-Ari2013] suggests that, even though these groups are known to produce different VOT distributions, the size of this effect is much smaller than even talker-level variability _within_ the monolingual talkers in the Buckeye corpus (which, to foreshadow our results, is substantially smaller than for vowels). Moreover, the addtion of these talkers provides only a slight increase in the overall informativity of talker identity, compared to the monolingual talkers alone.
+However, the downside is that this corpus does not not contain data from talkers who vary on socio-indexical variables that are known to correlate with differences in VOT distributions, like native language background. Preliminary analyses of a collection of VOTs for only voiceless stops from French-English bilinguals [@Lev-Ari2013] suggests that, even though these groups are known to produce different VOT distributions, the size of this effect is much smaller than even talker-level variability _within_ the monolingual talkers in the Buckeye corpus (which, to foreshadow our results, is substantially smaller than for vowels).
 
 ### Modeling approach
 
-All of our anlayses depend on knowing the _distribution_ of cues for each phonetic category, at different levels of socio-indexical grouping. We obtain estimates of these distributions in the following way. First, we assume that each phonetic category can be modeled as a normal distribution over cue values (stop voicing as univariate distributions over VOT, and vowels as bivariate distributions of F1 and F2). These distributions are parametrized by their mean and their covariance matrix (or, equivalently, variance in the case of VOT). Second, we fit these parameters to data from our corpora via maximum likelihood, using the sample mean and covariance of tokens from each category. We do this separately for each group. For example, for gender, we obtain one estimate of the `ae` distribution based on all the tokens from male talkers, and one from all tokens from female talkers. Likewise, for dialect, we estimate one distribution based on all talkers from the North dialect region, another one from tokens from Mid-Atlantic talkers, and so on.
+All of our anlayses depend on knowing the _distribution_ of cues for each phonetic category, at different levels of socio-indexical grouping. We obtain estimates of these distributions in the following way. We assume that each phonetic category can be modeled as a normal distribution over cue values (stop voicing as univariate distributions over VOT, and vowels as bivariate distributions of F1 and F2). These distributions are parametrized by their mean and their covariance matrix (or, equivalently, variance in the case of VOT). We fit these parameters to data from our corpora via maximum likelihood, using the sample mean and covariance of tokens from each category. We do this separately for each group. For example, for gender, we obtain one estimate of the `ae` distribution based on all the tokens from male talkers, and one from all tokens from female talkers. Likewise, for dialect, we estimate one distribution based on all talkers from the North dialect region, another one from tokens from Mid-Atlantic talkers, and so on.
 
-Assuming that each category is a normal distribution is not a critical part of our approach, but rather a standard and convenient assumptiong. In particular, the normal distribution has a small number of parameters and this allows us to efficiently estimate the distribution for each category with a limited amount of data (e.g., five tokens per talker-level vowel distribution).
+Assuming that each category is a normal distribution is not a critical part of our approach, but rather a standard and convenient assumption. In particular, the normal distribution has a small number of parameters and this allows us to efficiently estimate the distribution for each category with a limited amount of data (e.g., five tokens per talker-level vowel distribution).
 
 
 ## Study 1: Informativity of socio-indexical groupings about cue distributions
@@ -573,7 +573,7 @@ Our first goal is to assess how _informative_ socio-indexical varaibles are abou
 ### Methods {#sec:kl-methods}
 
 One way to quantify how informative a socio-indexical grouping variable is about cue distributions is by comparing the group-level cue distributions with the _marginal_ distribution of cues from all groups. The reason for this is that if a socio-indexical grouping variable (e.g., sex) is _not_ informative about cue distributions, then the the cue distributions for each group (e.g., male and female talkers) will be essentially identical, and hence indistinguishable from the _overall_ cue distribution. If, on the other hand, a socio-indexical variable _is_ informative about cue distributions, then the distribution for each group will deviate substantially from other groups, and by extension from the overall distribution as well.
-The particular measure we use to compare distributions is the Kullback-Leibler (KL) divergence, which we now explain in detail.
+The particular measure we use to compare distributions is the Kullback-Leibler (KL) divergence, which explain next.
 
 #### Technical details
 
@@ -581,7 +581,7 @@ KL divergence (or relative entropy) is an information-theoretic comparison of tw
 
 In general, the KL divergence of $Q$ from $P$ is
 $$DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$$ {#eq:kl}
-(with density functions $q$ and $p$ respectively). Intuitively, we can think of the KL divergence as how much better data---drawn from the distribution $P$---is explained by a "true" distribution $P$ itself, compared to another distribution $Q$. This measure is always greater than zero, and equal zero only when $P=Q$ [@Mackay2003, p. 34].
+(with density functions $q$ and $p$ respectively). Intuitively, we can think of the KL divergence in the following way. Take data that has been sampled from a true distribution $P$. The KL divergence of another distribution $Q$ from $P$ is how much better, on average, $P$ explains the sampled data than $Q$. The KL divergence increases as $Q$ diverges more from $P$, and has a minimum value of zero, which is only achieved when $P=Q$ [@Mackay2003, p. 34].
 
 In our case, $P=\mathcal{N}_G$ is a multivariate[^multivariate] normal cue distribution conditioned on a socio-indexical group, with mean $\mu_G$ and covariance $\Sigma_G$, while $Q=\mathcal{N}_M$ is the marginal (not conditioned on group) cue distribution with mean $\mu_M$ and covariance $\Sigma_M$. With some simplification,[^gaus-kl] the KL divergence of the marginal from the group distribution works out to be
 $$
@@ -592,7 +592,16 @@ where $d$ is the dimensionality of the distribution, and $\log$ is the natural l
 [^multivariate]: The math is the same for the univariate special case, as with VOT.
 [^gaus-kl]: See, for instance, [http://stanford.edu/~jduchi/projects/general_notes.pdf](), p. 13.
 
-For each phonetic category, we calculate the KL divergence of each group's cue distribution from the marginal distribution of cues from all talkers. We then average these single-category scores for each group to calculate the overall divergence for that group. Finally, for each grouping level, we average the divergence across groups, and compute bootstrapped confidence intervals over groups for this mean.
+For each phonetic category, we calculate the KL divergence of each group's cue distribution from the marginal distribution of cues from all talkers. We then average these single-category scores for each group to calculate the overall divergence for that group.[^category-num] Finally, for each grouping level, we average the divergence across groups, and compute bootstrapped confidence intervals over groups for this mean.
+<!-- TODO: illustrate what 1 bit of KL divergence looks like -->
+<!-- TODO: does dimensionality matter? I don't think so, but prove it. actually it might with increasing variance (determinant increases as $p^d$ for scaling covariance by $p$. -->
+
+[^category-num]: We average over categories for two reasons. First, it's
+    mathematically convenient, because the KL between to normal distributions
+    can be computed in closed form, but for mixture models must be estimated
+    with numerical integration. Second, by averaging over categories, we control
+    for any effects that could be due to the overall difference between the
+    number of vowel (11) and stop voicing (2) categories.
 
 
 
@@ -653,7 +662,7 @@ vot_kl <-
 
 ### Results {#sec:kl-results}
 
-```{r vowel-vot-kl-plot, fig.width=8.3, fig.height=4.2, fig.cap='Socio-indexical variables are more informative about cue distributions for vowel (formants) than for stop voicing (vot). On top of this, more specific groupings (like Talker and Dialect+Sex) are more informative than broader groupings (Sex). This is indicated by higher KL divergence of each grouping level from marginal (showing mean and 95% bootstrapped CIs over groups).'}
+```{r vowel-vot-kl-plot, fig.width=8.3, fig.height=4.2, fig.cap="Socio-indexical variables are more informative about cue distributions for vowel (formants) than for stop voicing (vot). On top of this, more specific groupings (like Talker and Dialect+Sex) are more informative than broader groupings (Sex). This is indicated by higher KL divergence of each grouping level from marginal (each point shows one group's KL divergence, and large points with errorbars show the mean and bootstrapped 95% CIs over groups)."}
 
 bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
           vowel_kl %>% mutate(contrast = 'Vowels')) %>%
@@ -671,6 +680,8 @@ bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
 
 ```
 
+<!-- TODO: pretty name for "Dialect_Sex" -->
+
 Figure {@fig:vowel-vot-kl-plot} plots the KL divergence of cue distributions at different levels of grouping from marginal distributions, across contrasts (vowels and stop voicing) and cues (VOT, raw/Lobanov-normalized F1xF2). There are two clear patterns. 
 
 First, we find that talker identity is an order of magnitude more informative
@@ -680,8 +691,7 @@ previous work that there is less talker variability in VOT than in formant
 frequencies [e.g., @Allen2003; @Lisker1964; vs. @Peterson1952; @Hillenbrand1995]. 
 Strikingly, the _most_ informative variable for VOT---talker identity---is
 roughly as informative as the _least_ informative variable for
-Lobanov-normalized F1xF2 (Sex). As Figure {@fig:vot-vs-vowel-dists} shows, this
-means that, on average, individual talkers' VOT distributions diverge from the
+Lobanov-normalized F1xF2 (Sex). Figure {@fig:vot-vs-vowel-dists} illustrates what this means in terms of the conditional distributions for these two combinations of grouping variables and categories: on average, individual talkers' VOT distributions diverge from the
 marginal distribution (B) at roughly the same level that the male and female
 distributions of normalized F1xF2 diverge from the marginal normalized F1xF2
 distributions (A).
@@ -1641,7 +1651,7 @@ from the overall or marginal distributions. But being useful for speech
 recognition does not always mean that a socio-indexical variable can be easily
 inferred from phonetic cues alone, or vice-versa.
 
-Here we discuss the implications of these results. First, the ideal adapter
+In the remainder of this paper, we discuss the implications of these results. First, the ideal adapter
 generally predicts that listeners should track conditional distributions for
 groups that are informative and useful for speech recognition. By directly
 quantifying the utility and informativity of a number of grouping variables, our
@@ -1675,7 +1685,7 @@ sets of phonetic categories. We hope that by doing so we provide a proof of
 concept for the broad usefulness of these tools. One purpose they might be put
 to is to formulate hypotheses about what distributions listeners should track.
 
-At the highest level, the ideal adapter predicts that listeners should not track
+Even prior to taking into account cognitive limitations, the ideal adapter predicts that listeners should not track
 _everything_. Rather, listeners need only track the joint distributions of
 variables that are informative. At the level of phonetic categories themselves,
 this means that (for instance) there's no reason for listeners to track each
@@ -1701,7 +1711,7 @@ distributinos) far enough away from the true structure of the data. To take a
 concrete example, modeling each vowel as a single distribution of
 (un-normalized) formants across all talkers results in high-variance,
 overlapping distributions which have low recognition accuracy. But modeling them
-as two distributions---one for males, and one for females---provides much more
+as two distributions---one for males, and one for females---provides more
 specific estimates and higher classification accuracy, as shown by Figures
 @fig:vowel-vot-kl-plot and @fig:overall-accuracy-group-known
 [and in @Hillenbrand1995; @Feldman2013a].
@@ -1709,7 +1719,7 @@ specific estimates and higher classification accuracy, as shown by Figures
 Thus, the ideal adapter predicts that listeners should learn separate cue
 distributions for levels of a socio-indexical grouping variable when that
 variable has high _informativity_ about some categories' cue distributions
-and/or high _utility_ for speech recognition. However, However, the notions of
+and/or high _utility_ for speech recognition.  However, the notions of
 informativity and utility apply beyond better _speech_ recognition per
 se. Listeners extract a lot of non-phonetic/linguistic information from speech
 signal. To properly define the informativity or utility of a particular grouping
@@ -1742,7 +1752,7 @@ direct interest to a listener: social categories that are highly important in
 one person's social world may be completely meaningless in another's. An
 important aspect of the research program laid out by the ideal adapter framework
 is to probe listeners' prior beliefs _directly_ (which the previous chapter is a
-first step towards) <!-- TODO: remove "chapter" for TopiCS -->
+first step towards) <!-- TODO-paper: remove "chapter" for TopiCS -->
 
 Finally, our results suggest that the input representation---the cue space over
 which categories are distributions---can affect which variables are informative
@@ -1773,9 +1783,10 @@ talker-specific VOT distributions more slowly, and be more constrained by prior
 experience with other talkers. The first prediction is borne out by
 @Kraljic2007, who compared recalibration of a voicing contrast with a fricative
 place contrast. It's also borne out indirectly by the modeling work in Chapters
-NNN and NNN, which found that the effective prior sample size for /b/-/d/
+\ref{chap:ideal-adapter} and \ref{chap:infer-priors}, which found that the effective prior sample size for /b/-/d/
 (which, like vowels, is primarily cued by formant requencies) is much lower than
 for /b/-/p/ (cued by VOT).
+<!-- TODO-paper: remove chapter refs -->
 
 Second, the informativity of higher-level grouping variables is linked to
 _generalization_ across talkers: if two talkers are from groups that tend to
