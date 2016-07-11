@@ -824,9 +824,18 @@ shows that dialect differences themselves are modulated by sex.
 ## Study 2: utility of socio-indexical groupings for speech recognition
 
 Next, we evaluate the _utility_ of each grouping variable for speech
-recognition.
+recognition.  One way to estimate the utility of a socio-indexical variable is
+based on actual human speech perception behavior. The downside of this method is
+that it is impossible to control listeners' prior experience, and hence what
+group-level distributions they may already be tracking. It can moreover
+difficult to manipulate listeners beliefs about the socio-indexical properties
+of the talker whose speech they are classifying, especially for variables like
+dialect or class.
 
-One way we can quantify this beneift is in terms of _probability of correct
+We take a different approach that avoids these problems (at the cost of certain
+well-understood assumptions, described below), based on patterns of
+socio-indexically condition variation in cue distributions themselves. One
+principled way quantify utility is in terms of _probability of correct
 recognition_ of phonetic categories. By treating speech perception as an
 inference problem, the ideal adapter
 [@Kleinschmidt2015; and the ideal listener models that it draws on, e.g. @Clayards2008]
