@@ -666,7 +666,7 @@ vot_kl <-
 
 ### Results {#sec:kl-results}
 
-```{r vowel-vot-kl-plot, fig.width=8.3, fig.height=4.2, fig.cap="Socio-indexical variables are more informative about cue distributions for vowel (formants) than for stop voicing (vot). On top of this, more specific groupings (like Talker and Dialect+Sex) are more informative than broader groupings (Sex). This is indicated by higher KL divergence of each grouping level from marginal (each point shows one group's KL divergence, and large points with errorbars show the mean and bootstrapped 95% CIs over groups)."}
+```{r vowel-vot-kl-plot, fig.width=8.3, fig.height=4.2, fig.cap="Socio-indexical variables are more informative about cue distributions for vowel (formants) than for stop voicing (vot). On top of this, more specific groupings (like Talker and Dialect+Sex) are more informative than broader groupings (Sex). This is indicated by higher KL divergence of each grouping level from marginal (each point shows one group's average KL divergence from marginal distributions, and large points with errorbars show the mean and bootstrapped 95% CIs over groups)."}
 
 bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
           vowel_kl %>% mutate(contrast = 'Vowels')) %>%
@@ -689,16 +689,21 @@ bind_rows(vot_kl %>% mutate(contrast = 'Stop voicing'),
 Figure {@fig:vowel-vot-kl-plot} plots the KL divergence of cue distributions at different levels of grouping from marginal distributions, across contrasts (vowels and stop voicing) and cues (VOT, raw/Lobanov-normalized F1xF2). There are two clear patterns. 
 
 First, we find that talker identity is an order of magnitude more informative
-about vowel distributions than about VOT distributions. This is important
-because it uses a quantitative measure to confirm the qualitative finding from
-previous work that there is less talker variability in VOT than in formant
-frequencies [e.g., @Allen2003; @Lisker1964; vs. @Peterson1952; @Hillenbrand1995]. 
+about vowel distributions than about VOT distributions. That is, knowing a
+talker's identity is significantly provides significantly more information about
+their vowel formant frequency distributions than it does about their VOT
+distributions. This is important because it uses a quantitative measure to
+confirm the qualitative finding from previous work that there is less talker
+variability in VOT than in formant frequencies
+[e.g., @Allen2003; @Lisker1964; vs. @Peterson1952; @Hillenbrand1995].
 Strikingly, the _most_ informative variable for VOT---talker identity---is
 roughly as informative as the _least_ informative variable for
-Lobanov-normalized F1xF2 (Sex). Figure {@fig:vot-vs-vowel-dists} illustrates what this means in terms of the conditional distributions for these two combinations of grouping variables and categories: on average, individual talkers' VOT distributions diverge from the
-marginal distribution (B) at roughly the same level that the male and female
-distributions of normalized F1xF2 diverge from the marginal normalized F1xF2
-distributions (A).
+Lobanov-normalized F1xF2 (Sex). Figure {@fig:vot-vs-vowel-dists} illustrates
+what this means in terms of the conditional distributions for these two
+combinations of grouping variables and categories: on average, individual
+talkers' VOT distributions diverge from the marginal distribution (B) at roughly
+the same level that the male and female distributions of normalized F1xF2
+diverge from the marginal normalized F1xF2 distributions (A).
 
 ```{r vot-vs-vowel-dists, fig.width=6.2, fig.height=6.0, fig.cap='Male and female distributions of Normalized F1xF2 diverge from the marginal distributions (A) only slightly less than talker-specific VOT distributions diverge from marginal (B).'}
 
@@ -745,15 +750,16 @@ ggdraw() +
 
 Second, on the whole, we find that more specific groupings are more informative
 than less specific groupings. This suggests that, within a group, talkers are
-more consistent than they are between groups. The exception to this pattern is
-that, for un-normalized formants, sex is more informative than dialect, even
-though dialect is more specific (8 talkers per dialect, vs. 24 per sex). The
-likely reason for this is that sex differences in physiology (e.g., vocal tract
-length) change formant frequencies for all vowels [@Johnson2006], but dialect
-variation is limited to certain dialect-vowel combinations
-[@Clopper2005; @Labov2005].
+more consistent than they are between groups. This is to be expected when there
+is talker variability, and when that variability is greater between groups than
+within groups. The exception to this pattern is that, for un-normalized
+formants, sex is more informative than dialect, even though dialect is more
+specific (8 talkers per dialect, vs. 24 per sex). The likely reason for this is
+that sex differences in physiology (e.g., vocal tract length) change formant
+frequencies for all vowels [@Johnson2006], but dialect variation is limited to
+certain dialect-vowel combinations [@Clopper2005; @Labov2005].
 
-As Figure {@fig:vowel-kl-by-category} shows, while the relative ordering of grouping variables' informativity is consistent across vowels, their actual degree of informativity varies quite a bit. Dialect (and Dialect+Sex) is particularly informative for `aa`, `ae`, `eh`, and `uw`, vowels with distinctive variants in at least one of the dialect regions from the NSP. `aa` is undergoing a merger with `ao` in some regions, `ae` and `eh` participate in the northern cities chain shift, and `uw` is fronted in some regions [and in others, but only by female talkers; @Clopper2005].
+As Figure {@fig:vowel-kl-by-category} shows, while the relative ordering of grouping variables' informativity is consistent across vowels, their actual degree of informativity varies quite a bit. Dialect (and Dialect+Sex) is particularly informative for `aa`, `ae`, `eh`, and `uw`, vowels with distinctive variants in at least one of the dialect regions from the NSP. As noted by @Labov2005, `aa` is undergoing a merger with `ao` in some regions, `ae` and `eh` participate in the Northern Cities Chain Shift, and `uw` is fronted in some regions [and in others only by female talkers; @Clopper2005].
 
 ```{r vowel-kl-by-category, fig.width=7, fig.height=3.45, fig.cap='Individual vowels vary substantially in the informativity of grouping variables about their cue distributions. Only normalized F1xF2 is shown to emphasize dialect effects.'}
 
@@ -773,16 +779,20 @@ vowel_kl %>%
 
 Figure @fig:vowel-kl-by-dialect shows the KL divergence of each dialect's vowel
 distributions, demonstrating that dialects do indeed vary in how informative
-they are, both overall and by vowel.  In particular, talkers from the North
+they are, both overall and by vowel.  Some of this variability corresponds to known patterns of dialect variability. In particular, talkers from the North
 dialect region produce vowels---`ae` and `aa` in particular---with formant
 distributions that deviate markedly more from the marginal distributions than
-any of the other dialects. Other dialects have, on average, similar deviations
-from marginal. The high deviation of `uw` by New England talkers is the result
-of these talkers producing a very low-variance, back (low F2) distribution.
-Similarly, Mid-Atlantic talkers produce a low-variance `ey` distribution that is
-higher and fronter than average. Finally, the Mid-Atlantic `aa` is, like the
+any of the other dialects. Both of these vowels participate in the Northern Cities Shift [@Labov2005; @Clopper2005]. The Mid-Atlantic `aa` is, like the
 Northern `aa`, non-merged with `ao` [@Clopper2005] and hence deviates from the
 marginal `aa` substantially.
+
+Other particularly high divergences do not correspond to known sociolinguistic
+variants, and may be flukes of this particular dataset which includes a small
+number of talkers per region. This includes the high divergence of `uw` from New
+England talkers, which is the result of these talkers producing a very
+low-variance `uw` distribution.  Similarly, Mid-Atlantic talkers produce a
+low-variance `ey` distribution that is slightly higher and fronter than the
+marginal distribution.
 
 ```{r vowel-kl-by-dialect, fig.width=7.5, fig.height=4.75, fig.cap='A small number of dialect/vowel combinations account for most of the divergence of dialect-specific vowel formant distributions. In particular, the distribution of `ae` and `aa` produced by Northern talkers diverge markedly more than any other vowel/dialect combination.'}
 
@@ -815,11 +825,12 @@ substantial talker variability. Normalization also substantially reduces the
 informativity of sex alone, which is to be expected given that most of the
 difference between male and female vowel distributions is due to the overall
 shifts in formant frequencies that Lobanov normalization removes. Interestingly,
-while normalization also reduces the informativity of dialect and sex considered
+while normalization reduces the informativity of dialect and sex considered
 together, their combination is still more informative than dialect alone. This
-shows that dialect differences themselves are modulated by sex.
+shows that dialect differences themselves are modulated by sex
+[as suggested by @Clopper2005].
 <!-- TODO: is this true? permutation test on sex within dialect. -->
-
+<!-- TODO-paper: summary statement -->
 
 ## Study 2: utility of socio-indexical groupings for speech recognition
 
