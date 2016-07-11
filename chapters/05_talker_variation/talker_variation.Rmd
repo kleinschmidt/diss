@@ -276,6 +276,32 @@ socio-indexical variables.
 
 #### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
+Knowledge of between-talker variability in cue distributions is, in general,
+helpful for robust speech perception. But some kinds of variability affect
+speech perception itself more than others. For instance, if one category varies
+across talkers in a way that never causes it to overlap with another category,
+listeners can safely ignore talker-level variation in that category without
+increasing the chance of errors in speech recognition. On the other hand, when a
+category varies across talkers or groups in a way that _does_ cause it overlap
+with other categories, ignoring talker-conditioned distributions would, in fact,
+lead to slowed or inaccurate speech recognition. The same is true of broader
+socio-indexical groupings, like sex or dialect.
+
+That is, the _utility_ of a socio-indexical variable for improving speech
+recognition is not necessarily the same as the _informativity_ of that variable
+about the underlying cue distributions. Informativity provides an upper bound on
+utility, since conditional cue distributions can only improve recognition to the
+extent that they are actually different from marginal (un-conditioned)
+distributions. This raises the possibility that two equally informative
+socio-indexical variables may not be equally useful for the purposes of speech
+perception.  It is possible that listeners would not _track_ cue distributions
+conditioned on informative socio-indexical variables which are not useful for
+speech perception.
+
+
+<!-- I'm lost here... -->
+
+
 From the perspective of speech perception, talker variability is a problem,
 because it can interfere with linguistic judgements. One of the insights of the
 ideal adapter is that the extent to which talker variability is a problem---and
@@ -293,13 +319,13 @@ than if they believe the talker is American. @Hay2010 found a similar
 sensitivity to dialect group using an even subtler manipulation, manipulating
 listeners perceptions based on a stuffed animal that cued New Zealand or
 Australia.  More broadly, listeners are better at comprehending speech in noise
-from familiar talkers than from novel talkers [@Nygaard1998].
+from familiar talkers than unfamiliar talkers [@Nygaard1998].
 
 These findings establish _that_ listeners use socio-indexical grouping variables
 (including talker identity) to inform speech perception, but they don't tell us
 exactly _how useful_ these variables are. That is, what would be the
 consequences of _ignoring_ these variables? How much do these consequences
-depend on the particular cues, category, or socio-indexical variable?  
+depend on the particular cues, category, or socio-indexical variable?
 
 Our second study addresses this question, using the ideal adapter's link between
 cue distributions and phonetic categorization.  
