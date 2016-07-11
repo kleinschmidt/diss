@@ -790,6 +790,7 @@ $$
 p(v_i | x_i) = \sum_j p(v_i | x_i, g=j) p(g=j | x)
 $$
 (where $x$ refers to all the tokens produced by this talker). For the sake of brevity, we do not present results when group is unknown.
+<!-- TODO-paper: add results when group is unknown? -->
 
 [^notation]: $x_i$ refers to a single observed cue value (possibly multidimensional, in the case of vowel formants), and $x$ (without subscript) refers to a _vector_ of multiple observations (from a single talker, unless otherwise specified). $v_i$ refers to observation $i$'s category, and $g$ to a talker's group. $\sum_j$ refer to a sum over all possible values of $j$.
 
@@ -1650,6 +1651,8 @@ huge consequences on recognition accuracy. But it can be inferred (at least
 above chance) based on vowel F1 and F2, and listeners are plausibly interested
 in determining a talker's regional origins for a variety of reasons. <!--
 unlearning southern accents? -->
+<!-- TODO: extend to less stable social categories? -->
+<!-- TODO-paper: connect more with socio literature and theory -->
 
 An additional consideration is that listeners are not simply told which
 variables are informative and which are not. They must actually _infer_ what
