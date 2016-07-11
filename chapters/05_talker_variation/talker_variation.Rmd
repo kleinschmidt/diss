@@ -1518,7 +1518,13 @@ $$
 
 We perform this analysis separately for each level of socio-indexical
 grouping. For instance, for each talker we compute both $p(\mathrm{sex} | x)$
-and $p(\mathrm{dialect} | x)$.
+and $p(\mathrm{dialect} | x)$.  We assess whether accuracy is significantly
+above chance using a binomial test, rather than bootstrapping as in the previous
+studies, because accuracy is measured at the subject (rather than token) level
+and thus follows a (non-hierarchical) binomial distribution.  We also computed
+the bootstrapped $p$ values and confidence intervals, and they did not differ
+substantially from the exact ones.  Note that chance level accuracy depends on
+the number of groups, and this varies by socio-indexical variable.
 
 
 ```{r indexical-classification, cache=TRUE}
@@ -1593,7 +1599,8 @@ index_acc_summary_exact <-
                       n_acc  =length),
                  accuracy) %>%
   left_join(index_chance_acc) %>%
-  mutate(p_binom = pbinom(sum_acc, n_acc, chance, lower.tail=FALSE))
+  mutate(p_binom = pbinom(sum_acc, n_acc, chance, lower.tail=FALSE),
+         stars_binom = p_val_to_stars(p_binom))
 
 ```
 
@@ -1601,12 +1608,13 @@ index_acc_summary_exact <-
 
 index_acc_summary_exact %>%
   left_join(index_chance_acc) %>%
-  ggplot(aes(x=grouping, y=mean, color=grouping)) +
-  geom_point(aes(shape='Observed'), size=3) +
-  geom_linerange(aes(ymin=ci_low, ymax=ci_high)) +
-  geom_point(aes(y=chance, shape='Chance'), size=3) +
+  ggplot(aes(x=grouping, y=mean)) +
+  geom_point(aes(shape='Observed', color=grouping), size=3) +
+  geom_linerange(aes(ymin=ci_low, ymax=ci_high, color=grouping)) +
+  geom_point(aes(y=chance, shape='Chance', color=grouping), size=3) +
+  geom_text(aes(y=ci_high, label = stars_binom), nudge_y = 0.02) +
   facet_grid(.~contrast + cues, scales='free_x', space='free_x') +
-  ylim(c(0,1)) +
+  ylim(c(0,1.02)) +
   scale_shape_manual('', values = c(1, 16), breaks = c('Chance', 'Observed')) +
   labs(x = 'Grouping',
        y = 'Probability of correct classification\n(Socio-indexical group)') +
@@ -1616,7 +1624,7 @@ index_acc_summary_exact %>%
 
 ### Results {#sec:soc-infer-results}
 
-For most groupings, it is possible to infer each talker's group with above chance accuracy, given only that talker's unlabeled observed cues (Figure {@fig:indexical-acc-plot}; all $p<0.01$, except for inferring a talker's sex based on their VOT distributions, and dialect from un-normalized F1xF2 distributions, both $p>0.15$). Surprisingly, despite the fact that VOT distributions do not differ markedly by age, it is still possible to infer a talker's age based on VOT with above chance accuracy (`r index_acc_summary %>% filter(cues=='VOT', grouping=='Age') %>% format_advantage(paren=FALSE)`).
+For many groupings, it is possible to infer each talker's group with above chance accuracy, given only that talker's unlabeled observed cues (Figure {@fig:indexical-acc-plot}; all $p<0.01$, except for inferring a talker's sex based on their VOT distributions, and dialect from un-normalized F1xF2 distributions, both $p>0.15$). Surprisingly, despite the fact that VOT distributions do not differ markedly by age (cf. Figure @fig:vowel-vot-kl-plot), it is still possible to infer a talker's age based on VOT with above chance accuracy (`r index_acc_summary %>% filter(cues=='VOT', grouping=='Age') %>% format_advantage(paren=FALSE)`).
 
 In some respects, these results mirror the patterns of informativity about the cue distributions themselves (Figure {@fig:vowel-vot-kl-plot}). Vowel formant distributions vary more according to group than do stop VOT distributions, and likewise socio-indexical group can, on the whole, be inferred with higher accuracy based on vowel formants than on VOT. For vowels specifically, much of the variability across talkers is driven by sex differences, and this is the grouping variable that's easiest to infer of the three we tested.
 
