@@ -330,20 +330,40 @@ talkers.
 
 #### Question 3: How well could listeners _infer_ socio-indexical variables given cue distributions?
 
+The utility of tracking socio-indexically-conditioned cue distributions goes
+beyond the recognition of phonetic categories.  The purpose of spoken language
+is not limited to communicating linguistic information.  Every time we speak we
+also communicate socio-indexical information, information about aspects of our
+social identity such as gender, age, class,
+etc. [cf. @Eckert1989; @Eckert2012a; @Labov1972].
+<!-- TODO: more refs here. --> The approach outlined so far also lends itself to
+reasoning about these sorts of social inferences as well. In particular, a
+listener can use knowledge about group-conditioned cue distributions in order to
+evaluate which group best explains the cues they have observed from a talker,
+and hence which group they are likely to belong to.[^dynamic-socio]
 
+[^dynamic-socio]: There are arguably other, more dynamic non-linguistic aspects
+    that are coded in the speech signal, such as mood <!-- (REF) --> or attitude
+    towards our interlocutors <!-- (REF) -->. The approach laid out here---at
+    least in principle---extends to these aspects of communication as well.
 
-Finally, we know that listeners can determine, on the basis of speech alone,
-socio-indexical variables for a talker. Of particular interest,
-listeners can classify talker's regional dialect at above-chance accuracy based
-on a short except of their speech
+As with the previous two questions, there is some evidence that listeners can in
+fact make these sorts of socio-indexical inferences on the basis of speech
+alone.  For instance, listeners can classify talker's regional dialect at
+above-chance accuracy based on a short except of their speech
 [a single sentence read from a standard set @Clopper2006; @Clopper2007].
-
 We include a talker's _identity_ as a socio-indexical variable (in the sense of
 what individual person they are).  There is evidence that listeners can infer a
 talker's identity from sine-wave speech [@Remez1997], speech which has been
 processed to remove most non-phonetic voice quality cues to identity but
 preserve most phonetic information [@Remez1981].
 
+
+However, the extent to which such knowledge would actually be useful in
+practice---and how informative a particular category's or contrast's cue
+distributions are---depends on the actual distribution of cues within and
+between groups.
+<!-- TODO: integrate these -->
 Again, what we don't know is the particular information listeners are using to
 make these inferences, and at an even more basic level, how much information is
 available to them from _phonetic_ cues [for a review, see @Thomas2002]. Thus our
