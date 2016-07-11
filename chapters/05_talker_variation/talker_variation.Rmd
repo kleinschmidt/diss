@@ -277,11 +277,24 @@ socio-indexical variables.
 #### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
 <!-- TODO: awkard, revise -->
-When thinking about speech perception as an inference process, knowledge of
-between-talker variability in cue distributions is helpful, because effective
-inference depends on knowing the underlying cue distributions for each
-category. But this way of thinking also predicts that some kinds of variability
-should affect speech perception itself more than others. For instance, if one
+
+The _utility_ of a socio-indexical variable for guiding speech
+recognition is not necessarily the same as its _informativity_ about the
+underlying cue distributions themselves.
+By the utility of a socio-indexical variable, we mean the benefit
+for speech perception from 1) tracking the cue distributions for phonetic
+categories _conditional_ on group (e.g., for male and female talkers) and 2)
+knowing the value of that variable for a talker (e.g., whether a talker is male
+or female).
+Informativity provides an upper bound on utility,
+since tracking conditional cue distributions can only improve recognition to the extent
+that they are actually different from marginal (un-conditioned)
+distributions. 
+
+It is possible, in principle, that two equally informative
+socio-indexical variables may not be equally useful for the purposes of speech
+perception, and, for instance, not equally tracked by listeners.
+For instance, if one
 category varies across talkers in a way that never causes it to overlap with
 another category, listeners can safely ignore talker-level variation in that
 category without increasing the chance of errors in speech recognition. On the
@@ -289,15 +302,6 @@ other hand, when a category varies across talkers or groups in a way that _does_
 cause it overlap with other categories, ignoring talker-conditioned
 distributions would lead to slowed or inaccurate speech recognition. The same is
 true of broader socio-indexical groupings, like sex or dialect.
-
-That is, the _utility_ of a socio-indexical variable for guiding speech
-recognition is not necessarily the same as its _informativity_ about the
-underlying cue distributions. Informativity provides an upper bound on utility,
-since conditional cue distributions can only improve recognition to the extent
-that they are actually different from marginal (un-conditioned)
-distributions. This raises the possibility that two equally informative
-socio-indexical variables may not be equally useful for the purposes of speech
-perception, and, for instance, not equally tracked by listeners.
 
 We know that listeners do, at least in some cases, use socio-indexical variables
 to guide speech perception. For example, perception of vowels (and
@@ -820,11 +824,7 @@ shows that dialect differences themselves are modulated by sex.
 ## Study 2: utility of socio-indexical groupings for speech recognition
 
 Next, we evaluate the _utility_ of each grouping variable for speech
-recognition. By the utility of a socio-indexical variable, we mean the benefit
-for speech perception from 1) tracking the cue distributions for phonetic
-categories _conditional_ on group (e.g., for male and female talkers) and 2)
-knowing the value of that variable for a talker (e.g., whether a talker is male
-or female).
+recognition.
 
 One way we can quantify this beneift is in terms of _probability of correct
 recognition_ of phonetic categories. By treating speech perception as an
