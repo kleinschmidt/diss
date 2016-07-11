@@ -302,12 +302,8 @@ consequences of _ignoring_ these variables? How much do these consequences
 depend on the particular cues, category, or socio-indexical variable?  
 
 Our second study addresses this question, using the ideal adapter's link between
-cue distributions and phonetic categorization.  This requires data where the
-same talkers produce enough tokens for each relevant category in order to
-estimate the underlying distributions. This places substantial constraints on
-which datasets we can use, since most either do not contain enough tokens per
-talker, or (especially for stop voicing) only contain tokens from a subset of
-categories (e.g., only voiceless stops).
+cue distributions and phonetic categorization.  
+
 
 #### Question 3: How well could listeners _infer_ socio-indexical variables given cue distributions?
 
@@ -330,11 +326,7 @@ Again, what we don't know is the particular information listeners are using to
 make these inferences, and at an even more basic level, how much information is
 available to them from _phonetic_ cues [for a review, see @Thomas2002]. Thus our
 final study aims to shed light on how much listeners can infer about a talker's
-socio-indexical properties based on phonetic cue distributions alone.  This
-places further constraints on the data that we can use, because it requires that
-we have enough tokens, from enough talkers, who are annotated for
-socio-indexical variables
-
+socio-indexical properties based on phonetic cue distributions alone.
 
 <!-- ------------------------------------------- -->
 
@@ -354,13 +346,29 @@ We next describe the datasets we use and the motivations for selecting these dat
 
 ### Data
 
-Guided by our goals and their associated constraints, we selected two
-datasets. The first is a collection of vowel formants from the Nationwide Speech
-Project [NSP; @Clopper2005], and the second a collection of voice onset times (VOT)
-for word-initial voiced and voiceless stops from the Buckeye corpus
-[@Pitt2007, extracted by Wedel, _in prep_].  Based on the variable annotated in
-the available data, we consider cue distributions conditioned on the following
-socio-indexical grouping variables:
+Guided by our goals, we selected two datasets. The first is a collection of
+vowel formants from the Nationwide Speech Project [NSP; @Clopper2005], and the
+second a collection of voice onset times (VOT) for word-initial voiced and
+voiceless stops from the Buckeye corpus
+[@Pitt2007, extracted by Wedel, _in prep_].  We chose to compare vowels and stop
+voicing because there appears to be different amounts and types of talker
+variability for these contrasts.  Our specific goals further constrain our
+particular choice of datasets.
+
+First, in order to estimate the _between_ vs. _within_ talker variability, we
+need data with enough talkers who each produce enough tokens of the relevant
+phonetic categories in order to estimate the corresponding cue distributions.
+Second, in order to estimate the _utility_ of socio-indexical variables, we need
+data where each talker produces tokens from _each_ of the categories for the
+contrast.  Third, to assess the influence of different socio-indexical
+variables, we need data where different socio-indexical variables are actually
+annotated.
+These rule out many existing datasets which either do not contain enough
+tokens per talker, or (especially for stop voicing) only contain tokens from a
+subset of categories (e.g., only voiceless stops).
+
+Based on the variables annotated in the available data, we consider cue
+distributions conditioned on the following socio-indexical grouping variables:
 
 * __Marginal__: is a control grouping, which includes all tokens from all
   talkers. This serves as a baseline against which more specific group
