@@ -614,15 +614,14 @@ based on adaptation data presented above.
 
 ### Methods {#sec:methods-model}
 
-We denote the listener's beliefs about the *current* talker's generative
-model as the parameters of a two-component mixture of gaussians
+We model each category (/b/ and /p/) as a single normal distribution. Listeners' _uncertain beliefs_ about the underlying cue distributions can thus be modeled as a probability distribution over the parameters of the category distributions, which we denote
 $$
 \theta = \{ \mu_\mathrm{b}, \sigma^2_\mathrm{b}, \mu_\mathrm{p},
             \sigma^2_\mathrm{p} \}
 $$ 
-where $\mu$ is a category's mean VOT and $\sigma^2$ is its variance. As in
+where $\mu_c$ is the mean VOT of category $c$ and $\sigma^2_c$ is its variance. We do not include the mixing weight (category prior probability) as a parameter, assuming that each category is equally likely. This is true in the context of our experiment, and moreover the only effect of unequal weights is a constant shift in the category boundary, regardless of the distributions [@Feldman2009a].  As in
 @Kleinschmidt2015, we use an independent, conjugate Normal-$\chi^{-2}$ prior for
-each category, with parameters [@Gelman2003]
+each category, with parameters $\phi$ [@Gelman2003]
 
 $$\begin{aligned}
 \phi &= \{ \mu_{0,\mathrm{b}}, \sigma^2_{\mathrm{b}},
@@ -649,7 +648,7 @@ shared between the two categories. That is, we assume that listeners have equal 
 To estimate the listeners' prior beliefs, we infer values for these
 parameters given the observed adaptation behavior (category responses
 $y$ and input VOTs $x$) using Bayesian inference, marginalizing over
-$\theta$:
+the actual category means and variances $\theta$:
 
 $$\begin{aligned}
   p(\phi | x, y) &\propto p(y | \phi, x) p(\phi) \\
@@ -685,7 +684,7 @@ the category of each observation when modeling how beliefs are updated. It is
 possible to back off on this assumption, but in exploring this we found that the
 question of how to incorporate listeners' judgments into the belief updating
 model to be surprisingly subtle.  For instance, one seemingly obvious fix that
-we investigated is to treat listeners' responses themselves as the category
+we investigated is to treat listeners' responses as the category
 labels to be used for belief updating (rather than the experimenter-defined
 categories). However, this technique effectively fits the _exposure_
 distributions to listeners classification functions, and in doing so biases the
@@ -813,19 +812,20 @@ lapse_rate_samples <- melt_samples(mod_samples, 'lapse_rate')
 ```
 
 
-The posterior distributions of each of these parameters (the shared
-prior beliefs plus lapsing rate) were estimated using MCMC with the Stan
-software package [@Stan2015]. Weakly informative hyperpriors were used
-that were centered at 0 with standard deviations of 100 for the prior
-expected means and variances (making them roughly constant over
-reasonable values) and 888 (four times the total number of trials that
-listeners heard) for the prior confidence pseudocounts (which is
-essentially uniform on the whole range from completely ignoring prior
-beliefs to not adapting at all). The prior for the lapsing rate was
-uniform on $[0,1]$. We ran four chains for 1000 samples each, discarding
-the first 500 as burn-in for a total of 2000 samples overall. This
-sampler converged well and achieved good mixing [maximum
-$\hat{R}= `r round(max_Rhat, 3)`$; @Gelman1992].
+The posterior distributions of each of these parameters (the shared prior
+beliefs plus lapsing rate) were estimated by Hamiltonian Monte Carlo, using the
+Stan software package [@Stan2015].  We used weakly informative normal priors to
+prevent the sampler from getting stuck in regions of parameter space that did
+not affect model fit.  For the expected means and variances, the priors were
+centered at 0 with standard deviations of 100 (making them roughly uniform over
+reasonable values). For the confidence parameters, the priors were centered as 0
+with standard deviation of 888 (which was four times the total number of trials
+that listeners heard), making it essentially uniform on the whole range from
+completely ignoring prior beliefs to not adapting at all. The prior for the
+lapsing rate was uniform on $[0,1]$. We ran four chains for 1000 samples each,
+discarding the first 500 as burn-in for a total of 2000 samples overall. This
+sampler converged well and achieved good mixing
+[maximum $\hat{R}= `r round(max_Rhat, 3)`$; @Gelman1992].
 
 ### Results and discussion ###
 
