@@ -376,7 +376,7 @@ of different aspects of the speech signal. Thus our final study aims to quantify
 how well listeners would be able to infer socio-indexical properties based on
 phonetic cue distributions alone. We do this by treating these socio-indexical
 inferences in mathematically the same way that we treat linguistic
-inferences. This further highlights the potential of the ideal adapter framework
+inferences. This highlights the potential of the ideal adapter framework
 as a unifying perspective on linguistic and socio-indexical inferences.
 
 We chose to focus on socio-indexical variables that are categorical and
