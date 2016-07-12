@@ -249,17 +249,12 @@ by quantifying how _informative_ socio-indexical variables---including talker
 identity---are about the distribution of acoustic-phonetic cues.  We do this for
 two sets of contrasts/cues: vowels (cued by first and second formant
 frequencies; F1xF2) and word-initial stop voicing (cued by voice onset time;
-VOT). Focusing on information theoretic properties of the cue distributions
-provides a principled common currency for comparing different socio-indexical
-variables, phonetic categories, and cues.
+VOT). We selected these particular contrasts based on the qualitative evidence
+that they exhibit different degrees and types of cross-talker
+variability. Focusing on information theoretic properties of the cue
+distributions provides a principled common currency for comparing different
+socio-indexical variables, phonetic categories, and cues.
 <!-- [^bilingual-vot] -->
-
-In order to address this question, we need data on contrasts/cues that might
-reasonably be expected to differ in the informativity of socio-indexical
-variables (including talker identity). As we summarized above, vowels and stop
-voicing are likely provide such a contrast, and thus we selected one corpus
-where the relevant cues were annotated for each, along with a range of
-socio-indexical variables.
 
 <!-- TODO: move this (WHERE??) -->
 [^bilingual-vot]: One notable exception is native language background. For
@@ -320,18 +315,20 @@ underlying structure of talker variability for these contrasts.  This depends on
 exactly how useful these socio-indexical variables would be for speech
 recognition, which is the second question we address in this paper.  The ideal
 adapter provides a principled way to link talker- and group-conditioned
-variability in cue distributions with the utility of those variables.  It also
-provides a framework for making specific, testable predictions about how
-listeners actually take advantage of structure in talker variability, both in
-using socio-indexical variables to guide speech perception directly and in
-learning and structuring knowledge about how cue distributions vary across
-talkers.
+variability in cue distributions with the utility of those variables.  This link
+comes from treating speech perception as an inference process, which predicts
+phonetic classification from the underlying cue distributions.  We use this link
+to quantify, in Study 2, how much speech recognition is improved by conditioning
+cue distributions on a particular socio-indexical variable.
 
-One sense of utility that is of particular interest is how listeners
-_generalize_ from experience with one talker to another in speech recognition.
-A variety of experiments on phonetic recalibration (or perceptual learning) have
-shown that listeners sometimes generalize from experience with, for instance, a
-male talker to inform perception of an unfamiliar, female talker
+One advantage of the ideal adapter framework is that quantifying the utility of
+socio-indexical variables in this way leads to further, testable predictions
+about the role that socio-indexical variables play in speech perception.  One
+sense of utility that is of particular interest is how listeners _generalize_
+from experience with one talker to another in speech recognition.  A variety of
+experiments on phonetic recalibration (or perceptual learning) have shown that
+listeners sometimes generalize from experience with, for instance, a male talker
+to inform perception of an unfamiliar, female talker
 [@Kraljic2006; @Kraljic2007; @Reinisch2014; @Munson2011], but sometimes they do
 not [@Eisner2005; @Kraljic2007; @Reinisch2014].  The ideal adapter predicts that
 listeners will generalize when they think that the two talkers both belong to a
