@@ -407,7 +407,7 @@ typical and exposure talkers' distributions were determined using an ideal
 listener model [@Clayards2008; @Kleinschmidt2015]. Under such a model, the
 predicted probability of a /p/ response for a VOT of $x$, denoted
 $p(c=\mathrm{p}|x)$ is the _likelihood_ of $x$ under the /p/ distribution,
-$p(x|c=\mathrm{p}), divided by the total likelihood under both /b/ and /p/,
+$p(x|c=\mathrm{p})$, divided by the total likelihood under both /b/ and /p/,
 $p(x|c=\mathrm{b}) + p(x|c=\mathrm{p})$.
 
 Using the cue distributions for the typical talker, this provides an estimate of
@@ -1122,7 +1122,7 @@ contrast (where the latter exhibits larger variability across talkers; e.g.,
 
 votcorpora::vot %>%
   filter(place == 'lab') %>%
-  group_by(prevoiced, voicing, phoneme, subject) %>%
+  group_by(source, prevoiced, voicing, phoneme, subject) %>%
   summarise(mean_vot = mean(vot)) %>%
   summarise_each(funs(mean, sd), mean_vot)
 
