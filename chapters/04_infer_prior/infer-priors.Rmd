@@ -609,6 +609,30 @@ Here, we wish to fit both the content of (prior expected mean
 and variance of each category) and the confidence in prior beliefs,
 based on adaptation data presented above.
 
+@Kronrod2012 also use a Bayesian model to estimate the underlying distributions
+of VOT for /b/ and /p/ based on comprehension behavior. Specifically, they fit
+the mean and variance of each category directly to listeners' classification
+function for a VOT continuum.[^sensory-uncertainty] However, despite this
+superficial similarity, their approach is very different from ours.  Their
+estimates are based on listeners' perception of speech from a _single_ talker,
+who moreover produced a highly unnatural flat distribution over a wide range of
+VOTs.  Thus, the resulting estimates of the underlying distributions reflect, at
+most, listeners' beliefs about this single, highly unusual talker's production
+of VOT, and don't support any conclusions about cross-talker patterns at the
+population level.  While this might also seem to invalidate our use of their
+estimates as a "typical" talker, the distributions they inferred bear a close
+resemblance to those from @Lisker1964. This suggests that listeners in their
+experiment may have discounted the unusual, flat VOT distribution they
+experienced as too unusual to be representative of the talker's actual
+distributions.
+
+[^sensory-uncertainty]: They also estimated a _sensory uncertainty_, or noise
+    variance, parameter, based on discrimination of pairs of VOTs at different
+    points on the VOT continuum.  The primary goal of their study was to
+    investigate the relative contribution of intrinsic category variability and
+    sensory uncertainty in listeners' perception.  We lump both of these factors
+    together in this study, because their influence cannot be disentangled based
+    on classification alone.
 
 <!-- TODO: what did kronrod et al. do? -->
 
