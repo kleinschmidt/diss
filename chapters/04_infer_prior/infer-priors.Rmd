@@ -384,17 +384,43 @@ Each trial's word was synthesized with a voice onset time (VOT) that was
 randomly drawn from a bimodal distribution, with low and high VOT clusters
 implicitly corresponding to /b/ and /p/, respectively. This distribution defined
 the *accent* that the subject heard, and each subject was pseudorandomly
-assigned to one of five accent conditions (Figure @fig:vot-dists-exp1). The cue
-distributions for each of these accents implies a different /b/-/p/ category
-boundary, and listeners' adaptation was evaluated by comparing their /b/-/p/
-classification function (fit by a logistic GLM) to the classification
-function derived from the typical talker's cue distributions (corresponding to
-no adaptation) and the exposure distribution (corresponding to maximal---but not
-necessarily optimal---adaptation).
+assigned to one of five accent conditions (Figure @fig:vot-dists-exp1). 
+
+#### Materials
+
+The audio and visual stimuli we used were identical to those in
+@Clayards2008. Three /b/-/p/ minimal pair audio continua were synthesized using
+the 1988 Klatt synthesizer [@Klatt1980], by manipulating VOT in 10ms increments
+(either adding voicing before the stop burst to create negative VOTs, or
+aspiration after for positive VOTs). Within a /b/-/p/ continuum, the other
+parameters were held constant, and modeled on natural tokens of the endpoints
+(beach/peach, bees/peas, and beak/peak).
 
 ### Results and Discussion
 
 ```{r class-curves, fig.height=2, fig.width=8, fig.cap="Listeners' responses, smoothed with logistic functions (thin lines), compared with the classification functions expected based on a typical talker (no learning; dashed black lines) and complete adaptation to the exposure distributions (thick dashed colored lines). Listeners' actual category boundaries lie between the typical talker and exposure talker boundaries (see Table {@tbl:boundary-shift})."}
+To assess how well listeners adapted to the exposure talker's cue distributions,
+we estimated listeners' classification functions, and compared those to the
+typical and exposure talker's classification functions.  Each listener's
+classification function was estimated by fitting a logistic GLM to the
+proportion of /p/ responses given VOT.  The classification functions for the
+typical and exposure talkers' distributions were determined using an ideal
+listener model [@Clayards2008; @Kleinschmidt2015]. Under such a model, the
+predicted probability of a /p/ response for a VOT of $x$, denoted
+$p(c=\mathrm{p}|x)$ is the _likelihood_ of $x$ under the /p/ distribution,
+$p(x|c=\mathrm{p}), divided by the total likelihood under both /b/ and /p/,
+$p(x|c=\mathrm{b}) + p(x|c=\mathrm{p})$.
+
+Using the cue distributions for the typical talker, this provides an estimate of
+how listeners would classify VOTs if they were completely insensitive to the
+exposure talker. Using, on the other hand, the distributions produced by the
+exposure talker provides an estimate of how listeners would classify VOTs if
+they _completely_ adapted to the exposure talker, ignoring any prior beliefs
+they may have.  Such complete adaptation is not necessarily _optimal_,
+especially given limited input data.  The ideal adapter predicts that listeners'
+classification functions will be intermediate between these two extremes,
+reflecting a compromise between prior beliefs and current exposure.
+
 
 ## generate predicted classification functions assuming Bayes-optimal classifier
 ## + noise
