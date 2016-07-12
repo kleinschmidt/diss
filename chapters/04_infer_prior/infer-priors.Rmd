@@ -114,34 +114,41 @@ incomplete adaptation.
 
 There is already some evidence for this prediction.
 For instance, @Idemaru2011 tested how well listeners adapt to distributions of
-two cues that distinguish voicing (e.g., /b/ vs. /p/), voice onset time (VOT)
-and the pitch of the following vowel (f0).  These two cues are typically
+two cues that distinguish voicing (e.g., /b/ vs. /p/), voice onset time (VOT, the primary cue to voicing)
+and the pitch of the following vowel (f0, a secondary cue).  These two cues are typically
 positively correlated in English, with /p/ corresponding to high VOT and high
-f0, and /b/ to low values of both cues. In one condition, listeners were exposed to a talker who produced
-a positively correlated distribution of these cues. These listeners adapted to this distribution, and used
-f0 to categorize stops with ambiguous VOTs. In another condition, heard a talker
-who produced an *un*correlated distribution, where f0 is uninformative. Listeners in this condition also adapted, learning to ignore f0 even for ambiguous
-VOTs. But when exposed in a third condition to a talker who produced an *anti*correlated
-distribution, listeners did _not_ adapt.  Despite the fact
+f0, and /b/ to low values of both cues [@Kohler1982]. In one condition, listeners were exposed to a talker who produced
+a positively correlated distribution of these cues. During a post-test, these listeners used
+f0 to categorize stops with ambiguous VOTs. In another condition, listeners heard a talker
+who produced an *un*correlated distribution, where f0 is uninformative. In contrast to the listeners in the first condition, during the post test these listeners _ignored_ f0 even for ambiguous
+VOTs. This effect is consistent with the idea that listeners are rationally integrating multiple cues to voicing, weighing them based on how informative they are [@Ernst2004; @Clayards2008; @Bejjanki2011]. However, listeners in a third condition who were exposed to a talker who produced an *anti*correlated
+did _not_ follow the predictions of rational cue integration.  Despite the fact
 that f0 was just as informative for this accent as for the positively correlated
 accent, listeners _ignored_ f0 as a cue to voicing. This suggests that these listeners have ruled out the possibility of a
 reversed mapping between f0 and voicing (/b/ vs. /p/), possibly perhaps American
 English talkers typically do not typically produce it [e.g., @House1953].
 Likewise, @Sumner2011 found that listeners had trouble adapting to a talker who
-produced VOT distributions for /b/ and /p/ that had substantially lower means
-than a typical talker.
+produced VOT distributions for /b/ and /p/ that had _substantially_ lower means (approximately -60ms and 0ms, respectively)
+than a typical talker [approximately 0--10ms and 60ms VOT; @Lisker1964].
 
 <!-- this might be too strong. both @Idemaru2011 and @Sumner2011 do in fact manipulate distributions parametrically -->
-However, no studies have systematically probed whether and how a listener's
-prior expectations constrain phonetic adaptation, or even what kind of prior
-beliefs listeners have. To that end, in two experiments we expose listeners to a
-range of different accents, which differ (only) in the distributions of voice
-onset time (VOT), the primary cue to word-intial consonant voicing (e.g., /b/
-vs. /p/).  By parametrically manipulating these distributions, we create a range
-of accents that are more or less similar to what a typical talker of English
-produces. We then assess the degree to which listeners adapt their beliefs about
-the novel talker's cue distributions, depending on the *a priori* typicality of
-these distributions.
+
+These results are _consistent_ with the ideal adapter's prediction that
+listeners use gradient, structured knowledge about how talkers tend to vary to
+guide their adaptation to an unfamiliar talker. However, it is also possible
+that these results are simply due to the extremely unnatural input that
+listeners received.  Both studies involved gross, categorical mismatches between
+typical and experimental cue distributions: a reversal of the f0-to-voicing
+mapping in @Idemaru2011, and a remapping of /b/-like VOTs to /p/ in @Sumner2011.
+
+Our goal first goal in this paper is thus a stronger test of the ideal adapter
+hypothesis. In two experiments, we expose listeners to a range of different
+accents, which differ (only) in the distributions of voice onset time (VOT).  By
+parametrically manipulating these distributions, we create a range of accents
+that are more or less similar to what a typical talker of English produces.  We
+then assess the degree to which listeners adapt their beliefs about the novel
+talker's cue distributions, depending on the *a priori* typicality of these
+distributions.
 
 To anticipate the results, we find that typicality of the novel talker's
 cue distribution predicts the degree to which listeners adapt to the
@@ -150,17 +157,32 @@ distributions for a *particular* single talker [as suggested by previous
 work, @Clayards2008; @Feldman2009a; @Kleinschmidt2015; @Kronrod2012],
 but also have implicit beliefs about the ways in which talkers tend to
 *differ* from each other, and hence what to expect from an unfamiliar
-talker. This leads to the second question we address here: what is the
-content of listeners' prior beliefs about inter-talker variability? To
-this end, we use a Bayesian belief-updating model to work backwards from
-listeners' adaptation behavior across talkers and *infer* listeners'
-shared prior beliefs. This approach provides a more direct assessment of
-listeners' subjective prior beliefs than production data from many
-different talkers, which moreover requires costly and time-consuming
-annotation. If successful, this would provide a powerful method for
-investigating listeners' prior beliefs that could be applied to other
-cues, categories, and even social variables (like gender, native
-language background, etc.).
+talker. 
+
+This leads to the second question we address here: what is the content of
+listeners' prior beliefs about inter-talker variability? To this end, we present
+an _inverted belief-updating_ model, which allows us to work backwards from
+listeners' adaptation behavior across talkers in order to *infer* listeners'
+shared prior beliefs. This approach has a number of advantages. First, it
+provides a more direct assessment of listeners' _subjective_ prior beliefs,
+which are, according to the ideal adapter, what matters for understanding
+adaptation. Second, it allows us to compare these subjective beliefs about
+talker variability to data on the _objective_ level and type of cross-talker
+variability that is present in the world.  Third, by assessing listeners prior
+beliefs directly from their behavior, this method avoids the need for production
+data, which is difficult to collect and often requires time-consuming expert
+annotation.
+
+If this model is successful, it provides a missing methodological tool for
+understanding listeners' prior expectations. These expectations are, according
+to the ideal adapter, one of (if not _the_) most important factor in listeners'
+remarkable ability to efficiently understand speech from many different
+talkers. In particular, to fully understand listeners' prior beliefs we need to
+understand how they are learned from experience with actual, objective
+cross-talker variability, how they are structured across different
+cues/categories, and how they relate to socio-indexical grouping variables like
+gender, dialect, etc.  This modeling work thus serves as a proof-of-concept for
+future work on these questions.
 
 We first present the design and results of Experiment 1. Then we use a belief
 updating model to infer listeners' prior beliefs based on the results of that
