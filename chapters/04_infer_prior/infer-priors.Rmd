@@ -562,6 +562,9 @@ combine their prior expectations with observed cue distributions in order to
 rapidly adapt to unfamiliar talkers, as predicted by the ideal adapter framework
 [@Kleinschmidt2015].
 
+<!-- TODO: footnote on exemplar approaches being broadly compatible? -->
+<!-- TODO: what kind of models would NOT predcit this? to avoid "impression of confirmatory modeling" -->
+
 
 ```{r boundary-shift, results='asis', tbl.cap="Percentage of boundary shift from typical talker to each exposure talker (see Figure {@fig:class-curves}), averaged over subjects with 95% bootstrapped confidence intervals.  0% shift corresponds to no adaptation at all, while 100% corresponds to perfect adaptation, ignoring any prior  beliefs. Typical and exposure talker boundaries were too close together to reliably determine boundary shift percentage in the 0ms condition."}
 
@@ -596,9 +599,18 @@ previous modeling work has treated the content of listeners prior
 beliefs---the category means and variances they think are most likely---as
 known and fixed, setting them based on pre-adaptation classification
 data, and then fitting the confidence in those prior beliefs as a free
-parameter. Here, we wish to fit both the content of (prior expected mean
+parameter. 
+<!-- TODO: integrate this better -->
+The goal of this earlier modeling work was to test how well belief updating
+itself could explain the rapid build up of adaptation, and fixing the prior
+expected category means and variances restricted the 
+
+Here, we wish to fit both the content of (prior expected mean
 and variance of each category) and the confidence in prior beliefs,
 based on adaptation data presented above.
+
+
+<!-- TODO: what did kronrod et al. do? -->
 
 ### Methods {#sec:methods-model}
 
@@ -1744,6 +1756,8 @@ caveat that our model makes potentially problematic assumptions about the
 structure of categories within and across talkers, which we discuss below).
 
 (( TODO: stuff on prior confidence vs. other modeling work here? ))
+
+<!-- TODO: explained by physical constraints on VOTs? no, the VOTs we use are well within the range that naturally occur. the difference is the STATISTICS -->
 
 There are, of course, other possible sources for these constraints. For
 instance, the basic nature of the mammalian auditory system may constrain the
