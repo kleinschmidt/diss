@@ -242,17 +242,12 @@ conditions_exp1 <-
 
 data_exp1 %<>% left_join(conditions_exp1)
 
-vot_range <- c(-20, 50)
-vot_to_hcl <- function(vot) hcl(h = (vot-vot_range[1])/diff(vot_range)*330 - 15,
-                                c = 100, l = 65)
-colors_exp1 <- conditions_exp1 %>% mutate(color = vot_to_hcl(ideal_boundary))
+vot_colors = hcl(h = seq(0,330, length.out=6)-15,
+                 c = 100,
+                 l = 65)
 
-scale_color_exp1 <- scale_color_manual('/b/, /p/\nmean VOT',
-                                       breaks = colors_exp1$vot_cond,
-                                       values = colors_exp1$color)
-scale_fill_exp1 <- scale_fill_manual('/b/, /p/\nmean VOT',
-                                     breaks = colors_exp1$vot_cond,
-                                     values = colors_exp1$color)
+scale_color_exp1 <- scale_color_manual('/b/, /p/\nmean VOT', values=vot_colors[2:6])
+scale_fill_exp1 <- scale_fill_manual('/b/, /p/\nmean VOT', values=vot_colors[2:6])
 
 ```
 
@@ -282,7 +277,7 @@ data_exp1 %>%
             color='black', hjust=0, vjust=0.3, size=3) +
   geom_text(data=data.frame(vot_cond='-10, 30'), x = 40, y = 50,
             label = 'Exposure\nTalker',
-            color=hcl(h=15, c=100, l=65), hjust=0, vjust=0.8, size=3,
+            color=vot_colors[2], hjust=0, vjust=0.8, size=3,
             lineheight=1) + 
   facet_grid(.~vot_cond) +
   scale_x_continuous('VOT (ms)') +
@@ -394,22 +389,22 @@ ggplot(data_exp1, aes(x=vot, y=respP, color=vot_cond)) +
             lineheight=1) + 
   geom_text(data=data.frame(vot_cond='-10, 30'),
             x = 12, y = 1, label = 'Expo-\nsure',
-            size = 3.5, hjust=1, vjust=1, color=hcl(15, c=100, l=65),
+            size = 3.5, hjust=1, vjust=1, color=vot_colors[2],
             lineheight=1, fontface='bold') + 
   geom_text(data=data.frame(vot_cond='-10, 30'),
             x = 90, y = 0.75, label = 'Actual\nlisteners',
-            size = 3.5, hjust=1, vjust=1, color=hcl(15, c=100, l=65),
+            size = 3.5, hjust=1, vjust=1, color=vot_colors[2],
             lineheight=1) + 
   scale_x_continuous('VOT (ms)', limits = vot_limits) +
   scale_y_continuous('Probability /p/ response') + 
-  scale_color_discrete('/b/ mean\nVOT')
+  scale_color_exp1
 
 ```
 
 ```{r boundaries-exp1, cache=TRUE}
 
 boundaries_exp1 <- data_exp1 %>%
-  group_by(bvotCond, subject) %>%
+  group_by(bvotCond, vot_cond, subject) %>%
   do({ glm(respP ~ vot, family='binomial', data=.) %>%
          broom::tidy() %>%
          select(term, estimate)
@@ -422,7 +417,7 @@ boundaries_exp1 <- data_exp1 %>%
          prop_shift = (boundary-prior_boundary)/(ideal_boundary-prior_boundary))
 
 boundary_summary_exp1 <- boundaries_exp1 %>%
-  group_by(bvotCond) %>%
+  group_by(vot_cond) %>%
   summarise(median_shift_perc = round(100*median(prop_shift)),
             shift_text = paste(median_shift_perc, '%', sep=''),
             prop_between = mean(xor(boundary > ideal_boundary,
@@ -434,35 +429,35 @@ boundary_summary_exp1 <- boundaries_exp1 %>%
 
 ```{r boundary-violin-plots-exp1, fig.width=6.5, fig.height=4.5, fig.cap="Most listeners' individual boundaries fall between the boundaries implied by cue distributions from a typical talker and exposure talker. White points and CIs show mean and bootstrapped 95% CIs for mean boundary in each condition."}
 
-ggplot(boundaries_exp1, aes(y = boundary, x = bvotCond, fill = bvotCond)) +
+ggplot(boundaries_exp1, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   ## this is an awful hack: plot the violins first to force continuous x
   geom_violin(color=NA,draw_quantiles=c(0.25, 0.5, 0.75), show.legend=FALSE,
               alpha = 0) +
   geom_segment(data = boundaries_exp1 %>%    # prior boundary
-                 summarise(xmin = min(as.numeric(bvotCond))-0.5,
-                           xmax = max(as.numeric(bvotCond))+0.5,
+                 summarise(xmin = min(as.numeric(vot_cond))-0.5,
+                           xmax = max(as.numeric(vot_cond))+0.5,
                            y = unique(prior_bound)),
                aes(x=xmin, xend=xmax, y=y, yend=y, fill=NA),
                color='black', linetype=2) + 
-  geom_segment(aes(x=as.numeric(bvotCond)-.5, # exposure boundaries_exp1
-                   xend=as.numeric(bvotCond)+.5,
+  geom_segment(aes(x=as.numeric(vot_cond)-.5, # exposure boundaries_exp1
+                   xend=as.numeric(vot_cond)+.5,
                    y=ideal_boundary,
                    yend=ideal_boundary,
-                   color=bvotCond),
+                   color=vot_cond),
                linetype = 2, size = 1,
-               data = boundaries_exp1 %>% group_by(bvotCond, ideal_boundary) %>% summarise()) +
+               data = boundaries_exp1 %>% group_by(vot_cond, ideal_boundary) %>% summarise()) +
   geom_violin(color=NA,
               ## draw_quantiles=c(0.25, 0.5, 0.75),
               alpha = 0.5,
               show.legend=FALSE) +
   coord_flip() +
-  geom_text(data=(boundaries_exp1 %>% filter(bvotCond==20) %>% head(n=1)),
-            aes(y=ideal_boundary, color=bvotCond),
+  geom_text(data=(boundaries_exp1 %>% filter(vot_cond=='20, 60') %>% head(n=1)),
+            aes(y=ideal_boundary, color=vot_cond),
             ## x=3.5, y=41, 
             label='Exposure talker-\nspecific boundary',
             hjust = 0, vjust = 0,
             nudge_x = -0.5, nudge_y = 1) +
-  geom_text(data=(boundaries_exp1 %>% filter(bvotCond==20) %>% head(n=1)),
+  geom_text(data=(boundaries_exp1 %>% filter(vot_cond=='20, 60') %>% head(n=1)),
             aes(y=prior_boundary), color='black',
             ## x=3.5, y=41, 
             label='Typical talker\'s \nboundary',
@@ -470,9 +465,10 @@ ggplot(boundaries_exp1, aes(y = boundary, x = bvotCond, fill = bvotCond)) +
             nudge_x = -0.5, nudge_y = -1) +
   geom_pointrange(stat='summary', fun.data='mean_cl_boot', color='white') +
   theme(legend.position='none') +
-  labs(x = 'Condition (Mean /b/ VOT)',
+  labs(x = 'Condition (/b/, /p/ mean VOT)',
        y = 'Category boundary (ms VOT)') +
-  scale_color_discrete()
+  scale_color_exp1 +
+  scale_fill_exp1
 
 ```
 
@@ -508,13 +504,13 @@ rapidly adapt to unfamiliar talkers, as predicted by the ideal adapter framework
 
 ## bootstrapped boundary summary
 boundaries_exp1 %>% 
-  group_by(bvotCond) %>% 
+  group_by(vot_cond, bvotCond) %>% 
   do(daver::boot_ci(., function(d,i) {mean(d$prop_shift[i])})) %>%
   mutate(observed = round(observed * 100),
          ci_lo = round(ci_lo * 100),
          ci_high = round(ci_high * 100)) %>%
   ungroup() %>%
-  transmute(`/b/ mean VOT` = bvotCond,
+  transmute(`/b/, /p/ mean VOT` = vot_cond,
             `Mean shift` = ifelse(bvotCond == 0,
                                   '---',
                                   sprintf('%d%%', observed)),
@@ -781,21 +777,23 @@ mod_class_funs <-
             prob_p = mean(prob_p))
 
 data_by_subject <- data_exp1 %>%
-  group_by(subject, bvotCond, vot) %>%
+  group_by(subject, vot_cond, vot) %>%
   summarise(prob_p = mean(respP))
 
 
 
 ## plot observed and model-predicted classification functions
-ggplot(mod_class_funs, aes(x=vot, y=prob_p, color=bvotCond, fill=bvotCond)) +
+mod_class_funs %>%
+  left_join(conditions_exp1) %>%
+  ggplot(aes(x=vot, y=prob_p, color=vot_cond, fill=vot_cond)) +
   geom_ribbon(aes(ymin=prob_p_low, ymax=prob_p_high), size=0, alpha=0.5) + 
   geom_point(data = data_by_subject, stat='summary', fun.y='mean') + 
   geom_linerange(data=data_by_subject, stat='summary', fun.data='mean_cl_boot') + 
-  facet_grid(.~bvotCond) +
+  facet_grid(.~vot_cond) +
   scale_x_continuous('VOT (ms)') +
   scale_y_continuous('Probability /p/ response') + 
-  scale_color_discrete('/b/ mean\nVOT') + 
-  scale_fill_discrete('/b/ mean\nVOT')
+  scale_color_exp1 +
+  scale_fill_exp1
 
 
 ```
@@ -1088,13 +1086,9 @@ sepmeans_test <-
   filter(is_test) %>%
   left_join(sepmeans_conds)
 
-colors_exp2 <- sepmeans_conds %>% mutate(color = vot_to_hcl(ideal_boundary))
-scale_color_exp2 <- scale_color_manual('/b/, /p/\nmean VOT',
-                                       breaks = colors_exp2$vot_cond,
-                                       values = colors_exp2$color)
-scale_fill_exp2 <- scale_fill_manual('/b/, /p/\nmean VOT',
-                                     breaks = colors_exp2$vot_cond,
-                                     values = colors_exp2$color)
+scale_color_exp2 <- scale_color_manual('/b/, /p/\nmean VOT', values=vot_colors[1:5])
+scale_fill_exp2 <- scale_fill_manual('/b/, /p/\nmean VOT', values=vot_colors[1:5])
+
 
 
 ```
@@ -1117,7 +1111,6 @@ sepmeans %>%
   facet_grid(.~vot_cond) +
   scale_x_continuous('VOT (ms)') +
   scale_y_continuous('Frequency') +
-  ## scale_fill_discrete('/b/, /p/\nmean VOT')
   scale_fill_exp2
 
 ```
@@ -1320,7 +1313,7 @@ sepmeans_test %>%
   facet_grid(.~vot_cond) +
   scale_x_continuous('VOT (ms)', limits = vot_limits) +
   scale_y_continuous('Probability /p/ response') + 
-  scale_color_discrete('/b/, /p/\nmean VOT')
+  scale_color_exp2
 
 
 ```
@@ -1354,7 +1347,8 @@ ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   theme(legend.position='none') +
   labs(x = 'Condition (Mean /b/ and /p/ VOT)',
        y = 'Category boundary (ms VOT)') +
-  scale_color_discrete() +
+  scale_color_exp2 +
+  scale_fill_exp2 +
   geom_violin(data = boundaries_exp1 %>%
                 filter(bvotCond == 10) %>%
                 mutate(vot_cond = '10, 50'),
@@ -1515,9 +1509,9 @@ predicted_prob_p %>%
                   stat='summary', fun.data=mean_cl_boot) +
   facet_grid(.~vot_cond) +
   labs(x = 'VOT (ms)',
-       y = 'Probability /p/ response',
-       color = '/b/, /p/\nmean VOT',
-       fill = '/b/, /p/\nmean VOT')
+       y = 'Probability /p/ response') +
+  scale_color_exp2 +
+  scale_fill_exp2
 
 ```
 
