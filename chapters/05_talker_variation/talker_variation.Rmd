@@ -98,8 +98,6 @@ grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker
 
 # How much does grouping talkers help with speech perception? {#chap:talker-variation}
 
-## Introduction
-
 Variability is one of the defining features of speech.
 There are two broad traditions in the study of speech, with
  very different approaches to the role of _variability_ in speech. On the one
