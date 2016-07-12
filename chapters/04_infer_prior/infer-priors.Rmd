@@ -120,8 +120,8 @@ positively correlated in English, with /p/ corresponding to high VOT and high
 f0, and /b/ to low values of both cues. In one condition, listeners were exposed to a talker who produced
 a positively correlated distribution of these cues. These listeners adapted to this distribution, and used
 f0 to categorize stops with ambiguous VOTs. In another condition, heard a talker
-who produced an _un_correlated distribution, where f0 is uninformative. Listeners in this condition also adapted, learning to ignore f0 even for ambiguous
-VOTs. But when exposed in a third condition to a talker who produced an _anti_correlated
+who produced an *un*correlated distribution, where f0 is uninformative. Listeners in this condition also adapted, learning to ignore f0 even for ambiguous
+VOTs. But when exposed in a third condition to a talker who produced an *anti*correlated
 distribution, listeners did _not_ adapt.  Despite the fact
 that f0 was just as informative for this accent as for the positively correlated
 accent, listeners _ignored_ f0 as a cue to voicing. This suggests that these listeners have ruled out the possibility of a
