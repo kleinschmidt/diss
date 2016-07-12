@@ -328,9 +328,7 @@ of listeners' VOT classification and discrimination behavior.  These
 distributions are qualitatively very similar to those reported by @Lisker1964,
 based on productions from four talkers.  The reason we use the estimates from
 @Kronrod2012 is because @Lisker1964 only report the mean VOT for each category,
-and do not report the variance.
-<!-- TODO: other kronrod points. how different from our model. prevoicing -->
-
+and not the variance, which is necessary to predict the classification function.
 
 ### Methods {#sec:methods}
 
@@ -633,8 +631,6 @@ distributions.
     sensory uncertainty in listeners' perception.  We lump both of these factors
     together in this study, because their influence cannot be disentangled based
     on classification alone.
-
-<!-- TODO: what did kronrod et al. do? -->
 
 ### Methods {#sec:methods-model}
 
@@ -1165,8 +1161,8 @@ assumption.
 
 The results of Experiment 1 show that listeners' adaptation to an unfamiliar
 talker is _constrained_. Such constraints are predicted by the ideal adapter
-framework, which says that listeners use their experience with how (in this
-case) VOT distributions vary _across_ talkers to guide their adaptation to an
+framework, which says that listeners use their knowledge of how
+VOT distributions vary _across_ talkers to guide their adaptation to an
 unfamiliar talker.  Our modeling results provide further evidence for this
 explanation, and show that the constraints are consistent with belief updating
 starting from a single set of prior beliefs about cross-talker variability in
@@ -1175,19 +1171,19 @@ VOT distributions.
 In Experiment 2, we provide a further, more specific test of the ideal adapter
 explanation. There are many ways that cue distributions can vary, and in
 Experiment 1 we manipulated just one of them, shifting a single bimodal VOT
-distribution up or down but leaving the overall shape the same. In this
-experiment, we go one step further, shifting the means of the /b/ and /p/
+distribution up or down but leaving the overall shape the same. 
+Experiment 2 goes one step further, shifting the means of the /b/ and /p/
 clusters semi-independently. This results in bimodal distributions that differ
 both in the _overall_ mean VOT, and in the _separation_ of the /b/ and /p/
 clusters (Figure @fig:exposure-dists-exp2).
 
 The main goal of this experiment is to test the predictive power of the model
-and prior beliefs it inferred listeners to have. Belief updating---starting from
+and prior beliefs it inferred listeners to have based on the data from Experiment 1. Above we showed that belief updating---starting from
 these inferred prior beliefs---provides an excellent fit to listeners'
-adaptation behavior across conditions in Experiment 1, but the real utility of a
+adaptation behavior across conditions in Experiment 1. However, the real utility of a
 model is its ability to predict behavior in new situations. The qualitatively
-different set of input distributions we use in this experiment provide a
-test of the predictive utility of this framework.
+different set of input distributions we use in Experiment 2 provides a
+stringent test of the predictive utility of this framework.
 
 <!-- MEH. we don't really address this by updating the modeling beliefs, right?
 so why bother. --> The particular set of distributions we chose was informed by
@@ -1201,6 +1197,7 @@ the clusters we <!-- expect to gain more information that can further constrain 
 <!-- inferred beliefs, as well as testing --> test how much the uncertainty
 inherent in the structure of the first experiment affects the predictive power
 of the model.
+<!-- TODO: unpack -->
 
 Another, secondary goal is to test how listeners adapt to large, negative
 VOTs. The inferred prior beliefs about the /b/ VOT distribution of a typical
@@ -1217,6 +1214,7 @@ current model (that treats /b/ as a single VOT cluster) to a model that treats
 /b/ as a mixture of short-lag and prevoiced clusters. Such a model is a
 conceptually straightforward---but technically difficult---extension of the
 current model.
+<!-- TODO: why are we doing this anyway -->
 
 ```{r separatemeans-data}
 
@@ -1291,7 +1289,7 @@ implied category boundaries (from -15 to 45ms VOT) than Experiment 1 (10 to
 50ms), especially on the lower end. They also varied in the distance between
 cluster means (from 40 to 130ms VOT), unlike Experiment 1 which maintained a constant
 separation between /b/ and /p/ mean VOT of 40ms. Note that the condition with
-/b/ mean of 10ms and /p/ mean of 50ms VOT is the same as in Experiment 1.
+/b/ mean of 10ms and /p/ mean of 50ms VOT is the same as in Experiment 1. This condition was included to provide a way of comparing with Experiment 1, since the design of Experiment 2 required a change in procedure (which we discuss below).
 
 #### Subjects
 
