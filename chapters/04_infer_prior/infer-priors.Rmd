@@ -978,12 +978,7 @@ parameters given the adaptation data above.
 
 Figure {@fig:inferred-prior} shows the cue distributions corresponding to the
 posterior expected values of the prior expected mean and variance parameters
-given the behavioral data, compared with the distributions corresponding to one
-typical talker [as determined by a combination of classification and
-discrimination data, @Kronrod2012; as well as from production by @Goldrick2013]. The
-inferred prior beliefs are in reasonably good agreement with this typical
-talker, with one exception: 
-
+given the behavioral data.
 These prior beliefs are reasonably consistent with other attempts to determine
 what listeners think the underlying cue distributions are [@Kronrod2012], as
 well as the distributions produced by actual talkers
@@ -1002,19 +997,39 @@ lower (negative) VOT and a higher variance (often higher even than /p/). That
 is, across talkers, the /b/ VOT distribution parameters (mean and variance) have
 a *bimodal* distribution. We assumed a single, unimodal prior distribution, and
 the prior beliefs we inferred to be most likely are consistent with a compromise
-between the two types of /b/ distributions that talkers actually produce.  As
-Figure @fig:inferred-prior shows, the inferred /b/ distribution is an
-approximate compromise between the low-variance, short-lag VOT and the
-high-variance, prevoiced VOT distributions observed by @Goldrick2013.
+between the two types of /b/ distributions that talkers actually produce. Figure
+@fig:inferred-prior shows the bimodal distribution of /b/ VOTs observed by
+@Goldrick2013, which has one short-lag cluster around 10ms VOT with low
+variance, and another prevoiced cluster centered around -100ms VOT, with high variance.
+The model-inferred /b/ distribution is a reasonable compromise, lying in between
+these two clusters in its mean and variance.
 
-This possibility suggests two directions for future work. First, large-scale corpus
-studies of VOT distributions are needed to determine to what extent the
-distribution of /b/ mean VOTs is really bimodal across talkers. However, the
-only study of this type that we are aware of considers only non-negative VOTs
-@Chodroff2015 and thus excludes talkers who pre-voice their /b/.  Second, more
-modeling work is needed to test whether a multimodal prior is justified given
-the adaptation data, and if so, whether it would change the inference about
-listeners' prior expectations for /b/.
+This possibility suggests two directions for future work. First, existing
+studies of voiced stop production suggest that some talkers prevoice /b/ more
+than others, making the distribution of /b/ means _across_ talkers biomdal
+[@Lisker1964; @Goldrick2013]. But these studies do not include enough talkers to
+properly assess whether this is really representative of population-level
+variability. Moreover, the only large-scale study we know of considers only
+non-negative VOTs [@Chodroff2015], making it impossible to assess the extend and
+variability in prevoicing.  Second, more modeling work is needed to test whether
+a multimodal prior is justified given the adaptation data, and if so, whether it
+would change the inference about listeners' prior expectations for /b/.
+
+This also raises the question of why @Kronrod2012---who also used perception
+data to estimate underlying VOT distributions---did not come to a similar
+conclusion.  One possible answer is that listeners in their experiment did not
+hear a range of different accents, and therefore the resulting distribution
+reflect their listeners' beliefs about a _single_ talker, not about the
+_population_. Moreover, the exposure distribution in @Kronrod2012 was flat over
+VOTs, providing little information about the underlying distributions. Given
+that short-lag /b/s appear to be more common across talkers
+[accounting for the majority of tokens in both @Lisker1964; and @Goldrick2013],
+the best guess for a single, particular talker's /b/ distribution would be the
+short-lag distribution.  A second, related reason is that if a talker produces
+any short-lag VOTs at all, the prevoiced cluster will not have a substantial
+effect on the optimal classification boundary, since it will have lower
+likelihood than either the short-lag or /p/ distributions for VOTs near the
+boundary.
 
 ```{r inferred-prior-params, results='asis', tbl.cap="Expected values and 95% highest posterior density intervals for the prior parameters, given the adaptation data."}
 
