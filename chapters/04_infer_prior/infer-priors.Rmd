@@ -621,13 +621,18 @@ $$\begin{aligned}
     \mathrm{Normal} \left(\mu_c | \mu_{0,c}, \frac{\sigma_c^2}{\kappa_0}\right) 
     \chi^{-2} (\sigma_c^2 | \sigma^2_{0,c}, \nu_0)
 \end{aligned}$$ 
-where $\mu_{0}$ and $\sigma^2_0$ are a category's prior expected mean VOT and
-variance, respectively, and $\kappa_0$ and $\nu_0$ are the listener's confidence
-in these prior expectations, measured as pseudo-counts. Note that, as in
-previous modeling work in this framework, these prior confidence parameters are
-shared between the two categories. Preliminary simulations showed that it wasn't
-possible to uniquely identify the model using separate prior confidence
-parameters for the two categories.
+where $\mu_{0,c}$ and $\sigma^2_{0,c}$ are the prior expected mean VOT and
+variance of category $c$, respectively, and $\kappa_0$ and $\nu_0$ are the listener's confidence
+in these prior expectations. In this parametrization, the prior confidence parameters $\kappa_0$ and $\nu_0$ can be interpreted as _pseudo-counts_, or the number of hypothetical observations that listeners' prior beliefs about the category means and variances are based on.  Note that, as in
+our previous modeling work, these prior confidence parameters are
+shared between the two categories. That is, we assume that listeners have equal confidence in their prior beliefs about the mean of /b/ and of /p/ (and likewise for the variance of /b/ and /p/).[^unequal-conf]
+
+[^unequal-conf]: This is not an in-principle limitation of this framework, but
+    rather a limitation of the data. Preliminary simulations showed that it
+    wasn't possible to uniquely identify the model using separate prior
+    confidence parameters for the two categories, with the posterior
+    distributions of the two category's confidence parameters given the data
+    highly correlated.
 
 To estimate the listeners' prior beliefs, we infer values for these
 parameters given the observed adaptation behavior (category responses
@@ -639,31 +644,58 @@ $$\begin{aligned}
                  &\propto \int \mathrm{d} \theta p(y | \theta, x) p(\theta | x, \phi)
                            p(\phi)\end{aligned}$$
 
-We two simplifying assumptions. First, we assume that the order of the
-trials does not matter. Second, we assume that listeners pick up on the
-cluster structure of the input they receive, accurately detecting the
-mean and variance of each cluster, but for categorizing they use their
-*posterior* beliefs which combine their prior beliefs with these
-observed statistics. 
+We make two simplifying assumptions. First, we assume that the order of the
+trials does not matter.[^trial-order] Second, we assume that listeners pick up
+on the cluster structure of the input they receive, updating their beliefs about
+each category based on the true mean and variance of the corresponding cluster,
+and classify each trial's VOT based on these updated beliefs.  These two
+assumptions together mean that, given the prior belief parameters, we can
+express the predicted classification function (that is, probability of /p/ for
+each VOT) in closed form, which makes model fitting substantially more
+tractable.
 
-At first blush, this seems to leave a lot of information in our dataset on the
-table, since we don't consider listeners' own judgements about the category of
-each observation when modeling how beliefs are updated. However, incorporating
-these judgements into the belief updating part of the model itself is
-surprisingly subtle and challenging. For instance, one seemingly obvious fix is
-to treat listeners' responses themselves as the cateogry labels to be used for
-belief updating (rather than the experimenter-defined categories). But doing
-this eliminates the possibility that listeners could go back and re-evaluate
-their previous judgements, which is anathema to a Bayesian belief updating
-model.
-It is, of course, possible to back off on this assumption in better ways, but
-they are substantially more computationally demanding, and we leave it for
-future work to determine how they might affect our results. 
+[^trial-order]: The order of trials _does_ matter, in general
+    [@Vroomen2007; @Kleinschmidt2015; @Kraljic2008a]. In particular, our
+    previous modeling work is attempts to model such trial effects. However, the
+    paradigm that this previous work models is very different, with a small
+    number of _critical_ trials that are maximally ambiguous. Such
+    _recalibration_ paradigms produce very rapid adaptation. The build-up time
+    course of the distributional learning paradigm we use here has not been
+    studied in detail, but what evidence exists suggests that the effects are
+    much slower, and thus trial effects are less pronounced
+    [@Munson2011; and in our data as well].  Assuming batch inference
+    substantially simplifies the model fitting process.  Thus, we leave the
+    effect of ignoring trial order as a question for future work.
 
-Finally, we also add a lapse rate parameter (maximum a posteriori value of
-5%), that allows for some proportion of responses to be attributed to random
-guessing
-[e.g., because of attentional blinks, see @Clayards2008 for a discussion].
+At first blush, our second assumption seems to leave a lot of information in our
+dataset on the table, since we don't consider listeners' own judgements about
+the category of each observation when modeling how beliefs are updated. It is
+possible to back off on this assumption, but in exploring this we found that the
+question of how to incorporate listeners' judgments into the belief updating
+model to be surprisingly subtle.  For instance, one seemingly obvious fix that
+we investigated is to treat listeners' responses themselves as the category
+labels to be used for belief updating (rather than the experimenter-defined
+categories). However, this technique effectively fits the _exposure_
+distributions to listeners classification functions, and in doing so biases the
+model to completely ignore the prior.
+
+Moreover, this approach has conceptual problems, because by treating listeners'
+responses to earlier trials as fixed it eliminates the model's ability to go
+back and re-evaluate previous judgements. This is not _necessarily_ an
+unreasonable assumption, and similar ideas have been proposed as
+resource-limited approximate inference strategies [@Sanborn2010]. But such
+approaches would complicate the interpretation of this initial study of
+inferring listeners' prior beliefs, because they conflate the basic assumptions
+of the inverted belief-updating _framework_ and the _model fitting procedure_
+[see @Goldwater2009 for a cautionary tale from word segmentation]. We thus leave
+it as a question for future work to determine how to back off on the assumption
+that listeners know the underlying cluster structure.
+
+Finally, we also include a lapse rate parameter that allows for some proportion
+of responses to be attributed to random guessing (e.g., because of attentional
+blinks). This prevents datapoints where the model predicts nearly 100% /p/ or
+/b/ responses from having an outside effect on the likelihood and thus the
+parameter estimates [see @Clayards2008 for a discussion].
 
 ```{r run-model, eval=FALSE}
 
