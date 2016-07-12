@@ -311,7 +311,7 @@ data_exp1 %>%
 ``` 
 
 We tested the role that listeners prior expectations play in adapting to an
-unfamiliar talker by exposing them to one of five synthetic "accents" (Figure
+unfamiliar talker by exposing them (between subjects) to one of five synthetic "accents" (Figure
 @fig:vot-dists-exp1). These accents differed only in the distribution of
 voice onset time (VOT), the primary cue to word-initial stop consonant voicing
 in English (e.g., "beach" vs. "peach"). Adaptation was assessed based on
@@ -356,12 +356,12 @@ n_total <- n_subj + n_excluded
 
 ```
 
-We recruited `r n_total` subjects via Amazon's Mechanical Turk, who were paid
+We recruited `r n_total` subjects via Amazon's Mechanical Turk. Subjects were paid
 \$2.00 for participation, which took about 20 minutes. We excluded subjects who
-participated more than once ($n=`r n_subj_repeat`$) or who failed to classify VOTs reliably.
+participated more than once ($n=`r n_subj_repeat`$) or who failed to classify VOTs reliably
 ($n=`r n_subj_bad`$; $n=`r n_both`$ for both reasons).
-Reliable classification was defined by accuracy at 0 and
-70ms VOT, as extrapolated via a logistic GLM, of at least 80% correct.
+We defined reliable classification as accuracy of at least 80% at 0 and
+70ms VOT. Because some conditions had few stimuli with these VOTs, we extrapolated subjects responses using a logistic generalize linear model (GLM).
 Excluded subjects were roughly equally distributed across conditions (maximum of
 5 in 0ms /b/ VOT condition, and minimum of 1 in 20ms /b/ VOT condition). After
 these exclusions, data from `r n_subj` subjects remained for analysis.
@@ -372,13 +372,13 @@ these exclusions, data from `r n_subj` subjects remained for analysis.
     green button to play the word, then click on one picture to indicate what
     they heard.](figure_manual/beach_peach.png){#fig:beach-peach}
 
-Our distributional learning procedure is based on @Clayards2008. Figure @fig:beach-peach shows an example trial display. On each trial,
+Our procedure is based on @Clayards2008. Figure @fig:beach-peach shows an example trial display. On each trial,
 two response option images appeared, which corresponded to one of three /b/-/p/
-minimal pairs (beach/peach, bees/peas, or beak/peak). Subjects then clicked on a
-central button which played the corresponding minimal pair word, and then
+minimal pairs (beach/peach, bees/peas, or beak/peak). Subjects started each trial by clicking on a
+button between the two pictures, which played the corresponding minimal pair word audio stimulus. Subjects then
 clicked on the picture to indicate whether they heard the /b/ or /p/ member of
 the minimal pair. Subjects performed 222 of these
-trials, evenly divided between the three minimal pairs.
+trials, evenly divided between the three minimal pairs, in random order.
 
 Each trial's word was synthesized with a voice onset time (VOT) that was
 randomly drawn from a bimodal distribution, with low and high VOT clusters
@@ -398,7 +398,6 @@ parameters were held constant, and modeled on natural tokens of the endpoints
 
 ### Results and Discussion
 
-```{r class-curves, fig.height=2, fig.width=8, fig.cap="Listeners' responses, smoothed with logistic functions (thin lines), compared with the classification functions expected based on a typical talker (no learning; dashed black lines) and complete adaptation to the exposure distributions (thick dashed colored lines). Listeners' actual category boundaries lie between the typical talker and exposure talker boundaries (see Table {@tbl:boundary-shift})."}
 To assess how well listeners adapted to the exposure talker's cue distributions,
 we estimated listeners' classification functions, and compared those to the
 typical and exposure talker's classification functions.  Each listener's
@@ -421,6 +420,7 @@ especially given limited input data.  The ideal adapter predicts that listeners'
 classification functions will be intermediate between these two extremes,
 reflecting a compromise between prior beliefs and current exposure.
 
+```{r class-curves, fig.height=2, fig.width=8, fig.cap="Listeners' responses, smoothed with logistic functions (thin lines), compared with the classification functions expected based on a typical talker (no learning; dashed black lines) and complete (but not necessarily optimal) adaptation to the exposure distributions (thick dashed colored lines). Listeners' actual category boundaries lie between the typical talker and exposure talker boundaries (see Table {@tbl:boundary-shift})."}
 
 ## generate predicted classification functions assuming Bayes-optimal classifier
 ## + noise
@@ -490,7 +490,7 @@ boundary_summary_exp1 <- boundaries_exp1 %>%
 ```
 
 
-```{r boundary-violin-plots-exp1, fig.width=6.5, fig.height=4.5, fig.cap="Most listeners' individual boundaries fall between the boundaries implied by cue distributions from a typical talker and exposure talker. White points and CIs show mean and bootstrapped 95% CIs for mean boundary in each condition."}
+```{r boundary-violin-plots-exp1, fig.width=6.5, fig.height=4.5, fig.cap="Most listeners' individual boundaries fall between the boundaries implied by cue distributions from a typical talker and exposure talker. Violin plots (shaded regions) show the density of individual subjects' category boudnaries.  White points and CIs show mean and bootstrapped 95% CIs for mean boundary in each condition."}
 
 ggplot(boundaries_exp1, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   ## this is an awful hack: plot the violins first to force continuous x
@@ -523,7 +523,7 @@ ggplot(boundaries_exp1, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   geom_text(data=(boundaries_exp1 %>% filter(vot_cond=='20, 60') %>% head(n=1)),
             aes(y=prior_boundary), color='black',
             ## x=3.5, y=41, 
-            label='Typical talker\'s \nboundary',
+            label='Typical talker\'s boundary\n(based on Kronrod et al.)',
             hjust = 1, vjust = 0,
             nudge_x = -0.5, nudge_y = -1) +
   geom_pointrange(stat='summary', fun.data='mean_cl_boot', color='white') +
