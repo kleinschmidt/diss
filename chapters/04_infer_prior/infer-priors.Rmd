@@ -315,7 +315,22 @@ unfamiliar talker by exposing them to one of five synthetic "accents" (Figure
 @fig:vot-dists-exp1). These accents differed only in the distribution of
 voice onset time (VOT), the primary cue to word-initial stop consonant voicing
 in English (e.g., "beach" vs. "peach"). Adaptation was assessed based on
-listeners' classification function, or how they labeled each VOT as /b/ or /p/.
+listeners' classification function, or how they labeled each VOT as /b/ or /p/, which was continuously assessed throughout the experiment. 
+
+These conditions vary in how similar they are to a typical talker's VOT
+distributions.  The 0ms and 10ms VOT /b/ mean distributions are particularly
+similar to the typical talker's cue distribution (Figure @fig:vot-dists-exp1,
+black dashed lines), while the other conditions diverge substantially.
+
+For a typical talker, we use the distributions reported by @Kronrod2012, who
+determined the underlying means and variances that best explained a combination
+of listeners' VOT classification and discrimination behavior.  These
+distributions are qualitatively very similar to those reported by @Lisker1964,
+based on productions from four talkers.  The reason we use the estimates from
+@Kronrod2012 is because @Lisker1964 only report the mean VOT for each category,
+and do not report the variance.
+<!-- TODO: other kronrod points. how different from our model. prevoicing -->
+
 
 ### Methods {#sec:methods}
 
