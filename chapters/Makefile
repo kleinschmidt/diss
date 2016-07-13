@@ -1,5 +1,5 @@
 .PHONY: all clean
-all: 01_introduction.chap.tex
+all: 01_introduction.chap.tex 06_conclusion.chap.tex
 	make -C 02_ideal_adapter chapter
 	make -C 03_selective_adaptation chapter
 	make -C 04_infer_prior chapter
