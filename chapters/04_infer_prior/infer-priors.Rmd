@@ -1803,12 +1803,15 @@ While these constraints might appear to be even more extreme than we observed in
 Experiment 1, they are in fact _predicted_ from the results of Experiment 1 by
 our inverted belief-updating model. This model treats adaptation to the exposure
 talker as a process of optimal (or near-optimal) distributional learning, which
-involves integrating current experience with prior expectations.
+involves integrating current experience with prior expectations.  The
+predictions of this model are in generally good agreement with listeners'
+behavior in Experiment 2, despite the fact that the input distributions differ
+markedly from the Experiment 1 data used to fit the model.
 
 ## General discussion
 
 In two experiments, we have evaluated how well listeners can adapt to different
-"accents" by learning distributions of VOTs. Our results confirm previous
+pseudo-'accents' by learning distributions of VOTs. Our results confirm previous
 findings that listeners can adapt to novel accents like these via distributional
 learning [@Clayards2008; @Munson2011]. We go beyond previous work by
 systematically evaluating adaptation performance on a range of different
@@ -1816,7 +1819,7 @@ distributions. Our results show that listeners do not adapt as well to extreme
 distributions that deviate substantially from what it typical of American
 English. This goes to show that while distributional learning is, in principle,
 a very powerful general-purpose approach to dealing with talker variability,
-it is _constrained_ in actual practice.
+it is _constrained_---or, we have argued, _guided_ by prior experience---in actual practice.
 
 ### Constraints on distributional learning
 
@@ -1826,22 +1829,24 @@ structure in how talkers vary in the cue distributions they produce. Even if all
 a listener knows is that a talker is speaking American English, their prior experience
 with other speakers of American English provides a lot of information about the cue
 distributions that they should expect, which makes the process of inferring that
-particular talkers' distributions much more efficient. In this view, listeners
-will pay a price when they encounter a talker whos distributions fall outside
-the range they expect. Thus, listeners expectations should be matched to the
-actual variability in the world, in order to get as much benefit from the head
-start provided by prior expectations while avoiding over-confidence.
+particular talkers' distributions more efficient. At the same time, this view predicts that listeners
+will pay a price when they encounter a talker whose distributions fall outside
+the range they expect (such as when encountering novel accents, languages, or---to a milder extent---the present experiments). In order to get as much benefit from the head
+start provided by prior expectations while avoiding the cost of over-confidence, listeners should _match_ their prior expectations to the actual variability across talkers in the world.
 
 Our modeling results show that this explanation is at least consistent with the
 pattern of constraints that we observed behaviorally. The range of adaptation
 behavior across different distributions in Experiment 1 can be fit very well by
 a model that assumes that listeners update their beliefs based on the
 distributions they experience, starting from a prior expectation about what a
-typical talker sounds like and how much talkers vary. Moreover, the expectations that
-we infer listeners to have for an unfamiliar talker match the actual cue
-distributions produced by American English speakers reasonably well (with the
+typical talker sounds like and how much talkers vary. These prior expectations
+also effectively _predict_ how well listeners will adapt to the substantially
+different exposure distributions in Experiment 2.  Moreover, the expectations
+that we infer listeners to have for an unfamiliar talker match the actual cue
+distributions produced by American English speakers reasonably well. (with the
 caveat that our model makes potentially problematic assumptions about the
 structure of categories within and across talkers, which we discuss below).
+
 
 <!-- TODO: explained by physical constraints on VOTs? no, the VOTs we use are well within the range that naturally occur. the difference is the STATISTICS -->
 
@@ -1858,10 +1863,11 @@ also categorize voiced and voiceless stops along these boundaries as well
 initial stops is approximately the same as the temopral asynchrony required for
 neural responses to separately time lock to two events [@Steinschneider1994].
 
-Another possibility is that listeners' expectations are driven by
-their _own_ productions, and that any regularity between these comes from
-acquisition or innate anatomical constraints.
-<!-- TODO: citations and expand -->
+Another possibility is that listeners' expectations are driven by their _own_
+productions, and that any regularity between these comes from acquisition or
+innate anatomical constraints [cf. @Moulin-Frier2015].  For instance there are
+limits on the VOTs that can be produced by the human vocal tract, although this would not explain our results here because the actual VOTs of our stimuli are all well within the range of what is physically possible [and actually attested; @Baese-Berk2009;
+@Goldrick2013].
 Other, intermediate possibilities exist, too. For instance, listeners'
 expectations may be based on their own productions, but their _confidence_ based
 on the level of cross-talker variability they have experienced.
