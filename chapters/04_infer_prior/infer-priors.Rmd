@@ -1326,13 +1326,13 @@ post_test_len <-
 
 ```
 
-We recruited `r n_total2` subjects via Amazon's Mechanical Turk, who were paid
+We recruited `r n_total2` subjects via Amazon's Mechanical Turk. Subjects were paid
 \$2.50 for participation. The task took subjects about 25 minutes to
 complete (because of the additional post-test, discussed next). As in Experiment 1, we excluded subjects ($n=`r n_excl2 %$% sum(n)`$)
 who failed to classify words with unambiguous VOTs reliably during exposure (not
-post-test, see below), after which `r n_clean2 %$% sum(n)` subjects remained for
+post-test, see below). After exclusion, `r n_clean2 %$% sum(n)` subjects remained for
 analysis (no subjects had previously participated in one of our VOT studies). Subjects were
-evently distributed across conditions (range of `r n_clean2 %$% min(n)` to 
+evenly distributed across conditions (range of `r n_clean2 %$% min(n)` to 
 `r n_clean2 %$% max(n)` per condition).
 
 #### Procedure: assessing category boundaries
@@ -1341,7 +1341,7 @@ The procedure was identical to Experiment 1, with one exception. After
 completing the 222 trial exposure phase as in Experiment 1, listeners completed
 a test phase in order to assess their category boundaries. This phase consisted
 of `r post_test_len` additional trials with VOTs evenly distributed from -10 to
-50ms. This additional phase was necessary because of the large separtion between
+50ms in 10ms steps. This additional phase was necessary because of the large separtion between
 /b/ and /p/ clusters in the exposure distributions meant that in most conditions
 there were no trials with VOTs anywhere near the predicted (or typical)
 boundaries.
@@ -1356,10 +1356,11 @@ differences in the exposure distributions. Thus, when analyzing data from the
 test phase, whenever possible we limit ourselves to the early parts of the test
 phase, when listeners behavior should be minimally affected by the change in
 distributions.
+<!-- TODO: see also Liu and Jaeger for evidence this works -->
 
 As in Experiment 1, we evaluated listeners adaptation by their classification
 functions, which we estimated by fitting a logistic GLM. In addition to VOT, we
-included a predictor for trial in order to account for any un-learning effects
+included a predictor for trial in order to account for any (un-)learning effects
 that might happen during post-test. In order to visualize the fitted
 classification functions and to estimate listeners' category boundaries, we used
 the classification function estimates from the trial halfway through the first
