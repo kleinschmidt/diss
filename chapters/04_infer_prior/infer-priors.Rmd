@@ -1857,22 +1857,29 @@ adapt to particular distributions may then simply be a side effect of these
 distributions being difficult to perceive because of non-linearities in the
 underlying psychoacoustic dimensions (which we model as linear in VOT). This is
 a plausible explanation for VOT in particular. Cross-linguistically, category
-boundaries occur at a small number of VOT values. Moreover, non-human animals
+boundaries occur at a small number of VOT values [@Lisker1964].[^cross-lx] Moreover, non-human animals
 also categorize voiced and voiceless stops along these boundaries as well
-[@Kuhl1975]. Moreover, the typical boundary between (short-lag) voiced and voiceless word
-initial stops is approximately the same as the temopral asynchrony required for
-neural responses to separately time lock to two events [@Steinschneider1994].
+[@Kuhl1975]. Moreover, the typical boundary between (short-lag) voiced and
+voiceless word initial stops is approximately the same as the temporal
+asynchrony required for neural responses to separately time lock to two events,
+and thus identify the release burst and onset of voicing as distinct acoustic
+events [@Steinschneider1994].
+
+[^cross-lx]: Such cross-linguistic regularities must, however, be interpreted
+    with caution, since they may be due to shared ancestry of languages or
+    language contact [e.g., @Jaeger2011], rather than reflecting innate
+    constraints.
 
 Another possibility is that listeners' expectations are driven by their _own_
 productions, and that any regularity between these comes from acquisition or
-innate anatomical constraints [cf. @Moulin-Frier2015].  For instance there are
+innate anatomical constraints [e.g., @Moulin-Frier2015].  For instance there are
 limits on the VOTs that can be produced by the human vocal tract, although this would not explain our results here because the actual VOTs of our stimuli are all well within the range of what is physically possible [and actually attested; @Baese-Berk2009;
 @Goldrick2013].
 Other, intermediate possibilities exist, too. For instance, listeners'
 expectations may be based on their own productions, but their _confidence_ based
 on the level of cross-talker variability they have experienced.
 
-These alternative explanations are plausible in the case of voicing, in large
+These alternative explanations may be plausible in the case of voicing, in large
 part because the cue distributions are generally consistent across talkers
 [@Allen2003]. However, many contrasts---especially those that are distinguished by spectral cues---_do_ vary
 substantially across talkers, and moreover show substantial stylistic
@@ -1888,7 +1895,7 @@ contrasts [@Newman2001; @Allen2003]. The presence of _structure_ in cross-talker
 variation also provides a means to test more specific predictions of the ideal
 adapter. In particular, the ideal adapter predicts that when talkers cluster into
 groups, listeners' distributional learning should be informed (and hence
-constrained) by their experience with _within-group_ variabiltiy, not only population-level variability. For instance, if listeners pick up on the fact that
+constrained) by their experience with _within-group_ variability, not only population-level variability. For instance, if listeners pick up on the fact that
 male and female talkers systematically differ in their vowel formant
 distributions, then knowing that a talker is male or female should lead to more
 constrained adaptation than if they do not know the gender of the talker (all
@@ -1909,8 +1916,11 @@ listeners' expectations. This is important because these expectations are an
 essential part of how listeners manage to adapt to efficiently to talker
 variability, but are difficult to measure, being implicit and subjective. The
 subjective nature of these expectations is particularly important, because they
-may deviate in substantial ways from the actual nature of cross-talker variation
-[see, e.g., @Niedzielski1999; @Levon2014].
+may deviate in substantial ways from the actual nature of cross-talker
+variation. For instance, arbitrary aspects of linguistic variation can become
+"enregistered", where listeners consider particular variants stereotypical of
+social groups, whether they are in fact differentially associated with them or not
+[see, e.g., @Eckert1989; @Eckert2012a; @Podesva2001; @Niedzielski1999; @Levon2014].
 
 This tool nevertheless has limitations. Most importantly, the prior
 beliefs a model can infer are fundamentally bound by the assumptions the model
