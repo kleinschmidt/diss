@@ -1,5 +1,8 @@
-.PHONY: all chapters
+.PHONY: all chapters clean
 all: outline.html outline.docx kleinschmidt-thesis.pdf
+
+clean:
+	latexmk -c
 
 chapters:
 	$(MAKE) -C chapters
