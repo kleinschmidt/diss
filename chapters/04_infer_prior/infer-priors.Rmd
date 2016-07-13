@@ -1790,8 +1790,8 @@ that phonetic adaptation (recalibration) can be undone by prolonged testing
 
 ### Discussion ###
 
-The results of this experiment provide further evidence that VOT distributional
-learning is constrained by listeners' expectations. Using more extreme
+The results of Experiment 2 provide further evidence that VOT distributional
+learning is constrained. Using more extreme
 distribution, we found even larger discrepancies between the category boundaries
 implied by the input distributions and listeners' actual classifications than in
 Experiment 1. In fact, it appears that moving the /b/ mean VOT from -20 to -50
@@ -1799,12 +1799,11 @@ and even -80 has little additional effect on the category boundary, even though
 each of these changes would move the boundary by -15ms VOT each (if the prior
 was completely ignored).
 
-While listeners' failure to adapt might seem to indicate a failure of
-distributional learning. However, computational modeling reveals that these
-apparent differences between Experiments 1 and 2 are not only _consistent_ with
-belief updating starting from a singel set of prior beliefs, but are actually
-_predicted_ based on the adaptation in Experiment 1.
-
+While these constraints might appear to be even more extreme than we observed in
+Experiment 1, they are in fact _predicted_ from the results of Experiment 1 by
+our inverted belief-updating model. This model treats adaptation to the exposure
+talker as a process of optimal (or near-optimal) distributional learning, which
+involves integrating current experience with prior expectations.
 
 ## General discussion
 
