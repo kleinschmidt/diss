@@ -1398,7 +1398,7 @@ boundaries_exp2 <- sepmeans %>%
 
 ```
 
-```{r boundary-exposure-vs-test-exp2, fig.width=5, fig.height=2.5, fig.cap="Category boundaries estimated during post-test are correlated with estimates from exposure (in the 10, 50 condition where such an estimate is possible), but more variable."}
+```{r boundary-exposure-vs-test-exp2, fig.width=5, fig.height=2.5, fig.cap="Category boundaries estimated during post-test are correlated with estimates from exposure (in the 10, 50 condition where such an estimate is possible), but more variable. Blue line shows best linear fit, and black line shows where the two estimates are equal."}
 
 boundaries_exp2_exposure <-
   sepmeans %>%
@@ -1415,9 +1415,15 @@ boundaries_exp2_comparison <-
   left_join(boundaries_exp2 %>% select(subject, boundary)) %>%
   ungroup()
 
+exp2_cor <-
+  boundaries_exp2_comparison %>%
+  cor.test(formula=~ boundary_exposure + boundary, data=.) %>%
+  broom::tidy()
+
 boundaries_exp2_exp_v_test_summary <- 
   boundaries_exp2_comparison %>%
   do(daver::boot_ci(., function(d,i) with(d[i, ], mean(boundary_exposure - boundary))))
+
 
 
 boundaries_exp2_comparison %>%
@@ -1435,19 +1441,25 @@ boundaries_exp2_comparison %>%
 
 ```
 
-To validate this way of measuring listeners' category boundaries, we included
-the 10ms mean /b/ VOT exposure distribution conditions from Experiment 1 as a
-condition in Experiment 2 (where we refer to it as the 10ms /b/, 50ms /p/
-condition). This allowed us to compare the method of assessing listener's
-category boundaries from Experiment 1 (using exposure trials themselves) with
-the following post-test trials _within_ the same subjects. Figure
+We validated this procedure in the 10ms, 50ms mean /b/ VOT distribution
+condition, which is the same as in Experiment 1.  We first obtained an estimate
+of each listener's category boundary based on their responses during the
+exposure phase, as in Experiment 1.  We then obtained a second estimate for
+these same subjects using the novel procedure, based on the post-test phase.
+This allowed us to compare the method of assessing listener's category
+boundaries from Experiment 1 (using exposure trials themselves) with the
+following post-test trials _within_ the same subjects. Figure
 @fig:boundary-exposure-vs-test-exp2 shows that the post-test estimates are more
-variable, but correlated with the exposure estimates. Critically, they are not
-biased, differing only by
+variable, but correlated with the exposure estimates
+(Pearson's $R = `r exp2_cor[['estimate']]`$, 
+95% CI = $[`r exp2_cor[['conf.low']]`, `r exp2_cor[['conf.high']]`]$, 
+$`r p_val_to_less_than(exp2_cor[['p.value']])`$).
+Critically, they are not biased, differing only by
 `r boundaries_exp2_exp_v_test_summary$observed` ms VOT 
 on average (95% CI of 
 `r boundaries_exp2_exp_v_test_summary %$% sprintf('%.1f--%.1f', ci_lo, ci_high)`
-ms VOT). 
+ms VOT). This means we can compare the boundary estimates from Experiments 1 and
+2, despite the differences between the procedures.
 
 The inclusion of this condition in both experiments also allows us to replicate
 the results of Experiment 1 using a different method (Figure
