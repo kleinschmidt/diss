@@ -694,7 +694,7 @@ tractable.
     course of the distributional learning paradigm we use here has not been
     studied in detail, but what evidence exists suggests that the effects are
     much slower, and thus trial effects are less pronounced
-    [@Munson2011; and in our data as well].  Assuming batch inference
+    [@Munson2011, and in our data as well].  Assuming batch inference
     substantially simplifies the model fitting process.  Thus, we leave the
     effect of ignoring trial order as a question for future work.
 
