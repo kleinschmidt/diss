@@ -558,11 +558,13 @@ their prior expectations (given the finite amount of evidence they received
 about the unfamiliar talker).  This provides qualitative evidence that listeners
 combine their prior expectations with observed cue distributions in order to
 rapidly adapt to unfamiliar talkers, as predicted by the ideal adapter framework
-[@Kleinschmidt2015].
+[@Kleinschmidt2015].  More generally, unlike previous work showing constraints
+on distributional learning [@Idemaru2011; @Sumner2011], these results cannot be
+explained by a model where the only constraints on listeners' distributional
+learning is a binary distinction between _natural_ and _unnatural_ cue-category
+mappings
 
 <!-- TODO: footnote on exemplar approaches being broadly compatible? -->
-<!-- TODO: what kind of models would NOT predcit this? to avoid "impression of confirmatory modeling" -->
-
 
 ```{r boundary-shift, results='asis', tbl.cap="Percentage of boundary shift from typical talker to each exposure talker (see Figure {@fig:class-curves}), averaged over subjects with 95% bootstrapped confidence intervals.  0% shift corresponds to no adaptation at all, while 100% corresponds to perfect adaptation, ignoring any prior  beliefs. Typical and exposure talker boundaries were too close together to reliably determine boundary shift percentage in the 0ms condition."}
 
