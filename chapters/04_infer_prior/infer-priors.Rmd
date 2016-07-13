@@ -1988,13 +1988,16 @@ flexible, adapting from scratch every time, would be ineffective. One solution
 to this dilemma is to leverage prior experience with _other_ talkers in order to
 provide an informative starting point when adapting to an unfamiliar
 talker. This is what rational accounts predict
-[i.e., the ideal adapter, @Kleinschmidt2015]. A critical consequence of this
-prediction is that prior experience _constraints_ (or _guides_) learning and
-adaptation to an unfamiliar talker's accent. In this view, prior experience can
-only be helpful to the extent that it rules out some possible accents (cue
-distributions). If a listener encounters a talker whose accent lies outside the
-range that they think is _a priori_ plausible based on their prior experience,
-they will have a hard time adapting to that talker.
+[i.e., the ideal adapter, @Kleinschmidt2015]. More specifically, these accounts
+predict that prior experience _constraints_ (or _guides_) learning and
+adaptation to an unfamiliar talker's accent. Even if all the listener knows
+about the talker is that they are speaking English, they can still benefit from
+prior experience with other speakers of English to provide an informative head
+start for adaptation. In this view, prior experience can only be helpful to the
+extent that it rules out some possible accents (cue distributions). If a
+listener encounters a talker whose accent lies outside the range that they think
+is _a priori_ plausible based on their prior experience, they will have a hard
+time adapting to that talker.
 
 In this paper, we have found that listeners' behavior in two distributional
 learning experiments is constrained and guided in exactly this way.
@@ -2007,11 +2010,7 @@ single set of prior expectations that are updated based on experience with the
 exposure talker. Moreover, these inferred beliefs effectively predict adaptation
 to different distributions.
 
-These results emphasize the importance of listeners' prior expectations for
-robust speech perception in the face of talker variability. Even if all the
-listener knows about the talker is that they are speaking English, they can
-still benefit from prior experience with other speakers of English to provide an
-informative head start for adaptation.  The modeling framework we use has the
+The modeling framework we use has the
 additional advantage of allowing us to *infer* what cue distributions listeners
 believe an unfamiliar talker will produce. This provides a potentially
 powerful---and heretofore missing---tool for probing listeners' prior
