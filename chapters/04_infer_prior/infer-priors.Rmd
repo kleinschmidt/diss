@@ -1072,6 +1072,8 @@ prior_summary %>%
 
 #### How confident are listeners in their prior beliefs?
 
+<!-- TODO: move this back to general discussion. anticipate here. -->
+
 Qualitatively, the prior parameters show that 
 listeners have 
 high confidence in their prior expectations about the mean and variance of /b/ and /p/ VOT distributions. The model-inferred confidence in category
@@ -1348,7 +1350,7 @@ boundaries.
 
 Critically, listeners were not told about the change from exposure to test
 phase: the procedures were identical, and there was no break in between.
-Besides the change in VOT distrbutions, there was no way for listeners to tell
+Besides the change in VOT distributions, there was no way for listeners to tell
 that they had entered the test phase. Of course, if listeners are actually (as
 we hypothesize) _learning_ these distributions, their behavior may well change
 as they proceed through the test phase, gradually erasing any effect of the
@@ -1367,7 +1369,7 @@ the classification function estimates from the trial halfway through the first
 third of the post-test.[^why-not-beginning]
 
 [^why-not-beginning]: The predictions from a regression model are more uncertain
-    and more driven by noise at the estreme ranges of continuous predictors,
+    and more driven by noise at the extreme ranges of continuous predictors,
     like trial number. Thus we use the point one-sixth into the post-test to estimate
     classification functions, rather than the very beginning, because it is
     _close_ to the beginning of the post test, but not so close that the
@@ -1420,6 +1422,10 @@ exp2_cor <-
   cor.test(formula=~ boundary_exposure + boundary, data=.) %>%
   broom::tidy()
 
+exp2_var <-
+  boundaries_exp2_comparison %>%
+  summarise_each(funs(sd, se=sd(.)/sqrt(length(.))), boundary_exposure, boundary)
+
 boundaries_exp2_exp_v_test_summary <- 
   boundaries_exp2_comparison %>%
   do(daver::boot_ci(., function(d,i) with(d[i, ], mean(boundary_exposure - boundary))))
@@ -1448,9 +1454,12 @@ exposure phase, as in Experiment 1.  We then obtained a second estimate for
 these same subjects using the novel procedure, based on the post-test phase.
 This allowed us to compare the method of assessing listener's category
 boundaries from Experiment 1 (using exposure trials themselves) with the
-following post-test trials _within_ the same subjects. Figure
+following post-test trials _within_ the same listeners. Figure
 @fig:boundary-exposure-vs-test-exp2 shows that the post-test estimates are more
-variable, but correlated with the exposure estimates
+variable than the exposure estimates (standard deviations across subjects of
+`r exp2_var[['boundary_sd']]` and 
+`r exp2_var[['boundary_exposure_sd']]`, respectively)
+but correlated with 
 (Pearson's $R = `r exp2_cor[['estimate']]`$, 
 95% CI = $[`r exp2_cor[['conf.low']]`, `r exp2_cor[['conf.high']]`]$, 
 $`r p_val_to_less_than(exp2_cor[['p.value']])`$).
@@ -1463,9 +1472,11 @@ ms VOT). This means we can compare the boundary estimates from Experiments 1 and
 
 The inclusion of this condition in both experiments also allows us to replicate
 the results of Experiment 1 using a different method (Figure
-@fig:boundary-violin-plots-exp2, un-shaded distribution). It finally allows
-testing out-of-sample, same condition prediction accuracy for the
-belief-updating model results (Figure @fig:plot-exp2-predictions-first-third).
+@fig:boundary-violin-plots-exp2, un-shaded distribution). This allows us to test
+how well the prior beliefs inferred from Experiment 1 can predict adaptation to
+the same exposure distributions by a different set of subjects, using a slightly
+different procedure (see below, and Figure
+@fig:plot-exp2-predictions-first-third).
 
 ### Results
 
@@ -1498,7 +1509,7 @@ sepmeans_test %>%
 ```
 
 
-```{r boundary-violin-plots-exp2, fig.width=6.5, fig.height=4.5, fig.cap="The distribution of listeners' individual category boundaries in Experiment 2 reflects partial adaptation to the exposure talker's VOT distributions. Extreme shifts have minimal additional effect on listeners' boundaries, corroborating the strong prior biases observed in Experiment 1. The un-filled distribution shows the boundaries from listeners in the corresponding 10ms VOT /b/ mean condition from Experiment 1. These conditions had the same exposure distributions, but differed in whether category boundaries were measured during exposure (Experiment 1) or during a post-test phase (Experiment 2)."}
+```{r boundary-violin-plots-exp2, fig.width=6.5, fig.height=4.5, fig.cap="The distribution of listeners' individual category boundaries in Experiment 2 reflects partial adaptation to the exposure talker's VOT distributions. Extreme shifts have minimal additional effect on listeners' boundaries, corroborating the strong prior biases observed in Experiment 1. The un-filled distribution shows the boundaries from listeners in the corresponding 10ms VOT /b/ mean condition from Experiment 1. These conditions had the same exposure distributions, but differed in whether category boundaries were estimated based on the exposure (Experiment 1) or post-test phase (Experiment 2)."}
 
 ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   ## this is an awful hack: plot the violins first to force continuous x
@@ -1540,8 +1551,9 @@ only incompletely. On average, listeners' classification functions were
 intermediate between the classification functions corresponding to the typical
 talker and exposure talker's distributions. Listeners adapted on average just as
 much in the one condition that was shared with Experiment 1 (mean VOT of 10ms
-for /b/, 50ms for /p/), but their boundaries were much more variable (Figure
-@fig:boundary-violin-plots-exp2, empty vs. filled distrbution).
+for /b/, 50ms for /p/), but their boundary estimates were much more variable (Figure
+@fig:boundary-violin-plots-exp2, empty vs. filled distribution).
+<!-- TODO: unpack. -->
 
 #### Evidence for separate prevoiced cluster?
 
@@ -1549,7 +1561,7 @@ Listeners showed very little sensitivity to increasingly large negative mean /b/
 VOTs: the average category boundaries were very similar in the -20, -50, and
 -80ms /b/ mean conditions. On average these were comparable to the 0ms /b/, 40ms
 /p/ mean condition from Experiment 1, which had a higher /b/ mean but lower /p/
-mean. This suggests that listeners are more sensitive to variation in /p/ than
+mean. This suggests that listeners are more ready to adapt to variation in /p/ than
 in /b/. Nevertheless, listeners in the 10ms /b/, 80ms /p/ still did not fully
 adapt to the exposure distribution, producing category boundaries that were not
 significantly different from those in the 10ms /b/, 50ms /p/ condition.
@@ -1578,11 +1590,12 @@ distributions do not provide very much (if any) information about a talker's
 short-lag distribution, we would thus expect listeners' category boundaries to be
 unchanged from a typical talker. This is in fact exactly what we observe in the
 Experiment 2 conditions with large negative /b/ mean VOTs.
+<!-- TODO: unpack and visualize -->
 
 There are other possible explanations for the lack of large shifts in
 these conditions. For instance, even if listeners treat /b/ as a single unimodal
 cluster, the negative VOT distributions we used are still extreme relative to
-the range of /b/ mean VOTs across talkers.  In the next section, we take one
+the range of /b/ mean VOTs across talkers.  In the next section, we
 address this possibility, by evaluating how well the prior
 beliefs inferred from Experiment 1---which assume a single /b/ cluster---predict
 the pattern of adaptation here.
@@ -1592,7 +1605,7 @@ the pattern of adaptation here.
 Next, we ask how well the prior beliefs inferred on the basis of Experiment 1
 can predict the pattern of adaptation across exposure distributions we observed
 in Experiment 2. Figure @fig:plot-exp2-predictions-first-third shows the
-predicted classification functions (95% posterior predcitive intervals) for the
+predicted classification functions (95% posterior predictive intervals) for the
 exposure conditions in Experiment 2, using the same parameters that were fit to
 Experiment 1 (and visualized in Figure @fig:model-fit-classification).
 
@@ -1672,7 +1685,7 @@ predicted_prob_p <-
 
 ```
 
-```{r plot-exp2-predictions-first-third, fig.width=8, fig.height=2, fig.cap="The prior beliefs inferred from Experiment 1 predict how much listeners adapt to each of the input distributions of Experiment 2. Shaded regions show the 95% posterior predictive intervals, and dots and lines show mean and 95% bootstrapped CIs for subject mean classification. Note the additional uncertainty in predictions relative to the posterior predictive distribution given Experiment 1's conditions (Figure {@fig:model-fit-classification})."}
+```{r plot-exp2-predictions-first-third, fig.width=8, fig.height=2, fig.cap="The prior beliefs inferred from Experiment 1 predict how much listeners adapt to each of the input distributions of Experiment 2. Shaded regions show the 95% posterior predictive intervals for the belief updating model, based on prior beliefs inferred from Experiment 1 and exposure distributions from Experiment 2.  Dots and errorbars show mean and 95% bootstrapped CIs for the mean probability of /p/ response over subjects. Note the additional uncertainty in predictions relative to the posterior predictive distribution given Experiment 1's conditions (Figure {@fig:model-fit-classification})."}
 
 predicted_prob_p %>%
   left_join(sepmeans_conds) %>%
@@ -1694,7 +1707,7 @@ predicted_prob_p %>%
 
 ```
 
-```{r exp2-mod-goodness-of-fit}
+```{r exp2-mod-goodness-of-fit, cache=TRUE}
 
 #' @param d_test test data
 #' @param pred model predictions (i.e., predicted_prob_p)
@@ -1764,10 +1777,6 @@ and
 $`r exp2_pred_vs_actual_boundaries[['boot_p']] %>% tail(n=1) %>% sprintf(fmt='%0.3f')`$,
 respectively)
 
-
-<!-- TODO: WTF am I getting at here?? -->
-There are also some inferred prior parameters that are consistent with the generally poor adaptation to large negative /b/ mean VOTs. This suggests one of two things. First, we cannot rule out the possibility that listeners really do treat /b/ as a single unimodal cluster on the basis of these results. Second, it could be the case that listeners do, in fact, treat /b/ as a mixture of short-lag and prevoiced VOT clusters, and that the model-inferred beliefs reflect the best approximation of these by a model that incorrectly assumes a single unimodal cluster.
-
 The model predictions become less accurate as the test phase progresses
 (likelihood ratios vs. null model for the first, second, and final third of the
 post-test phase of
@@ -1777,17 +1786,7 @@ the test phase. Such unlearning is consistent with other work that shows
 that phonetic adaptation (recalibration) can be undone by prolonged testing
 [@Kraljic2005; @Vroomen2004].
 
-Finally, one intresting feature of the model predictions themselves is that the
-uncertainty is quite a bit higher for the two extreme negative /b/ VOT (-80ms
-and -50ms) conditions. This suggests that there is uncertainty in the posterior
-over prior beliefs inferred from Experiment 1, but that this uncertainty is not
-relfected in uncertainty about the classification functions for Experiment 1
-(Figure @fig:model-fit-classification), which the model was trained on. This
-uncertainty, however, is revealed by input distributions that are more diverse, like those
-in Experiment 2 that vary in the distance between clusters as well as the
-overall mean. This goes to show the importance of checking model predictions for
-conditions that are different from those used to train it.
-
+<!-- TODO: check that cuts here read okay -->
 
 ### Discussion ###
 
@@ -1920,7 +1919,7 @@ effectively predicted adaptation to different distributions, even with negative
 VOTs where the structure of the /b/ category seems like it should make a
 difference. The beliefs that the model infers listeners to have for /b/, though,
 do not look like distributions of VOTs that talkers actually produce for
-/b/. Instead, they look like a good _approximation_ of the true distrbution
+/b/. Instead, they look like a good _approximation_ of the true distribution
 using only a single cluster, with a mean and variance that is intermediate
 between the two clusters talkers actually produce. It would be premature to
 conclude that listeners actually believe a typical talker would produce this
