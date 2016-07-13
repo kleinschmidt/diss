@@ -1733,6 +1733,21 @@ mod_pred_gof_exp2_by_third <-
   mutate(third=ntile(trial, 3)) %>%
   exp2_gof(predicted_prob_p, third)
 
+## compare boundaries
+set.seed(102)
+exp2_pred_vs_actual_boundaries <- 
+  predicted_prob_p %>%
+  group_by(bvotCond, pvotCond) %>%
+  mutate(dev = abs(prob_p_lapse_mean - 0.5)) %>%
+  filter(dev==min(dev)) %>%
+  rename(boundary_pred=vot) %>%
+  right_join(boundaries_exp2) %>%
+  group_by(boundary_pred, add=TRUE) %>%
+  do(daver::boot_ci(.,
+                    function(d,i) with(d[i, ], mean(boundary-boundary_pred)),
+                    h0=0,
+                    R=10000)) 
+
 ```
 
 Overall, the predicted classification functions line up reasonably well with
@@ -1740,17 +1755,20 @@ listeners' actual category boundaries at test (Figure
 @fig:plot-exp2-predictions-first-third; 
 Spearman's $\rho=`r mod_pred_gof_exp2_by_third %>% filter(third==1) %$% rho`$,
 log-likelihood ratio with intercept-only null model of 
-`r mod_pred_gof_exp2_by_third %>% filter(third==1) %$% LL_ratio`). In particular,
-the predicted classification function fits very well for the 10ms /b/, 50ms /p/
-mean condition. This condition is the same as one condition from Experiment 1,
-so this shows that the within-condition, out-of-sample prediction accuracy is
-good, despite the different post-test procedure.
+`r mod_pred_gof_exp2_by_third %>% filter(third==1) %$% LL_ratio`, both $p<10^{-10}$). 
+In particular, the excellent fit to the 10ms /b/, 50ms /p/ mean condition shows that the prior beliefs inferred in Experiment 1 effectively predict adaptation to the same exposure distributions in Experiment 2, despite the differences in test procedures.
 
-The biggest discrepancy in predicted category boundary is in the /b/ 10ms, /p/
-80ms condition, where the model predicts a bigger category boundary shift than
-is actually observed. There are also some inferred prior parameters that are consistent with the generally poor adaptation to large negative /b/ mean VOTs. This suggests one of two things. First, we cannot rule out the possibility that listeners really do treat /b/ as a single unimodal cluster on the basis of these results. Second, it could be the case that listeners do, in fact, treat /b/ as a mixture of short-lag and prevoiced VOT clusters, and that the model-inferred beliefs reflect the best approximation of these by a model that incorrectly assumes a single unimodal cluster.
+Moreover, the category boundaries listeners actually produce align well with the boundaries predicted based on the inferred prior beliefs from Experiment 1. The average difference between predicted and observed category boundary is small (average absolute deviation across conditions of `r exp2_pred_vs_actual_boundaries[['observed']] %>% abs() %>% mean()`ms VOT). These differences are not significantly higher or lower than zero in any condition (all bootstrapped $p>0.1$, with the exception of the -80ms, 50ms and the 10ms, 80ms conditions where 
+$p=`r exp2_pred_vs_actual_boundaries[['boot_p']] %>% head(n=1) %>% sprintf(fmt='%0.3f')`$
+and 
+$`r exp2_pred_vs_actual_boundaries[['boot_p']] %>% tail(n=1) %>% sprintf(fmt='%0.3f')`$,
+respectively)
 
-The model predictions are also more slightly accurate earlier in the test phase
+
+<!-- TODO: WTF am I getting at here?? -->
+There are also some inferred prior parameters that are consistent with the generally poor adaptation to large negative /b/ mean VOTs. This suggests one of two things. First, we cannot rule out the possibility that listeners really do treat /b/ as a single unimodal cluster on the basis of these results. Second, it could be the case that listeners do, in fact, treat /b/ as a mixture of short-lag and prevoiced VOT clusters, and that the model-inferred beliefs reflect the best approximation of these by a model that incorrectly assumes a single unimodal cluster.
+
+The model predictions become less accurate as the test phase progresses
 (likelihood ratios vs. null model for the first, second, and final third of the
 post-test phase of
 `r mod_pred_gof_exp2_by_third %$% LL_ratio %>% round() %>% paste_and()`).
