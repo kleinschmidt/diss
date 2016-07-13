@@ -1086,29 +1086,11 @@ prior beliefs as much as (in the case of the means) or more than (for the
 variances) the distributions they experienced in the experiment.  This is consistent with
 the qualitative finding that listeners' category boundaries are intermediate
 between the boundaries corresponding to a typical talker and the experimental
-exposure talker.
-
-At first blush, this conflicts with our previous modeling work on another phonetic contrast,
-/b/-/d/, which found confidence values that were one or two orders of magnitude
-smaller than those inferred here [@Kleinschmidt2015].  This
-contrast is cued by spectral cues (formant frequency transitions) which
-generally vary substantially across talkers [e.g., @Peterson1952]. The acoustic
-cues to the /b/-/p/ contrast used in the current study do not show as much
-variability across talkers [e.g., @Allen2003; @Chodroff2015]. When there is
-little variability across talkers, past experience with other talkers' VOT
-distributions is highly informative about the distributions that an unfamiliar
-talker will produce, requiring less adaptation. Likewise, when there is more
-variability across talkers, listeners need to rely more on the current talker's
-cue distributions and less on their prior experience. Thus, the apparent
-discrepancy between the confidence that listeners place in their prior beliefs
-in the current study and in @Kleinschmidt2015 is actually in line with an *ideal
-adapter* which combines prior beliefs with current experience weighted according
-to confidence. This idea finds further empirical support in @Kraljic2007, who
-found that after the same amount of exposure, listeners recalibrate a /d/-/t/
-contrast (analogous to the /b/-/p/ contrast used here) much less than an /s/-S
-contrast (where the latter exhibits larger variability across talkers; e.g.,
-@Newman2001).
-
+exposure talker.  In previous work modeling adaptation to a /b/-/d/ contrast, we 
+found that listeners had less confidence in their prior beliefs than we found here.
+As we discuss below, this apparent discrepancy is in fact _predicted_ by the
+ideal adapter, at least qualitatively, based on patterns of between-talker
+variability.
 
 #### Do inferred beliefs accurately reflect _cross-talker_ variability?
 
@@ -1850,6 +1832,9 @@ structure of categories within and across talkers, which we discuss below).
 
 <!-- TODO: explained by physical constraints on VOTs? no, the VOTs we use are well within the range that naturally occur. the difference is the STATISTICS -->
 
+### What is the source of constraints on distributional learning?
+
+We have proposed that the constraints on distributional learning we observed in Experiments 1 and 2 are _learned_ by listeners from their experience with how phonetic cue distributions vary across talkers.
 There are, of course, other possible sources for these constraints. For
 instance, the basic nature of the mammalian auditory system may constrain the
 distributions that are actually psychoacoustically distinguishable. Failure to
@@ -1953,6 +1938,46 @@ assumption are. It may explain the discrepancy between the amount of talker
 variability that actually occurs and the level predicted by the model's inferred
 beliefs, but this remains to be seen. 
 
+### What makes listeners confident in their prior beliefs?
+
+Our modeling results suggest that listeners have high confidence in their prior
+expectations about the VOT distributions of /b/ and /p/, acting as if they had
+already observed around 200–800 samples from each category (for the category
+means and variances, respectively) from the unfamiliar talker they encountered
+in our experiment.  This is consistent with the qualitative findings in
+Experiments 1 and 2 that distributional learning is substantially constrained.
+
+However, at first blush, this conflicts with our previous modeling work on
+adaptation to another phonetic contrast, /b/-/d/, which found confidence values
+that were one or two orders of magnitude smaller than those inferred here
+[@Kleinschmidt2015].  This contrast is cued by spectral cues (formant frequency
+transitions) which generally vary substantially across talkers
+[e.g., @Peterson1952]. The acoustic cues to the /b/-/p/ contrast used in the
+current study do not show as much variability across talkers
+[e.g., @Allen2003; @Chodroff2015]. When there is little variability across
+talkers, past experience with other talkers' VOT distributions is highly
+informative about the distributions that an unfamiliar talker will produce,
+requiring less adaptation. Likewise, when there is more variability across
+talkers, listeners need to rely more on the current talker's cue distributions
+and less on their prior experience. Thus, the apparent discrepancy between the
+confidence that listeners place in their prior beliefs in the current study and
+in @Kleinschmidt2015 is actually in line with an *ideal adapter* which combines
+prior beliefs with current experience weighted according to confidence. 
+
+This idea finds further empirical support in @Kraljic2007, who found that after
+the same amount of exposure, listeners recalibrate a /d/-/t/ contrast (analogous
+to the /b/-/p/ contrast used here) much less than an /s/-/S/ contrast
+[where the latter exhibits larger variability across talkers; e.g., @Newman2001].
+This leads to the following clear prediction for future work: Listeners should
+adapt more flexibly to phonetic contrasts where there is more talker
+variability. At present this prediction is qualitative. In order to make it more
+precise, we need better measurements of the actual extent of talker variability
+in different contrasts. Chapter \ref{chap:talker-variability} provides a first
+step in this direction. Based on what we know about talker variability at the
+moment, we specifically predict that distributional learning for vowels and
+fricatives should be more flexible (i.e., best fit with lower confidence
+parameters) than for stop voicing.
+<!-- TODO: remove chapter reference -->
 
 ## Conclusion {#sec:conclusion}
 
