@@ -1967,6 +1967,7 @@ prior beliefs with current experience weighted according to confidence.
 This idea finds further empirical support in @Kraljic2007, who found that after
 the same amount of exposure, listeners recalibrate a /d/-/t/ contrast (analogous
 to the /b/-/p/ contrast used here) much less than an /s/-/S/ contrast
+<!-- TODO: fix IPA -->
 [where the latter exhibits larger variability across talkers; e.g., @Newman2001].
 This leads to the following clear prediction for future work: Listeners should
 adapt more flexibly to phonetic contrasts where there is more talker
@@ -1981,17 +1982,30 @@ parameters) than for stop voicing.
 
 ## Conclusion {#sec:conclusion}
 
-A central prediction of the ideal adapter framework [@Kleinschmidt2015] is that
-listeners adapt to unfamiliar talkers by combining their prior beliefs with
-observed evidence about that particular talker's cue distributions. In this
-paper, we have shown first that for a range of different accents (cue
-distributions), listeners' behavior in a distributional learning experiment
-reflects a compromise between what would be expected for the cue distributions
-produced by a typical talker and the exposure talker. Second, the range of
-adaptation behavior observed across the various accents that listeners heard can
-be captured by a belief-updating model with a single set of prior expectations
-that are updated based on experience with the exposure talker. Moreover, these
-inferred beliefs effectively predict adaptation to different distributions.
+In order to cope with cross-talker variability, the speech perception system
+needs to be highly flexible. At the same time, a system that is _completely_
+flexible, adapting from scratch every time, would be ineffective. One solution
+to this dilemma is to leverage prior experience with _other_ talkers in order to
+provide an informative starting point when adapting to an unfamiliar
+talker. This is what rational accounts predict
+[i.e., the ideal adapter, @Kleinschmidt2015]. A critical consequence of this
+prediction is that prior experience _constraints_ (or _guides_) learning and
+adaptation to an unfamiliar talker's accent. In this view, prior experience can
+only be helpful to the extent that it rules out some possible accents (cue
+distributions). If a listener encounters a talker whose accent lies outside the
+range that they think is _a priori_ plausible based on their prior experience,
+they will have a hard time adapting to that talker.
+
+In this paper, we have found that listeners' behavior in two distributional
+learning experiments is constrained and guided in exactly this way.
+Specifically, we found that listeners' classification of a novel talker's VOT
+continuum reflects a compromise between what would be expected for the VOT
+distributions produced by a typical talker and the exposure talker. More
+specifically, the range of adaptation behavior observed across the various
+accents that listeners heard can be captured by a belief-updating model with a
+single set of prior expectations that are updated based on experience with the
+exposure talker. Moreover, these inferred beliefs effectively predict adaptation
+to different distributions.
 
 These results emphasize the importance of listeners' prior expectations for
 robust speech perception in the face of talker variability. Even if all the
