@@ -1074,8 +1074,6 @@ prior_summary %>%
 
 #### How confident are listeners in their prior beliefs?
 
-<!-- TODO: move this back to general discussion. anticipate here. -->
-
 Qualitatively, the prior parameters show that 
 listeners have 
 high confidence in their prior expectations about the mean and variance of /b/ and /p/ VOT distributions. The model-inferred confidence in category
@@ -1557,7 +1555,6 @@ prop_pre_by_talker <-
   arrange(prop_pre)
 ```
 
-
 One interpretation of this lack of sensitivity to large negative /b/ mean VOTs
 is that listeners treat /b/ as being a mixture of a short-lag cluster (with a
 mean around 0ms VOT) and a prevoiced cluster (with a large negative mean
@@ -1766,7 +1763,7 @@ post-test phase of
 This suggests that listeners may be unlearning the distributions encountered in
 the test phase. Such unlearning is consistent with other work that shows
 that phonetic adaptation (recalibration) can be undone by prolonged testing
-[@Kraljic2005; @Vroomen2004].
+[@Kraljic2005; @Vroomen2004; and specifically for the case of a flat test distribution, @LiuInPrep2016].
 
 <!-- TODO: check that cuts here read okay -->
 
@@ -1829,8 +1826,6 @@ distributions produced by American English speakers reasonably well. (with the
 caveat that our model makes potentially problematic assumptions about the
 structure of categories within and across talkers, which we discuss below).
 
-
-<!-- TODO: explained by physical constraints on VOTs? no, the VOTs we use are well within the range that naturally occur. the difference is the STATISTICS -->
 
 ### What is the source of constraints on distributional learning?
 
@@ -1973,12 +1968,12 @@ This leads to the following clear prediction for future work: Listeners should
 adapt more flexibly to phonetic contrasts where there is more talker
 variability. At present this prediction is qualitative. In order to make it more
 precise, we need better measurements of the actual extent of talker variability
-in different contrasts. Chapter \ref{chap:talker-variability} provides a first
+in different contrasts. Chapter \ref{chap:talker-variation} provides a first
 step in this direction. Based on what we know about talker variability at the
 moment, we specifically predict that distributional learning for vowels and
 fricatives should be more flexible (i.e., best fit with lower confidence
 parameters) than for stop voicing.
-<!-- TODO: remove chapter reference -->
+<!-- TODO-paper: remove chapter reference -->
 
 ## Conclusion {#sec:conclusion}
 
