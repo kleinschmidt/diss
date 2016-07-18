@@ -28,13 +28,13 @@ relevant sensory statistics
 The statistics of the sensory world also determine how any particular sensory
 signal should be _interpreted_. At the most basic level, the overall light level
 determines which signals correspond to "dark" and which to "light". This leads
-to a corrolary to the link between sensory statistics and the perceptual system:
+to a corollary to the link between sensory statistics and the perceptual system:
 in a world where sensory statistics change from one situation to the next, the
 perceptual system must _adapt_ to these changes. Perceptual systems are, in
 fact, extremely adaptable, and this adaptation has been linked to changes in
 sensory statistics
 [@Barlow1989a; @Brenner2000; @Fairhall2001; @Gutfreund2012; @Sharpee2006; @Webster2005; @Wei2012; @Kohn2007]. This
-work suggets that, at the very least, perceptual systems are _tracking_ changes
+work suggests that, at the very least, perceptual systems are _tracking_ changes
 in sensory statistics.
 
 Like perception itself, adaptation can be thought of as a kind of inference,
@@ -47,7 +47,7 @@ different states of the world. And, just like perceptual inference depends on
 statistical properties of the world, this higher-level inference depends on
 higher-order statistical properties of the world.
 
-This rasises the central question addressed by the work reported here: is
+This raises the central question addressed by the work reported here: is
 _tracking_ the best way to think about how perceptual systems cope with a
 dynamic world? Existing theories tend to focus on either continuously tracking
 sensory statistics [@Fairhall2001] or detecting changes and re-learning
@@ -157,14 +157,14 @@ and critically re-examines evidence that phonetic selective adaptation is _not_
 distributional learning. This chapter was published as @Kleinschmidt2015b.
 
 Chapter \ref{chap:infer-priors} investigates the role that listeners' prior expectations play when
-adapting to an unfamiliar talker. The ideal adapter predicts that adpatation
+adapting to an unfamiliar talker. The ideal adapter predicts that adaptation
 should be _constrained_ by listeners' prior experience with how much and in what
 ways talkers vary in the cue distributions that they produce. This chapter
 presents two experiments. The first experiment shows that, as predicted,
 listeners do not adapt as well to a talker whose "accent" is outside the range
 of normal variation across talkers. Next, this chapter shows how we can use the
 computational framework of the ideal adapter to work backwards from these
-contraints to infer what listeners' prior expectations are for an unfamiliar
+constraints to infer what listeners' prior expectations are for an unfamiliar
 talker. The second experiment validates the findings of the first, using more
 extreme distributions, and also validates the predictive accuracy of the prior
 beliefs inferred on the basis of the first experiment.
