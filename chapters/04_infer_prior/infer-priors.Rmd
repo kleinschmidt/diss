@@ -76,7 +76,7 @@ knit_hooks$set(tbl.cap = function(before, options, envir) {
 
 ```
 
-# What do you expect from an unfamiliar talker? Infering listeners' priors beliefs {#chap:infer-priors}
+# What do you expect from an unfamiliar talker? Inferring listeners' priors beliefs {#chap:infer-priors}
 
 A longstanding problem in speech perception is how listeners manage to
 cope with substantial differences in how individual talkers produce
@@ -488,7 +488,7 @@ boundary_summary_exp1 <- boundaries_exp1 %>%
 ```
 
 
-```{r boundary-violin-plots-exp1, fig.width=6.5, fig.height=4.5, fig.cap="Most listeners' individual boundaries fall between the boundaries implied by cue distributions from a typical talker and exposure talker. Violin plots (shaded regions) show the density of individual subjects' category boudnaries.  White points and CIs show mean and bootstrapped 95% CIs for mean boundary in each condition."}
+```{r boundary-violin-plots-exp1, fig.width=6.5, fig.height=4.5, fig.cap="Most listeners' individual boundaries fall between the boundaries implied by cue distributions from a typical talker and exposure talker. Violin plots (shaded regions) show the density of individual subjects' category boundaries.  White points and CIs show mean and bootstrapped 95% CIs for mean boundary in each condition."}
 
 ggplot(boundaries_exp1, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   ## this is an awful hack: plot the violins first to force continuous x
@@ -701,7 +701,7 @@ tractable.
     effect of ignoring trial order as a question for future work.
 
 At first blush, our second assumption seems to leave a lot of information in our
-dataset on the table, since we don't consider listeners' own judgements about
+dataset on the table, since we don't consider listeners' own judgments about
 the category of each observation when modeling how beliefs are updated. It is
 possible to back off on this assumption, but in exploring this we found that the
 question of how to incorporate listeners' judgments into the belief updating
@@ -714,7 +714,7 @@ model to completely ignore the prior.
 
 Moreover, this approach has conceptual problems, because by treating listeners'
 responses to earlier trials as fixed it eliminates the model's ability to go
-back and re-evaluate previous judgements. This is not _necessarily_ an
+back and re-evaluate previous judgments. This is not _necessarily_ an
 unreasonable assumption, and similar ideas have been proposed as
 resource-limited approximate inference strategies [@Sanborn2010]. But such
 approaches would complicate the interpretation of this initial study of
@@ -1028,7 +1028,7 @@ these two clusters in its mean and variance.
 
 This possibility suggests two directions for future work. First, existing
 studies of voiced stop production suggest that some talkers prevoice /b/ more
-than others, making the distribution of /b/ means _across_ talkers biomdal
+than others, making the distribution of /b/ means _across_ talkers bimodal
 [@Lisker1964; @Goldrick2013]. But these studies do not include enough talkers to
 properly assess whether this is really representative of population-level
 variability. Moreover, the only large-scale study we know of considers only
@@ -1137,7 +1137,7 @@ convenient (in that it allows Bayesian belief updating to be expressed
 analytically in closed form), but it makes the assumption that cross-talker
 variance is proportional to within-talker variance [@Gelman2003]. This
 assumption may not be warranted in reality, and it's a question for future
-modeling work to explore the feasibility and consequenes of relaxing this
+modeling work to explore the feasibility and consequences of relaxing this
 assumption.
 
 
@@ -1325,7 +1325,7 @@ The procedure was identical to Experiment 1, with one exception. After
 completing the 222 trial exposure phase as in Experiment 1, listeners completed
 a test phase in order to assess their category boundaries. This phase consisted
 of `r post_test_len` additional trials with VOTs evenly distributed from -10 to
-50ms in 10ms steps. This additional phase was necessary because of the large separtion between
+50ms in 10ms steps. This additional phase was necessary because of the large separation between
 /b/ and /p/ clusters in the exposure distributions meant that in most conditions
 there were no trials with VOTs anywhere near the predicted (or typical)
 boundaries.
@@ -1868,7 +1868,7 @@ variability that cannot be normalized away
 
 Testing for constraints on adaptation for these other, more variable contrasts
 would help resolve these different possible explanations. For instance, if
-listeners are _more_ contrained than would be expected based on cross-talker
+listeners are _more_ constrained than would be expected based on cross-talker
 variation, it would suggest that the constraints come from something like their
 own productions, since levels of _within_ talker variability are similar across
 contrasts [@Newman2001; @Allen2003]. The presence of _structure_ in cross-talker
@@ -1924,7 +1924,7 @@ it's understood as a means for interpreting and guiding empirical work and not a
 source of ground truth.
 
 We also assumed that listeners prior beliefs can be modeled using a particular
-form, the Normal-$\chi^{-2}$ distribution. This is mathemtically convenient, but
+form, the Normal-$\chi^{-2}$ distribution. This is mathematically convenient, but
 makes the assumption that listeners' uncertainty about category means _across_
 talkers is proportional to their beliefs about variance _within_ a talker. This
 is unlikely to be an accurate reflection of actual patterns of talker
