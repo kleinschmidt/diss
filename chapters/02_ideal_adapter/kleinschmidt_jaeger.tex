@@ -43,7 +43,7 @@ As we discuss below, at least the first and the last of these have been more or 
 We propose that all three of these strategies arise from the function that the speech recognition system fulfills (i.e., the typical goals of speech recognition), and that the basic design of this system reflects the fact that it must function efficiently under normal
 circumstances. Specifically, we propose that the three strategies emerge from the organizational constraints on the speech recognition system imposed by the presence of variability both within a single situation and between situations.  These constraints lead naturally to a few conceptual components for the proposed framework.  First, because there is variability within a situation, the mapping between cues and categories is inevitably \emph{probabilistic}. This makes speech recognition a problem of inference under uncertainty and implies that a robust speech recognition system must use distributional (statistical) knowledge \autocite{Clayards2008,Feldman2009a,Norris2008}.
 
-Second, because cue distributions themselves vary---sometimes unpredictably---across situations, the system must be prepared, when necessary, to engage in distributional/statistical learning.  This is closely related to the notion of life-long implicit learning \autocite{Botvinick2004,Elman1990,Chang2006}, as well as statistical learning theories of language acquisition \autocite{Feldman2013a,McMurray2009,Vallabha2007}, a connection we return to below.
+Second, because cue distributions themselves vary---sometimes un\-pre\-dictably---across situations, the system must be prepared, when necessary, to engage in distributional/statistical learning.  This is closely related to the notion of life-long implicit learning \autocite{Botvinick2004,Elman1990,Chang2006}, as well as statistical learning theories of language acquisition \autocite{Feldman2013a,McMurray2009,Vallabha2007}, a connection we return to below.
 
 Third, cue distributions do not vary arbitrarily across situations.  Rather, the world is structured.  For instance, a listener is likely to encounter a particular familiar talker's cue distributions again, relative to any arbitrary cue distributions, and likewise they are more likely to encounter cue distributions that are similar to those encountered in the past, because of regularities in how talkers vary within a language or more specific grouping like gender, dialect, accent, etc.  We propose that in order to take advantage of such structured variability, the speech perception system does not \emph{only} engage in distributional learning. In its most basic sense, this is demonstrated
 by our ability to recognize previously encountered talkers, and use talker-specific experience to guide speech perception. 
@@ -914,10 +914,11 @@ Let's consider the case where the listener can recognize a familiar talker---cal
 As a result, the listeners' beliefs about the generative model parameters, given the visual information that identifies the talker as Frank, is dominated by their beliefs about Frank's generative model: 
 \begin{align}
   \label{eq:32}
-  p(\theta \given \textrm{vis. info}) &= \sum_t p(\theta \given t) p(t \given \textrm{vis. info}) \\
-  &=p(\theta \given t=\mathrm{Frank}) p(t=\mathrm{Frank} \given \textrm{vis. info}) + \sum_{t \ne \mathrm{Frank}} p(\theta \given t) p(t \given \textrm{vis. info}) \\
-  &= p(\theta \given t=\mathrm{Frank}) \times 1 + \sum_{t \ne \mathrm{Frank}} p(\theta \given t) \times 0 \\
-  &= p(\theta \given t=\mathrm{Frank})
+  p(\theta \given \textrm{vis. info}) =& \sum_t p(\theta \given t) p(t \given \textrm{vis. info}) \\
+  =&p(\theta \given t=\mathrm{Frank}) p(t=\mathrm{Frank} \given \textrm{vis. info}) \\
+  & + \sum_{t \ne \mathrm{Frank}} p(\theta \given t) p(t \given \textrm{vis. info}) \\
+  =& p(\theta \given t=\mathrm{Frank}) \times 1 + \sum_{t \ne \mathrm{Frank}} p(\theta \given t) \times 0 \\
+  =& p(\theta \given t=\mathrm{Frank})
 \end{align}
 
 That is, when the type of prior experience is known with reasonably high certainty from top-down cues, this mixture model reduces to the talker- or group-specific beliefs described in earlier sections in Part II.  This formalization thus generalizes the notion of talker- or group-specific beliefs as conditional distributions.  In this sort of mixture model, when top-down information about the type of situation is available, listeners can take advantage of it, which can in turn lead to effects of top-down information (like visually presented faces or other cues) changing the way that physically identical bottom-up acoustic signals are interpreted \autocite{Johnson1999,Hay2010,StaumCasasanto2008,Strand1996}.  However, having a weighted mixture of different prior beliefs means that the listener does not have to rely \emph{solely} on such top-down information to tell them which prior experience is relevant, but rather can also use bottom-up information.

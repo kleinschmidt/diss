@@ -175,7 +175,9 @@ Because a binomial likelihood was used for fitting the model to the data, the er
 \subsection{Sampling and hyperpriors}
 \label{sec:sampl-hyperp-priors}
 
-This joint data likelihood was combined with a weak, regularizing prior, $p(\log \kappa_0) = p(\log \nu_0) = \mathrm{Normal}(0, 100)$, which has a 95\% interval that stretches from about $\nu_0=10^{-9}$ to $10^{9}$, with a mode of 1.  Any prior sample size that is a few times larger than the maximum sample size (256) results in essentially no adaptation; in this range the prior is essentially constant (the prior probability of $\nu_0 = 1$, the value which maximizes the prior probability, is only $1.2$ times greater than the prior probability of $\nu_0=1000$, and likewise for $\kappa_0$), and thus this prior has essentially no influence on the fit of the model.  For the visual cue weight $w$ the prior was uniform between 0 and 1 and thus uninformative.
+This joint data likelihood was combined with a weak, regularizing prior, 
+$$p(\log \kappa_0) = p(\log \nu_0) = \mathrm{Normal}(0, 100)$$ 
+which has a 95\% interval that stretches from about $\nu_0=10^{-9}$ to $10^{9}$, with a mode of 1.  Any prior sample size that is a few times larger than the maximum sample size (256) results in essentially no adaptation; in this range the prior is essentially constant (the prior probability of $\nu_0 = 1$, the value which maximizes the prior probability, is only $1.2$ times greater than the prior probability of $\nu_0=1000$, and likewise for $\kappa_0$), and thus this prior has essentially no influence on the fit of the model.  For the visual cue weight $w$ the prior was uniform between 0 and 1 and thus uninformative.
 
 The posterior distribution of the hyperparameters is not easy to find analytically, and so samples were drawn from this distribution using a hybrid Gibbs/slice sampler, where each hyperparameter is sampled in turn via slice sampling \autocite{Neal2003}, given the last sampled values of the other parameters.  The samples can be used to find the maximum \emph{a posteriori} (MAP) estimate of the best-fitting parameter values, as well as the full joint posterior.  The joint posteriors of the confidence parameters (mean prior pseudocount $\kappa_0$ and variance prior pseudocount $\nu_0$) for the fits to the build-up of recalibration, build-up of selective adaptation, long-term effects in both, and the Mechanical Turk replication data are shown in Figure~\ref{fig:confidence-hyperparam-posteriors}.
 
@@ -217,7 +219,7 @@ All of these assumptions are assumptions of the model, and \emph{not} the ideal 
   \linespread{1.1}
 
 \begin{center}
-\begin{longtable}{p{0.2\textwidth} | p{0.39\textwidth} | p{0.39\textwidth}}
+\begin{longtable}{p{0.2\textwidth} | p{0.4\textwidth} | p{0.3\textwidth}}
   \caption{Assumptions of the belief updating model used to evaluate the ideal adapter framework predictions.} \label{tab:model-assumptions} \\
 
   Assumption & Simplification justified by data? & Problem? \\ \hline
