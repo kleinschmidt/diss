@@ -101,7 +101,7 @@ grouping_levels <- c('Marginal', 'Dialect', 'Age', 'Sex', 'Dialect_Sex', 'Talker
 Variability is one of the defining features of speech.
 There are two broad traditions in the study of speech, with
  very different approaches to the role of _variability_ in speech. On the one
-hand, for the cognitive/psycholinguistic tradition, variabiltiy is one of the central _problems_ of speech perception, a challenge
+hand, for the cognitive/psycholinguistic tradition, variability is one of the central _problems_ of speech perception, a challenge
 that listeners must cope with. In this view, variability is such a severe
 problem that it is traditionally referred to only indirectly, as the "lack of
 invariance" [@Liberman1967]. The sociolinguistic tradition, on the other hand,
@@ -138,7 +138,7 @@ _changes_ from one situation to the next, depending on who's talking
 [@Clopper2005; @Newman2001; @Allen2003; @Johnson2005; @Foulkes2015a].
 Moreover, these differences cannot be entirely reduced to constant effects of physiological differences [like vocal tract size, @Johnson2005; for review see @WeatherholtzInPress].
 In this perspective, effective speech perception depends on good knowledge of the
-underlying cue distributions. Because these didstributions change across
+underlying cue distributions. Because these distributions change across
 situations, listeners must _also_ constantly be inferring the current talker's
 linguistic generative model (the probabilistic distributions of cues they
 produce for each underlying linguistic structure). This is captured by the
@@ -174,11 +174,11 @@ twofold: 1) how much can listeners actually gain by considering socio-indexical
 variables for speech perception (both in absolute terms and relative to other
 grouping variables), and 2) how accurately could listeners infer socio-indexical
 grouping variables for a talker on the basis of their cue distributions.
-<!-- TODO: state high level goal here, too: formal, quantitative framework that has the potential to unify explanations of these two phenomena (linguistic and socio-indexical judgements) -->
+<!-- TODO: state high level goal here, too: formal, quantitative framework that has the potential to unify explanations of these two phenomena (linguistic and socio-indexical judgments) -->
 
 ### Our goals
 
-At a conceptual level, the goal of this paper is to show that the idea of _inference_ provides a bridge between sociolinguistic and psycholinguistic perspectives on variation in speech. The ideal adapter framework treats both linguistic and socio-indexical judgements as inference, jointly informed by a listener's knowledge of cue distributions. In addition to this conceptual unification, the theoretical tools of this framework offer a common computational currency for developing models of linguistic and socio-indexical inference, and, critically, for grounding the parameters of those models in actual data. This common currency is the _distribution_ of cues _conditioned_ on linguistic and socio-indexical variables. These distributions can be measured, given the appropriate production data.
+At a conceptual level, the goal of this paper is to show that the idea of _inference_ provides a bridge between sociolinguistic and psycholinguistic perspectives on variation in speech. The ideal adapter framework treats both linguistic and socio-indexical judgments as inference, jointly informed by a listener's knowledge of cue distributions. In addition to this conceptual unification, the theoretical tools of this framework offer a common computational currency for developing models of linguistic and socio-indexical inference, and, critically, for grounding the parameters of those models in actual data. This common currency is the _distribution_ of cues _conditioned_ on linguistic and socio-indexical variables. These distributions can be measured, given the appropriate production data.
 
 This brings us to the more concrete, immediate goals of this paper, which are to quantify the relationship between some prominent socio-indexical variables, linguistic variables, and acoustic-phonetic cue distributions.
 Most
@@ -269,7 +269,7 @@ socio-indexical variables, phonetic categories, and cues.
 
 #### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
-<!-- TODO: awkard, revise -->
+<!-- TODO: awkward, revise -->
 
 The _utility_ of a socio-indexical variable for guiding speech
 recognition is not necessarily the same as its _informativity_ about the
@@ -336,7 +336,7 @@ group that is informative about the particular contrast being recalibrated.
 Assessing the utility of different levels of grouping (including gender) is a
 necessary first step towards making these predictions precise and testable
 
-<!-- TODO: Something about normalization migth be appropriate here: utility can depend on the input representation -->
+<!-- TODO: Something about normalization mirth be appropriate here: utility can depend on the input representation -->
 
 
 #### Question 3: How well could listeners _infer_ socio-indexical variables given cue distributions?
@@ -394,7 +394,7 @@ challenges that are beyond the scope of the current paper.
 
 ## General methods
 
-We next describe the datasets we use and the motivations for selecting these datasets. Then, we introduce our general modeling approach. The specific methods by which we quantify informativity, utility, and inferrability of socio-indexical grouping variables are discussed in their respective studies.
+We next describe the datasets we use and the motivations for selecting these datasets. Then, we introduce our general modeling approach. The specific methods by which we quantify informativity, utility, and inferability of socio-indexical grouping variables are discussed in their respective studies.
 
 ### Data
 
@@ -433,8 +433,8 @@ distributions conditioned on the following socio-indexical grouping variables:
   (younger/older than 40, VOT only).
 * __Dialect__: the NSP contains data from talkers from six dialect regions (see
   below for details).
-* __Diaelct+Sex__: @Clopper2005 found that sex modulates dialect differences, so
-  we also examing cue distributions conditioned on dialect and sex together (12
+* __Dialect+Sex__: @Clopper2005 found that sex modulates dialect differences, so
+  we also examining cue distributions conditioned on dialect and sex together (12
   levels, vowels only).
 * __Talker__: we also consider cue distributions conditioned on talker identity,
   as an upper bound on informativity and utility.
@@ -560,14 +560,14 @@ However, the downside is that this corpus does not not contain data from talkers
 
 ### Modeling approach
 
-All of our anlayses depend on knowing the _distribution_ of cues for each phonetic category, at different levels of socio-indexical grouping. We obtain estimates of these distributions in the following way. We assume that each phonetic category can be modeled as a normal distribution over cue values (stop voicing as univariate distributions over VOT, and vowels as bivariate distributions of F1 and F2). These distributions are parametrized by their mean and their covariance matrix (or, equivalently, variance in the case of VOT). We fit these parameters to data from our corpora via maximum likelihood, using the sample mean and covariance of tokens from each category. We do this separately for each group. For example, for gender, we obtain one estimate of the `ae` distribution based on all the tokens from male talkers, and one from all tokens from female talkers. Likewise, for dialect, we estimate one distribution based on all talkers from the North dialect region, another one from tokens from Mid-Atlantic talkers, and so on.
+All of our analyses depend on knowing the _distribution_ of cues for each phonetic category, at different levels of socio-indexical grouping. We obtain estimates of these distributions in the following way. We assume that each phonetic category can be modeled as a normal distribution over cue values (stop voicing as univariate distributions over VOT, and vowels as bivariate distributions of F1 and F2). These distributions are parameterized by their mean and their covariance matrix (or, equivalently, variance in the case of VOT). We fit these parameters to data from our corpora via maximum likelihood, using the sample mean and covariance of tokens from each category. We do this separately for each group. For example, for gender, we obtain one estimate of the `ae` distribution based on all the tokens from male talkers, and one from all tokens from female talkers. Likewise, for dialect, we estimate one distribution based on all talkers from the North dialect region, another one from tokens from Mid-Atlantic talkers, and so on.
 
 Assuming that each category is a normal distribution is not a critical part of our approach, but rather a standard and convenient assumption. In particular, the normal distribution has a small number of parameters and this allows us to efficiently estimate the distribution for each category with a limited amount of data (e.g., five tokens per talker-level vowel distribution).
 
 
 ## Study 1: Informativity of socio-indexical groupings about cue distributions
 
-Our first goal is to assess how _informative_ socio-indexical varaibles are about the cue distributions for each phonetic category, across levels of socio-indexical grouping and phonetic categories/cues.
+Our first goal is to assess how _informative_ socio-indexical variables are about the cue distributions for each phonetic category, across levels of socio-indexical grouping and phonetic categories/cues.
 
 ### Methods {#sec:kl-methods}
 
@@ -889,7 +889,7 @@ We want to determine the phonetic category $v_i$[^notation] of each of the cues 
 $$
 p(v_i | x_i, g=j) \propto p(x_i | v_i, g=j) p(v_i)
 $$
-If, on the other hand, the listener does not know which group the talker belongs to, they have to marginalize out group. This ammounts to taking a weighted average of the posterior probabilities under each group, weighted by the probability that the talker belongs to that group, $p(g | x)$:
+If, on the other hand, the listener does not know which group the talker belongs to, they have to marginalize out group. This amounts to taking a weighted average of the posterior probabilities under each group, weighted by the probability that the talker belongs to that group, $p(g | x)$:
 $$
 p(v_i | x_i) = \sum_j p(v_i | x_i, g=j) p(g=j | x)
 $$
@@ -911,7 +911,7 @@ For classification, if test data is included in the training set, this artificia
 
 Cross-validation is not only important because it provides an unbiased measure of classifier accuracy. It is also essential for testing the hypothesis that _group-level_ cue distributions are useful to listeners.  If the test talker is included in the training dataset, then the utility of that talker's own productions is confounded with any utility of the group itself.
 
-#### Avoiding biases from diffent group sizes
+#### Avoiding biases from different group sizes
 
 For the vowel data, the different levels of grouping have very different group sizes, and this requires some caution. The broadest (sex) has 24 talkers per group (23 after holdout), while the most specific (dialect+sex) has only 4 (3 after holdout).  This introduces a systematic bias in favor of broader groupings, because small sample sizes lead to noisier estimates of the underlying model, and hence lower accuracy (on average) at test [@James2013, Section 2.2.2]. This bias would make it impossible to meaningfully compare probability of correct recognition _across_ grouping levels, defeating the purpose of this analysis.
 
@@ -1367,7 +1367,7 @@ geom_bars <- function(...) {
 
 ### Results {#sec:recog-results}
 
-```{r overall-accuracy-group-known, fig.width=8.3, fig.height=4.2, fig.cap='Speech recognition accuracy using for marginal, group-level, and talker-specific cue distributions. Small points show individual talkers, and large points and lines show mean and bootstrapped 95% CIs over talkers. Marginal and group-level accuracy is based on leave-one-talker out cross-validation, and talker-specific on 6-fold cross-validation (or leave-one-token-per-category out if there are fewer than 6 tokens per category). Bars and stars show signficant increases in accuracy when conditioning on dialect, alone or in addition to sex. For clarity, only some significant comparisons are shown. Here and elsewhere: `*` $p<0.05$, `**` $p<0.01$, and `***` $p<0.001$.'}
+```{r overall-accuracy-group-known, fig.width=8.3, fig.height=4.2, fig.cap='Speech recognition accuracy using for marginal, group-level, and talker-specific cue distributions. Small points show individual talkers, and large points and lines show mean and bootstrapped 95% CIs over talkers. Marginal and group-level accuracy is based on leave-one-talker out cross-validation, and talker-specific on 6-fold cross-validation (or leave-one-token-per-category out if there are fewer than 6 tokens per category). Bars and stars show significant increases in accuracy when conditioning on dialect, alone or in addition to sex. For clarity, only some significant comparisons are shown. Here and elsewhere: `*` $p<0.05$, `**` $p<0.01$, and `***` $p<0.001$.'}
 
 accuracy_summary %>%
   ggplot(aes(x = grouping, y=accuracy,
@@ -1388,7 +1388,7 @@ accuracy_summary %>%
 ```
 
 Figure {@fig:overall-accuracy-group-known} shows the probability of correct
-recognition for stop voicing/vowel, based on the cue distrbutions at each level
+recognition for stop voicing/vowel, based on the cue distributions at each level
 of grouping.  As with informativity about the distributions themselves, there's
 an asymmetry between vowels and stop voicing in the overall utility of
 socio-indexical variables for speech recognition. Probability of correct
@@ -1673,7 +1673,7 @@ while others are useful only in certain, specific contexts (dialect for certain
 vowels/dialect combinations).
 
 Our results also speak to the relationship between informativity, utility, and
-inferrability themselves. In general, informativity and utility mirror each
+inferability themselves. In general, informativity and utility mirror each
 other: conditioning on a socio-indexical variable is more useful for speech
 recognition when the corresponding conditional cue distributions diverge more
 from the overall or marginal distributions. But being useful for speech
@@ -1689,9 +1689,9 @@ what group-level representations listeners should maintain if, as assumed by the
 ideal adapter, they are taking advantage of the structure that is actually
 present in cross-talker variability. Second, our results shed light on
 discrepancies between phonetic contrasts in listeners' willingness to generalize
-recalbration/perceptual learning from one talker to another. Third, this paper
-provides a proof of concept for the idea that, like phonetic judgements,
-socio-linguistic judgements can be productively viewed as a sort of inference
+recalibration/perceptual learning from one talker to another. Third, this paper
+provides a proof of concept for the idea that, like phonetic judgments,
+socio-linguistic judgments can be productively viewed as a sort of inference
 under uncertainty. This suggests the potential for a tighter integration of
 sociolinguistic and psycholinguistic perspectives on speech perception.
 
@@ -1736,7 +1736,7 @@ in a single distribution.  This price may be worth paying for a listener when
 there are large enough differences between groups that treating all observations
 as coming from the same distribution _biases_ the estimates of the underlying
 distribution (and hence the inferences that listeners make based on those
-distributinos) far enough away from the true structure of the data. To take a
+distributions) far enough away from the true structure of the data. To take a
 concrete example, modeling each vowel as a single distribution of
 (un-normalized) formants across all talkers results in high-variance,
 overlapping distributions which have low recognition accuracy. But modeling them
@@ -1803,7 +1803,7 @@ ideal adapter, in two ways.
 
 First, the informativity of talker identity is a measure of the variability
 across talkers. When talker identity is highly informative, there's more
-variabiltiy across talkers, and the ideal adapter predicts that prior experience
+variability across talkers, and the ideal adapter predicts that prior experience
 with other talkers will be less relevant, resulting in faster and more complete
 adaptation to an unfamiliar talker. We found here that talker identity is less
 informative about VOT distributions than it is for vowel formant
@@ -1813,7 +1813,7 @@ experience with other talkers. The first prediction is borne out by
 @Kraljic2007, who compared recalibration of a voicing contrast with a fricative
 place contrast. It's also borne out indirectly by the modeling work in Chapters
 \ref{chap:ideal-adapter} and \ref{chap:infer-priors}, which found that the effective prior sample size for /b/-/d/
-(which, like vowels, is primarily cued by formant requencies) is much lower than
+(which, like vowels, is primarily cued by formant frequencies) is much lower than
 for /b/-/p/ (cued by VOT).
 <!-- TODO-paper: remove chapter refs -->
 
@@ -1851,9 +1851,9 @@ test stimuli [@Reinisch2014].
 
 ### Sociolinguistic inference
 
-Our findings suggest that socio-linguistic judgements can---like linguistic
-judgements---be viewed as probabilistic inference. In this view, both social and
-linguistic judgements rely on knowledge of how different underlying
+Our findings suggest that socio-linguistic judgments can---like linguistic
+judgments---be viewed as probabilistic inference. In this view, both social and
+linguistic judgments rely on knowledge of how different underlying
 categories---social and linguistic---are probabilistically realized as
 distributions of observable cues. Just like each vowel (for instance) is
 realized as a distribution of F1 and F2 values, each dialect is _also_ realized
@@ -1865,7 +1865,7 @@ classify a talker's dialect at roughly the same accuracy (10-40%) as human
 listeners in a forced-choice task based on sentences spoken by the same talkers
 [@Clopper2006].
 
-The idea of socio-linguistic judgements of inference fits naturally within the ideal adapter framework, which holds that listeners are simultaneously making at least three kinds of inferences in the normal course of speech perception: 
+The idea of socio-linguistic judgments of inference fits naturally within the ideal adapter framework, which holds that listeners are simultaneously making at least three kinds of inferences in the normal course of speech perception: 
 
 1. _What_ a talker is saying
 2. _How_ that talker says things
@@ -1882,9 +1882,9 @@ identity is informative about their speech. Thus both sociolingusitic and
 psycholinguistic considerations lead to the idea that social inferences may well
 be inextricable from linguistic inferences.
 
-Realizing that socio-linguistic judgements can be treated as a kind of inference
-is a potentially powerful idea, but it is impotant to realize that it is not,
-per se, a complete _model_ of socio-linguistic judgements. Rather, it is a
+Realizing that socio-linguistic judgments can be treated as a kind of inference
+is a potentially powerful idea, but it is important to realize that it is not,
+per se, a complete _model_ of socio-linguistic judgments. Rather, it is a
 framework for developing such a model. In this view, the particular inferences
 that a listener would draw based on particular linguistic input depends not only
 on the distributions of cues in the world but just as much on the listener's
@@ -1903,7 +1903,7 @@ with an inference-based perspective, but they depend on the specific contents of
 the listeners internal model of how social variables are related to each other
 and to observable cues [for examples in other domains, see @Jacobs2010]. Such
 internal models are not directly derivable from production data like we analyze
-here, but rather require probing a listner's subjective, implicit beliefs (as in
+here, but rather require probing a listener's subjective, implicit beliefs (as in
 the previous chapter).
 
 
@@ -1939,7 +1939,7 @@ advantage of different levels of grouping structure
 [^predictive-approx]: Depending on how variability at lower levels of grouping
     is modeled.
 
-[^lower-bound-caveat]: Even above and beyond the limitations imposed by unqueal
+[^lower-bound-caveat]: Even above and beyond the limitations imposed by unequal
     numbers of talkers in each group, which necessitates subsampling talkers in
     the larger groups in order to meaningfully compare accuracy.
 
@@ -1953,14 +1953,14 @@ about the distributions of acoustic cues corresponding to linguistic categories,
 _useful_ for recognizing those categories, and can themselves be _inferred_ from
 unlabeled cues. Our results show that the utility and informativity of a
 particular socio-indexical variable are closely related but not identical, while
-inferrability is distinct.  Moreover, we demonstrate how this method for
+inferability is distinct.  Moreover, we demonstrate how this method for
 quantifying these factors allows them to be compared across phonetic categories
 as well as cues/contrasts (VOT vs. F1xF2).
 
 Together, these results show that the idea of inference under uncertainty, when
 applied to speech perception, provides a unifying perspective on both linguistic
 and socio-linguistic perception. This perspective leads to conceptual and
-computational tools for addressings questions that are of interest to
+computational tools for addressing questions that are of interest to
 psycholinguistics and sociolinguistics, as well as developing new bridges
 between the two.
 
