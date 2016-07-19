@@ -8,6 +8,6 @@
 * for paper
     * need to make/emphasize the point that we can COMPARE levels of talker
       variability across contrasts. I think that's actually novel.
-    * clarify relationship with @WeatherholtzSubmitted2016
-    * incorporate bob's work on informativity/utility
-    * incorporate naomi's cog sci paper using KL for dialect
+    * [done] clarify relationship with @WeatherholtzSubmitted2016
+    * [done] incorporate bob's work on informativity/utility
+    * [done] incorporate naomi's cog sci paper using KL for dialect
