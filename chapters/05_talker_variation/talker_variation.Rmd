@@ -173,8 +173,10 @@ quantify this relationship. The central question we address in this paper is
 twofold: 1) how much can listeners actually gain by considering socio-indexical
 variables for speech perception (both in absolute terms and relative to other
 grouping variables), and 2) how accurately could listeners infer socio-indexical
-grouping variables for a talker on the basis of their cue distributions.
-<!-- TODO: state high level goal here, too: formal, quantitative framework that has the potential to unify explanations of these two phenomena (linguistic and socio-indexical judgments) -->
+grouping variables for a talker on the basis of their cue distributions. This
+work builds on the initial steps reported in @WeatherholtzSubmitted2016,
+developing the computational tools provided by the ideal adapter framework into
+a quantitative framework with the potential to unify explanations of linguistic and socio-indexical judgments.
 
 ### Our goals
 
@@ -251,7 +253,12 @@ two sets of contrasts/cues: vowels (cued by first and second formant
 frequencies; F1xF2) and word-initial stop voicing (cued by voice onset time;
 VOT). We selected these particular contrasts based on the qualitative evidence
 that they exhibit different degrees and types of cross-talker
-variability. Focusing on information theoretic properties of the cue
+variability. 
+Our approach is based on that of @WeatherholtzSubmitted2016, and compares
+_conditional_ cue distributions (e.g., for male vs. female talkers) to
+_marginal_ cue distributions (e.g., for all talkers) using an information
+theoretic measure of similarity between distributions.
+Focusing on information theoretic properties of the cue
 distributions provides a principled common currency for comparing different
 socio-indexical variables, phonetic categories, and cues.
 <!-- [^bilingual-vot] -->
@@ -319,7 +326,9 @@ variability in cue distributions with the utility of those variables.  This link
 comes from treating speech perception as an inference process, which predicts
 phonetic classification from the underlying cue distributions.  We use this link
 to quantify, in Study 2, how much speech recognition is improved by conditioning
-cue distributions on a particular socio-indexical variable.
+cue distributions on a particular socio-indexical variable. As in Study 1, our
+approach is based on @WeatherholtzSubmitted2016, extended here to a wider range
+of cues, categories, and socio-indexical variables.
 
 One advantage of the ideal adapter framework is that quantifying the utility of
 socio-indexical variables in this way leads to further, testable predictions
