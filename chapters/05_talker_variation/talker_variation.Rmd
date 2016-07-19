@@ -581,7 +581,19 @@ Our first goal is to assess how _informative_ socio-indexical variables are abou
 ### Methods {#sec:kl-methods}
 
 One way to quantify how informative a socio-indexical grouping variable is about cue distributions is by comparing the group-level cue distributions with the _marginal_ distribution of cues from all groups. The reason for this is that if a socio-indexical grouping variable (e.g., sex) is _not_ informative about cue distributions, then the the cue distributions for each group (e.g., male and female talkers) will be essentially identical, and hence indistinguishable from the _overall_ cue distribution. If, on the other hand, a socio-indexical variable _is_ informative about cue distributions, then the distribution for each group will deviate substantially from other groups, and by extension from the overall distribution as well.
-The particular measure we use to compare distributions is the Kullback-Leibler (KL) divergence, which explain next.
+The particular measure we use to compare distributions is the Kullback-Leibler (KL) divergence, which explain next.[^kl-vs-var-explained]
+
+[^kl-vs-var-explained]: This measure is intuitively similar to the proportion of
+    variance explained by the socio-indexical grouping variable
+    [as used in @McMurray2011a]. However, it is a more general approach that
+    does not require that we assume that the underlying distributions are normal
+    distributions, and can be applied even to categorical variables (like
+    distributions of words or syntactic structures). It also, as we show here,
+    naturally extends to multidimensional cue spaces, taking into account the
+    correlations between cues, and supporting comparisons to other cue spaces.
+
+<!-- TODO: expand this and put it into the discussion. it's an important point of comparison. -->
+<!-- TODO: are these equivalent? -->
 
 #### Technical details
 
