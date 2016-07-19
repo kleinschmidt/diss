@@ -597,7 +597,16 @@ The particular measure we use to compare distributions is the Kullback-Leibler (
 
 #### Technical details
 
-KL divergence (or relative entropy) is an information-theoretic comparison of two distributions [@Mackay2003, p. 34]. In our usage, it measures the expected cost (in bits of extra message length) of encoding data from each group using a code that's optimized for the marginal distribution [@Mackay2003, p. 98].
+KL divergence (or relative entropy) is an information-theoretic comparison of two distributions [@Mackay2003, p. 34]. In our usage, it measures the expected cost (in bits of extra message length) of encoding data from each group using a code that's optimized for the marginal distribution [@Mackay2003, p. 98].[^vs-marginal-or-other]
+
+[^vs-marginal-or-other]: @Richter2016 apply a similar approach to vowel data
+    from the NSP, with an important difference: they compare group-specific
+    distributions to _each other_, instead of the marginal distribution. Their
+    goal is to evaluate how well different normalization schemes remove talker
+    variability, while ours is to evaluate how informative different
+    socio-indexical variables are about the underlying distributions. These are
+    related, but not identical goals, and thus our methods are similar but not
+    identical.
 
 In general, the KL divergence of $Q$ from $P$ is
 $$DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$$ {#eq:kl}
