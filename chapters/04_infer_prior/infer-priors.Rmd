@@ -359,7 +359,7 @@ We recruited `r n_total` subjects via Amazon's Mechanical Turk. Subjects were pa
 participated more than once ($n=`r n_subj_repeat`$) or who failed to classify VOTs reliably
 ($n=`r n_subj_bad`$; $n=`r n_both`$ for both reasons).
 We defined reliable classification as accuracy of at least 80% at 0 and
-70ms VOT. Because some conditions had few stimuli with these VOTs, we extrapolated subjects responses using a logistic generalize linear model (GLM).
+70ms VOT. Because some conditions had few stimuli with these VOTs, we extrapolated subjects' responses using a logistic generalize linear model (GLM).
 Excluded subjects were roughly equally distributed across conditions (maximum of
 5 in 0ms /b/ VOT condition, and minimum of 1 in 20ms /b/ VOT condition). After
 these exclusions, data from `r n_subj` subjects remained for analysis.
@@ -689,7 +689,7 @@ tractable.
 
 [^trial-order]: The order of trials _does_ matter, in general
     [@Vroomen2007; @Kleinschmidt2015; @Kraljic2008a]. In particular, our
-    previous modeling work is attempts to model such trial effects. However, the
+    previous modeling work models such trial effects. However, the
     paradigm that this previous work models is very different, with a small
     number of _critical_ trials that are maximally ambiguous. Such
     _recalibration_ paradigms produce very rapid adaptation. The build-up time
@@ -709,7 +709,7 @@ model to be surprisingly subtle.  For instance, one seemingly obvious fix that
 we investigated is to treat listeners' responses as the category
 labels to be used for belief updating (rather than the experimenter-defined
 categories). However, this technique effectively fits the _exposure_
-distributions to listeners classification functions, and in doing so biases the
+distributions to listeners' classification functions, and in doing so biases the
 model to completely ignore the prior.
 
 Moreover, this approach has conceptual problems, because by treating listeners'
@@ -1984,7 +1984,7 @@ to this dilemma is to leverage prior experience with _other_ talkers in order to
 provide an informative starting point when adapting to an unfamiliar
 talker. This is what rational accounts predict
 [i.e., the ideal adapter, @Kleinschmidt2015]. More specifically, these accounts
-predict that prior experience _constraints_ (or _guides_) learning and
+predict that prior experience _constrains_ (or _guides_) learning and
 adaptation to an unfamiliar talker's accent. Even if all the listener knows
 about the talker is that they are speaking English, they can still benefit from
 prior experience with other speakers of English to provide an informative head
