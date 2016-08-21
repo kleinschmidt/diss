@@ -15,6 +15,7 @@ output:
         - pandoc-eqnos
     pdf_document:
         md_extensions: +implicit_figures
+        keep_tex: true
         pandoc_args:
         - --filter
         - pandoc-fignos
@@ -343,7 +344,7 @@ beyond the recognition of phonetic categories.  The purpose of spoken language
 is not limited to communicating linguistic information.  Every time we speak we
 also communicate socio-indexical information, information about aspects of our
 social identity such as gender, age, class,
-etc. [cf. @Eckert1989; @Eckert2012a; @Labov1972].
+etc. [cf. @Eckert1989; @Eckert2012; @Labov1972].
 <!-- TODO: more refs here. --> The approach outlined so far also lends itself to
 reasoning about these sorts of social inferences as well. In particular, a
 listener can use knowledge about group-conditioned cue distributions in order to
@@ -383,7 +384,7 @@ distributions for multiple talkers, within groups defined by socio-indexical
 variables. Sociolinguistics increasingly recognizes that the meanings of
 socio-indexical variables are dynamically constructed and not necessarily static
 within a single individual
-[either producer or perceiver; @Eckert2012a; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014].
+[either producer or perceiver; @Eckert2012; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014].
 The techniques we introduce here can---in principle---be applied to more dynamic
 and contextually conditioned variables, but they present unique and interesting
 challenges that are beyond the scope of the current paper.
@@ -1854,7 +1855,7 @@ It is important to note that listeners' associations between linguistic and
 socio-indexical variables are not always based on _objective_ informativity of
 those variables. Rather, some variants can become disproportionately _salient_
 or _enregistered_, can further vary based on context
-[@Eckert2012a; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014].
+[@Eckert2012; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014].
 <!-- TODO: insert W&J salience ref here -->
 These deviations between objective informativity and subjective salience remain
 to be explained and specified in more detail.  Our work here provides a set of
