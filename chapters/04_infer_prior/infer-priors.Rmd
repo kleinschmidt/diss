@@ -1187,19 +1187,12 @@ model is its ability to predict behavior in new situations. The qualitatively
 different set of input distributions we use in Experiment 2 provides a
 stringent test of the predictive utility of this framework.
 
-<!-- MEH. we don't really address this by updating the modeling beliefs, right?
-so why bother. --> The particular set of distributions we chose was informed by
-the particular way that the model fit the data. In particular the model's
-pattern of _uncertainty_ about the joint combination of category means and
-variances given the data revealed that our data was more informative about the
-category boundary location implied by the prior cue distributions (which is
-largely determined by the midpoint between the /b/ and /p/ prior means) than
-about the separation between the two clusters. By varying the separation between
-the clusters we <!-- expect to gain more information that can further constrain the -->
-<!-- inferred beliefs, as well as testing --> test how much the uncertainty
+The particular set of distributions we chose was informed by
+how the model fit the data from Experiment 1. 
+The posterior distributions of the model parameters given the data were not independent: the prior expected mean VOTs for /b/ and /p/ were inversely correlated, which means that the model fit was more uncertain about the _distance_ between the two category means than the midpoint between them. This reflects the fact that the exposure distributions in Experiment 1 all had the same separation between the cluster means (40ms VOT).  By varying the separation between
+the clusters we test how much the uncertainty
 inherent in the structure of the first experiment affects the predictive power
 of the model.
-<!-- TODO: unpack -->
 
 Another, secondary goal is to test how listeners adapt to large, negative
 VOTs. The inferred prior beliefs about the /b/ VOT distribution of a typical
@@ -1217,6 +1210,12 @@ current model (that treats /b/ as a single VOT cluster) to a model that treats
 conceptually straightforward---but technically difficult---extension of the
 current model.
 <!-- TODO: why are we doing this anyway -->
+That is, Experiment 2 is aimed at allowing future modeling work that can provide
+insights into the sort of phonetic category _representations_ that listeners
+might be using to process speech. By focusing on the different possible sorts of
+distribution representations, this has the potential to go beyond the
+_computational principles_ like distributional learning that modeling work in
+this framework has largely focused on.
 
 ```{r separatemeans-data}
 
