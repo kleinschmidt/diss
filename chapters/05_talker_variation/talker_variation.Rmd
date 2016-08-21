@@ -939,6 +939,19 @@ distributions (that is, distributions _conditioned on_ gender).
 
 More broadly, by calculating the probability of correct recognition using, for instance, the cue distributions of each category produced by female talkers, we can  estimate how well a listener would be able to recognize speech from an unfamiliar female talker if all they knew was the talker's sex. This measure is meaningfully different from the KL-based informativity measure from Study 1, because a category might vary substantially between, e.g., male and female talkers, but if it is already highly distinguishable from other categories this variability may not impact correct recognition.
 
+As we discuss in more detail in the general discussion, this measure is best
+considered a _lower bound_ on how useful a particular grouping variable is for
+comprehending speech from an unfamiliar talker. The reason for this is that the
+marginal cue distribution for a group does not necessarily reflect the
+distribution of talker-specific cue distributions in that group, and hence
+reflects an approximation of where a listener would _start_ when adapting to a
+new talker from that group, but not where they would end up after adapting to
+that particular talker. It is possible that a grouping variable might have
+relatively low utility by the measure we use here, but still make adaptation
+substantially more efficient, making its actual utility higher. Quantifying this
+notion of utility is computationally more demanding and thus we leave it as a
+question for future work.
+
 #### Technical details
 
 We want to determine the phonetic category $v_i$[^notation] of each of the cues $x_i$ produced by a talker. If we assume that the listener knows that this talker belongs to group $g=j$, this inference is a straightforward application of Bayes Rule:
