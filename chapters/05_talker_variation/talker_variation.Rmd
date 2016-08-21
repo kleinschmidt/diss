@@ -261,18 +261,6 @@ theoretic measure of similarity between distributions.
 Focusing on information theoretic properties of the cue
 distributions provides a principled common currency for comparing different
 socio-indexical variables, phonetic categories, and cues.
-<!-- [^bilingual-vot] -->
-
-<!-- TODO: move this (WHERE??) -->
-[^bilingual-vot]: One notable exception is native language background. For
-    instance, French-English bilinguals produce significantly shorter VOTs than
-    English monolinguals
-    [@Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011]. The difficulty of
-    finding suitable datasets on these talkers prevents us from considering this
-    variable fully here, but preliminary analysis of VOT distributions
-    [from @Lev-Ari2013] suggest that they would not substantially change our
-    conclusions.
-
 
 #### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
