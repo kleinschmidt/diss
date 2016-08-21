@@ -1537,6 +1537,17 @@ for /b/, 50ms for /p/), listeners in Experiment 2 adapted just as much as those 
 
 #### Evidence for separate prevoiced cluster?
 
+```{r boot-diff-pvot}
+
+boot_50_ne_80 <- boot_ci(x,
+                         function(d,i) d[i, ] %>%
+                                         group_by(vot_cond) %>%
+                                         summarise(boundary=mean(boundary)) %$%
+                                         diff(boundary),
+                         h0=0)
+
+```
+
 Listeners showed very little sensitivity to increasingly large negative mean /b/
 VOTs: the average category boundaries were very similar in the -20, -50, and
 -80ms /b/ mean conditions. On average these were comparable to the 0ms /b/, 40ms
@@ -1544,7 +1555,8 @@ VOTs: the average category boundaries were very similar in the -20, -50, and
 mean. This suggests that listeners are more ready to adapt to variation in /p/ than
 in /b/. Nevertheless, listeners in the 10ms /b/, 80ms /p/ still did not fully
 adapt to the exposure distribution, producing category boundaries that were not
-significantly different from those in the 10ms /b/, 50ms /p/ condition.
+significantly different from those in the 10ms /b/, 50ms /p/ condition
+(bootstrapped $`r boot_50_ne_80 %$% boot_p %>% p_val_to_less_than()`$).
 
 ```{r prop-prevoicing}
 prop_pre_by_talker <- 
