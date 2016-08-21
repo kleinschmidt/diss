@@ -1847,6 +1847,23 @@ important aspect of the research program laid out by the ideal adapter framework
 is to probe listeners' prior beliefs _directly_ (which the previous chapter is a
 first step towards) <!-- TODO-paper: remove "chapter" for TopiCS -->
 
+It is important to note that listeners' associations between linguistic and
+socio-indexical variables are not always based on _objective_ informativity of
+those variables. Rather, some variants can become disproportionately _salient_
+or _enregistered_, can further vary based on context
+[@Eckert2012a; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014].
+<!-- TODO: insert W&J salience ref here -->
+These deviations between objective informativity and subjective salience remain
+to be explained and specified in more detail.  Our work here provides a set of
+tools for assessing objective informativity, a critical first step in
+understanding this relationship. More generally, by treating listeners'
+decisions about which socio-indexical and linguistic variables to jointly track
+as a form of _inference_ (like linguistic and socio-indexical judgments
+themselves), this perspective provides a framework for testing different ways
+that listeners' experience and beliefs shape their subjective notions of
+socio-indexical associations with linguistic variables.
+
+
 Finally, our results suggest that the input representation---the cue space over
 which categories are distributions---can affect which variables are informative
 or not. For vowels, using Lobanov-normalized formants as input substantially
