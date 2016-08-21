@@ -857,6 +857,18 @@ shows that dialect differences themselves are modulated by sex
 <!-- TODO: is this true? permutation test on sex within dialect. -->
 <!-- TODO-paper: summary statement -->
 
+This asymmetry in informativity across both dialects and vowels raises the
+question of how listeners adapt to variation across categories and cue
+dimensions. All else being equal, a listener should be more confident in their
+prior beliefs about a category that varies less across talkers, and hence adapt
+less flexibly [@Kleinschmidt2015]. But it is not clear at what level listeners
+track variability for the purpose of determining how quickly to adapt. For
+instance, as we have seen, vowels vary substantially more across talkers than
+stop categories, but there are further differences in how much individual vowels
+vary. It remains to be seen whether listeners adapt to all vowels with the same
+degree of flexibility, or are sensitive to these vowel-specific differences in
+cross-talker variability.
+
 ## Study 2: utility of socio-indexical groupings for speech recognition
 
 Next, we evaluate the _utility_ of each grouping variable for speech
