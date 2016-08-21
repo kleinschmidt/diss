@@ -1517,6 +1517,14 @@ fact that dialects themselves vary in how much they deviate from both the norms
 of Standard American English [@Clopper2005] and from the marginal cue
 distributions in this dataset (Figure @fig:vowel-kl-by-dialect). Most notably, conditioning on dialect provides a consistent advantage for talkers from the North dialect region, on the order of 10%.
 
+As with the cue distributions themselves in Study 1, this suggests that there
+may be a differential advantage to tracking cue distributions for different
+vowels, and hence listeners might be more sensitive to variation in some
+categories than others. On the other hand, it is possible that listeners' degree
+of flexibility depends on the _cue_ rather than the _category_ specifically, in
+which case they would be predicted to track all cues sharing the same cue with
+the same level of flexibility.
+
 [^logodds]: These comparisons are also significant when using log-odds of
     correct recognition, rather than raw probabilities.
 
