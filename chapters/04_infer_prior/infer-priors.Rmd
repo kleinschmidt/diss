@@ -1009,6 +1009,8 @@ prior_samples_df %>%
   scale_x_continuous('VOT (ms)') +
   scale_y_continuous('Likelihood')
 
+## TODO: clearer legend
+
 ```
 
 The second way to evaluate this model is based on the prior beliefs it infers
@@ -1027,9 +1029,9 @@ distribution for /p/ that our model inferred is almost identical to that
 observed by both @Kronrod2012 and @Lisker1964. The distribution for /b/ deviates
 from prior work, however: 
 the mean is slightly lower
-($E(\mu_{0,\mathrm{b}}) = `r prior_expected['mu_0_b']`$ ms), and the
+($\mathrm{E}(\mu_{0,\mathrm{b}}) = `r prior_expected['mu_0_b']`$ ms), and the
 standard deviation is slightly higher
-($E(\sigma_{0,\mathrm{b}}) = `r prior_expected['sigma_0_b']`$ ms).
+($\mathrm{E}(\sigma_{0,\mathrm{b}}) = `r prior_expected['sigma_0_b']`$ ms).
 
 One possible reason for this is that a substantial minority of English speakers
 produce pre-voiced /b/ [@Lisker1964; @Goldrick2013], which is characterized by a
@@ -1095,8 +1097,8 @@ prior_summary %>%
 Qualitatively, the prior parameters show that 
 listeners have 
 high confidence in their prior expectations about the mean and variance of /b/ and /p/ VOT distributions. The model-inferred confidence in category
-variances is $E(\nu_0) = `r prior_expected['nu_0']`$, which is is higher than the inferred confidence
-about means ($E(\kappa_0) = `r prior_expected['kappa_0']`$).  Both
+variances is $\mathrm{E}(\nu_0) = `r prior_expected['nu_0']`$, which is is higher than the inferred confidence
+about means ($\mathrm{E}(\kappa_0) = `r prior_expected['kappa_0']`$).  Both
 of these can be interpreted as _pseudo-counts_, and both are larger than the number of trials
 that listeners heard in the experiment (222). This means that as far as the
 belief-updating model is concerned, listeners' beliefs about the exposure talker's /b/ and /p/ distributions reflected their
@@ -1508,7 +1510,7 @@ sepmeans_test %>%
 ```
 
 
-```{r boundary-violin-plots-exp2, fig.width=6.5, fig.height=4.5, fig.cap="The distribution of listeners' individual category boundaries in Experiment 2 reflects partial adaptation to the exposure talker's VOT distributions. Extreme shifts have minimal additional effect on listeners' boundaries, corroborating the strong prior biases observed in Experiment 1. The un-filled distribution shows the boundaries from listeners in the corresponding 10ms VOT /b/ mean condition from Experiment 1. These conditions had the same exposure distributions, but differed in whether category boundaries were estimated based on the exposure (Experiment 1) or post-test phase (Experiment 2)."}
+```{r boundary-violin-plots-exp2, fig.width=6.5, fig.height=4.5, fig.cap="The distribution of listeners' individual category boundaries in Experiment 2 reflects partial adaptation to the exposure talker's VOT distributions. Extreme shifts have minimal additional effect on listeners' boundaries, corroborating the strong prior biases observed in Experiment 1. The un-filled distribution shows the boundaries from listeners in the corresponding 10ms VOT /b/ mean condition from Experiment 1. These conditions had the same exposure distributions, but differed in whether category boundaries were estimated based on the exposure (Experiment 1) or post-test data (Experiment 2)."}
 
 ggplot(boundaries_exp2, aes(y = boundary, x = vot_cond, fill = vot_cond)) +
   ## this is an awful hack: plot the violins first to force continuous x
@@ -2023,7 +2025,7 @@ listener encounters a talker whose accent (cue distributions) lies outside the r
 is _a priori_ plausible based on their prior experience, they will have a hard
 time adapting to that talker (cf. @Pajak2016 for a discussion of second-language learning as an extreme example from this perspective).
 
-In this paper, we have found that listeners' behavior in two distributional
+We found that listeners' behavior in two distributional
 learning experiments is constrained and guided in exactly this way.
 Specifically, we found that listeners' classification of a novel talker's VOT
 continuum reflects a compromise between what would be expected for the VOT
