@@ -1,3 +1,5 @@
+* Write acknowledgements
+
 # Writing
 
 ## Structure
@@ -30,9 +32,11 @@
 2. [done] Ideal adapter
 3. [done] Selective adaptation
 4. Inferring priors
-    * Check for comments I didn't address before
-    * Revise where appropriate
+    * [done] Check for comments I didn't address before
+    * [done] Revise where appropriate
+    * Fix IPA (just insert `\ph{}` since it's included in header)
 5. Talker variation
     * Check for comments I didn't address before
     * Revise where appropriate
 6. [done] Conclusion
+
