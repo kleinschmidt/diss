@@ -2019,9 +2019,9 @@ about the talker is that they are speaking English, they can still benefit from
 prior experience with other speakers of English to provide an informative head
 start for adaptation. In this view, prior experience can only be helpful to the
 extent that it rules out some possible accents (cue distributions). If a
-listener encounters a talker whose accent lies outside the range that they think
+listener encounters a talker whose accent (cue distributions) lies outside the range that they think
 is _a priori_ plausible based on their prior experience, they will have a hard
-time adapting to that talker.
+time adapting to that talker (cf. @Pajak2016 for a discussion of second-language learning as an extreme example from this perspective).
 
 In this paper, we have found that listeners' behavior in two distributional
 learning experiments is constrained and guided in exactly this way.
