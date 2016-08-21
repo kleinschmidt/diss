@@ -558,13 +558,31 @@ their prior expectations (given the finite amount of evidence they received
 about the unfamiliar talker).  This provides qualitative evidence that listeners
 combine their prior expectations with observed cue distributions in order to
 rapidly adapt to unfamiliar talkers, as predicted by the ideal adapter framework
-[@Kleinschmidt2015].  More generally, unlike previous work showing constraints
+[@Kleinschmidt2015].[^exemplar]  More generally, unlike previous work showing constraints
 on distributional learning [@Idemaru2011; @Sumner2011], these results cannot be
 explained by a model where the only constraints on listeners' distributional
 learning is a binary distinction between _natural_ and _unnatural_ cue-category
-mappings
+mappings.
+
+[^exemplar]: It is not immediately clear whether these results are compatible
+    with exemplar accounts of speech perception
+    [@Pierrehumbert2001; @Johnson1997a; @Goldinger1998]. On the one hand, these
+    models broadly predict that listeners will adapt their categorization based
+    on experience, and that this is guided by previous experience because
+    previously stored exemplars are used to categorize each new exemplar. On the
+    other hand, to our knowledge there are no existing studies that model
+    unsupervised distributional learning with exemplar models. Moreover, it is
+    not clear that an exemplar model would be able to extract talker-specific
+    distributional regularities in the absence of any labeling information,
+    since the initial exemplars will be categorized based on those stored from
+    previous talkers, and absent any mechanism to go back and revised these
+    early categorizations the model may become dug in to the clusters
+    established by previous talkers. Whether or not these results are compatible
+    with exemplar theories is thus best left to future work using an implemented
+    model.
 
 <!-- TODO: footnote on exemplar approaches being broadly compatible? -->
+<!-- Actually Im' not sure that these results ARE compatible with an exemplar model. I'm actually not even sure that distributional learning itself is compatible with a pure exemplar model. it seems like early tokens might lead to the model getting "dug in" and committed to the most similar other talkers' pre-existing category boundaries, since the stored exemplars are given the category they are perceived as. there's no mechanism to go back and extract talker-specific _distributional_ information. -->
 
 ```{r boundary-shift, results='asis', tbl.cap="Percentage of boundary shift from typical talker to each exposure talker (see Figure {@fig:class-curves}), averaged over subjects with 95% bootstrapped confidence intervals.  0% shift corresponds to no adaptation at all, while 100% corresponds to perfect adaptation, ignoring any prior  beliefs. Typical and exposure talker boundaries were too close together to reliably determine boundary shift percentage in the 0ms condition."}
 
