@@ -897,13 +897,13 @@ distribution, divided by the total likelihood of 20ms VOT under both /b/ and
     categorization, which starts from cue distributions and derives
     classification boundaries. This contrasts with _discriminative_ models which
     directly map cue values to categories, like the logistic regression model
-    that @McMurray2010a used to evaluate the utility of different cue encoding
+    that @McMurray2011a used to evaluate the utility of different cue encoding
     schemes for classifying fricatives. The main advantage to using a generative
     framework, overall, is that it provides a _learning model_, and does not
     require us to assume that listeners actually _know_ the underlying
     distributions for each talker [@Kleinschmidt2015]. But it remains a question
     for future work exactly how the predictions of our approach here differ from
-    those of the discriminative modeling approach of @McMurray2010a.
+    those of the discriminative modeling approach of @McMurray2011a.
 
 
 [^flat-prior]: This assumes---for the sake of convenience---that the prior
