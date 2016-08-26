@@ -471,7 +471,7 @@ n_dialect <- nsp_vows %$% Dialect %>% unique() %>% length()
 
 ```
 
-For vowels, we used data from the Nationwide Speech Project [@Clopper2005]. Specifically, we analyzed first and second formant frequencies (F1xF2, measured in Hertz) recorded at vowel midpoints in isolated, read "hVd" words. This corpus contains `r n_talkers` talkers, `r n_per_dialect_sex` male and female from each of `r n_dialect` regional varieties of English: North, New England, Midland, Mid-Atlantic, South, and West [see map in @Clopper2005; regions based on @Labov2005].  Each talker provided approximately `r round(token_per_vow, 1)` repetitions of each of 11 English monophthong vowels (plus `ey`), for a total of `r nrow(nsp_vows)` observations.
+For vowels, we used data from the Nationwide Speech Project [NSP; @Clopper2005]. Specifically, we analyzed first and second formant frequencies (F1xF2, measured in Hertz) recorded at vowel midpoints in isolated, read "hVd" words. This corpus contains `r n_talkers` talkers, `r n_per_dialect_sex` male and female from each of `r n_dialect` regional varieties of English: North, New England, Midland, Mid-Atlantic, South, and West [see map in @Clopper2005; regions based on @Labov2005].  Each talker provided approximately `r round(token_per_vow, 1)` repetitions of each of 11 English monophthong vowels (plus `ey`), for a total of `r nrow(nsp_vows)` observations.
 
 One of our primary goals is to assess the informativity of different grouping variables. Sex differences in vocal tract size are a major source of variability in vowel production, and thus may be more informative than other factors. However, this likely depends on the details of how acoustic cues are represented. Differences in vocal tract size, for instance, lead to overall shifts in the resonant frequencies and hence formant frequencies across _all_ vowels, but leave the relative positions of vowel categories more or less intact [e.g., @Hillenbrand1995]. Moreover, there is evidence that domain-general auditory normalization or adaptation processes removes some or all of this overall shift, and hence using un-normalized formant frequencies may overestimate the informativity of sex relative to other grouping factors.
 
@@ -593,9 +593,9 @@ KL divergence (or relative entropy) is an information-theoretic comparison of tw
     distributions to _each other_, instead of the marginal distribution. Their
     goal is to evaluate how well different normalization schemes remove talker
     variability, while ours is to evaluate how informative different
-    socio-indexical variables are about the underlying distributions. These are
-    related, but not identical goals, and thus our methods are similar but not
-    identical.
+    socio-indexical variables are about the underlying distributions. Our goals
+    are thus related but not identical
+    <!-- TODO-paper: spell out in text -->
 
 In general, the KL divergence of $Q$ from $P$ is
 $$DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$$ {#eq:kl}
@@ -719,7 +719,7 @@ talkers' VOT distributions diverge from the marginal distribution (B) at roughly
 the same level that the male and female distributions of normalized F1xF2
 diverge from the marginal normalized F1xF2 distributions (A).
 
-```{r vot-vs-vowel-dists, fig.width=6.2, fig.height=6.0, fig.cap='Male and female distributions of Normalized F1xF2 diverge from the marginal distributions (A) only slightly less than talker-specific VOT distributions diverge from marginal (B) (see Figure {@fig:vowel-vot-kl-plot}'}
+```{r vot-vs-vowel-dists, fig.width=6.2, fig.height=6.0, fig.cap='Male and female distributions of Normalized F1xF2 diverge from the marginal distributions (A) only slightly less than talker-specific VOT distributions diverge from marginal (B) (see Figure {@fig:vowel-vot-kl-plot})'}
 
 gg_vowels_by_sex <-
   ggplot(nsp_vows_lob, aes(x=F2, y=F1, group=Vowel)) +
@@ -852,8 +852,8 @@ dimensions. All else being equal, a listener should be more confident in their
 prior beliefs about a category that varies less across talkers, and hence adapt
 less flexibly [@Kleinschmidt2015]. But it is not clear at what level listeners
 track variability for the purpose of determining how quickly to adapt. For
-instance, as we have seen, vowels vary substantially more across talkers than
-stop categories, but there are further differences in how much individual vowels
+instance, as we have seen, overall vowels vary substantially more across talkers than
+stop categories, but there are differences in how much individual vowels
 vary. It remains to be seen whether listeners adapt to all vowels with the same
 degree of flexibility, or are sensitive to these vowel-specific differences in
 cross-talker variability.
@@ -930,7 +930,9 @@ More broadly, by calculating the probability of correct recognition using, for i
 
 As we discuss in more detail in the general discussion, this measure is best
 considered a _lower bound_ on how useful a particular grouping variable is for
-comprehending speech from an unfamiliar talker. The reason for this is that the
+comprehending speech from an unfamiliar talker. 
+<!-- 
+The reason for this is that the
 marginal cue distribution for a group does not necessarily reflect the
 distribution of talker-specific cue distributions in that group, and hence
 reflects an approximation of where a listener would _start_ when adapting to a
@@ -940,6 +942,7 @@ relatively low utility by the measure we use here, but still make adaptation
 substantially more efficient, making its actual utility higher. Quantifying this
 notion of utility is computationally more demanding and thus we leave it as a
 question for future work.
+-->
 
 #### Technical details
 
@@ -1524,7 +1527,7 @@ As with the cue distributions themselves in Study 1, this suggests that there
 may be a differential advantage to tracking cue distributions for different
 vowels, and hence listeners might be more sensitive to variation in some
 categories than others. On the other hand, it is possible that listeners' degree
-of flexibility depends on the _cue_ rather than the _category_ specifically, in
+of flexibility depends on the _cue_ (or phonetic feature, like $\pm \mathrm{voicing}$) rather than the _category_ specifically, in
 which case they would be predicted to track all cues sharing the same cue with
 the same level of flexibility.
 
@@ -1821,7 +1824,7 @@ informativity and utility apply beyond better _speech_ recognition per
 se. Listeners extract a lot of non-phonetic/linguistic information from speech
 signal. To properly define the informativity or utility of a particular grouping
 variable, we need to consider the _goals_ of speech perception, which go beyond
-just recognizing phonetic categories [or linguistic representations at any particular level, cf. @Kuperberg2016a]. Sociolinguistics recognizes that, in many
+just recognizing phonetic categories [or linguistic representations at any particular level, cf. @Kuperberg2016]. Sociolinguistics recognizes that, in many
 cases, the communication of social information is just as---if not more---important
 than the communication of linguistic information. Groupings that are _socially
 meaningful_ can thus be informative and justify being tracked, even if ignoring
@@ -1849,13 +1852,13 @@ direct interest to a listener: social categories that are highly important in
 one person's social world may be completely meaningless in another's. An
 important aspect of the research program laid out by the ideal adapter framework
 is to probe listeners' prior beliefs _directly_ (which the previous chapter is a
-first step towards) <!-- TODO-paper: remove "chapter" for TopiCS -->
+first step towards). <!-- TODO-paper: remove "chapter" for TopiCS -->
 
 It is important to note that listeners' associations between linguistic and
-socio-indexical variables are not always based on _objective_ informativity of
+socio-indexical variables do not always seem to be based on _objective_ informativity of
 those variables. Rather, some variants can become disproportionately _salient_
 or _enregistered_, can further vary based on context
-[@Eckert2012; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014].
+[@Eckert2012; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014; @Jaeger2016].
 <!-- TODO: insert W&J salience ref here -->
 These deviations between objective informativity and subjective salience remain
 to be explained and specified in more detail.  Our work here provides a set of
@@ -1966,7 +1969,7 @@ The third level of inference is essential for talker-invariant speech
 perception: knowing _who_ a talker is allows listeners to take advantage of
 their prior experience with other, similar talkers [@Kleinschmidt2015]. Of
 course, listeners likely also want to know who a talker is for reasons that have
-nothing to do with accurate speech recognition per se [e.g., @Babel2014; @Pardo2006; @Foulkes2015a; @Eckert2012; @Labov1972]. To the extent that a
+nothing to do with accurate speech recognition per se [for similar points, see @Babel2014; @Pardo2006; @Foulkes2015a; @Eckert2012; @Labov1972]. To the extent that a
 talker's way of realizing linguistic variables says anything about who they are
 their speech is informative about their identity, at the same time as their
 identity is informative about their speech. Thus both sociolingusitic and
@@ -1992,7 +1995,7 @@ straight man. That is, the inference that the talker is working class _blocks_
 the inference that he is gay. These sorts of effects are perfectly compatible
 with an inference-based perspective, but they depend on the specific contents of
 the listeners internal model of how social variables are related to each other
-and to observable cues [for examples of similar blocking effects in other domains, see @Jacobs2010; and in speech perception, see @Kraljic2008a; @LiuInPrep2016]. Such
+and to observable cues [for examples of similar blocking effects in other domains, see @Jacobs2010; and in speech perception, see @Kraljic2008a; @Kraljic2011; @LiuInPrep2016]. Such
 internal models are not directly derivable from production data like we analyze
 here, but rather require probing a listener's subjective, implicit beliefs (as in
 the previous chapter).
