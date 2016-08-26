@@ -571,17 +571,11 @@ mappings.
     on experience, and that this is guided by previous experience because
     previously stored exemplars are used to categorize each new exemplar. On the
     other hand, to our knowledge there are no existing studies that model
-    unsupervised distributional learning with exemplar models. Moreover, it is
-    not clear that an exemplar model would be able to extract talker-specific
-    distributional regularities in the absence of any labeling information,
-    since the initial exemplars will be categorized based on those stored from
-    previous talkers, and absent any mechanism to go back and revised these
-    early categorizations the model may become dug in to the clusters
-    established by previous talkers. Whether or not these results are compatible
-    with exemplar theories is thus best left to future work using an implemented
-    model.
+    unsupervised distributional learning with exemplar models. This is thus a
+    question for future work based on an implemented exemplar model.
+    <!-- TODO: expand on this in a section in the discussion. Why are exemplar
+    models broadly compatible (or not) with these results? -->
 
-<!-- TODO: footnote on exemplar approaches being broadly compatible? -->
 <!-- Actually Im' not sure that these results ARE compatible with an exemplar model. I'm actually not even sure that distributional learning itself is compatible with a pure exemplar model. it seems like early tokens might lead to the model getting "dug in" and committed to the most similar other talkers' pre-existing category boundaries, since the stored exemplars are given the category they are perceived as. there's no mechanism to go back and extract talker-specific _distributional_ information. -->
 
 ```{r boundary-shift, results='asis', tbl.cap="Percentage of boundary shift from typical talker to each exposure talker (see Figure {@fig:class-curves}), averaged over subjects with 95% bootstrapped confidence intervals.  0% shift corresponds to no adaptation at all, while 100% corresponds to perfect adaptation, ignoring any prior  beliefs. Typical and exposure talker boundaries were too close together to reliably determine boundary shift percentage in the 0ms condition."}
@@ -1195,6 +1189,7 @@ The posterior distributions of the model parameters given the data were not inde
 the clusters we test how much the uncertainty
 inherent in the structure of the first experiment affects the predictive power
 of the model.
+<!-- TODO: use experiment 2 to predict 1 instead? this is "modeler's perspective" -TFJ -->
 
 Another, secondary goal is to test how listeners adapt to large, negative
 VOTs. The inferred prior beliefs about the /b/ VOT distribution of a typical
@@ -1211,11 +1206,11 @@ current model (that treats /b/ as a single VOT cluster) to a model that treats
 /b/ as a mixture of short-lag and prevoiced clusters. Such a model is a
 conceptually straightforward---but technically difficult---extension of the
 current model.
-<!-- TODO: why are we doing this anyway -->
-That is, Experiment 2 is aimed at allowing future modeling work that can provide
+<!-- TODO: spell this out more clearly -->
+That is, Experiment 2 is aimed at facilitating future modeling work that can provide
 insights into the sort of phonetic category _representations_ that listeners
 might be using to process speech. By focusing on the different possible sorts of
-distribution representations, this has the potential to go beyond the
+distributional representations, this has the potential to go beyond the
 _computational principles_ like distributional learning that modeling work in
 this framework has largely focused on.
 
