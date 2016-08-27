@@ -21,6 +21,8 @@ output:
         - pandoc-fignos
         - --filter
         - pandoc-tablenos
+        includes:
+            in_header: header_tipa.tex
 ---
 
 ```{r preamble, warning=FALSE, message=FALSE, error=FALSE, echo=FALSE, results='hide'}
@@ -1987,7 +1989,7 @@ prior beliefs with current experience weighted according to confidence.
 
 This idea finds further empirical support in @Kraljic2007, who found that after
 the same amount of exposure, listeners recalibrate a /d/-/t/ contrast (analogous
-to the /b/-/p/ contrast used here) much less than an /s/-/S/ contrast
+to the /b/-/p/ contrast used here) much less than an /s/-\ph S contrast
 <!-- TODO: fix IPA -->
 [where the latter exhibits larger variability across talkers; e.g., @Newman2001].
 This leads to the following clear prediction for future work: Listeners should

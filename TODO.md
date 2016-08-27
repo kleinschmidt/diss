@@ -32,8 +32,8 @@
 2. [done] Ideal adapter
 3. [done] Selective adaptation
 4. Inferring priors
-    * Fix IPA (just insert `\ph{}` since it's included in header)
+    * [done] Fix IPA (just insert `\ph{}` since it's included in header)
 5. Talker variation
-    * Insert citation for Weatherholtz & Jaeger salience paper in discussion
+    * [done] Insert citation for Weatherholtz & Jaeger salience paper in discussion
 6. [done] Conclusion
 
