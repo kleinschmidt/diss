@@ -719,7 +719,7 @@ talkers' VOT distributions diverge from the marginal distribution (B) at roughly
 the same level that the male and female distributions of normalized F1xF2
 diverge from the marginal normalized F1xF2 distributions (A).
 
-```{r vot-vs-vowel-dists, fig.width=6.2, fig.height=6.0, fig.cap='Male and female distributions of Normalized F1xF2 diverge from the marginal distributions (A) only slightly less than talker-specific VOT distributions diverge from marginal (B) (see Figure {@fig:vowel-vot-kl-plot})'}
+```{r vot-vs-vowel-dists, fig.width=6.2, fig.height=6.0, fig.cap='Male and female distributions of Normalized F1xF2 diverge from the marginal distributions (A) only slightly less than talker-specific VOT distributions diverge from marginal (B) (see Figure {@fig:vowel-vot-kl-plot}).'}
 
 gg_vowels_by_sex <-
   ggplot(nsp_vows_lob, aes(x=F2, y=F1, group=Vowel)) +
