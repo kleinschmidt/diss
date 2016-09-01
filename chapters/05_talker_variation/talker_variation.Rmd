@@ -15,6 +15,7 @@ output:
         - pandoc-eqnos
     pdf_document:
         md_extensions: +implicit_figures
+        keep_tex: true
         pandoc_args:
         - --filter
         - pandoc-fignos
@@ -261,18 +262,6 @@ theoretic measure of similarity between distributions.
 Focusing on information theoretic properties of the cue
 distributions provides a principled common currency for comparing different
 socio-indexical variables, phonetic categories, and cues.
-<!-- [^bilingual-vot] -->
-
-<!-- TODO: move this (WHERE??) -->
-[^bilingual-vot]: One notable exception is native language background. For
-    instance, French-English bilinguals produce significantly shorter VOTs than
-    English monolinguals
-    [@Caramazza1973; @Flege1987; @Pineda2010; @Sumner2011]. The difficulty of
-    finding suitable datasets on these talkers prevents us from considering this
-    variable fully here, but preliminary analysis of VOT distributions
-    [from @Lev-Ari2013] suggest that they would not substantially change our
-    conclusions.
-
 
 #### Question 2: How _useful_ are socio-indexical variables for speech recognition?
 
@@ -355,7 +344,7 @@ beyond the recognition of phonetic categories.  The purpose of spoken language
 is not limited to communicating linguistic information.  Every time we speak we
 also communicate socio-indexical information, information about aspects of our
 social identity such as gender, age, class,
-etc. [cf. @Eckert1989; @Eckert2012a; @Labov1972].
+etc. [cf. @Eckert1989; @Eckert2012; @Labov1972].
 <!-- TODO: more refs here. --> The approach outlined so far also lends itself to
 reasoning about these sorts of social inferences as well. In particular, a
 listener can use knowledge about group-conditioned cue distributions in order to
@@ -395,7 +384,7 @@ distributions for multiple talkers, within groups defined by socio-indexical
 variables. Sociolinguistics increasingly recognizes that the meanings of
 socio-indexical variables are dynamically constructed and not necessarily static
 within a single individual
-[either producer or perceiver; @Eckert2012a; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014].
+[either producer or perceiver; @Eckert2012; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014].
 The techniques we introduce here can---in principle---be applied to more dynamic
 and contextually conditioned variables, but they present unique and interesting
 challenges that are beyond the scope of the current paper.
@@ -482,7 +471,7 @@ n_dialect <- nsp_vows %$% Dialect %>% unique() %>% length()
 
 ```
 
-For vowels, we used data from the Nationwide Speech Project [@Clopper2005]. Specifically, we analyzed first and second formant frequencies (F1xF2, measured in Hertz) recorded at vowel midpoints in isolated, read "hVd" words. This corpus contains `r n_talkers` talkers, `r n_per_dialect_sex` male and female from each of `r n_dialect` regional varieties of English: North, New England, Midland, Mid-Atlantic, South, and West [see map in @Clopper2005; regions based on @Labov2005].  Each talker provided approximately `r round(token_per_vow, 1)` repetitions of each of 11 English monophthong vowels (plus `ey`), for a total of `r nrow(nsp_vows)` observations.
+For vowels, we used data from the Nationwide Speech Project [NSP; @Clopper2005]. Specifically, we analyzed first and second formant frequencies (F1xF2, measured in Hertz) recorded at vowel midpoints in isolated, read "hVd" words. This corpus contains `r n_talkers` talkers, `r n_per_dialect_sex` male and female from each of `r n_dialect` regional varieties of English: North, New England, Midland, Mid-Atlantic, South, and West [see map in @Clopper2005; regions based on @Labov2005].  Each talker provided approximately `r round(token_per_vow, 1)` repetitions of each of 11 English monophthong vowels (plus `ey`), for a total of `r nrow(nsp_vows)` observations.
 
 One of our primary goals is to assess the informativity of different grouping variables. Sex differences in vocal tract size are a major source of variability in vowel production, and thus may be more informative than other factors. However, this likely depends on the details of how acoustic cues are represented. Differences in vocal tract size, for instance, lead to overall shifts in the resonant frequencies and hence formant frequencies across _all_ vowels, but leave the relative positions of vowel categories more or less intact [e.g., @Hillenbrand1995]. Moreover, there is evidence that domain-general auditory normalization or adaptation processes removes some or all of this overall shift, and hence using un-normalized formant frequencies may overestimate the informativity of sex relative to other grouping factors.
 
@@ -604,9 +593,9 @@ KL divergence (or relative entropy) is an information-theoretic comparison of tw
     distributions to _each other_, instead of the marginal distribution. Their
     goal is to evaluate how well different normalization schemes remove talker
     variability, while ours is to evaluate how informative different
-    socio-indexical variables are about the underlying distributions. These are
-    related, but not identical goals, and thus our methods are similar but not
-    identical.
+    socio-indexical variables are about the underlying distributions. Our goals
+    are thus related but not identical
+    <!-- TODO-paper: spell out in text -->
 
 In general, the KL divergence of $Q$ from $P$ is
 $$DL(Q||P) = \int p(x) \log \frac{p(x)}{q(x)} \mathrm{d}x$$ {#eq:kl}
@@ -730,7 +719,7 @@ talkers' VOT distributions diverge from the marginal distribution (B) at roughly
 the same level that the male and female distributions of normalized F1xF2
 diverge from the marginal normalized F1xF2 distributions (A).
 
-```{r vot-vs-vowel-dists, fig.width=6.2, fig.height=6.0, fig.cap='Male and female distributions of Normalized F1xF2 diverge from the marginal distributions (A) only slightly less than talker-specific VOT distributions diverge from marginal (B).'}
+```{r vot-vs-vowel-dists, fig.width=6.2, fig.height=6.0, fig.cap='Male and female distributions of Normalized F1xF2 diverge from the marginal distributions (A) only slightly less than talker-specific VOT distributions diverge from marginal (B) (see Figure {@fig:vowel-vot-kl-plot}).'}
 
 gg_vowels_by_sex <-
   ggplot(nsp_vows_lob, aes(x=F2, y=F1, group=Vowel)) +
@@ -852,10 +841,22 @@ difference between male and female vowel distributions is due to the overall
 shifts in formant frequencies that Lobanov normalization removes. Interestingly,
 while normalization reduces the informativity of dialect and sex considered
 together, their combination is still more informative than dialect alone. This
-shows that dialect differences themselves are modulated by sex
-[as suggested by @Clopper2005].
+suggests that dialect differences themselves are modulated by sex
+[as noted by @Clopper2005].
 <!-- TODO: is this true? permutation test on sex within dialect. -->
 <!-- TODO-paper: summary statement -->
+
+This asymmetry in informativity across both dialects and vowels raises the
+question of how listeners adapt to variation across categories and cue
+dimensions. All else being equal, a listener should be more confident in their
+prior beliefs about a category that varies less across talkers, and hence adapt
+less flexibly [@Kleinschmidt2015]. But it is not clear at what level listeners
+track variability for the purpose of determining how quickly to adapt. For
+instance, as we have seen, overall vowels vary substantially more across talkers than
+stop categories, but there are differences in how much individual vowels
+vary. It remains to be seen whether listeners adapt to all vowels with the same
+degree of flexibility, or are sensitive to these vowel-specific differences in
+cross-talker variability.
 
 ## Study 2: utility of socio-indexical groupings for speech recognition
 
@@ -896,13 +897,13 @@ distribution, divided by the total likelihood of 20ms VOT under both /b/ and
     categorization, which starts from cue distributions and derives
     classification boundaries. This contrasts with _discriminative_ models which
     directly map cue values to categories, like the logistic regression model
-    that @McMurray2010a used to evaluate the utility of different cue encoding
+    that @McMurray2011a used to evaluate the utility of different cue encoding
     schemes for classifying fricatives. The main advantage to using a generative
     framework, overall, is that it provides a _learning model_, and does not
     require us to assume that listeners actually _know_ the underlying
     distributions for each talker [@Kleinschmidt2015]. But it remains a question
     for future work exactly how the predictions of our approach here differ from
-    those of the discriminative modeling approach of @McMurray2010a.
+    those of the discriminative modeling approach of @McMurray2011a.
 
 
 [^flat-prior]: This assumes---for the sake of convenience---that the prior
@@ -927,6 +928,22 @@ distributions (that is, distributions _conditioned on_ gender).
 
 More broadly, by calculating the probability of correct recognition using, for instance, the cue distributions of each category produced by female talkers, we can  estimate how well a listener would be able to recognize speech from an unfamiliar female talker if all they knew was the talker's sex. This measure is meaningfully different from the KL-based informativity measure from Study 1, because a category might vary substantially between, e.g., male and female talkers, but if it is already highly distinguishable from other categories this variability may not impact correct recognition.
 
+As we discuss in more detail in the general discussion, this measure is best
+considered a _lower bound_ on how useful a particular grouping variable is for
+comprehending speech from an unfamiliar talker. 
+<!-- 
+The reason for this is that the
+marginal cue distribution for a group does not necessarily reflect the
+distribution of talker-specific cue distributions in that group, and hence
+reflects an approximation of where a listener would _start_ when adapting to a
+new talker from that group, but not where they would end up after adapting to
+that particular talker. It is possible that a grouping variable might have
+relatively low utility by the measure we use here, but still make adaptation
+substantially more efficient, making its actual utility higher. Quantifying this
+notion of utility is computationally more demanding and thus we leave it as a
+question for future work.
+-->
+
 #### Technical details
 
 We want to determine the phonetic category $v_i$[^notation] of each of the cues $x_i$ produced by a talker. If we assume that the listener knows that this talker belongs to group $g=j$, this inference is a straightforward application of Bayes Rule:
@@ -947,7 +964,8 @@ For vowels, we classified vowel categories directly. For voicing, the only cue a
 To assess statistical significance, we bootstrap over talkers. This is a
 non-parametric approach that provides confidence intervals and $p$ values for
 effects at the population level, based on the limited sample of talkers in our
-datasets, without assuming a particular noise distribution.
+datasets, without assuming a particular parametric form (like a normal
+distributions) for the variability across talkers.
 
 #### Avoiding anti-conservative estimates through cross-validation
 
@@ -1505,6 +1523,14 @@ fact that dialects themselves vary in how much they deviate from both the norms
 of Standard American English [@Clopper2005] and from the marginal cue
 distributions in this dataset (Figure @fig:vowel-kl-by-dialect). Most notably, conditioning on dialect provides a consistent advantage for talkers from the North dialect region, on the order of 10%.
 
+As with the cue distributions themselves in Study 1, this suggests that there
+may be a differential advantage to tracking cue distributions for different
+vowels, and hence listeners might be more sensitive to variation in some
+categories than others. On the other hand, it is possible that listeners' degree
+of flexibility depends on the _cue_ (or phonetic feature, like $\pm \mathrm{voicing}$) rather than the _category_ specifically, in
+which case they would be predicted to track all cues sharing the same cue with
+the same level of flexibility.
+
 [^logodds]: These comparisons are also significant when using log-odds of
     correct recognition, rather than raw probabilities.
 
@@ -1549,6 +1575,7 @@ ggplot(vowel_acc_by_talker, aes(x=grouping, y=accuracy, color=grouping)) +
   rotate_x_axis_labs()
 
 ```
+
 
 ## Study 3: Inferring socio-indexical variables from cue distributions
 
@@ -1797,15 +1824,15 @@ informativity and utility apply beyond better _speech_ recognition per
 se. Listeners extract a lot of non-phonetic/linguistic information from speech
 signal. To properly define the informativity or utility of a particular grouping
 variable, we need to consider the _goals_ of speech perception, which go beyond
-just recognizing phonetic categories. Sociolinguistics recognizes that, in many
-cases, the communication of social information is just as if not more important
+just recognizing phonetic categories [or linguistic representations at any particular level, cf. @Kuperberg2016]. Sociolinguistics recognizes that, in many
+cases, the communication of social information is just as---if not more---important
 than the communication of linguistic information. Groupings that are _socially
 meaningful_ can thus be informative and justify being tracked, even if ignoring
 them has a negligible effect on speech recognition, as long as the corresponding
 cue distributions carry some information about relevant social variables. In our
 results, dialect is a good example: on the whole, ignoring dialect doesn't have
-huge consequences on recognition accuracy. But it can be inferred (at least
-above chance) based on vowel F1 and F2, and listeners are plausibly interested
+huge consequences on recognition accuracy. But it can be inferred
+based on vowel F1 and F2, and listeners are plausibly interested
 in determining a talker's regional origins for a variety of reasons. <!--
 unlearning southern accents? -->
 <!-- TODO: extend to less stable social categories? -->
@@ -1825,7 +1852,24 @@ direct interest to a listener: social categories that are highly important in
 one person's social world may be completely meaningless in another's. An
 important aspect of the research program laid out by the ideal adapter framework
 is to probe listeners' prior beliefs _directly_ (which the previous chapter is a
-first step towards) <!-- TODO-paper: remove "chapter" for TopiCS -->
+first step towards). <!-- TODO-paper: remove "chapter" for TopiCS -->
+
+It is important to note that listeners' associations between linguistic and
+socio-indexical variables do not always seem to be based on _objective_ informativity of
+those variables. Rather, some variants can become disproportionately _salient_
+or _enregistered_, can further vary based on context
+[@Eckert2012; @Podesva2001; @Podesva2007; @Foulkes2015a; @Levon2014; @Jaeger2016].
+<!-- TODO: insert W&J salience ref here -->
+These deviations between objective informativity and subjective salience remain
+to be explained and specified in more detail.  Our work here provides a set of
+tools for assessing objective informativity, a critical first step in
+understanding this relationship. More generally, by treating listeners'
+decisions about which socio-indexical and linguistic variables to jointly track
+as a form of _inference_ (like linguistic and socio-indexical judgments
+themselves), this perspective provides a framework for testing different ways
+that listeners' experience and beliefs shape their subjective notions of
+socio-indexical associations with linguistic variables.
+
 
 Finally, our results suggest that the input representation---the cue space over
 which categories are distributions---can affect which variables are informative
@@ -1885,7 +1929,7 @@ with one male talker's pronunciation of a /b/-/d/ contrast to another,
 unfamiliar male.
 
 Finally, it's important to point out that these predictions are best thought of
-as _biases_ that can be overcome with enough of the right kind of evidence
+as _biases_ that might be overcome with enough of the right kind of evidence
 [@Kleinschmidt2015]. For instance, listeners can overcome their bias to
 generalize experience with VOT and learn talker-specific VOT distributions, but
 it requires hundreds of observations from talkers who produce very different VOT
@@ -1895,8 +1939,8 @@ test stimuli [@Reinisch2014].
 
 ### Sociolinguistic inference
 
-Our findings suggest that socio-linguistic judgments can---like linguistic
-judgments---be viewed as probabilistic inference. In this view, both social and
+Our approach characterizes socio-linguistic judgments---like linguistic
+judgments---as probabilistic inference.[^inference-empirical] In this view, both social and
 linguistic judgments rely on knowledge of how different underlying
 categories---social and linguistic---are probabilistically realized as
 distributions of observable cues. Just like each vowel (for instance) is
@@ -1909,6 +1953,12 @@ classify a talker's dialect at roughly the same accuracy (10-40%) as human
 listeners in a forced-choice task based on sentences spoken by the same talkers
 [@Clopper2006].
 
+[^inference-empirical]: It is ultimately an empirical question whether this
+    perspective is productive in understanding how listeners process
+    language. At the very least, we hope that the formal and computational tools
+    are helpful in formulating and test precise hypotheses about linguistic
+    and socio-indexical judgments.
+
 The idea of socio-linguistic judgments of inference fits naturally within the ideal adapter framework, which holds that listeners are simultaneously making at least three kinds of inferences in the normal course of speech perception: 
 
 1. _What_ a talker is saying
@@ -1919,7 +1969,7 @@ The third level of inference is essential for talker-invariant speech
 perception: knowing _who_ a talker is allows listeners to take advantage of
 their prior experience with other, similar talkers [@Kleinschmidt2015]. Of
 course, listeners likely also want to know who a talker is for reasons that have
-nothing to do with accurate speech recognition per se. To the extent that a
+nothing to do with accurate speech recognition per se [for similar points, see @Babel2014; @Pardo2006; @Foulkes2015a; @Eckert2012; @Labov1972]. To the extent that a
 talker's way of realizing linguistic variables says anything about who they are
 their speech is informative about their identity, at the same time as their
 identity is informative about their speech. Thus both sociolingusitic and
@@ -1945,7 +1995,7 @@ straight man. That is, the inference that the talker is working class _blocks_
 the inference that he is gay. These sorts of effects are perfectly compatible
 with an inference-based perspective, but they depend on the specific contents of
 the listeners internal model of how social variables are related to each other
-and to observable cues [for examples in other domains, see @Jacobs2010]. Such
+and to observable cues [for examples of similar blocking effects in other domains, see @Jacobs2010; and in speech perception, see @Kraljic2008a; @Kraljic2011; @LiuInPrep2016]. Such
 internal models are not directly derivable from production data like we analyze
 here, but rather require probing a listener's subjective, implicit beliefs (as in
 the previous chapter).

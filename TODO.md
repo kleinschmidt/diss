@@ -1,3 +1,5 @@
+* Write acknowledgements
+
 # Writing
 
 ## Structure
@@ -27,16 +29,11 @@
 ## Chapters
 
 1. [done] Introduction
-    * [done] outline
-    * [done] bullets
-    * [done] write
 2. [done] Ideal adapter
 3. [done] Selective adaptation
 4. Inferring priors
-    * revise based on feedback (waiting for feedback)
+    * [done] Fix IPA (just insert `\ph{}` since it's included in header)
 5. Talker variation
-    * revise based on feedback
-6. Conclusion
-    * outline/bullets
-    * write
-    * format
+    * [done] Insert citation for Weatherholtz & Jaeger salience paper in discussion
+6. [done] Conclusion
+
