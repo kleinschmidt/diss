@@ -7,6 +7,8 @@ Latex files from previously published papers (Chapters 2 and 3) and Rmd files
 for some new, as-of-yet unpublished work (Chapters 4 and 5).  The whole thing is
 held together with pandoc and makefiles.
 
+To download a PDF, see the [releases](https://github.com/kleinschmidt/diss/releases).
+
 # Why
 
 I hope there might be some use in seeing how I managed to cobble together a
